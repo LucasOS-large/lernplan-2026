@@ -92,30 +92,6 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
 .graph-wrap svg text { fill: var(--ink); }
 .graph-caption { font-size: 12px; color: var(--muted); text-align: center; margin-top: 4px; }
 
-/* KARTEIKARTEN */
-.fc-container { perspective: 1000px; }
-.fc-progress-bar-wrap { height: 6px; background: var(--border); border-radius: 3px; margin-bottom: 20px; overflow: hidden; }
-.fc-progress-bar { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.4s; }
-.fc-card-area { display: flex; flex-direction: column; align-items: center; gap: 16px; }
-.fc-card { width: 100%; max-width: 620px; height: 220px; cursor: pointer; perspective: 800px; }
-.fc-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.5s; }
-.fc-card.flipped .fc-inner { transform: rotateY(180deg); }
-.fc-front, .fc-back { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-.fc-front { background: linear-gradient(135deg, var(--accent) 0%, #4f46e5 100%); color: white; }
-.fc-back { background: var(--card); border: 1px solid var(--border); transform: rotateY(180deg); }
-.fc-front .fc-q { font-size: 17px; font-weight: 700; }
-.fc-front .fc-cat { font-size: 11px; opacity: 0.75; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
-.fc-back .fc-a { font-size: 14px; color: var(--ink); line-height: 1.6; }
-.fc-hint { font-size: 12px; color: var(--muted); margin-top: 8px; }
-.fc-nav { display: flex; gap: 12px; align-items: center; }
-.fc-btn { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 10px 22px; font-size: 14px; font-weight: 600; cursor: pointer; color: var(--ink); transition: all 0.15s; }
-.fc-btn:hover { background: var(--accent-soft); color: var(--accent); }
-.fc-btn.good { background: #d1fae5; color: #065f46; border-color: #a7f3d0; }
-.fc-btn.hard { background: #fee2e2; color: #991b1b; border-color: #fca5a5; }
-.fc-count { font-size: 13px; color: var(--muted); min-width: 80px; text-align: center; }
-.fc-daily-goal { background: var(--card); border-radius: 10px; padding: 14px 18px; border: 1px solid var(--border); margin-bottom: 20px; font-size: 13px; display: flex; align-items: center; gap: 10px; }
-.fc-daily-goal strong { color: var(--accent); }
-
 /* AUFGABEN (Canvas) */
 .aufg-list { display: flex; flex-direction: column; gap: 20px; }
 .aufg-item { background: var(--card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
@@ -192,7 +168,6 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
 <nav>
   <button class="active" onclick="showTab('intro')">📖 Mikro Intro</button>
   <button onclick="window.open('https://donan3000.github.io/microeconomics/index.html','_blank')">📚 Themen ↗</button>
-  <button onclick="showTab('karten')">🃏 Karteikarten</button>
   <button onclick="showTab('aufgaben')">✏️ Aufgaben</button>
   <button onclick="showTab('altklausuren')">📋 Altklausuren</button>
 </nav>
@@ -539,191 +514,415 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
 
 
 <!-- ══════════════════════════════════════════
-     TAB 3 – KARTEIKARTEN
-══════════════════════════════════════════ -->
-<div class="view" id="view-karten">
-  <div class="fc-daily-goal" id="fc-daily-goal-box">
-    📅 Tages-Ziel: <strong id="fc-goal-text">–</strong> Karten heute schaffen
-  </div>
-  <div class="fc-progress-bar-wrap">
-    <div class="fc-progress-bar" id="fc-pbar" style="width:0%"></div>
-  </div>
-  <div class="fc-card-area">
-    <div class="fc-card" id="fc-card" onclick="flipCard()">
-      <div class="fc-inner">
-        <div class="fc-front">
-          <div class="fc-cat" id="fc-cat">Kategorie</div>
-          <div class="fc-q" id="fc-q">Frage</div>
-        </div>
-        <div class="fc-back">
-          <div class="fc-a" id="fc-a">Antwort</div>
-          <div class="fc-hint">Tippe zum Umdrehen</div>
-        </div>
-      </div>
-    </div>
-    <div style="font-size:12px;color:var(--muted);">Tippe auf die Karte zum Umdrehen</div>
-    <div class="fc-nav">
-      <button class="fc-btn hard" onclick="rateCard(0)">😰 Schwer</button>
-      <div class="fc-count" id="fc-count">1 / 36</div>
-      <button class="fc-btn good" onclick="rateCard(1)">✅ Gewusst</button>
-    </div>
-    <button class="fc-btn" onclick="shuffleCards()" style="margin-top:8px;">🔀 Mischen</button>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════
      TAB 4 – AUFGABEN (Canvas)
 ══════════════════════════════════════════ -->
 <div class="view" id="view-aufgaben">
+<style>
+.aufg-section-label { font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin: 28px 0 10px; padding: 6px 12px; background: var(--accent-soft); border-radius: 6px; display: inline-block; }
+.aufg-section-label:first-child { margin-top: 0; }
+</style>
   <div class="aufg-list">
 
-    <!-- Aufgabe 1: Lagrange -->
+    <!-- ── Haushaltstheorie & Lagrange ───────────────────── -->
+    <div class="aufg-section-label">📐 Haushaltstheorie &amp; Lagrange</div>
+
+    <!-- HT-1 -->
     <div class="aufg-item">
       <div class="aufg-head">
-        <h3>Aufgabe 1 – Lagrange Konsumoptimum</h3>
+        <h3>Aufgabe HT-1 – Lagrange-Optimum (Cobb-Douglas, 2 Güter)</h3>
         <span class="aufg-tag">Lagrange</span>
       </div>
       <div class="aufg-body">
-        <p>Ein Konsument hat die Nutzenfunktion <strong>U(x₁, x₂) = x₁ · x₂²</strong>. Die Preise betragen p₁ = 3 und p₂ = 2, das Budget beträgt m = 60.<br><br>
-        a) Stellen Sie die Lagrange-Funktion auf.<br>
-        b) Berechnen Sie die optimalen Mengen x₁* und x₂*.<br>
-        c) Wie hoch ist der maximale Nutzen U*?</p>
-        <div class="canvas-wrap" id="cw1">
-          <canvas id="canvas1" height="320"></canvas>
+        <p>Für einen Haushalt gilt: <strong>U = x₁^(3/4) · x₂^(1/4)</strong>. Einkommen m = 1.600, Preise p₁ = 12, p₂ = 2.<br><br>
+        a) Bestimmen Sie mit dem Lagrange-Ansatz das nutzenmaximale Güterbündel (x₁*, x₂*).<br>
+        b) Wie hoch ist die Grenzrate der Substitution (dx₂/dx₁) im Haushaltsoptimum?<br>
+        c) Aus welchem Grund nimmt die GRS entlang einer Indifferenzkurve ab? (1. Gossensches Gesetz)</p>
+        <div class="canvas-wrap">
+          <canvas id="canvas-ht1" height="320"></canvas>
           <div class="canvas-toolbar">
-            <button class="active" id="pen1" onclick="setTool('canvas1','pen')">✏️ Stift</button>
-            <button id="hl1" onclick="setTool('canvas1','highlight')">🖊 Marker</button>
-            <button onclick="setColor('canvas1','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
-            <button onclick="setColor('canvas1','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
-            <button onclick="setColor('canvas1','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
-            <button onclick="setColor('canvas1','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
-            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" id="size1" min="2" max="24" value="4" oninput="setSize('canvas1',this.value)"></label>
-            <button onclick="clearCanvas('canvas1')">🗑 Löschen</button>
+            <button onclick="setTool('canvas-ht1','pen')">✏️ Stift</button>
+            <button onclick="setTool('canvas-ht1','highlight')">🖊 Marker</button>
+            <button onclick="setColor('canvas-ht1','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
+            <button onclick="setColor('canvas-ht1','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
+            <button onclick="setColor('canvas-ht1','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
+            <button onclick="setColor('canvas-ht1','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
+            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" min="2" max="24" value="4" oninput="setSize('canvas-ht1',this.value)"></label>
+            <button onclick="clearCanvas('canvas-ht1')">🗑 Löschen</button>
           </div>
         </div>
-        <textarea class="aufg-text" id="txt1" placeholder="Oder hier tippen / mit Apple Pencil schreiben …"></textarea>
-        <button class="aufg-save-btn" onclick="saveAufgabe(1)">💾 Speichern</button>
-        <div class="aufg-saved-note" id="saved1">✓ Gespeichert!</div>
+        <textarea class="aufg-text" id="txt-ht1" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <button class="aufg-save-btn" onclick="saveAufgabe('ht1')">💾 Speichern</button>
+        <div class="aufg-saved-note" id="saved-ht1">✓ Gespeichert!</div>
       </div>
     </div>
 
-    <!-- Aufgabe 2: Cobb-Douglas / Skalenerträge -->
+    <!-- HT-2 -->
     <div class="aufg-item">
       <div class="aufg-head">
-        <h3>Aufgabe 2 – Cobb-Douglas &amp; Skalenerträge</h3>
+        <h3>Aufgabe HT-2 – Lagrange mit 3 Gütern</h3>
+        <span class="aufg-tag">Lagrange</span>
+      </div>
+      <div class="aufg-body">
+        <p>Nutzenfunktion: <strong>U = x · y · z</strong>. Budgetgerade: <strong>360 = 60x + 20y + 40z</strong>.<br><br>
+        a) Erläutern Sie, warum der Lagrange-Ansatz bei 3 Gütern besser geeignet ist als die Substitutionsmethode.<br>
+        b) Ermitteln Sie die optimale Gütermengenkombination (x*, y*, z*).</p>
+        <div class="canvas-wrap">
+          <canvas id="canvas-ht2" height="320"></canvas>
+          <div class="canvas-toolbar">
+            <button onclick="setTool('canvas-ht2','pen')">✏️ Stift</button>
+            <button onclick="setTool('canvas-ht2','highlight')">🖊 Marker</button>
+            <button onclick="setColor('canvas-ht2','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
+            <button onclick="setColor('canvas-ht2','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
+            <button onclick="setColor('canvas-ht2','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
+            <button onclick="setColor('canvas-ht2','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
+            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" min="2" max="24" value="4" oninput="setSize('canvas-ht2',this.value)"></label>
+            <button onclick="clearCanvas('canvas-ht2')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt-ht2" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <button class="aufg-save-btn" onclick="saveAufgabe('ht2')">💾 Speichern</button>
+        <div class="aufg-saved-note" id="saved-ht2">✓ Gespeichert!</div>
+      </div>
+    </div>
+
+    <!-- HT-3 -->
+    <div class="aufg-item">
+      <div class="aufg-head">
+        <h3>Aufgabe HT-3 – GRS-Analyse &amp; Giffen-Gut</h3>
+        <span class="aufg-tag">Lagrange · SE/EE</span>
+      </div>
+      <div class="aufg-body">
+        <p>Nutzenfunktion: <strong>U = 5 · x₁^(1/5) · x₂^(4/5)</strong>. Einkommen m = 125, Preise p₁ = 5, p₂ = 10.<br><br>
+        a) Bestimmen Sie mit dem Lagrange-Ansatz das optimale Güterbündel (x₁*, x₂*).<br>
+        b) Der Haushalt realisiert GRS = dx₂/dx₁ = 1/4. Befindet er sich im Haushaltsoptimum? Welchen Anpassungsprozess muss er vornehmen?<br>
+        c) Der Preis von x₁ steigt. Stellen Sie grafisch SE, EE und Gesamteffekt dar unter der Annahme, x₁ ist ein Giffen-Gut. Welche Vorzeichen haben die drei Effekte für x₁ und x₂?</p>
+        <div class="canvas-wrap">
+          <canvas id="canvas-ht3" height="360"></canvas>
+          <div class="canvas-toolbar">
+            <button onclick="setTool('canvas-ht3','pen')">✏️ Stift</button>
+            <button onclick="setTool('canvas-ht3','highlight')">🖊 Marker</button>
+            <button onclick="setColor('canvas-ht3','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
+            <button onclick="setColor('canvas-ht3','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
+            <button onclick="setColor('canvas-ht3','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
+            <button onclick="setColor('canvas-ht3','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
+            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" min="2" max="24" value="4" oninput="setSize('canvas-ht3',this.value)"></label>
+            <button onclick="clearCanvas('canvas-ht3')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt-ht3" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <button class="aufg-save-btn" onclick="saveAufgabe('ht3')">💾 Speichern</button>
+        <div class="aufg-saved-note" id="saved-ht3">✓ Gespeichert!</div>
+      </div>
+    </div>
+
+    <!-- HT-4 -->
+    <div class="aufg-item">
+      <div class="aufg-head">
+        <h3>Aufgabe HT-4 – Einkommens-Konsum-Kurve &amp; Preisänderung</h3>
+        <span class="aufg-tag">EKK · Nachfrage</span>
+      </div>
+      <div class="aufg-body">
+        <p>Nutzenfunktion: <strong>U = √x₁ · √x₂</strong>. Preisverhältnis p₁/p₂ = 2/5.<br><br>
+        a) Erläutern Sie die ökonomische Bedeutung der Einkommens-Konsum-Kurve (EKK).<br>
+        b) Berechnen Sie die EKK für die gegebene Nutzenfunktion.<br>
+        c) Ermitteln Sie p₁ und p₂, wenn im Optimum x₁* = 15 und x₂* = 6 bei Budget Y = 120.<br>
+        d) Wie verändern sich x₁* und x₂*, wenn sich p₁ verdoppelt?</p>
+        <div class="canvas-wrap">
+          <canvas id="canvas-ht4" height="320"></canvas>
+          <div class="canvas-toolbar">
+            <button onclick="setTool('canvas-ht4','pen')">✏️ Stift</button>
+            <button onclick="setTool('canvas-ht4','highlight')">🖊 Marker</button>
+            <button onclick="setColor('canvas-ht4','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
+            <button onclick="setColor('canvas-ht4','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
+            <button onclick="setColor('canvas-ht4','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
+            <button onclick="setColor('canvas-ht4','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
+            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" min="2" max="24" value="4" oninput="setSize('canvas-ht4',this.value)"></label>
+            <button onclick="clearCanvas('canvas-ht4')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt-ht4" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <button class="aufg-save-btn" onclick="saveAufgabe('ht4')">💾 Speichern</button>
+        <div class="aufg-saved-note" id="saved-ht4">✓ Gespeichert!</div>
+      </div>
+    </div>
+
+    <!-- ── Produktion & Kosten ────────────────────────────── -->
+    <div class="aufg-section-label">🏭 Produktion &amp; Kosten</div>
+
+    <!-- PK-1 -->
+    <div class="aufg-item">
+      <div class="aufg-head">
+        <h3>Aufgabe PK-1 – Cobb-Douglas Produktionsfunktion</h3>
         <span class="aufg-tag">Produktion</span>
       </div>
       <div class="aufg-body">
-        <p>Gegeben: <strong>Q = 3 · L^0.5 · K^0.5</strong><br><br>
-        a) Bestimmen Sie den Homogenitätsgrad h und die Art der Skalenerträge.<br>
-        b) Berechnen Sie die MRTS bei L = 4, K = 9.<br>
-        c) Wie lautet die optimale Inputkombination, wenn w = 2 und r = 3?</p>
-        <div class="canvas-wrap" id="cw2">
-          <canvas id="canvas2" height="320"></canvas>
+        <p>Produktionsfunktion: <strong>x = 10 · L^0,6 · K^0,4</strong>. Gegeben: L = 25, K = 16.<br><br>
+        a) Berechnen Sie die Produktionsmenge x.<br>
+        b) Bestimmen Sie den Homogenitätsgrad h und die Art der Skalenerträge.<br>
+        c) Berechnen Sie die MRTS (Grenzrate der technischen Substitution) bei L = 25, K = 16.</p>
+        <div class="canvas-wrap">
+          <canvas id="canvas-pk1" height="320"></canvas>
           <div class="canvas-toolbar">
-            <button class="active" id="pen2" onclick="setTool('canvas2','pen')">✏️ Stift</button>
-            <button id="hl2" onclick="setTool('canvas2','highlight')">🖊 Marker</button>
-            <button onclick="setColor('canvas2','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
-            <button onclick="setColor('canvas2','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
-            <button onclick="setColor('canvas2','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
-            <button onclick="setColor('canvas2','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
-            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" id="size2" min="2" max="24" value="4" oninput="setSize('canvas2',this.value)"></label>
-            <button onclick="clearCanvas('canvas2')">🗑 Löschen</button>
+            <button onclick="setTool('canvas-pk1','pen')">✏️ Stift</button>
+            <button onclick="setTool('canvas-pk1','highlight')">🖊 Marker</button>
+            <button onclick="setColor('canvas-pk1','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
+            <button onclick="setColor('canvas-pk1','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
+            <button onclick="setColor('canvas-pk1','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
+            <button onclick="setColor('canvas-pk1','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
+            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" min="2" max="24" value="4" oninput="setSize('canvas-pk1',this.value)"></label>
+            <button onclick="clearCanvas('canvas-pk1')">🗑 Löschen</button>
           </div>
         </div>
-        <textarea class="aufg-text" id="txt2" placeholder="Oder hier tippen …"></textarea>
-        <button class="aufg-save-btn" onclick="saveAufgabe(2)">💾 Speichern</button>
-        <div class="aufg-saved-note" id="saved2">✓ Gespeichert!</div>
+        <textarea class="aufg-text" id="txt-pk1" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <button class="aufg-save-btn" onclick="saveAufgabe('pk1')">💾 Speichern</button>
+        <div class="aufg-saved-note" id="saved-pk1">✓ Gespeichert!</div>
       </div>
     </div>
 
-    <!-- Aufgabe 3: Monopol / DWL -->
+    <!-- PK-2 -->
     <div class="aufg-item">
       <div class="aufg-head">
-        <h3>Aufgabe 3 – Monopol &amp; Deadweight Loss</h3>
-        <span class="aufg-tag">Monopol</span>
+        <h3>Aufgabe PK-2 – Kostenfunktionsanalyse</h3>
+        <span class="aufg-tag">Kosten</span>
       </div>
       <div class="aufg-body">
-        <p>Nachfrage: <strong>P = 80 − 2Q</strong>, Grenzkosten: <strong>MC = 20</strong> (konstant).<br><br>
-        a) Berechnen Sie Monopolmenge Q* und Monopolpreis P*.<br>
-        b) Wie hoch ist der DWL im Vergleich zum Wettbewerb?<br>
-        c) Zeichnen Sie das Diagramm mit KR, PR und DWL.</p>
-        <div class="canvas-wrap" id="cw3">
-          <canvas id="canvas3" height="360"></canvas>
+        <p>Kostenfunktion: <strong>K(x) = 100 + 10x + 0,5x²</strong>. Betrachtete Menge: x = 10.<br><br>
+        a) Berechnen Sie FK, VK, K und Stückkosten k bei x = 10.<br>
+        b) Berechnen Sie die Grenzkosten K'(x) und werten Sie bei x = 10 aus.<br>
+        c) Bestimmen Sie das Betriebsminimum (Minimum der variablen Stückkosten kᵥ = VK/x).</p>
+        <div class="canvas-wrap">
+          <canvas id="canvas-pk2" height="320"></canvas>
           <div class="canvas-toolbar">
-            <button class="active" id="pen3" onclick="setTool('canvas3','pen')">✏️ Stift</button>
-            <button id="hl3" onclick="setTool('canvas3','highlight')">🖊 Marker</button>
-            <button onclick="setColor('canvas3','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
-            <button onclick="setColor('canvas3','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
-            <button onclick="setColor('canvas3','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
-            <button onclick="setColor('canvas3','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
-            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" id="size3" min="2" max="24" value="4" oninput="setSize('canvas3',this.value)"></label>
-            <button onclick="clearCanvas('canvas3')">🗑 Löschen</button>
+            <button onclick="setTool('canvas-pk2','pen')">✏️ Stift</button>
+            <button onclick="setTool('canvas-pk2','highlight')">🖊 Marker</button>
+            <button onclick="setColor('canvas-pk2','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
+            <button onclick="setColor('canvas-pk2','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
+            <button onclick="setColor('canvas-pk2','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
+            <button onclick="setColor('canvas-pk2','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
+            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" min="2" max="24" value="4" oninput="setSize('canvas-pk2',this.value)"></label>
+            <button onclick="clearCanvas('canvas-pk2')">🗑 Löschen</button>
           </div>
         </div>
-        <textarea class="aufg-text" id="txt3" placeholder="Oder hier tippen …"></textarea>
-        <button class="aufg-save-btn" onclick="saveAufgabe(3)">💾 Speichern</button>
-        <div class="aufg-saved-note" id="saved3">✓ Gespeichert!</div>
+        <textarea class="aufg-text" id="txt-pk2" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <button class="aufg-save-btn" onclick="saveAufgabe('pk2')">💾 Speichern</button>
+        <div class="aufg-saved-note" id="saved-pk2">✓ Gespeichert!</div>
       </div>
     </div>
 
-    <!-- Aufgabe 4: Chamberlin LR -->
+    <!-- PK-3 -->
     <div class="aufg-item">
       <div class="aufg-head">
-        <h3>Aufgabe 4 – Chamberlin Langfristgleichgewicht</h3>
-        <span class="aufg-tag">Chamberlin</span>
+        <h3>Aufgabe PK-3 – Isoquante &amp; MRTS</h3>
+        <span class="aufg-tag">Isoquante</span>
       </div>
       <div class="aufg-body">
-        <p>Gegeben: Nachfrage <strong>P = 60 − 3Q</strong>, Durchschnittskosten <strong>AC = (Q−10)²/4 + 8</strong>.<br><br>
-        a) Bestimmen Sie das LR-Gleichgewicht (P = AC und P' = AC').<br>
-        b) Welche Menge wird produziert? Wie hoch ist der Gewinn?<br>
-        c) Wo liegt das AC-Minimum und was ist X-Ineffizienz?</p>
-        <div class="canvas-wrap" id="cw4">
-          <canvas id="canvas4" height="360"></canvas>
+        <p>Produktionsfunktion: <strong>x = L^0,5 · K^0,5</strong>.<br><br>
+        a) Zeichnen Sie die Isoquante für x = 4 (mindestens 4 Punkte berechnen und einzeichnen).<br>
+        b) Berechnen Sie die MRTS bei L = 25, K = 16.<br>
+        c) Interpretieren Sie die MRTS ökonomisch: Was bedeutet der berechnete Wert?</p>
+        <div class="canvas-wrap">
+          <canvas id="canvas-pk3" height="360"></canvas>
           <div class="canvas-toolbar">
-            <button class="active" id="pen4" onclick="setTool('canvas4','pen')">✏️ Stift</button>
-            <button id="hl4" onclick="setTool('canvas4','highlight')">🖊 Marker</button>
-            <button onclick="setColor('canvas4','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
-            <button onclick="setColor('canvas4','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
-            <button onclick="setColor('canvas4','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
-            <button onclick="setColor('canvas4','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
-            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" id="size4" min="2" max="24" value="4" oninput="setSize('canvas4',this.value)"></label>
-            <button onclick="clearCanvas('canvas4')">🗑 Löschen</button>
+            <button onclick="setTool('canvas-pk3','pen')">✏️ Stift</button>
+            <button onclick="setTool('canvas-pk3','highlight')">🖊 Marker</button>
+            <button onclick="setColor('canvas-pk3','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
+            <button onclick="setColor('canvas-pk3','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
+            <button onclick="setColor('canvas-pk3','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
+            <button onclick="setColor('canvas-pk3','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
+            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" min="2" max="24" value="4" oninput="setSize('canvas-pk3',this.value)"></label>
+            <button onclick="clearCanvas('canvas-pk3')">🗑 Löschen</button>
           </div>
         </div>
-        <textarea class="aufg-text" id="txt4" placeholder="Oder hier tippen …"></textarea>
-        <button class="aufg-save-btn" onclick="saveAufgabe(4)">💾 Speichern</button>
-        <div class="aufg-saved-note" id="saved4">✓ Gespeichert!</div>
+        <textarea class="aufg-text" id="txt-pk3" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <button class="aufg-save-btn" onclick="saveAufgabe('pk3')">💾 Speichern</button>
+        <div class="aufg-saved-note" id="saved-pk3">✓ Gespeichert!</div>
       </div>
     </div>
 
-    <!-- Aufgabe 5: Preisdifferenzierung -->
+    <!-- ── Übungsklausur ──────────────────────────────────── -->
+    <div class="aufg-section-label">📝 Übungsklausur</div>
+
+    <!-- ÜK-1 -->
     <div class="aufg-item">
       <div class="aufg-head">
-        <h3>Aufgabe 5 – Preisdifferenzierung 3. Grades</h3>
+        <h3>Aufgabe ÜK-1 – Preisdifferenzierung</h3>
         <span class="aufg-tag">Preisdiff.</span>
       </div>
       <div class="aufg-body">
-        <p>Ein Monopolist bedient zwei Märkte: <strong>P₁ = 120 − Q₁</strong> und <strong>P₂ = 80 − 2Q₂</strong>. MC = 20.<br><br>
-        a) Berechnen Sie die optimalen Mengen Q₁* und Q₂* und Preise P₁* und P₂*.<br>
-        b) Welcher Markt ist preiselastischer? Prüfen Sie dies mit der Elastizitätsformel.<br>
-        c) Berechnen Sie den Gesamtgewinn.</p>
-        <div class="canvas-wrap" id="cw5">
-          <canvas id="canvas5" height="320"></canvas>
+        <p>Ein Monopolist betreibt Preisdifferenzierung.<br><br>
+        a) Stellen Sie grafisch dar, wie ein Monopolist bei Preisdifferenzierung 3. Grades optimale Preise setzt. Markieren Sie KR, PR und DWL für beide Teilmärkte.<br>
+        b) Erläutern Sie die Bedingung für die optimale Aufteilung: MR₁ = MR₂ = MC. Wann lohnt sich Preisdifferenzierung?<br>
+        c) Vergleichen Sie Preisdifferenzierung 1. Grades und 3. Grades hinsichtlich Wohlfahrt, DWL und Konsumentenrente.</p>
+        <div class="canvas-wrap">
+          <canvas id="canvas-uk1" height="380"></canvas>
           <div class="canvas-toolbar">
-            <button class="active" id="pen5" onclick="setTool('canvas5','pen')">✏️ Stift</button>
-            <button id="hl5" onclick="setTool('canvas5','highlight')">🖊 Marker</button>
-            <button onclick="setColor('canvas5','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
-            <button onclick="setColor('canvas5','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
-            <button onclick="setColor('canvas5','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
-            <button onclick="setColor('canvas5','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
-            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" id="size5" min="2" max="24" value="4" oninput="setSize('canvas5',this.value)"></label>
-            <button onclick="clearCanvas('canvas5')">🗑 Löschen</button>
+            <button onclick="setTool('canvas-uk1','pen')">✏️ Stift</button>
+            <button onclick="setTool('canvas-uk1','highlight')">🖊 Marker</button>
+            <button onclick="setColor('canvas-uk1','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
+            <button onclick="setColor('canvas-uk1','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
+            <button onclick="setColor('canvas-uk1','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
+            <button onclick="setColor('canvas-uk1','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
+            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" min="2" max="24" value="4" oninput="setSize('canvas-uk1',this.value)"></label>
+            <button onclick="clearCanvas('canvas-uk1')">🗑 Löschen</button>
           </div>
         </div>
-        <textarea class="aufg-text" id="txt5" placeholder="Oder hier tippen …"></textarea>
-        <button class="aufg-save-btn" onclick="saveAufgabe(5)">💾 Speichern</button>
-        <div class="aufg-saved-note" id="saved5">✓ Gespeichert!</div>
+        <textarea class="aufg-text" id="txt-uk1" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <button class="aufg-save-btn" onclick="saveAufgabe('uk1')">💾 Speichern</button>
+        <div class="aufg-saved-note" id="saved-uk1">✓ Gespeichert!</div>
+      </div>
+    </div>
+
+    <!-- ÜK-2 -->
+    <div class="aufg-item">
+      <div class="aufg-head">
+        <h3>Aufgabe ÜK-2 – Lagrange, SE/EE &amp; Elastizität</h3>
+        <span class="aufg-tag">Lagrange · SE/EE</span>
+      </div>
+      <div class="aufg-body">
+        <p>Nutzenfunktion: <strong>U(s, b) = (1/4) · s^(2/3) · (1/2) · b^(1/3)</strong>. Preise p_s = 20, p_b = 40. Budget m = 600.<br><br>
+        a) Bestimmen Sie mit dem Lagrange-Ansatz die optimalen Mengen s* und b*.<br>
+        b) Berechnen Sie Substitutions- und Einkommenseffekt für s, wenn p_s von 20 auf 30 steigt.<br>
+        c) Ist b ein inferiores Gut? Begründen Sie anhand der Nachfragefunktion.<br>
+        d) Berechnen Sie die Preiselastizität der Nachfrage nach s im Optimum.</p>
+        <div class="canvas-wrap">
+          <canvas id="canvas-uk2" height="360"></canvas>
+          <div class="canvas-toolbar">
+            <button onclick="setTool('canvas-uk2','pen')">✏️ Stift</button>
+            <button onclick="setTool('canvas-uk2','highlight')">🖊 Marker</button>
+            <button onclick="setColor('canvas-uk2','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
+            <button onclick="setColor('canvas-uk2','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
+            <button onclick="setColor('canvas-uk2','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
+            <button onclick="setColor('canvas-uk2','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
+            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" min="2" max="24" value="4" oninput="setSize('canvas-uk2',this.value)"></label>
+            <button onclick="clearCanvas('canvas-uk2')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt-uk2" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <button class="aufg-save-btn" onclick="saveAufgabe('uk2')">💾 Speichern</button>
+        <div class="aufg-saved-note" id="saved-uk2">✓ Gespeichert!</div>
+      </div>
+    </div>
+
+    <!-- ÜK-3 -->
+    <div class="aufg-item">
+      <div class="aufg-head">
+        <h3>Aufgabe ÜK-3 – Ertragsgesetzliche Kostenfunktion</h3>
+        <span class="aufg-tag">Kosten</span>
+      </div>
+      <div class="aufg-body">
+        <p>Gegeben: Fixkosten FK = 3.000, Kostenkehre bei x = 10, K(10) = 5.200, Grenzkosten k'(10) = 20.<br><br>
+        a) Rekonstruieren Sie die Gesamtkostenfunktion K(x) = FK + VK(x) aus den gegebenen Informationen.<br>
+        b) Berechnen Sie die variablen Stückkosten kᵥ(x) = VK/x und bestimmen Sie das Betriebsminimum.<br>
+        c) Zeichnen Sie K(x), GK(x) und k(x) qualitativ in ein Diagramm. Markieren Sie Betriebsminimum und Betriebsoptimum.</p>
+        <div class="canvas-wrap">
+          <canvas id="canvas-uk3" height="380"></canvas>
+          <div class="canvas-toolbar">
+            <button onclick="setTool('canvas-uk3','pen')">✏️ Stift</button>
+            <button onclick="setTool('canvas-uk3','highlight')">🖊 Marker</button>
+            <button onclick="setColor('canvas-uk3','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
+            <button onclick="setColor('canvas-uk3','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
+            <button onclick="setColor('canvas-uk3','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
+            <button onclick="setColor('canvas-uk3','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
+            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" min="2" max="24" value="4" oninput="setSize('canvas-uk3',this.value)"></label>
+            <button onclick="clearCanvas('canvas-uk3')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt-uk3" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <button class="aufg-save-btn" onclick="saveAufgabe('uk3')">💾 Speichern</button>
+        <div class="aufg-saved-note" id="saved-uk3">✓ Gespeichert!</div>
+      </div>
+    </div>
+
+    <!-- ── Markt & Wettbewerb ─────────────────────────────── -->
+    <div class="aufg-section-label">🏪 Markt &amp; Wettbewerb</div>
+
+    <!-- MW-1 -->
+    <div class="aufg-item">
+      <div class="aufg-head">
+        <h3>Aufgabe MW-1 – Marktmechanismus &amp; SVE-Paradigma</h3>
+        <span class="aufg-tag">Markttheorie</span>
+      </div>
+      <div class="aufg-body">
+        <p>Basierend auf Lernblatt Lecture 5 &amp; 6:<br><br>
+        a) Nennen und erläutern Sie die 5 Funktionen des Marktmechanismus (Allokation, Selektion, Innovation, Koordination, Verteilung).<br>
+        b) Erklären Sie das SVE-Paradigma (Struktur–Verhalten–Ergebnis). Wie wird Reaktionsverbundenheit empirisch gemessen?<br>
+        c) Unter welchen Bedingungen versagt der Marktmechanismus? Nennen Sie mindestens 4 Ursachen.</p>
+        <div class="canvas-wrap">
+          <canvas id="canvas-mw1" height="320"></canvas>
+          <div class="canvas-toolbar">
+            <button onclick="setTool('canvas-mw1','pen')">✏️ Stift</button>
+            <button onclick="setTool('canvas-mw1','highlight')">🖊 Marker</button>
+            <button onclick="setColor('canvas-mw1','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
+            <button onclick="setColor('canvas-mw1','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
+            <button onclick="setColor('canvas-mw1','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
+            <button onclick="setColor('canvas-mw1','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
+            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" min="2" max="24" value="4" oninput="setSize('canvas-mw1',this.value)"></label>
+            <button onclick="clearCanvas('canvas-mw1')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt-mw1" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <button class="aufg-save-btn" onclick="saveAufgabe('mw1')">💾 Speichern</button>
+        <div class="aufg-saved-note" id="saved-mw1">✓ Gespeichert!</div>
+      </div>
+    </div>
+
+    <!-- MW-2 -->
+    <div class="aufg-item">
+      <div class="aufg-head">
+        <h3>Aufgabe MW-2 – Gutenberg, Sweezy &amp; Chamberlin</h3>
+        <span class="aufg-tag">Oligopol · Chamberlin</span>
+      </div>
+      <div class="aufg-body">
+        <p>Monopolistische Konkurrenz und Oligopolmodelle:<br><br>
+        a) Skizzieren Sie die doppelt geknickte PAF nach Gutenberg. Beschreiben Sie die drei Zonen und erklären Sie, warum Preise in der Monopolzone stabil bleiben.<br>
+        b) Erläutern Sie das Sweezy-Modell (einfach geknickte PAF). Warum entsteht eine MR-Lücke und wie erklärt sie Preisrigidität?<br>
+        c) Beschreiben Sie das Chamberlin-LR-Gleichgewicht: Welche zwei Bedingungen müssen gelten? Was ist X-Ineffizienz?</p>
+        <div class="canvas-wrap">
+          <canvas id="canvas-mw2" height="360"></canvas>
+          <div class="canvas-toolbar">
+            <button onclick="setTool('canvas-mw2','pen')">✏️ Stift</button>
+            <button onclick="setTool('canvas-mw2','highlight')">🖊 Marker</button>
+            <button onclick="setColor('canvas-mw2','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
+            <button onclick="setColor('canvas-mw2','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
+            <button onclick="setColor('canvas-mw2','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
+            <button onclick="setColor('canvas-mw2','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
+            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" min="2" max="24" value="4" oninput="setSize('canvas-mw2',this.value)"></label>
+            <button onclick="clearCanvas('canvas-mw2')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt-mw2" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <button class="aufg-save-btn" onclick="saveAufgabe('mw2')">💾 Speichern</button>
+        <div class="aufg-saved-note" id="saved-mw2">✓ Gespeichert!</div>
+      </div>
+    </div>
+
+    <!-- MW-3 -->
+    <div class="aufg-item">
+      <div class="aufg-head">
+        <h3>Aufgabe MW-3 – Staatliches Eingreifen &amp; Natürliches Monopol</h3>
+        <span class="aufg-tag">Marktversagen</span>
+      </div>
+      <div class="aufg-body">
+        <p>Staatliches Eingreifen und Marktversagen (Lecture 6):<br><br>
+        a) Nennen Sie 4 Ursachen für Marktversagen und je ein staatliches Steuerungsinstrument.<br>
+        b) Beurteilen Sie die Pigou-Steuer: Welche Vorteile und welche Kritikpunkte gibt es?<br>
+        c) Was ist ein natürliches Monopol? Erläutern Sie Grenzkostenpreisbildung und eine alternative Regulierungsstrategie. Warum ist Grenzkostenpreisbildung bei sinkenden Stückkosten problematisch?</p>
+        <div class="canvas-wrap">
+          <canvas id="canvas-mw3" height="320"></canvas>
+          <div class="canvas-toolbar">
+            <button onclick="setTool('canvas-mw3','pen')">✏️ Stift</button>
+            <button onclick="setTool('canvas-mw3','highlight')">🖊 Marker</button>
+            <button onclick="setColor('canvas-mw3','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
+            <button onclick="setColor('canvas-mw3','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
+            <button onclick="setColor('canvas-mw3','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
+            <button onclick="setColor('canvas-mw3','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
+            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" min="2" max="24" value="4" oninput="setSize('canvas-mw3',this.value)"></label>
+            <button onclick="clearCanvas('canvas-mw3')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt-mw3" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <button class="aufg-save-btn" onclick="saveAufgabe('mw3')">💾 Speichern</button>
+        <div class="aufg-saved-note" id="saved-mw3">✓ Gespeichert!</div>
       </div>
     </div>
 
@@ -1052,16 +1251,15 @@ function showTab(id) {
   var el = document.getElementById('view-' + id);
   if (el) el.classList.add('active');
   var btns = document.querySelectorAll('nav button');
-  var map = {intro:0, karten:1, aufgaben:2, altklausuren:3};
+  var map = {intro:0, aufgaben:2, altklausuren:3};
   if (map[id] !== undefined) btns[map[id]].classList.add('active');
-  if (id === 'karten') renderFlashcard();
   history.replaceState(null, '', '#' + id);
 }
 
 // ── HASH ROUTING — open tab from URL hash ──────────────────
 (function() {
   var hash = location.hash.replace('#', '');
-  var valid = {intro:1, themen:1, karten:1, aufgaben:1, altklausuren:1};
+  var valid = {intro:1, aufgaben:1, altklausuren:1};
   if (hash && valid[hash]) showTab(hash);
 })();
 
@@ -1116,7 +1314,6 @@ function cdSave() {
   localStorage.setItem('lernplan_exams_v1', JSON.stringify(cdExams));
   updateCountdown();
   closeCdModal();
-  updateDailyGoal();
 }
 updateCountdown();
 
@@ -1135,85 +1332,6 @@ function toggleVertiefung(header) {
   arrow.textContent = open ? '▲' : '▼';
 }
 
-// ── FLASHCARDS ────────────────────────────────────────────
-var CARDS = [
-  {cat:'Lagrange', q:'Was ist die Optimalbedingung im Lagrange-Ansatz?', a:'MRS = p₁/p₂  (Grenzrate der Substitution = Preisverhältnis)\n+ Budget: p₁x₁+p₂x₂ = m'},
-  {cat:'Lagrange', q:'Was misst der Lagrange-Multiplikator λ?', a:'λ = Grenznutzen des Einkommens. 1 € mehr Budget erhöht U um λ.'},
-  {cat:'Lagrange', q:'U=x₁·x₂, p₁=4, p₂=2, m=40. Optimum?', a:'x₁*=5, x₂*=10, U*=50\n(Regel: xᵢ* = αᵢ·m / pᵢ, hier α₁=α₂=0.5)'},
-  {cat:'Lagrange', q:'Wie lautet die Nachfragefunktion bei U=x₁^α·x₂^β?', a:'x₁* = (α/(α+β))·(m/p₁)\nx₂* = (β/(α+β))·(m/p₂)'},
-  {cat:'SE/EE', q:'Was ist der Substitutionseffekt?', a:'Bewegung entlang der alten Indifferenzkurve nach einer Preisänderung. U bleibt konstant, Mengen passen sich dem neuen Preisverhältnis an.'},
-  {cat:'SE/EE', q:'Was ist der Einkommenseffekt?', a:'Parallele Verschiebung der Budgetgeraden durch das veränderte Realeinkommen. Nutzen steigt (bei norm. Gut).'},
-  {cat:'SE/EE', q:'Wann ist ein Gut ein Giffen-Gut?', a:'EE ist negativ und überwiegtSE. Preis sinkt → Nachfrage sinkt. Extremfall des inferioren Guts.'},
-  {cat:'SE/EE', q:'Slutsky-Budget m* bei p₁-Senkung?', a:'m* = m + x₁_A · |Δp₁|\n(Kompensiertes Einkommen, sodass ursprüngliches Bündel A noch leistbar bleibt)'},
-  {cat:'Gutenberg', q:'Was sind die drei Zonen der Gutenberg-PAF?', a:'1. p > p_o: hoch elastisch (Kunden wechseln massiv)\n2. p_u ≤ p ≤ p_o: Monopolzone (gering elastisch)\n3. p < p_u: hoch elastisch (Wettbewerber verlieren Kunden)'},
-  {cat:'Gutenberg', q:'Warum bleibt der Preis in der Monopolzone stabil?', a:'MR kann stark schwanken ohne dass der Preis sich ändert, da MC die vertikale MR-Lücke nicht verlässt. Preisrigidität!'},
-  {cat:'Cobb-Douglas', q:'Was ist der Homogenitätsgrad h?', a:'h = α + β\nh<1: abnehmende Skalenerträge\nh=1: konstante Skalenerträge\nh>1: zunehmende Skalenerträge'},
-  {cat:'Cobb-Douglas', q:'Wie berechnet man die MRTS bei Q=A·Lᵅ·Kᵝ?', a:'MRTS = MP_L / MP_K = (α·Q/L) / (β·Q/K) = (α/β)·(K/L)'},
-  {cat:'Cobb-Douglas', q:'Optimale Inputkombination bei gegebenem w und r?', a:'MRTS = w/r\n(α/β)·(K/L) = w/r\n→ K/L = (β·w)/(α·r)'},
-  {cat:'Cobb-Douglas', q:'Q=2·L^0.6·K^0.4. Zeige: konstante Skalenerträge.', a:'f(tL,tK)=2·(tL)^0.6·(tK)^0.4 = 2·t^0.6·t^0.4·L^0.6·K^0.4 = t¹·Q ✓\nAlso h=1, konstante Skalenerträge.'},
-  {cat:'Sweezy', q:'Warum hat die Sweezy-Nachfrage einen Knick?', a:'Preiserhöhung: Konkurrenten folgen nicht → viele Kunden weg (elastisch oben).\nPreissenkung: alle senken mit → kaum Gewinn (elastisch unten).'},
-  {cat:'Sweezy', q:'Was ist die MR-Lücke und warum entsteht sie?', a:'Am Knickpunkt springt MR von MR_oben auf MR_unten. Solange MC in dieser Lücke liegt, bleibt P=P₀ optimal.'},
-  {cat:'Sweezy', q:'Berechne MR_o und MR_u bei P₀=30, Q₀=50, D_o=50-0.4Q, D_u=80-Q.', a:'MR_o = 50-0.8·50 = 10\nMR_u = 80-2·50 = -20\nLücke: [-20, +10]'},
-  {cat:'Monopol', q:'Monopolbedingung für Gewinnmaximum?', a:'MR = MC\nBei linearer Nachfrage P=a-bQ: MR=a-2bQ\n→ a-2bQ = MC → Q*'},
-  {cat:'Monopol', q:'DWL-Formel beim Monopol?', a:'DWL = ½ · (P* - MC) · (Q_W - Q*)\nDreieck zwischen Monopolpunkt, Wettbewerbspunkt und D.'},
-  {cat:'Monopol', q:'Lerner-Index?', a:'L = (P-MC)/P = 1/|ε|\nL=0 im Polypol (P=MC)\nL>0 je größer die Marktmacht'},
-  {cat:'Chamberlin', q:'Was ist das LR-Gleichgewicht bei Chamberlin?', a:'P = AC (kein Gewinn durch Markteintritt)\nP\' = AC\' (Tangenz: D berührt AC)'},
-  {cat:'Chamberlin', q:'Was ist X-Ineffizienz bei Chamberlin?', a:'LR-Menge Q* < AC-Minimum Menge. Unternehmen produziert mit Überkapazität (excess capacity). Durchschnittskosten sind höher als nötig.'},
-  {cat:'Chamberlin', q:'Chamberlin-Verifikation: P=45-2Q, AC=(Q-20)²/5+10. Prüfe Q*=15.', a:'P\'=-2, AC\'=2(15-20)/5=-2 ✓ (Steigungen gleich)\nP(15)=15, AC(15)=(−5)²/5+10=5+10=15 ✓ (Gewinn=0)'},
-  {cat:'Externe Effekte', q:'Was ist ein negativer externer Effekt?', a:'Dritte tragen Kosten ohne Entschädigung. MSC > MPC. Privates GGW produziert zu viel. Bsp: Umweltverschmutzung.'},
-  {cat:'Externe Effekte', q:'Pigou-Steuer: wie hoch und wo ansetzen?', a:'t = MSC - MPC, gemessen am sozialen Optimum (Q_soz).\nSteuer veranlasst Produzenten, externe Kosten zu internalisieren.'},
-  {cat:'Externe Effekte', q:'MSB=80-Q, MPC=10, MSC=30. Berechne alle Größen.', a:'Q_priv: 80-Q=10 → Q=70, P=10\nQ_soz: 80-Q=30 → Q=50, P=30\nt=20, DWL=½·20·20=200'},
-  {cat:'Preisdiff.', q:'Drei Bedingungen für Preisdifferenzierung 3°?', a:'1. Marktmacht (Preis > MC möglich)\n2. Trennbare Märkte (kein Arbitrage)\n3. Unterschiedliche Preiselastizitäten'},
-  {cat:'Preisdiff.', q:'Optimalbedingung bei Preisdiff. 3°?', a:'MR₁ = MR₂ = MC\nDer Markt mit |ε| kleiner (weniger elastisch) zahlt mehr.'},
-  {cat:'Preisdiff.', q:'MC=20, P₁=100-Q₁, P₂=60-Q₂. Optimum?', a:'MR₁=100-2Q₁=20 → Q₁=40, P₁=60\nMR₂=60-2Q₂=20 → Q₂=20, P₂=40\nπ=(40·40)+(20·20)=1600+400=2000'},
-  {cat:'Preisdiff.', q:'Was ist Preisdifferenzierung 1. Grades?', a:'Jeder Konsument zahlt genau seine Zahlungsbereitschaft. Vollständige KR-Abschöpfung, kein DWL, maximaler Monopolgewinn.'},
-  {cat:'Allgemein', q:'Was ist eine Preiselastizität der Nachfrage?', a:'ε = (ΔQ/Q) / (ΔP/P) = (dQ/dP)·(P/Q)\nElastisch: |ε|>1. Unelastisch: |ε|<1.'},
-  {cat:'Allgemein', q:'Polypol vs. Monopol – Kernunterschied?', a:'Polypol: P=MC, maximale Wohlfahrt, kein DWL.\nMonopol: P>MC=MR, Unterproduktion, DWL, Umverteilung KR→PR.'},
-  {cat:'Allgemein', q:'Was ist der Grenzerlös MR?', a:'MR = d(P·Q)/dQ = P + Q·(dP/dQ)\nBei linearer Nachfrage P=a-bQ: MR=a-2bQ (doppelt so steil wie D)'},
-  {cat:'Allgemein', q:'Warum liegt MR unter D bei fallender Nachfrage?', a:'Preissenkung gilt für alle Einheiten. Erlöszuwachs durch neue Einheit wird durch Erlösverlust auf bisherige Einheiten vermindert.'},
-  {cat:'Allgemein', q:'Nash-Gleichgewicht – Definition?', a:'Gleichgewicht, in dem kein Spieler durch einseitige Abweichung besser gestellt werden kann. Jeder spielt beste Antwort auf die Strategie der anderen.'},
-  {cat:'Allgemein', q:'Coase-Theorem – wann funktioniert es?', a:'Bei klar definierten Eigentumsrechten und null Transaktionskosten handeln Parteien das soziale Optimum aus. In der Realität selten erfüllt.'},
-];
-
-var fcIdx = 0, fcDone = 0, fcOrder = [];
-function shuffleCards() {
-  fcOrder = CARDS.map((_,i)=>i).sort(()=>Math.random()-0.5);
-  fcIdx = 0; fcDone = 0;
-  document.getElementById('fc-card').classList.remove('flipped');
-  renderFlashcard();
-}
-function renderFlashcard() {
-  if (!fcOrder.length) shuffleCards();
-  var i = fcOrder[fcIdx % fcOrder.length];
-  var c = CARDS[i];
-  document.getElementById('fc-cat').textContent = c.cat;
-  document.getElementById('fc-q').textContent = c.q;
-  document.getElementById('fc-a').textContent = c.a;
-  document.getElementById('fc-count').textContent = (fcIdx+1) + ' / ' + CARDS.length;
-  var pct = Math.round(fcDone / CARDS.length * 100);
-  document.getElementById('fc-pbar').style.width = pct + '%';
-  document.getElementById('fc-card').classList.remove('flipped');
-}
-function flipCard() { document.getElementById('fc-card').classList.toggle('flipped'); }
-function rateCard(good) {
-  if (good) fcDone++;
-  fcIdx++;
-  if (fcIdx >= fcOrder.length) { fcIdx = 0; fcDone = 0; shuffleCards(); return; }
-  renderFlashcard();
-}
-function updateDailyGoal() {
-  var now = new Date(); now.setHours(0,0,0,0);
-  var exams = JSON.parse(localStorage.getItem('lernplan_exams_v1') || '[]');
-  var upcoming = exams.filter(function(e){ var d=new Date(e.date); d.setHours(0,0,0,0); return d>=now; });
-  upcoming.sort(function(a,b){ return new Date(a.date)-new Date(b.date); });
-  var el = document.getElementById('fc-goal-text');
-  if (!el) return;
-  if (!upcoming.length) { el.textContent = '–'; return; }
-  var days = Math.max(1, Math.round((new Date(upcoming[0].date)-now)/86400000));
-  var perDay = Math.ceil(CARDS.length / days);
-  el.textContent = perDay + ' Karten (' + days + ' Tage bis Klausur)';
-}
-updateDailyGoal();
 
 // ── CANVAS (Aufgaben) ─────────────────────────────────────
 var canvasStates = {};
@@ -1231,8 +1349,9 @@ function initCanvas(id) {
   ctx.lineCap = 'round';
   ctx.lineJoin = 'round';
 
-  // Load saved
-  var saved = localStorage.getItem('mikro_canvas_' + id);
+  // Load saved (support both aufgaben key and ak key)
+  var savedKey = id.startsWith('canvas-') ? 'mikro_canvas_aufg_' + id.replace('canvas-','') : 'mikro_canvas_' + id;
+  var saved = localStorage.getItem(savedKey);
   if (saved) { var img = new Image(); img.onload = function(){ ctx.drawImage(img,0,0); }; img.src = saved; }
 
   var drawing = false, lastX, lastY;
@@ -1305,12 +1424,12 @@ function clearCanvas(id) {
   localStorage.removeItem('mikro_canvas_' + id);
 }
 
-function saveAufgabe(n) {
-  var c = document.getElementById('canvas' + n);
-  var t = document.getElementById('txt' + n);
-  if (c) localStorage.setItem('mikro_canvas_canvas' + n, c.toDataURL());
-  if (t) localStorage.setItem('mikro_txt_' + n, t.value);
-  var note = document.getElementById('saved' + n);
+function saveAufgabe(key) {
+  var c = document.getElementById('canvas-' + key);
+  var t = document.getElementById('txt-' + key);
+  if (c) localStorage.setItem('mikro_canvas_aufg_' + key, c.toDataURL());
+  if (t) localStorage.setItem('mikro_txt_aufg_' + key, t.value);
+  var note = document.getElementById('saved-' + key);
   if (note) { note.style.display='inline'; setTimeout(function(){ note.style.display='none'; }, 2000); }
 }
 function saveAK(key) {
@@ -1326,10 +1445,11 @@ function saveAK(key) {
 
 // Load textarea values
 function loadSavedText() {
-  for (var i=1;i<=5;i++) {
-    var t = document.getElementById('txt'+i);
-    if (t) { var s=localStorage.getItem('mikro_txt_'+i); if(s) t.value=s; }
-  }
+  var aufgKeys=['ht1','ht2','ht3','ht4','pk1','pk2','pk3','uk1','uk2','uk3','mw1','mw2','mw3'];
+  aufgKeys.forEach(function(k){
+    var t=document.getElementById('txt-'+k);
+    if(t){var s=localStorage.getItem('mikro_txt_aufg_'+k);if(s)t.value=s;}
+  });
   var akKeys=['2019-1','2019-2','2019-3','2021-1','2021-2','2021-3','2022-1','2022-2','d22-1','d22-2','st23-1','st23-2','st23-3'];
   akKeys.forEach(function(k){
     var t=document.getElementById('ak-txt-'+k);
@@ -1354,10 +1474,6 @@ showTab = function(id) {
   setTimeout(initAllVisible, 50);
 };
 setTimeout(initAllVisible, 100);
-
-// Shuffle on load
-shuffleCards();
-updateDailyGoal();
 </script>
 </body>
 </html>
