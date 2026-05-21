@@ -540,89 +540,14 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
 <!-- ══════════════════════════════════════════
      TAB 2 – THEMEN (Übersicht)
 ══════════════════════════════════════════ -->
-<div class="view" id="view-themen">
-  <div style="padding:24px; max-width:880px; margin:0 auto;">
-  <h2 style="font-size:20px;font-weight:800;margin-bottom:6px;">Themenübersicht</h2>
-  <p style="color:var(--muted);margin-bottom:16px;">Klick auf ein Thema für die Kurzformel und den Prüfungshinweis.</p>
-  <a href="https://donan3000.github.io/microeconomics/index.html" target="_blank"
-     style="display:inline-flex;align-items:center;gap:8px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent);border-radius:10px;padding:10px 18px;font-size:13px;font-weight:700;text-decoration:none;margin-bottom:22px;">
-    📖 Vollständige Erklärungen &amp; Grafiken (externe Seite) →
-  </a>
-
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;">
-
-    <div style="background:var(--card);border-radius:12px;border:1px solid var(--border);padding:18px;">
-      <div style="font-size:22px;margin-bottom:6px;">📐</div>
-      <h3 style="font-size:14px;font-weight:700;margin-bottom:4px;">1. Lagrange</h3>
-      <p style="font-size:12px;color:var(--muted);">L = U(x) − λ(Budget)</p>
-      <p style="font-size:12px;margin-top:6px;">Optimalbedingung: MRS = p₁/p₂ und Budget einhalten.</p>
-      <span style="font-size:11px;background:#fdecea;color:#c0392b;border-radius:20px;padding:2px 8px;font-weight:700;">🔥 Klausurrelevant</span>
-    </div>
-
-    <div style="background:var(--card);border-radius:12px;border:1px solid var(--border);padding:18px;">
-      <div style="font-size:22px;margin-bottom:6px;">↔️</div>
-      <h3 style="font-size:14px;font-weight:700;margin-bottom:4px;">2. Einkommens- &amp; Substitutionseffekt</h3>
-      <p style="font-size:12px;color:var(--muted);">Slutsky: Δx = SE + EE</p>
-      <p style="font-size:12px;margin-top:6px;">SE entlang Indifferenzkurve, EE durch Einkommensänderung.</p>
-      <span style="font-size:11px;background:#fdecea;color:#c0392b;border-radius:20px;padding:2px 8px;font-weight:700;">🔥 Klausurrelevant</span>
-    </div>
-
-    <div style="background:var(--card);border-radius:12px;border:1px solid var(--border);padding:18px;">
-      <div style="font-size:22px;margin-bottom:6px;">📉</div>
-      <h3 style="font-size:14px;font-weight:700;margin-bottom:4px;">3. Gutenberg PAF</h3>
-      <p style="font-size:12px;color:var(--muted);">Doppelt geknickte Preisabsatzkurve</p>
-      <p style="font-size:12px;margin-top:6px;">Monopolzone zwischen p_u und p_o. Innerhalb stabile Preise.</p>
-      <span style="font-size:11px;background:#fdecea;color:#c0392b;border-radius:20px;padding:2px 8px;font-weight:700;">🔥 Klausurrelevant</span>
-    </div>
-
-    <div style="background:var(--card);border-radius:12px;border:1px solid var(--border);padding:18px;">
-      <div style="font-size:22px;margin-bottom:6px;">🏭</div>
-      <h3 style="font-size:14px;font-weight:700;margin-bottom:4px;">4. Cobb-Douglas &amp; Skalenerträge</h3>
-      <p style="font-size:12px;color:var(--muted);">Q = A·Lᵅ·Kᵝ, h = α+β</p>
-      <p style="font-size:12px;margin-top:6px;">h&lt;1 abnehmend, h=1 konstant, h&gt;1 zunehmend. MRTS = (α/β)·(K/L).</p>
-      <span style="font-size:11px;background:#fdecea;color:#c0392b;border-radius:20px;padding:2px 8px;font-weight:700;">🔥 Klausurrelevant</span>
-    </div>
-
-    <div style="background:var(--card);border-radius:12px;border:1px solid var(--border);padding:18px;">
-      <div style="font-size:22px;margin-bottom:6px;">🔀</div>
-      <h3 style="font-size:14px;font-weight:700;margin-bottom:4px;">5. Sweezy-Modell</h3>
-      <p style="font-size:12px;color:var(--muted);">Geknickte Nachfrage im Oligopol</p>
-      <p style="font-size:12px;margin-top:6px;">Preiserhöhung wird nicht mitgemacht, Preissenkung schon → MR-Lücke → Preisrigidität.</p>
-      <span style="font-size:11px;background:#fdecea;color:#c0392b;border-radius:20px;padding:2px 8px;font-weight:700;">🔥 Klausurrelevant</span>
-    </div>
-
-    <div style="background:var(--card);border-radius:12px;border:1px solid var(--border);padding:18px;">
-      <div style="font-size:22px;margin-bottom:6px;">🏆</div>
-      <h3 style="font-size:14px;font-weight:700;margin-bottom:4px;">6. Monopol &amp; Polypol</h3>
-      <p style="font-size:12px;color:var(--muted);">MR=MC, DWL = ½·(P*−MC)·ΔQ</p>
-      <p style="font-size:12px;margin-top:6px;">Wohlfahrtsverlust durch Unterproduktion. Lerner-Index = (P−MC)/P.</p>
-    </div>
-
-    <div style="background:var(--card);border-radius:12px;border:1px solid var(--border);padding:18px;">
-      <div style="font-size:22px;margin-bottom:6px;">🏪</div>
-      <h3 style="font-size:14px;font-weight:700;margin-bottom:4px;">7. Chamberlin</h3>
-      <p style="font-size:12px;color:var(--muted);">Monopolistische Konkurrenz, LR: P=AC</p>
-      <p style="font-size:12px;margin-top:6px;">Tangentiallösung: D berührt AC. Kein Gewinn, aber X-Ineffizienz.</p>
-      <span style="font-size:11px;background:#fdecea;color:#c0392b;border-radius:20px;padding:2px 8px;font-weight:700;">🔥 Klausurrelevant</span>
-    </div>
-
-    <div style="background:var(--card);border-radius:12px;border:1px solid var(--border);padding:18px;">
-      <div style="font-size:22px;margin-bottom:6px;">🌫️</div>
-      <h3 style="font-size:14px;font-weight:700;margin-bottom:4px;">8. Externe Effekte</h3>
-      <p style="font-size:12px;color:var(--muted);">Pigou-Steuer t = MSC − MPC</p>
-      <p style="font-size:12px;margin-top:6px;">Privates GGW ≠ soziales Optimum. Steuer internalisiert externen Schaden.</p>
-    </div>
-
-    <div style="background:var(--card);border-radius:12px;border:1px solid var(--border);padding:18px;">
-      <div style="font-size:22px;margin-bottom:6px;">🏷️</div>
-      <h3 style="font-size:14px;font-weight:700;margin-bottom:4px;">9. Preisdifferenzierung</h3>
-      <p style="font-size:12px;color:var(--muted);">3°: MR₁=MR₂=MC</p>
-      <p style="font-size:12px;margin-top:6px;">Segmentierung: unelastischer Markt zahlt mehr. Voraussetzung: Arbitragefreiheit.</p>
-      <span style="font-size:11px;background:#fdecea;color:#c0392b;border-radius:20px;padding:2px 8px;font-weight:700;">🔥 Klausurrelevant</span>
-    </div>
-
-  </div>
-  </div>
+<div class="view" id="view-themen" style="height: calc(100vh - 104px);">
+  <iframe
+    src="https://donan3000.github.io/microeconomics/index.html"
+    id="themen-iframe"
+    style="width:100%; height:100%; border:none; display:block;"
+    title="Mikroökonomik Themenübersicht"
+    loading="lazy"
+  ></iframe>
 </div>
 
 <!-- ══════════════════════════════════════════
