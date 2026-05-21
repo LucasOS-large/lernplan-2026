@@ -191,7 +191,7 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
 
 <nav>
   <button class="active" onclick="showTab('intro')">📖 Mikro Intro</button>
-  <button onclick="showTab('themen')">📚 Themen</button>
+  <button onclick="window.open('https://donan3000.github.io/microeconomics/index.html','_blank')">📚 Themen ↗</button>
   <button onclick="showTab('karten')">🃏 Karteikarten</button>
   <button onclick="showTab('aufgaben')">✏️ Aufgaben</button>
   <button onclick="showTab('altklausuren')">📋 Altklausuren</button>
@@ -537,18 +537,6 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
 </div>
 <!-- END TAB 1 -->
 
-<!-- ══════════════════════════════════════════
-     TAB 2 – THEMEN (Übersicht)
-══════════════════════════════════════════ -->
-<div class="view" id="view-themen" style="height: calc(100vh - 104px);">
-  <iframe
-    src="https://donan3000.github.io/microeconomics/index.html"
-    id="themen-iframe"
-    style="width:100%; height:100%; border:none; display:block;"
-    title="Mikroökonomik Themenübersicht"
-    loading="lazy"
-  ></iframe>
-</div>
 
 <!-- ══════════════════════════════════════════
      TAB 3 – KARTEIKARTEN
@@ -1064,7 +1052,7 @@ function showTab(id) {
   var el = document.getElementById('view-' + id);
   if (el) el.classList.add('active');
   var btns = document.querySelectorAll('nav button');
-  var map = {intro:0, themen:1, karten:2, aufgaben:3, altklausuren:4};
+  var map = {intro:0, karten:1, aufgaben:2, altklausuren:3};
   if (map[id] !== undefined) btns[map[id]].classList.add('active');
   if (id === 'karten') renderFlashcard();
   history.replaceState(null, '', '#' + id);
