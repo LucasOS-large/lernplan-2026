@@ -1351,12 +1351,14 @@ function initCanvas(id) {
   if (!canvas || canvas._inited) return;
   canvas._inited = true;
   var wrap = canvas.parentElement;
-  canvas.width = wrap.offsetWidth || 700;
+  // Cap width at 900px — larger canvas = slower rendering on iPad
+  canvas.width = Math.min(wrap.offsetWidth || 700, 900);
   canvas._tool = 'pen';
   canvas._color = '#000000';
   canvas._size = 4;
-  canvas._history = [];
-  var ctx = canvas.getContext('2d');
+  canvas._history = [];   // keep max 15 snaps — smaller = faster getImageData
+  // desynchronized:true removes the vsync barrier — biggest latency win on iOS
+  var ctx = canvas.getContext('2d', { desynchronized: true });
   ctx.lineCap = 'round';
   ctx.lineJoin = 'round';
 
@@ -1369,11 +1371,11 @@ function initCanvas(id) {
   var saved = localStorage.getItem(savedKey);
   if (saved) { var img = new Image(); img.onload = function(){ ctx.drawImage(img,0,0); }; img.src = saved; }
 
-  var drawing = false;
+  var drawing = false, lastPos = { x: 0, y: 0 };
 
   function saveSnap() {
     canvas._history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-    if (canvas._history.length > 25) canvas._history.shift();
+    if (canvas._history.length > 15) canvas._history.shift();
   }
 
   function getPos(e) {
@@ -1412,24 +1414,27 @@ function initCanvas(id) {
     // und verursacht Lag am Strich-Anfang. Snapshot nach Strich-Ende ist schnell genug.
     try { canvas.setPointerCapture(e.pointerId); } catch(x) {}
     applyStyle();
-    var p = getPos(e);
+    lastPos = getPos(e);
     ctx.beginPath();
-    ctx.moveTo(p.x, p.y);
+    ctx.moveTo(lastPos.x, lastPos.y);
   }
 
   function doDraw(e) {
     if (!drawing || e.pointerType === 'touch') return;
     e.preventDefault();
-    // getCoalescedEvents() liefert alle Zwischenpunkte des Apple Pencil (240 Hz)
-    // → deutlich glattere Linien ohne Haken bei schnellen Bewegungen
+    // All coalesced points (Apple Pencil up to 240Hz) → ONE path → ONE stroke()
+    // Calling stroke() per-point was flushing the GPU on every coalesced sample
     var evts = (e.getCoalescedEvents && e.getCoalescedEvents()) || [e];
+    ctx.beginPath();
+    ctx.moveTo(lastPos.x, lastPos.y);
     for (var i = 0; i < evts.length; i++) {
-      var p = getPos(evts[i]);
-      ctx.lineTo(p.x, p.y);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(p.x, p.y);
+      lastPos = getPos(evts[i]);
+      ctx.lineTo(lastPos.x, lastPos.y);
     }
+    ctx.stroke();
+    // Continue path from current tip for next event
+    ctx.beginPath();
+    ctx.moveTo(lastPos.x, lastPos.y);
   }
 
   function endDraw(e) {
