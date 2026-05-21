@@ -1582,7 +1582,15 @@ function showTab(id) {
   var map = {intro:0, themen:1, karten:2, aufgaben:3, altklausuren:4};
   if (map[id] !== undefined) btns[map[id]].classList.add('active');
   if (id === 'karten') renderFlashcard();
+  history.replaceState(null, '', '#' + id);
 }
+
+// ── HASH ROUTING — open tab from URL hash ──────────────────
+(function() {
+  var hash = location.hash.replace('#', '');
+  var valid = {intro:1, themen:1, karten:1, aufgaben:1, altklausuren:1};
+  if (hash && valid[hash]) showTab(hash);
+})();
 
 // ── DARK MODE ──────────────────────────────────────────────
 (function() {
