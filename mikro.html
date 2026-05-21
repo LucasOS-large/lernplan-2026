@@ -1384,21 +1384,7 @@ function initCanvas(id) {
     };
   }
 
-  function startDraw(e) {
-    // ── PALM REJECTION: nur Apple Pencil (pen) und Maus (mouse) erlaubt ──
-    if (e.pointerType === 'touch') return;
-    e.preventDefault();
-    drawing = true;
-    saveSnap();
-    try { canvas.setPointerCapture(e.pointerId); } catch(x) {}
-    var p = getPos(e);
-    ctx.beginPath();
-    ctx.moveTo(p.x, p.y);
-  }
-  function doDraw(e) {
-    if (!drawing || e.pointerType === 'touch') return;
-    e.preventDefault();
-    var p = getPos(e);
+  function applyStyle() {
     if (canvas._tool === 'eraser') {
       ctx.globalCompositeOperation = 'source-over';
       ctx.globalAlpha = 1.0;
@@ -1415,16 +1401,44 @@ function initCanvas(id) {
       ctx.strokeStyle = canvas._color;
       ctx.lineWidth = canvas._size;
     }
-    ctx.lineTo(p.x, p.y);
-    ctx.stroke();
+  }
+
+  function startDraw(e) {
+    // ── PALM REJECTION: nur Apple Pencil (pen) und Maus (mouse) erlaubt ──
+    if (e.pointerType === 'touch') return;
+    e.preventDefault();
+    drawing = true;
+    // NOTE: saveSnap() moved to endDraw — getImageData() blockiert GPU→CPU
+    // und verursacht Lag am Strich-Anfang. Snapshot nach Strich-Ende ist schnell genug.
+    try { canvas.setPointerCapture(e.pointerId); } catch(x) {}
+    applyStyle();
+    var p = getPos(e);
     ctx.beginPath();
     ctx.moveTo(p.x, p.y);
   }
+
+  function doDraw(e) {
+    if (!drawing || e.pointerType === 'touch') return;
+    e.preventDefault();
+    // getCoalescedEvents() liefert alle Zwischenpunkte des Apple Pencil (240 Hz)
+    // → deutlich glattere Linien ohne Haken bei schnellen Bewegungen
+    var evts = (e.getCoalescedEvents && e.getCoalescedEvents()) || [e];
+    for (var i = 0; i < evts.length; i++) {
+      var p = getPos(evts[i]);
+      ctx.lineTo(p.x, p.y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
+    }
+  }
+
   function endDraw(e) {
     if (!drawing) return;
     drawing = false;
     ctx.globalAlpha = 1.0;
     ctx.globalCompositeOperation = 'source-over';
+    // Snapshot NACH dem Strich speichern — kein Lag mehr am Strich-Anfang
+    saveSnap();
   }
 
   // Pointer Events API — handles Pencil, Mouse, and rejects Touch
