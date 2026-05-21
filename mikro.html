@@ -98,21 +98,28 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
 .aufg-head { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
 .aufg-head h3 { font-size: 14px; font-weight: 700; }
 .aufg-tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; background: var(--accent-soft); color: var(--accent); }
-.aufg-body { padding: 14px 18px; }
-.aufg-body p { font-size: 14px; margin-bottom: 10px; }
-.canvas-wrap { position: relative; border: 2px solid var(--border); border-radius: 10px; overflow: hidden; background: white; touch-action: none; }
+.aufg-body { padding: 14px 0; }
+.aufg-body p { font-size: 14px; margin-bottom: 10px; padding: 0 18px; }
+.canvas-wrap { position: relative; border: 2px solid var(--border); border-radius: 0; overflow: hidden; background: white; touch-action: none; }
 .canvas-wrap canvas { display: block; width: 100%; cursor: crosshair; touch-action: none; }
-.canvas-toolbar { display: flex; gap: 8px; padding: 8px; background: var(--code-bg); border-top: 1px solid var(--border); flex-wrap: wrap; align-items: center; }
-.canvas-toolbar button { background: var(--card); border: 1px solid var(--border); border-radius: 7px; padding: 5px 12px; font-size: 12px; cursor: pointer; color: var(--ink); }
+.canvas-toolbar { display: flex; gap: 6px; padding: 8px 12px; background: var(--code-bg); border-top: 1px solid var(--border); flex-wrap: wrap; align-items: center; }
+.canvas-toolbar button { background: var(--card); border: 1px solid var(--border); border-radius: 7px; padding: 5px 11px; font-size: 12px; cursor: pointer; color: var(--ink); }
 .canvas-toolbar button:hover { background: var(--accent-soft); color: var(--accent); }
-.canvas-toolbar button.active { background: var(--accent); color: white; border-color: var(--accent); }
+.canvas-toolbar button.tool-active { background: var(--accent); color: white; border-color: var(--accent); }
+.canvas-toolbar button.eraser-btn { background: #fff8f0; border-color: #f59e0b; color: #92400e; }
+.canvas-toolbar button.eraser-btn.tool-active { background: #f59e0b; color: white; border-color: #f59e0b; }
+.canvas-toolbar button.undo-btn { background: var(--code-bg); }
 .color-swatch { width: 22px; height: 22px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; transition: transform 0.1s; }
 .color-swatch:hover, .color-swatch.active { border-color: var(--ink); transform: scale(1.15); }
 .pen-size { width: 70px; }
-.aufg-text { width: 100%; min-height: 80px; border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-size: 15px; font-family: inherit; background: var(--input-bg); color: var(--ink); resize: vertical; margin-top: 8px; }
-.aufg-save-btn { margin-top: 8px; background: var(--accent); color: white; border: none; border-radius: 8px; padding: 8px 18px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.aufg-text { display: block; width: 100%; min-height: 100px; border: none; border-top: 1px solid var(--border); border-radius: 0; padding: 12px 18px; font-size: 15px; font-family: inherit; background: var(--input-bg); color: var(--ink); resize: vertical; box-sizing: border-box; }
+.aufg-text:focus { outline: none; border-top-color: var(--accent); background: var(--card); }
+.aufg-save-row { padding: 8px 18px; display: flex; align-items: center; gap: 10px; }
+.aufg-body > .aufg-save-btn, .aufg-body > button.aufg-save-btn { margin: 8px 18px 4px; display: inline-block; }
+.aufg-body > .aufg-saved-note { margin-left: 18px; }
+.aufg-save-btn { background: var(--accent); color: white; border: none; border-radius: 8px; padding: 8px 18px; font-size: 13px; font-weight: 600; cursor: pointer; }
 .aufg-save-btn:hover { opacity: 0.88; }
-.aufg-saved-note { font-size: 12px; color: #059669; margin-top: 4px; display: none; }
+.aufg-saved-note { font-size: 12px; color: #059669; display: none; }
 
 /* AUFGABEN-SEKTIONEN */
 .aufg-section-label { font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin: 28px 0 10px; padding: 6px 12px; background: var(--accent-soft); border-radius: 6px; display: inline-block; }
@@ -128,7 +135,8 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
 .ak-question p { font-size: 14px; margin-bottom: 6px; font-weight: 600; }
 .ak-canvas-area { border: 2px solid var(--border); border-radius: 10px; overflow: hidden; background: white; touch-action: none; margin-bottom: 6px; }
 .ak-canvas-area canvas { display: block; width: 100%; cursor: crosshair; touch-action: none; }
-.ak-text { width: 100%; min-height: 70px; border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-size: 14px; font-family: inherit; background: var(--input-bg); color: var(--ink); resize: vertical; }
+.ak-text { display: block; width: 100%; min-height: 80px; border: none; border-top: 1px solid var(--border); border-radius: 0; padding: 12px 16px; font-size: 14px; font-family: inherit; background: var(--input-bg); color: var(--ink); resize: vertical; box-sizing: border-box; }
+.ak-text:focus { outline: none; background: var(--card); }
 .ak-toolbar { display: flex; gap: 6px; padding: 6px 8px; background: var(--code-bg); border-top: 1px solid var(--border); flex-wrap: wrap; }
 .ak-toolbar button { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; font-size: 11px; cursor: pointer; color: var(--ink); }
 .ak-toolbar button:hover { background: var(--accent-soft); color: var(--accent); }
@@ -540,8 +548,8 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
         <div class="canvas-wrap">
           <canvas id="canvas-ht1" height="320"></canvas>
           <div class="canvas-toolbar">
-            <button onclick="setTool('canvas-ht1','pen')">✏️ Stift</button>
-            <button onclick="setTool('canvas-ht1','highlight')">🖊 Marker</button>
+            <button onclick="setTool('canvas-ht1','pen')" data-tool="pen">✏️ Stift</button>
+            <button onclick="setTool('canvas-ht1','highlight')" data-tool="highlight"">🖊 Marker</button>
             <button onclick="setColor('canvas-ht1','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
             <button onclick="setColor('canvas-ht1','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
             <button onclick="setColor('canvas-ht1','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
@@ -551,8 +559,7 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
           </div>
         </div>
         <textarea class="aufg-text" id="txt-ht1" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
-        <button class="aufg-save-btn" onclick="saveAufgabe('ht1')">💾 Speichern</button>
-        <div class="aufg-saved-note" id="saved-ht1">✓ Gespeichert!</div>
+        <div class="aufg-save-row"><button class="aufg-save-btn" onclick="saveAufgabe('ht1')">💾 Speichern</button><span class="aufg-saved-note" id="saved-ht1">✓ Gespeichert!</span></div>
       </div>
     </div>
 
@@ -580,8 +587,7 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
           </div>
         </div>
         <textarea class="aufg-text" id="txt-ht2" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
-        <button class="aufg-save-btn" onclick="saveAufgabe('ht2')">💾 Speichern</button>
-        <div class="aufg-saved-note" id="saved-ht2">✓ Gespeichert!</div>
+        <div class="aufg-save-row"><button class="aufg-save-btn" onclick="saveAufgabe('ht2')">💾 Speichern</button><span class="aufg-saved-note" id="saved-ht2">✓ Gespeichert!</span></div>
       </div>
     </div>
 
@@ -1333,8 +1339,7 @@ function toggleVertiefung(header) {
 }
 
 
-// ── CANVAS (Aufgaben) ─────────────────────────────────────
-var canvasStates = {};
+// ── CANVAS ENGINE ─────────────────────────────────────────
 
 function initCanvas(id) {
   var canvas = document.getElementById(id);
@@ -1345,83 +1350,167 @@ function initCanvas(id) {
   canvas._tool = 'pen';
   canvas._color = '#000000';
   canvas._size = 4;
+  canvas._history = [];
   var ctx = canvas.getContext('2d');
   ctx.lineCap = 'round';
   ctx.lineJoin = 'round';
 
-  // Load saved (support both aufgaben key and ak key)
+  // White background (needed for eraser to work correctly)
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Load saved
   var savedKey = id.startsWith('canvas-') ? 'mikro_canvas_aufg_' + id.replace('canvas-','') : 'mikro_canvas_' + id;
   var saved = localStorage.getItem(savedKey);
   if (saved) { var img = new Image(); img.onload = function(){ ctx.drawImage(img,0,0); }; img.src = saved; }
 
-  var drawing = false, lastX, lastY;
+  var drawing = false;
+
+  function saveSnap() {
+    canvas._history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    if (canvas._history.length > 25) canvas._history.shift();
+  }
 
   function getPos(e) {
     var rect = canvas.getBoundingClientRect();
-    var scaleX = canvas.width / rect.width;
-    var scaleY = canvas.height / rect.height;
-    var src = e.touches ? e.touches[0] : e;
-    return { x: (src.clientX - rect.left) * scaleX, y: (src.clientY - rect.top) * scaleY };
+    return {
+      x: (e.clientX - rect.left) * (canvas.width / rect.width),
+      y: (e.clientY - rect.top)  * (canvas.height / rect.height)
+    };
   }
 
   function startDraw(e) {
-    if (e.touches && e.touches.length > 1) return;
+    // ── PALM REJECTION: nur Apple Pencil (pen) und Maus (mouse) erlaubt ──
+    if (e.pointerType === 'touch') return;
     e.preventDefault();
     drawing = true;
+    saveSnap();
+    try { canvas.setPointerCapture(e.pointerId); } catch(x) {}
     var p = getPos(e);
-    lastX = p.x; lastY = p.y;
     ctx.beginPath();
-    ctx.moveTo(lastX, lastY);
+    ctx.moveTo(p.x, p.y);
   }
   function doDraw(e) {
-    if (!drawing) return;
-    if (e.touches && e.touches.length > 1) return;
+    if (!drawing || e.pointerType === 'touch') return;
     e.preventDefault();
     var p = getPos(e);
-    ctx.globalAlpha = canvas._tool === 'highlight' ? 0.3 : 1.0;
-    ctx.strokeStyle = canvas._color;
-    ctx.lineWidth = canvas._tool === 'highlight' ? canvas._size * 4 : canvas._size;
+    if (canvas._tool === 'eraser') {
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.globalAlpha = 1.0;
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = canvas._size * 6;
+    } else if (canvas._tool === 'highlight') {
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.globalAlpha = 0.35;
+      ctx.strokeStyle = canvas._color;
+      ctx.lineWidth = canvas._size * 4;
+    } else {
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.globalAlpha = 1.0;
+      ctx.strokeStyle = canvas._color;
+      ctx.lineWidth = canvas._size;
+    }
     ctx.lineTo(p.x, p.y);
     ctx.stroke();
     ctx.beginPath();
     ctx.moveTo(p.x, p.y);
-    lastX = p.x; lastY = p.y;
   }
   function endDraw(e) {
     if (!drawing) return;
     drawing = false;
     ctx.globalAlpha = 1.0;
+    ctx.globalCompositeOperation = 'source-over';
   }
 
-  canvas.addEventListener('mousedown', startDraw);
-  canvas.addEventListener('mousemove', doDraw);
-  canvas.addEventListener('mouseup', endDraw);
-  canvas.addEventListener('mouseleave', endDraw);
-  canvas.addEventListener('touchstart', startDraw, {passive:false});
-  canvas.addEventListener('touchmove', doDraw, {passive:false});
-  canvas.addEventListener('touchend', endDraw);
+  // Pointer Events API — handles Pencil, Mouse, and rejects Touch
+  canvas.addEventListener('pointerdown',  startDraw);
+  canvas.addEventListener('pointermove',  doDraw);
+  canvas.addEventListener('pointerup',    endDraw);
+  canvas.addEventListener('pointerleave', endDraw);
+  canvas.addEventListener('pointercancel',endDraw);
+}
+
+function undoCanvas(id) {
+  var c = document.getElementById(id);
+  if (!c || !c._history || !c._history.length) return;
+  c.getContext('2d').putImageData(c._history.pop(), 0, 0);
 }
 
 function setTool(id, tool) {
   var c = document.getElementById(id);
   if (!c) return;
   c._tool = tool;
+  // Visual feedback: update active button in toolbar
+  var tb = c.closest ? c.closest('.canvas-wrap, .ak-canvas-area') : null;
+  if (!tb) { tb = c.parentElement; }
+  if (tb) {
+    tb.querySelectorAll('.canvas-toolbar button, .ak-toolbar button').forEach(function(b) {
+      b.classList.remove('tool-active');
+    });
+    // Find clicked button via data-tool attribute (set by enhanceToolbars)
+    var btn = tb.querySelector('[data-tool="'+tool+'"]');
+    if (btn) btn.classList.add('tool-active');
+  }
 }
 function setColor(id, color) {
-  var c = document.getElementById(id);
-  if (!c) return;
-  c._color = color;
+  var c = document.getElementById(id); if (!c) return; c._color = color;
 }
 function setSize(id, val) {
-  var c = document.getElementById(id);
-  if (!c) return;
-  c._size = parseInt(val);
+  var c = document.getElementById(id); if (!c) return; c._size = parseInt(val);
 }
 function clearCanvas(id) {
-  var c = document.getElementById(id);
-  if (!c) return;
-  c.getContext('2d').clearRect(0,0,c.width,c.height);
-  localStorage.removeItem('mikro_canvas_' + id);
+  var c = document.getElementById(id); if (!c) return;
+  if (c._history) {
+    c._history.push(c.getContext('2d').getImageData(0, 0, c.width, c.height));
+    if (c._history.length > 25) c._history.shift();
+  }
+  var ctx = c.getContext('2d');
+  ctx.clearRect(0, 0, c.width, c.height);
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, c.width, c.height);
+  var key = id.startsWith('canvas-') ? 'mikro_canvas_aufg_' + id.replace('canvas-','') : 'mikro_canvas_' + id;
+  localStorage.removeItem(key);
+}
+
+// ── TOOLBAR ENHANCEMENT ───────────────────────────────────
+// Automatically adds Eraser + Undo buttons to every canvas toolbar
+function enhanceToolbars() {
+  document.querySelectorAll('.canvas-toolbar, .ak-toolbar').forEach(function(tb) {
+    if (tb._enhanced) return;
+    tb._enhanced = true;
+    var area = tb.closest ? tb.closest('.canvas-wrap, .ak-canvas-area') : tb.parentElement;
+    if (!area) return;
+    var cv = area.querySelector('canvas');
+    if (!cv || !cv.id) return;
+    var cid = cv.id;
+
+    var erBtn = document.createElement('button');
+    erBtn.textContent = '◻ Radierer';
+    erBtn.className = 'eraser-btn';
+    erBtn.setAttribute('data-tool', 'eraser');
+    erBtn.onclick = function() { setTool(cid, 'eraser'); };
+
+    var undoBtn = document.createElement('button');
+    undoBtn.textContent = '↩';
+    undoBtn.title = 'Rückgängig';
+    undoBtn.className = 'undo-btn';
+    undoBtn.onclick = function() { undoCanvas(cid); };
+
+    // Insert before 🗑 Löschen (last button)
+    var btns = tb.querySelectorAll('button');
+    var lastBtn = btns[btns.length - 1];
+    if (lastBtn) {
+      tb.insertBefore(undoBtn, lastBtn);
+      tb.insertBefore(erBtn, undoBtn);
+    } else {
+      tb.appendChild(erBtn);
+      tb.appendChild(undoBtn);
+    }
+
+    // Mark pen-button as active by default
+    var penBtn = tb.querySelector('[data-tool="pen"]') || btns[0];
+    if (penBtn) penBtn.classList.add('tool-active');
+  });
 }
 
 function saveAufgabe(key) {
@@ -1471,9 +1560,9 @@ window.addEventListener('resize', initAllVisible);
 var _origShowTab = showTab;
 showTab = function(id) {
   _origShowTab(id);
-  setTimeout(initAllVisible, 50);
+  setTimeout(function(){ initAllVisible(); enhanceToolbars(); }, 50);
 };
-setTimeout(initAllVisible, 100);
+setTimeout(function(){ initAllVisible(); enhanceToolbars(); }, 100);
 </script>
 </body>
 </html>
