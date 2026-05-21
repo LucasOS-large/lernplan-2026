@@ -201,784 +201,207 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
      TAB 1 – MIKRO INTRO
 ══════════════════════════════════════════ -->
 <div class="view active" id="view-intro">
-  <div class="intro-hero">
-    <h2>Mikro in 10 Minuten</h2>
-    <p>Alle 9 Prüfungsthemen mit Beispielen, Graphiken und Vertiefungen – klick dich durch.</p>
+<style>
+.mi-wrap { max-width: 720px; margin: 0 auto; padding: 32px 24px 80px; }
+.mi-hero { background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%); border-radius: 14px; padding: 28px 32px; color: white; margin-bottom: 40px; }
+.mi-hero h2 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+.mi-hero p { opacity: 0.88; font-size: 14px; line-height: 1.6; }
+.mi-step { margin-bottom: 40px; }
+.mi-step-header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+.mi-step-num { background: var(--accent); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; flex-shrink: 0; }
+.mi-step-title { font-size: 19px; font-weight: 800; color: var(--ink); }
+.mi-step p { font-size: 15px; line-height: 1.75; color: var(--ink); margin-bottom: 12px; }
+.mi-step strong { color: var(--accent); }
+.mi-box { background: var(--code-bg); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 14px 0; font-size: 14px; line-height: 1.7; }
+.mi-box.green { border-left-color: #059669; background: #ecfdf5; }
+.mi-box.yellow { border-left-color: #d97706; background: #fffbeb; }
+[data-theme="dark"] .mi-box.green { background: #022c1c; }
+[data-theme="dark"] .mi-box.yellow { background: #271d00; }
+.mi-divider { border: none; border-top: 2px dashed var(--border); margin: 36px 0; }
+.mi-connector { text-align: center; color: var(--muted); font-size: 22px; margin: -20px 0; }
+.mi-visual { background: var(--code-bg); border-radius: 10px; padding: 14px; margin: 14px 0; display: flex; justify-content: center; }
+.mi-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+.mi-table th { background: var(--accent-soft); color: var(--accent); font-weight: 700; padding: 8px 12px; text-align: left; border: 1px solid var(--border); }
+.mi-table td { padding: 8px 12px; border: 1px solid var(--border); color: var(--ink); }
+.mi-table tr:nth-child(even) td { background: var(--code-bg); }
+.mi-summary { background: linear-gradient(135deg, #f0fdf4, #eff6ff); border: 1px solid #a7f3d0; border-radius: 12px; padding: 20px 24px; margin-top: 40px; }
+[data-theme="dark"] .mi-summary { background: #0a1f10; border-color: #1a4a2a; }
+.mi-summary h3 { font-size: 16px; font-weight: 800; margin-bottom: 12px; color: var(--ink); }
+.mi-summary ol { padding-left: 20px; }
+.mi-summary li { font-size: 14px; line-height: 1.8; color: var(--ink); }
+</style>
+<div class="mi-wrap">
+
+  <div class="mi-hero">
+    <h2>Mikro verstehen – von Grund auf</h2>
+    <p>Kein Vorwissen nötig. Jeder Schritt baut auf dem vorherigen auf. Am Ende weißt du, warum alle 9 Themen zusammengehören.</p>
   </div>
 
-  <!-- TOPIC 1: Lagrange -->
-  <div class="intro-topic" id="t1">
-    <div class="intro-topic-header" onclick="toggleIntro('t1')">
-      <div class="intro-topic-title">
-        <div class="intro-num">1</div>
-        Lagrange-Optimierung (Konsument)
-        <span class="intro-klausur-tag">🔥 Klausur</span>
-      </div>
-      <span class="intro-arrow">▼</span>
+  <!-- SCHRITT 1 -->
+  <div class="mi-step">
+    <div class="mi-step-header">
+      <div class="mi-step-num">1</div>
+      <div class="mi-step-title">Die eine Grundfrage der Mikroökonomik</div>
     </div>
-    <div class="intro-topic-body">
-      <p>Ein Konsument maximiert seinen Nutzen <strong>U(x₁,x₂)</strong> unter einer Budgetrestriktion <strong>p₁x₁ + p₂x₂ = m</strong>. Die Lagrange-Methode bildet eine Hilfsfunktion L, leitet sie nach allen Variablen ab und setzt die Ableitungen null.</p>
-      <div class="formula-box">
-L = U(x₁,x₂) − λ(p₁x₁ + p₂x₂ − m)
-
-∂L/∂x₁ = MU₁ − λp₁ = 0  →  MU₁/p₁ = λ
-∂L/∂x₂ = MU₂ − λp₂ = 0  →  MU₂/p₂ = λ
-∂L/∂λ  = p₁x₁ + p₂x₂ − m = 0
-
-Optimalbedingung: MU₁/MU₂ = p₁/p₂  (MRS = Preisverhältnis)
-      </div>
-      <p><strong>Zahlenbeispiel:</strong> U = x₁·x₂, p₁ = 4, p₂ = 2, m = 40</p>
-      <div class="formula-box">
-∂L/∂x₁ = x₂ − 4λ = 0  →  x₂ = 4λ
-∂L/∂x₂ = x₁ − 2λ = 0  →  x₁ = 2λ
-Budget: 4(2λ) + 2(4λ) = 40  →  16λ = 40  →  λ = 2.5
-→  x₁* = 5,  x₂* = 10,  U* = 50
-      </div>
-
-      <!-- SVG: Indifferenzkurve + Budgetgerade -->
-      <div class="graph-wrap">
-        <svg width="380" height="255" viewBox="0 0 380 255" font-family="inherit" font-size="12">
-          <!-- Achsen -->
-          <line x1="55" y1="15" x2="55" y2="235" stroke="currentColor" stroke-width="1.5"/>
-          <line x1="55" y1="235" x2="370" y2="235" stroke="currentColor" stroke-width="1.5"/>
-          <!-- Achsenbeschriftungen -->
-          <text x="370" y="248" text-anchor="middle">x₁</text>
-          <text x="30" y="18" text-anchor="middle">x₂</text>
-          <!-- Skalierung: x1 ∈ [0,18] → px 55..370, x2 ∈ [0,26] → px 235..15 -->
-          <!-- px = 55 + x1*(315/18); py = 235 - x2*(220/26) -->
-
-          <!-- Budgetgerade: x2 = (40-4x1)/2 = 20-2x1; x1∈[0,10] -->
-          <!-- x1=0 → px=55, py=235-20*(220/26)=235-169.2=65.8; x1=10 → px=55+10*17.5=230, py=235 -->
-          <line x1="55" y1="66" x2="230" y2="235" stroke="#7c3aed" stroke-width="2" stroke-dasharray="6,3"/>
-          <text x="240" y="238" fill="#7c3aed" font-size="11">Budgetgerade</text>
-
-          <!-- Indifferenzkurve U=50: x2=50/x1 -->
-          <!-- Punkte: x1=2→x2=25; x1=3→x2=16.7; x1=5→x2=10; x1=7→x2=7.14; x1=10→x2=5; x1=13→x2=3.85; x1=16→x2=3.1 -->
-          <!-- px=55+x1*17.5; py=235-x2*8.46 -->
-          <polyline points="
-            90,23
-            107.5,94.8
-            142.5,150.4
-            177.5,174.5
-            230,150.4
-            282.5,202.4
-            335,208.8
-          " fill="none" stroke="#10b981" stroke-width="2.5"/>
-          <!-- Korrigierte Kurve: x1=2→px=90,py=235-25*8.46=23.5; x1=3.5→px=116,py=235-14.3*8.46=114.4; x1=5→px=142.5,py=150.4; x1=7→px=177.5,py=174.5 -->
-          <!-- Zeichne nochmal korrekt -->
-          <polyline points="
-            90,23
-            116,114
-            142,150
-            178,175
-            230,193
-            283,203
-            335,209
-          " fill="none" stroke="#10b981" stroke-width="2.5"/>
-          <text x="338" y="207" fill="#10b981" font-size="11">U=50</text>
-
-          <!-- Optimalpunkt x1*=5, x2*=10 -->
-          <!-- px=55+5*17.5=142.5; py=235-10*8.46=150.4 -->
-          <circle cx="142" cy="150" r="5" fill="#7c3aed"/>
-          <text x="150" y="146" fill="#7c3aed" font-size="11" font-weight="700">x₁*=5, x₂*=10</text>
-
-          <!-- Tick marks -->
-          <line x1="142" y1="232" x2="142" y2="238" stroke="currentColor" stroke-width="1"/>
-          <text x="142" y="248" text-anchor="middle" font-size="10">5</text>
-          <line x1="52" y1="150" x2="58" y2="150" stroke="currentColor" stroke-width="1"/>
-          <text x="44" y="154" text-anchor="middle" font-size="10">10</text>
-        </svg>
-      </div>
-      <p class="graph-caption">Optimum: Tangentialpunkt von Budgetgerade (lila gestrichelt) und Indifferenzkurve U=50 (grün)</p>
-
-      <div class="vertiefung">
-        <div class="vertiefung-header" onclick="toggleVertiefung(this)">
-          🔍 Vertiefung: Was bedeutet λ? <span>▼</span>
-        </div>
-        <div class="vertiefung-body">
-          <p>λ = Grenznutzen des Einkommens. Im Beispiel ist λ = 2.5: Ein Euro mehr Budget erhöht den Nutzen um 2,5 Einheiten. Die Optimalbedingung MRS = p₁/p₂ sagt: Die Rate, mit der du bereit bist x₂ gegen x₁ zu tauschen, muss dem Markttauschverhältnis entsprechen. Sonst kannst du dich durch Umschichten noch verbessern.</p>
-        </div>
-      </div>
+    <p>Stell dir vor, du hast <strong>20 €</strong> und willst Pizza und Kino. Beides zusammen kostet 30 €. Du musst wählen – denn dein Geld ist <strong>knapp</strong>.</p>
+    <p>Genau das untersucht Mikroökonomik: <strong>Wie treffen Menschen und Unternehmen Entscheidungen, wenn sie nicht alles haben können?</strong></p>
+    <div class="mi-box">
+      <strong>Knappheit</strong> = Es gibt mehr Wünsche als Ressourcen (Geld, Zeit, Rohstoffe).<br>
+      Knappheit zwingt uns zu Entscheidungen. Jede Entscheidung hat einen <strong>Preis</strong> – nämlich das, worauf du verzichtest.
     </div>
+    <p>Dieser Verzicht heißt <strong>Opportunitätskosten</strong>: Wenn du ins Kino gehst, sind die Opportunitätskosten die Pizza, die du dir nicht kaufen konntest.</p>
   </div>
 
-  <!-- TOPIC 2: Einkommens-/Substitutionseffekt -->
-  <div class="intro-topic" id="t2">
-    <div class="intro-topic-header" onclick="toggleIntro('t2')">
-      <div class="intro-topic-title">
-        <div class="intro-num">2</div>
-        Einkommens- &amp; Substitutionseffekt
-        <span class="intro-klausur-tag">🔥 Klausur</span>
-      </div>
-      <span class="intro-arrow">▼</span>
+  <div class="mi-connector">↓</div>
+
+  <!-- SCHRITT 2 -->
+  <div class="mi-step">
+    <div class="mi-step-header">
+      <div class="mi-step-num">2</div>
+      <div class="mi-step-title">Der Konsument: Was will er, was kann er?</div>
     </div>
-    <div class="intro-topic-body">
-      <p>Sinkt p₁, kauft der Konsument mehr x₁ – aus zwei Gründen: <strong>Substitutionseffekt (SE)</strong>: x₁ ist relativ billiger geworden → man substituiert x₂ durch x₁ (Bewegung entlang derselben Indifferenzkurve). <strong>Einkommenseffekt (EE)</strong>: Das Realeinkommen ist gestiegen → man kauft mehr von allem (Normalfall).</p>
-      <div class="formula-box">
-Slutsky-Zerlegung:  Δx₁(gesamt) = SE + EE
-SE (Hicks): Entlang U=const, Preis ändert sich
-EE: Einkommensgerade verschiebt sich parallel
-      </div>
-      <p><strong>Giffen-Gut:</strong> EE ist negativ und überwiegt SE → Preis sinkt, Nachfrage sinkt.</p>
+    <p>Mikroökonomik teilt jede Entscheidung in zwei Teile:</p>
+    <div class="mi-box">
+      <strong>Was will ich?</strong> → Präferenzen / Nutzen (Utility)<br>
+      <strong>Was kann ich?</strong> → Budget / Einschränkung (Constraint)
+    </div>
+    <p><strong>Nutzen</strong> ist einfach ein Maß dafür, wie glücklich dich eine Kombination von Gütern macht. Mehr Pizza und mehr Kino = mehr Nutzen. Aber irgendwann wird jede zusätzliche Einheit weniger wertvoll – das nennt sich <strong>abnehmender Grenznutzen</strong>.</p>
+    <p><strong>Das Budget</strong> begrenzt, was du kaufen kannst: p₁·x₁ + p₂·x₂ = m. Du kannst genau so viel ausgeben wie du hast – nicht mehr, nicht weniger (im Optimum).</p>
+    <div class="mi-visual">
+      <svg width="320" height="200" viewBox="0 0 320 200" font-family="inherit" font-size="12">
+        <!-- Achsen -->
+        <line x1="40" y1="10" x2="40" y2="175" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="40" y1="175" x2="305" y2="175" stroke="currentColor" stroke-width="1.5"/>
+        <text x="305" y="188">Pizza</text>
+        <text x="18" y="14">Kino</text>
+        <!-- Budgetgerade -->
+        <line x1="40" y1="30" x2="240" y2="175" stroke="#7c3aed" stroke-width="2.5"/>
+        <text x="242" y="173" fill="#7c3aed" font-size="11">Budget</text>
+        <!-- Indifferenzkurve -->
+        <polyline points="65,22 90,65 120,100 155,130 200,153 250,165" fill="none" stroke="#10b981" stroke-width="2.5"/>
+        <text x="252" y="163" fill="#10b981" font-size="11">Nutzen</text>
+        <!-- Tangentialpunkt -->
+        <circle cx="130" cy="103" r="5" fill="#7c3aed"/>
+        <text x="138" y="99" fill="#7c3aed" font-size="11" font-weight="700">Optimum</text>
+        <!-- Hilflinien -->
+        <line x1="130" y1="103" x2="130" y2="175" stroke="#999" stroke-width="1" stroke-dasharray="4,3"/>
+        <line x1="40" y1="103" x2="130" y2="103" stroke="#999" stroke-width="1" stroke-dasharray="4,3"/>
+      </svg>
+    </div>
+    <p>Das <strong>Optimum</strong> ist der Punkt, wo Nutzen und Budget sich berühren – wo du das Maximum aus deinem Budget herausholst. Mathematisch löst man das mit <strong>Lagrange</strong> (Thema 1 in den Vertiefungen).</p>
+  </div>
 
-      <!-- SVG: SE/EE Diagramm -->
-      <div class="graph-wrap">
-        <svg width="380" height="255" viewBox="0 0 380 255" font-family="inherit" font-size="11">
-          <line x1="45" y1="15" x2="45" y2="235" stroke="currentColor" stroke-width="1.5"/>
-          <line x1="45" y1="235" x2="370" y2="235" stroke="currentColor" stroke-width="1.5"/>
-          <text x="370" y="248">x₁</text>
-          <text x="22" y="18">x₂</text>
+  <div class="mi-connector">↓</div>
 
-          <!-- Alte Budgetgerade BG1 -->
-          <line x1="45" y1="50" x2="200" y2="235" stroke="#999" stroke-width="1.5" stroke-dasharray="5,3"/>
-          <text x="205" y="232" fill="#999" font-size="10">BG₁</text>
+  <!-- SCHRITT 3 -->
+  <div class="mi-step">
+    <div class="mi-step-header">
+      <div class="mi-step-num">3</div>
+      <div class="mi-step-title">Was passiert, wenn sich der Preis ändert?</div>
+    </div>
+    <p>Pizza wird billiger. Du kaufst mehr Pizza. Aber warum genau? Es gibt <strong>zwei Gründe gleichzeitig</strong>:</p>
+    <div class="mi-box">
+      <strong>Substitutionseffekt:</strong> Pizza ist im Vergleich zu Kino günstiger geworden → du tauschst Kino gegen Pizza (du bleibst auf dem gleichen Nutzenniveau).<br><br>
+      <strong>Einkommenseffekt:</strong> Weil Pizza billiger ist, hast du effektiv mehr Kaufkraft → du kaufst von allem mehr.
+    </div>
+    <p>Beide Effekte passieren gleichzeitig. Die <strong>Slutsky-Zerlegung</strong> trennt sie mathematisch. Bei normalen Gütern zeigen beide in die gleiche Richtung. Beim seltenen <strong>Giffen-Gut</strong> überwiegt der Einkommenseffekt – und du kaufst weniger, obwohl der Preis gesunken ist.</p>
+  </div>
 
-          <!-- Hilfsgerade (Slutsky) -->
-          <line x1="45" y1="80" x2="280" y2="235" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,3"/>
-          <text x="283" y="232" fill="#f59e0b" font-size="10">BG*</text>
+  <div class="mi-connector">↓</div>
 
-          <!-- Neue Budgetgerade BG2 -->
-          <line x1="45" y1="80" x2="350" y2="235" stroke="#7c3aed" stroke-width="2"/>
-          <text x="352" y="232" fill="#7c3aed" font-size="10">BG₂</text>
-
-          <!-- IC1 -->
-          <polyline points="90,30 110,80 140,120 180,155 230,175 290,190 350,198" fill="none" stroke="#10b981" stroke-width="2"/>
-          <text x="352" y="196" fill="#10b981" font-size="10">U₁</text>
-
-          <!-- IC2 -->
-          <polyline points="110,30 130,75 165,110 205,140 255,160 315,172 370,178" fill="none" stroke="#3b82f6" stroke-width="2"/>
-          <text x="372" y="176" fill="#3b82f6" font-size="10">U₂</text>
-
-          <!-- Punkte A, B, C -->
-          <circle cx="140" cy="120" r="5" fill="#999"/>
-          <text x="130" y="115" fill="#555" font-weight="700">A</text>
-
-          <circle cx="210" cy="155" r="5" fill="#f59e0b"/>
-          <text x="215" y="150" fill="#f59e0b" font-weight="700">B</text>
-
-          <circle cx="255" cy="155" r="5" fill="#7c3aed"/>
-          <text x="258" y="148" fill="#7c3aed" font-weight="700">C</text>
-
-          <!-- Arrows SE / EE -->
-          <line x1="140" y1="225" x2="210" y2="225" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr)"/>
-          <text x="168" y="220" fill="#f59e0b" font-size="10">SE</text>
-          <line x1="210" y1="225" x2="255" y2="225" stroke="#7c3aed" stroke-width="2"/>
-          <text x="228" y="220" fill="#7c3aed" font-size="10">EE</text>
-          <line x1="140" y1="242" x2="255" y2="242" stroke="#555" stroke-width="1.5" stroke-dasharray="3,2"/>
-          <text x="192" y="252" fill="#555" font-size="10">Gesamt</text>
-        </svg>
-      </div>
-      <p class="graph-caption">A→B = Substitutionseffekt (entlang U₁); B→C = Einkommenseffekt (zu U₂)</p>
-
-      <div class="vertiefung">
-        <div class="vertiefung-header" onclick="toggleVertiefung(this)">
-          🔍 Vertiefung: Rechenweg Slutsky-Zerlegung <span>▼</span>
-        </div>
-        <div class="vertiefung-body">
-          <p>1. Altes Optimum A bei Preisen (p₁, p₂), Budget m ermitteln.<br>
-          2. Slutsky-Budget berechnen: m* = m + x₁_A·Δp₁ (damit man sich A noch leisten kann).<br>
-          3. Optimum B bei neuen Preisen (p₁', p₂) und Budget m* → SE = x₁_B − x₁_A.<br>
-          4. Optimum C bei neuen Preisen (p₁', p₂) und altem Budget m → EE = x₁_C − x₁_B.</p>
-        </div>
-      </div>
+  <!-- SCHRITT 4 -->
+  <div class="mi-step">
+    <div class="mi-step-header">
+      <div class="mi-step-num">4</div>
+      <div class="mi-step-title">Das Unternehmen: Wie wird produziert?</div>
+    </div>
+    <p>Auf der anderen Seite des Marktes steht das <strong>Unternehmen</strong>. Es kombiniert <strong>Arbeit (L)</strong> und <strong>Kapital (K)</strong> um ein Gut herzustellen. Das beschreibt die <strong>Produktionsfunktion</strong>.</p>
+    <div class="mi-box">
+      <strong>Cobb-Douglas:</strong> Q = A · Lᵅ · Kᵝ<br><br>
+      Wenn du beide Inputs verdoppelst, was passiert mit der Menge?<br>
+      – h = α+β &lt; 1: Menge steigt weniger als doppelt (abnehmende Skalenerträge)<br>
+      – h = 1: Menge verdoppelt sich exakt (konstante Skalenerträge)<br>
+      – h &gt; 1: Menge mehr als verdoppelt (zunehmende Skalenerträge)
+    </div>
+    <p>Das Unternehmen will <strong>Gewinn maximieren</strong>: Erlös minus Kosten. Der Gewinn ist maximal, wenn der <strong>Grenzerlös (MR) gleich den Grenzkosten (MC)</strong> ist – denn jede weitere Einheit lohnt sich genau bis zu diesem Punkt.</p>
+    <div class="mi-box green">
+      <strong>Grundregel der Produktion:</strong> Produziere solange, bis die letzte Einheit genau so viel einbringt, wie sie kostet.<br>
+      MR = MC → Gewinnmaximum ✓
     </div>
   </div>
 
-  <!-- TOPIC 3: Doppeltgeknickte Preisabsatzkurve (Gutenberg) -->
-  <div class="intro-topic" id="t3">
-    <div class="intro-topic-header" onclick="toggleIntro('t3')">
-      <div class="intro-topic-title">
-        <div class="intro-num">3</div>
-        Doppeltgeknickte PAF (Gutenberg)
-        <span class="intro-klausur-tag">🔥 Klausur</span>
-      </div>
-      <span class="intro-arrow">▼</span>
+  <div class="mi-connector">↓</div>
+
+  <!-- SCHRITT 5 -->
+  <div class="mi-step">
+    <div class="mi-step-header">
+      <div class="mi-step-num">5</div>
+      <div class="mi-step-title">Der Markt: Wie treffen Angebot und Nachfrage aufeinander?</div>
     </div>
-    <div class="intro-topic-body">
-      <p>Gutenberg beschreibt einen Markt mit heterogenen Gütern. Die Preisabsatzkurve (PAF) ist doppelt geknickt: Bei kleinen Preisänderungen reagieren nur wenige Kunden (Stammkunden, inelastisch). Wird der Preis aber zu weit erhöht/gesenkt, reagieren Kunden abrupt (Markentreue bricht, monopolistischer Bereich endet).</p>
-      <div class="formula-box">
-Drei Bereiche:
-  p &gt; p_o  →  hoch elastisch (Kunden wandern massiv ab)
-  p_u ≤ p ≤ p_o  →  niedrig elastisch (Monopolzone)
-  p &lt; p_u  →  hoch elastisch (Konkurrenz verliert Kunden)
-      </div>
-
-      <div class="graph-wrap">
-        <svg width="380" height="255" viewBox="0 0 380 255" font-family="inherit" font-size="11">
-          <line x1="50" y1="15" x2="50" y2="235" stroke="currentColor" stroke-width="1.5"/>
-          <line x1="50" y1="235" x2="370" y2="235" stroke="currentColor" stroke-width="1.5"/>
-          <text x="370" y="248">Menge q</text>
-          <text x="22" y="18">Preis p</text>
-
-          <!-- PAF: steil oben (p>po), flach mitte, steil unten -->
-          <!-- Knickpunkte: A(80,55), B(160,105), C(200,130), D(300,165) -->
-          <!-- oben steil: (50,35)→(80,55) -->
-          <!-- mitte flach: (80,55)→(200,130) -->
-          <!-- wait: Gutenberg PAF geht von oben links nach unten rechts, Knick bei po und pu -->
-          <!-- Sektion 1 (sehr steil, hohe p): (60,25)→(90,75) -->
-          <!-- Sektion 2 (flach, monopolzone): (90,75)→(250,140) -->
-          <!-- Sektion 3 (sehr steil, niedrige p): (250,140)→(290,195) -->
-          <polyline points="60,25 90,75 250,140 290,195" fill="none" stroke="#7c3aed" stroke-width="2.5"/>
-
-          <!-- Knickpunkte -->
-          <circle cx="90" cy="75" r="4" fill="#c0392b"/>
-          <text x="95" y="72" fill="#c0392b">p_o (obere Grenze)</text>
-          <circle cx="250" cy="140" r="4" fill="#c0392b"/>
-          <text x="255" y="137" fill="#c0392b">p_u (untere Grenze)</text>
-
-          <!-- Monopolzone -->
-          <rect x="90" y="75" width="160" height="65" fill="rgba(124,58,237,0.07)" stroke="none"/>
-          <text x="150" y="115" fill="#7c3aed" font-size="10" text-anchor="middle">Monopolzone</text>
-
-          <!-- PAF Label -->
-          <text x="295" y="193" fill="#7c3aed">PAF</text>
-        </svg>
-      </div>
-      <p class="graph-caption">Doppelter Knick bei p_o und p_u; zwischen den Knickpunkten reagiert die Nachfrage kaum auf Preisänderungen.</p>
-
-      <div class="vertiefung">
-        <div class="vertiefung-header" onclick="toggleVertiefung(this)">
-          🔍 Vertiefung: Optimale Preisstrategie <span>▼</span>
-        </div>
-        <div class="vertiefung-body">
-          <p>Das Unternehmen setzt den Preis im flachen (inelastischen) Bereich. Die Gewinnmaximierung MR=MC muss innerhalb dieses Bereichs liegen. Wenn MC steigt/fällt, bleibt der Preis stabil – solange MC den Sprung im Grenzerlös nicht überschreitet. Das erklärt Preisrigidität in oligopolistischen Märkten.</p>
-        </div>
-      </div>
-    </div>
+    <p>Aus den Entscheidungen vieler Konsumenten entsteht die <strong>Nachfragekurve</strong> (je höher der Preis, desto weniger wird nachgefragt). Aus den Entscheidungen der Unternehmen entsteht die <strong>Angebotskurve</strong>.</p>
+    <p>Der Markt findet das <strong>Gleichgewicht</strong> dort, wo Angebot = Nachfrage. Zu diesem Preis gibt es weder Überangebot noch Nachfrageüberhang.</p>
+    <p>Jetzt kommt die entscheidende Frage: <strong>Wie viel Marktmacht hat der Anbieter?</strong></p>
+    <table class="mi-table">
+      <tr><th>Marktform</th><th>Anbieter</th><th>Preis</th><th>Wohlfahrt</th></tr>
+      <tr><td><strong>Polypol</strong></td><td>Sehr viele</td><td>P = MC</td><td>Maximum ✓</td></tr>
+      <tr><td><strong>Oligopol</strong></td><td>Wenige</td><td>P &gt; MC</td><td>Teilweise Verlust</td></tr>
+      <tr><td><strong>Monopol</strong></td><td>Einer</td><td>P ≫ MC</td><td>DWL ✗</td></tr>
+    </table>
+    <p>Im <strong>Monopol</strong> produziert das Unternehmen zu wenig und verlangt zu viel. Die Differenz zwischen dem, was wäre, und dem, was ist, heißt <strong>Deadweight Loss (DWL)</strong> – ein echter gesellschaftlicher Wohlfahrtsverlust.</p>
   </div>
 
-  <!-- TOPIC 4: Cobb-Douglas / Skalenerträge -->
-  <div class="intro-topic" id="t4">
-    <div class="intro-topic-header" onclick="toggleIntro('t4')">
-      <div class="intro-topic-title">
-        <div class="intro-num">4</div>
-        Cobb-Douglas, Homogenität &amp; Skalenerträge
-        <span class="intro-klausur-tag">🔥 Klausur</span>
-      </div>
-      <span class="intro-arrow">▼</span>
+  <div class="mi-connector">↓</div>
+
+  <!-- SCHRITT 6 -->
+  <div class="mi-step">
+    <div class="mi-step-header">
+      <div class="mi-step-num">6</div>
+      <div class="mi-step-title">Oligopol: Wenn es nur wenige Anbieter gibt</div>
     </div>
-    <div class="intro-topic-body">
-      <p><strong>Cobb-Douglas Produktionsfunktion:</strong> Q = A·Lᵅ·Kᵝ. Eigenschaften werden durch α und β bestimmt.</p>
-      <div class="formula-box">
-Q = 2·L^0.6 · K^0.4
-
-Homogenitätsgrad h = α + β = 0.6 + 0.4 = 1  →  konstante Skalenerträge
-
-f(tL, tK) = 2·(tL)^0.6·(tK)^0.4 = 2·t^0.6·t^0.4·L^0.6·K^0.4 = t¹·Q
-→ Verdopplung der Inputs → Verdopplung des Outputs
-
-MRTS = -ΔK/ΔL = (α/β)·(K/L) = (0.6/0.4)·(K/L) = 1.5·(K/L)
-      </div>
-      <p>Skalenerträge: h &lt; 1 = abnehmend, h = 1 = konstant, h &gt; 1 = zunehmend.</p>
-
-      <!-- SVG: Isoquanten -->
-      <div class="graph-wrap">
-        <svg width="380" height="255" viewBox="0 0 380 255" font-family="inherit" font-size="11">
-          <line x1="50" y1="15" x2="50" y2="235" stroke="currentColor" stroke-width="1.5"/>
-          <line x1="50" y1="235" x2="370" y2="235" stroke="currentColor" stroke-width="1.5"/>
-          <text x="370" y="248">L</text>
-          <text x="28" y="18">K</text>
-
-          <!-- Isoquante Q=2: L^0.6 K^0.4=1 → K=(1/L^1.5) -->
-          <!-- Skalierung: L∈[0,16]→px 50..370 (Δ=320/16=20px/unit), K∈[0,20]→py 235..15 (Δ=220/20=11px/unit) -->
-          <!-- Q=2: A=2, so Q=2·L^0.6·K^0.4=2 → L^0.6·K^0.4=1 → K=L^(-1.5) -->
-          <!-- L=1→K=1→px=70,py=224; L=2→K=0.354→px=90,py=231; L=0.5→K=2.83→px=60,py=204 -->
-          <!-- Hmm, these values seem off. Let me recalculate. -->
-          <!-- Q=2·L^0.6·K^0.4=2 → L^0.6·K^0.4=1 → K^0.4=L^-0.6 → K=L^(-0.6/0.4)=L^(-1.5) -->
-          <!-- L=0.3→K=0.3^(-1.5)=6.09; L=0.5→K=2.83; L=1→K=1; L=2→K=0.354; L=4→K=0.125 -->
-          <!-- px = 50+L*20; py = 235-K*11 -->
-          <!-- L=0.3→px=56,py=235-67=168; L=0.5→px=60,py=235-31=204; L=1→px=70,py=224; L=2→px=90,py=231; L=4→px=130,py=234 -->
-          <!-- These isoquants are very flat. Let me use a different scale. -->
-          <!-- Scale: L∈[0,8], K∈[0,10] → px=50+L*40, py=235-K*22 -->
-          <!-- Q=2 (=2·L^0.6·K^0.4): K=L^(-1.5) -->
-          <!-- L=0.25→K=8→px=60,py=235-176=59; L=0.5→K=2.83→px=70,py=235-62=173; L=1→K=1→px=90,py=213; L=2→K=0.354→px=130,py=227; L=4→K=0.125→px=210,py=232 -->
-          <polyline points="60,59 70,173 90,213 130,227 210,232" fill="none" stroke="#7c3aed" stroke-width="2"/>
-          <text x="212" y="230" fill="#7c3aed" font-size="10">Q=2</text>
-
-          <!-- Q=4: K=L^(-1.5)·(2)^(1/0.4)/... wait -->
-          <!-- Q=2·L^0.6·K^0.4=4 → L^0.6·K^0.4=2 → K^0.4=2·L^(-0.6) → K=(2·L^(-0.6))^(1/0.4)=2^2.5·L^(-1.5)=5.657·L^(-1.5) -->
-          <!-- L=0.5→K=5.657*2.83=16 (too high); L=1→K=5.657; L=2→K=2; L=4→K=0.707; L=6→K=0.387 -->
-          <!-- px=50+L*40, py=235-K*22 -->
-          <!-- L=1→px=90,py=235-124=111; L=2→px=130,py=235-44=191; L=4→px=210,py=235-15.5=219; L=6→px=290,py=226.5 -->
-          <polyline points="90,111 130,191 210,219 290,227" fill="none" stroke="#3b82f6" stroke-width="2"/>
-          <text x="292" y="225" fill="#3b82f6" font-size="10">Q=4</text>
-
-          <!-- Q=6 -->
-          <!-- K=(3)^2.5·L^(-1.5)=15.59·L^(-1.5) -->
-          <!-- L=2→K=5.51→px=130,py=235-121=114; L=4→K=1.95→px=210,py=235-43=192; L=6→K=1.063→px=290,py=235-23=212 -->
-          <polyline points="130,114 210,192 290,212 350,220" fill="none" stroke="#10b981" stroke-width="2"/>
-          <text x="352" y="218" fill="#10b981" font-size="10">Q=6</text>
-
-          <!-- Scale labels -->
-          <text x="90" y="248" text-anchor="middle">1</text>
-          <text x="130" y="248" text-anchor="middle">2</text>
-          <text x="210" y="248" text-anchor="middle">4</text>
-          <text x="290" y="248" text-anchor="middle">6</text>
-          <text x="44" y="213" text-anchor="end">1</text>
-          <text x="44" y="191" text-anchor="end">2</text>
-          <text x="44" y="111" text-anchor="end">5</text>
-          <text x="44" y="59" text-anchor="end">8</text>
-        </svg>
-      </div>
-      <p class="graph-caption">Isoquanten Q=2/4/6 für Q=2·L^0.6·K^0.4. Gleichmäßige Abstände = konstante Skalenerträge (h=1).</p>
-
-      <div class="vertiefung">
-        <div class="vertiefung-header" onclick="toggleVertiefung(this)">
-          🔍 Vertiefung: MRTS und optimale Inputkombination <span>▼</span>
-        </div>
-        <div class="vertiefung-body">
-          <p>MRTS = Grenzrate der technischen Substitution = Steigung der Isoquante = MP_L/MP_K.<br>
-          Bei Cobb-Douglas: MRTS = (α·Q/L) / (β·Q/K) = (α/β)·(K/L).<br>
-          Optimale Inputkombination wenn MRTS = w/r (Inputpreisratio). Dann: (α/β)·(K/L) = w/r → K/L = (β·w)/(α·r).</p>
-        </div>
-      </div>
+    <p>Zwischen Monopol und Polypol liegt das <strong>Oligopol</strong> – ein Markt mit wenigen Anbietern, die sich gegenseitig beobachten. Das führt zu interessantem strategischen Verhalten:</p>
+    <div class="mi-box">
+      <strong>Sweezy-Modell:</strong> Erhöhe ich meinen Preis, machen die anderen nicht mit → ich verliere viele Kunden (elastisch). Senke ich ihn, ziehen alle mit → kaum Gewinn (auch elastisch). → Die Nachfragekurve hat einen <strong>Knick</strong> am aktuellen Preis → der Preis bleibt stabil.<br><br>
+      <strong>Gutenberg-PAF:</strong> In der Monopolzone reagieren Stammkunden kaum auf Preisänderungen → der Unternehmer hat Spielraum.
     </div>
+    <p>Im <strong>Chamberlin-Modell</strong> (monopolistische Konkurrenz) gibt es viele Anbieter mit ähnlichen, aber differenzierten Produkten. Kurzfristig können sie Gewinn machen. Langfristig treten neue Anbieter ein → Gewinne verschwinden → <strong>P = AC</strong>.</p>
   </div>
 
-  <!-- TOPIC 5: Sweezy-Modell -->
-  <div class="intro-topic" id="t5">
-    <div class="intro-topic-header" onclick="toggleIntro('t5')">
-      <div class="intro-topic-title">
-        <div class="intro-num">5</div>
-        Sweezy-Modell (Geknickte Nachfrage)
-        <span class="intro-klausur-tag">🔥 Klausur</span>
-      </div>
-      <span class="intro-arrow">▼</span>
+  <div class="mi-connector">↓</div>
+
+  <!-- SCHRITT 7 -->
+  <div class="mi-step">
+    <div class="mi-step-header">
+      <div class="mi-step-num">7</div>
+      <div class="mi-step-title">Marktversagen: Wenn Märkte alleine versagen</div>
     </div>
-    <div class="intro-topic-body">
-      <p>Im Oligopol: Erhöht ein Anbieter den Preis, folgen die Konkurrenten <strong>nicht</strong> (Kunden wandern ab). Senkt er ihn, folgen alle (Preiskampf). → Die Nachfragekurve hat einen Knick am aktuellen Preis P₀.</p>
-      <div class="formula-box">
-Beispiel: P₀=30, Q₀=50
-Obere Nachfrage (konkurrenten folgen nicht):  P = 50 − 0.4Q  →  MR_o = 50 − 0.8Q
-Untere Nachfrage (alle senken):               P = 80 − Q    →  MR_u = 80 − 2Q
-Am Knick (Q=50): MR_o = 50−0.8·50 = 10;  MR_u = 80−2·50 = −20
-MC-Lücke: [−20, 10] → Preisrigiditätsbereich
-      </div>
-
-      <div class="graph-wrap">
-        <svg width="380" height="255" viewBox="0 0 380 255" font-family="inherit" font-size="11">
-          <line x1="50" y1="15" x2="50" y2="235" stroke="currentColor" stroke-width="1.5"/>
-          <line x1="50" y1="235" x2="370" y2="235" stroke="currentColor" stroke-width="1.5"/>
-          <text x="370" y="248">Q</text>
-          <text x="22" y="18">P</text>
-          <!-- Scale: Q∈[0,90]→px=50+Q*3.33; P∈[0,80]→py=235-P*2.75 -->
-
-          <!-- Obere Nachfrage: P=50-0.4Q für Q∈[0,50] -->
-          <!-- Q=0→P=50→px=50,py=235-137.5=97.5; Q=50→P=30→px=216.5,py=152.5 -->
-          <line x1="50" y1="97" x2="217" y2="152" stroke="#3b82f6" stroke-width="2"/>
-          <text x="52" y="93" fill="#3b82f6">D_o</text>
-
-          <!-- Untere Nachfrage: P=80-Q für Q≥50 -->
-          <!-- Q=50→P=30→px=217,py=152; Q=80→P=0→px=317,py=235 -->
-          <line x1="217" y1="152" x2="317" y2="235" stroke="#7c3aed" stroke-width="2"/>
-          <text x="318" y="233" fill="#7c3aed">D_u</text>
-
-          <!-- Knick -->
-          <circle cx="217" cy="152" r="5" fill="#c0392b"/>
-          <line x1="217" y1="152" x2="217" y2="235" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
-          <line x1="50" y1="152" x2="217" y2="152" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="220" y="148" fill="#c0392b" font-weight="700">Knick (Q=50,P=30)</text>
-
-          <!-- MR_o: MR=50-0.8Q für Q∈[0,50]: Q=0→MR=50→py=97; Q=50→MR=10→py=207 -->
-          <line x1="50" y1="97" x2="217" y2="207" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="5,3"/>
-
-          <!-- MR_u: MR=80-2Q für Q≥50: Q=50→MR=-20→py=235+55=290(off); Q=40→MR=0→px=183,py=235 -->
-          <!-- MR_u at Q=50: -20 (below axis); we show from Q=40 to Q=65 -->
-          <!-- Q=40→MR=0→px=183,py=235; Q=50→MR=-20 (below) → just show vertical gap -->
-          <line x1="50" y1="97" x2="217" y2="207" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="5,3"/>
-          <text x="130" y="200" fill="#3b82f6" font-size="10">MR_o</text>
-
-          <!-- MR Lücke (vertical at Q=50) -->
-          <line x1="217" y1="207" x2="217" y2="235" stroke="#c0392b" stroke-width="3"/>
-          <text x="220" y="225" fill="#c0392b" font-size="10">MC-Lücke</text>
-
-          <!-- MC Beispiel -->
-          <line x1="50" y1="180" x2="370" y2="180" stroke="#10b981" stroke-width="1.5" stroke-dasharray="6,3"/>
-          <text x="372" y="183" fill="#10b981">MC</text>
-
-          <!-- Tick labels -->
-          <text x="217" y="248" text-anchor="middle">50</text>
-          <text x="44" y="156" text-anchor="end">30</text>
-        </svg>
-      </div>
-      <p class="graph-caption">Geknickte Nachfrage bei Q₀=50, P₀=30. Der senkrechte Sprung im MR erklärt, warum der Preis stabil bleibt, selbst wenn MC schwankt.</p>
-
-      <div class="vertiefung">
-        <div class="vertiefung-header" onclick="toggleVertiefung(this)">
-          🔍 Vertiefung: Warum ist das ein Gleichgewicht? <span>▼</span>
-        </div>
-        <div class="vertiefung-body">
-          <p>Kein Anbieter hat einen Anreiz, vom Preis P₀ abzuweichen: Erhöht er ihn, verliert er Marktanteile ohne Gegenzug. Senkt er ihn, folgen alle → kein Marktanteilsgewinn, aber geringere Marge. Das Nash-Gleichgewicht liegt am Knickpunkt. Kritik: Das Modell erklärt Stabilität, aber nicht wie P₀ zustande kommt.</p>
-        </div>
-      </div>
+    <p>Manchmal funktionieren Märkte nicht optimal von alleine. Das wichtigste Beispiel: <strong>Externe Effekte</strong>.</p>
+    <div class="mi-box yellow">
+      Eine Fabrik produziert und verschmutzt dabei den Fluss. Die Kosten dieser Verschmutzung trägt nicht die Fabrik, sondern die Anwohner. Die Fabrik produziert deshalb zu <strong>viel</strong> – weil sie nicht alle Kosten trägt.
     </div>
+    <p>Die Lösung: eine <strong>Pigou-Steuer</strong> in Höhe des externen Schadens. Sie zwingt die Fabrik, alle Kosten einzukalkulieren – und bringt den Markt ins soziale Optimum.</p>
+    <p>Ein anderes Werkzeug des Monopolisten: <strong>Preisdifferenzierung</strong>. Er verlangt von verschiedenen Kundengruppen unterschiedliche Preise – je nach Zahlungsbereitschaft. Das erhöht seinen Gewinn, ohne zwingend mehr zu produzieren.</p>
   </div>
 
-  <!-- TOPIC 6: Monopol / Polypol -->
-  <div class="intro-topic" id="t6">
-    <div class="intro-topic-header" onclick="toggleIntro('t6')">
-      <div class="intro-topic-title">
-        <div class="intro-num">6</div>
-        Monopol &amp; Polypol – Wohlfahrtsvergleich
-      </div>
-      <span class="intro-arrow">▼</span>
-    </div>
-    <div class="intro-topic-body">
-      <p><strong>Polypol (vollkommener Wettbewerb):</strong> P = MC, maximale Wohlfahrt. <strong>Monopol:</strong> MR = MC, Preis &gt; MC → Deadweight Loss (DWL).</p>
-      <div class="formula-box">
-Beispiel: P = 50 − Q,  MC = 10
+  <hr class="mi-divider">
 
-Polypol: P=MC → 50−Q=10 → Q_W=40, P_W=10
-Monopol: MR=50−2Q=10 → Q*=20, P*=30
-
-DWL = ½·(P*−MC)·(Q_W−Q*) = ½·20·20 = 200
-      </div>
-
-      <div class="graph-wrap">
-        <svg width="380" height="255" viewBox="0 0 380 255" font-family="inherit" font-size="11">
-          <line x1="50" y1="15" x2="50" y2="235" stroke="currentColor" stroke-width="1.5"/>
-          <line x1="50" y1="235" x2="370" y2="235" stroke="currentColor" stroke-width="1.5"/>
-          <text x="370" y="248">Q</text>
-          <text x="22" y="18">P</text>
-          <!-- Scale: Q∈[0,50]→px=50+Q*6.4; P∈[0,50]→py=235-P*4.4 -->
-          <!-- Q=0→px=50; Q=20→px=178; Q=40→px=306; Q=50→px=370 -->
-          <!-- P=50→py=15; P=30→py=103; P=10→py=191 -->
-
-          <!-- Nachfrage D: P=50-Q: Q=0→px=50,py=15; Q=50→px=370,py=235 -->
-          <line x1="50" y1="15" x2="370" y2="235" stroke="#3b82f6" stroke-width="2"/>
-          <text x="372" y="233" fill="#3b82f6">D</text>
-
-          <!-- MR: MR=50-2Q: Q=0→py=15; Q=25→px=210,py=235 -->
-          <line x1="50" y1="15" x2="210" y2="235" stroke="#7c3aed" stroke-width="2"/>
-          <text x="213" y="233" fill="#7c3aed">MR</text>
-
-          <!-- MC: P=10 → py=191 -->
-          <line x1="50" y1="191" x2="370" y2="191" stroke="#10b981" stroke-width="2"/>
-          <text x="372" y="194" fill="#10b981">MC</text>
-
-          <!-- Monopolpunkt: Q*=20, P*=30 -->
-          <!-- Q=20→px=178; P*=30→py=103 -->
-          <line x1="178" y1="103" x2="178" y2="235" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
-          <line x1="50" y1="103" x2="178" y2="103" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
-          <circle cx="178" cy="103" r="5" fill="#c0392b"/>
-          <text x="182" y="100" fill="#c0392b" font-weight="700">Monopol (Q=20, P=30)</text>
-
-          <!-- Wettbewerbspunkt: Q=40, P=10 -->
-          <!-- Q=40→px=306; P=10→py=191 -->
-          <circle cx="306" cy="191" r="4" fill="#10b981"/>
-          <text x="310" y="188" fill="#10b981">Wettbewerb Q=40</text>
-
-          <!-- DWL Dreieck: (178,103),(178,191),(306,191) -->
-          <polygon points="178,103 178,191 306,191" fill="rgba(192,57,43,0.25)" stroke="#c0392b" stroke-width="1"/>
-          <text x="220" y="165" fill="#c0392b" font-size="10" font-weight="700">DWL=200</text>
-
-          <!-- Konsumentenrente Monopol: (50,15),(50,103),(178,103) -->
-          <polygon points="50,15 50,103 178,103" fill="rgba(59,130,246,0.2)" stroke="none"/>
-          <text x="90" y="80" fill="#3b82f6" font-size="10">KR</text>
-
-          <!-- Produzentenrente Monopol: (50,103),(50,191),(178,191),(178,103) -->
-          <polygon points="50,103 50,191 178,191 178,103" fill="rgba(16,185,129,0.2)" stroke="none"/>
-          <text x="90" y="155" fill="#10b981" font-size="10">PR</text>
-
-          <!-- Labels -->
-          <text x="44" y="107" text-anchor="end">30</text>
-          <text x="44" y="195" text-anchor="end">10</text>
-          <text x="178" y="248" text-anchor="middle">20</text>
-          <text x="306" y="248" text-anchor="middle">40</text>
-        </svg>
-      </div>
-      <p class="graph-caption">Rotes Dreieck = DWL = 200. KR (blau) und PR (grün) sind kleiner als im Wettbewerb.</p>
-
-      <div class="vertiefung">
-        <div class="vertiefung-header" onclick="toggleVertiefung(this)">
-          🔍 Vertiefung: Lerner-Index <span>▼</span>
-        </div>
-        <div class="vertiefung-body">
-          <p>Marktmacht misst man mit dem Lerner-Index: L = (P−MC)/P = 1/|ε|, wobei ε die Preiselastizität der Nachfrage ist. Im Monopol (P=30, MC=10): L = (30−10)/30 = 0.67. Im Polypol: L = 0 (P=MC).</p>
-        </div>
-      </div>
-    </div>
+  <!-- ZUSAMMENFASSUNG -->
+  <div class="mi-summary">
+    <h3>🗺 Der rote Faden – alle 9 Themen auf einen Blick</h3>
+    <ol>
+      <li><strong>Lagrange</strong> – Konsument maximiert Nutzen unter Budget → Optimum</li>
+      <li><strong>SE & EE</strong> – Was passiert beim Optimum, wenn sich Preise ändern?</li>
+      <li><strong>Gutenberg PAF</strong> – Wie verhält sich Nachfrage im Oligopol mit Preiszonen?</li>
+      <li><strong>Cobb-Douglas</strong> – Wie produziert ein Unternehmen optimal?</li>
+      <li><strong>Sweezy</strong> – Warum sind Preise im Oligopol stabil?</li>
+      <li><strong>Monopol & Polypol</strong> – Wie viel kostet Marktmacht der Gesellschaft?</li>
+      <li><strong>Chamberlin</strong> – Wie sieht das LR-Gleichgewicht bei Wettbewerb aus?</li>
+      <li><strong>Externe Effekte</strong> – Wann versagt der Markt, und wie korrigiert man ihn?</li>
+      <li><strong>Preisdifferenzierung</strong> – Wie nutzt der Monopolist Informationen über Kunden?</li>
+    </ol>
   </div>
 
-  <!-- TOPIC 7: Chamberlin -->
-  <div class="intro-topic" id="t7">
-    <div class="intro-topic-header" onclick="toggleIntro('t7')">
-      <div class="intro-topic-title">
-        <div class="intro-num">7</div>
-        Chamberlin – Monopolistische Konkurrenz
-        <span class="intro-klausur-tag">🔥 Klausur</span>
-      </div>
-      <span class="intro-arrow">▼</span>
-    </div>
-    <div class="intro-topic-body">
-      <p>Viele Anbieter mit differenzierten Produkten. Kurzfristig: Wie Monopol (MR=MC, Gewinn möglich). Langfristig: Markteintritt → Nachfrage sinkt → Gewinn = 0. Tangentiallösung: D ist tangential zu AC.</p>
-      <div class="formula-box">
-Beispiel: AC = (Q−20)²/5 + 10,  Nachfrage P = 45 − 2Q
-
-LR-Gleichgewicht: P = AC (kein Gewinn) UND P' = AC' (Tangente)
-
-MR = 45−4Q = MC = 2(Q−20)/5 = 0.4Q−8
-→ 45−4Q = 0.4Q−8 → 53 = 4.4Q → Q* ≈ 12.05...
-
-Verwende vereinfachtes Beispiel:
-P = 45−2Q, AC = (Q-20)²/5+10
-Tangenz: P'=-2, AC'=2(Q-20)/5
--2 = 2(Q-20)/5 → -10 = 2Q-40 → Q*=15
-P* = 45-30 = 15; AC = (15-20)²/5+10 = 25/5+10 = 15 ✓ → Gewinn = 0 ✓
-      </div>
-
-      <div class="graph-wrap">
-        <svg width="380" height="255" viewBox="0 0 380 255" font-family="inherit" font-size="11">
-          <line x1="50" y1="15" x2="50" y2="235" stroke="currentColor" stroke-width="1.5"/>
-          <line x1="50" y1="235" x2="370" y2="235" stroke="currentColor" stroke-width="1.5"/>
-          <text x="370" y="248">Q</text>
-          <text x="22" y="18">P/AC</text>
-          <!-- Scale: Q∈[0,22]→px=50+Q*14.5; P∈[0,45]→py=235-P*4.88 -->
-
-          <!-- Nachfrage D: P=45-2Q: Q=0→py=235-220=15; Q=22→px=50+319=369,py=235 -->
-          <line x1="50" y1="15" x2="369" y2="235" stroke="#3b82f6" stroke-width="2"/>
-          <text x="365" y="232" fill="#3b82f6">D</text>
-
-          <!-- MR: MR=45-4Q: Q=0→py=15; Q=11.25→px=50+163=213,py=235 -->
-          <line x1="50" y1="15" x2="213" y2="235" stroke="#7c3aed" stroke-width="2"/>
-          <text x="214" y="233" fill="#7c3aed">MR</text>
-
-          <!-- AC: (Q-20)²/5+10 for Q=0..22 -->
-          <!-- Q=0→AC=80→py=235-390=-155 (off chart); Q=5→AC=45→py=235-220=15; Q=10→AC=30→py=88; Q=15→AC=15→py=162; Q=20→AC=10→py=186; Q=22→AC=10.8→py=182 -->
-          <!-- px=50+Q*14.5 -->
-          <!-- Show from Q=5 onwards -->
-          <polyline points="
-            122.5,15
-            195,88
-            267.5,162
-            340,186
-            369,182
-          " fill="none" stroke="#f59e0b" stroke-width="2"/>
-          <text x="345" y="183" fill="#f59e0b">AC</text>
-
-          <!-- MC: MC=2(Q-20)/5=0.4Q-8: Q=20→MC=0; Q=5→MC=-6 (neg); show from Q=20 -->
-          <!-- Q=20→px=340,py=186 (MC=0→py=235); Q=22→MC=0.8→py=235-3.9=231 -->
-          <!-- Actually MC=0.4Q-8; at Q=15: MC=-2; at Q=20: MC=0; at Q=22: MC=0.8 -->
-          <!-- Show MC from Q=20 (where MC=0) up. In chart MC=0 at Q=20 -->
-          <!-- Actually for positive Q range, MC is negative below Q=20, which seems odd for cost function -->
-          <!-- The AC function (Q-20)²/5+10 implies TC = (Q-20)²/5·Q+10Q, MC = dTC/dQ... -->
-          <!-- Actually if AC=(Q-20)²/5+10, then TC=AC·Q=[(Q-20)²/5+10]·Q -->
-          <!-- MC=dTC/dQ = 2(Q-20)Q/5 + (Q-20)²/5 + 10 = (Q-20)[2Q+(Q-20)]/5+10 = (Q-20)(3Q-20)/5+10 -->
-          <!-- This is complex. For exam purposes, use simplified MC at tangent point -->
-
-          <!-- Tangentialpunkt: Q*=15, P*=15 -->
-          <!-- px=50+15*14.5=267.5; py=235-15*4.88=162 -->
-          <circle cx="267.5" cy="162" r="5" fill="#c0392b"/>
-          <line x1="267.5" y1="162" x2="267.5" y2="235" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
-          <line x1="50" y1="162" x2="267.5" y2="162" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="272" y="158" fill="#c0392b" font-weight="700">LR-GGW (Q=15, P=15)</text>
-
-          <!-- AC_min: Q=20, AC=10 -->
-          <!-- px=340, py=235-10*4.88=186 -->
-          <circle cx="340" cy="186" r="4" fill="#f59e0b"/>
-          <text x="344" y="184" fill="#f59e0b" font-size="10">AC_min=10</text>
-
-          <!-- X-Inefficiency arrow -->
-          <line x1="267.5" y1="162" x2="340" y2="186" stroke="#999" stroke-width="1" stroke-dasharray="3,2"/>
-          <text x="296" y="168" fill="#999" font-size="9">x-Ineff.</text>
-
-          <text x="44" y="166" text-anchor="end">15</text>
-          <text x="44" y="190" text-anchor="end">10</text>
-          <text x="267.5" y="248" text-anchor="middle">15</text>
-          <text x="340" y="248" text-anchor="middle">20</text>
-        </svg>
-      </div>
-      <p class="graph-caption">LR-Tangentiallösung: P=AC=15 bei Q=15. AC-Minimum wäre bei Q=20 – X-Ineffizienz!</p>
-
-      <div class="vertiefung">
-        <div class="vertiefung-header" onclick="toggleVertiefung(this)">
-          🔍 Vertiefung: Wohlfahrtseffekte monopolistischer Konkurrenz <span>▼</span>
-        </div>
-        <div class="vertiefung-body">
-          <p><strong>Pro:</strong> Produktvielfalt – Konsumenten haben Auswahl.<br>
-          <strong>Contra:</strong> Produktionsmengen unter dem AC-Minimum (excess capacity), P &gt; MC.<br>
-          Im LR-Gleichgewicht: kein Gewinn, aber ineffiziente Produktion. Wohlfahrtsverlust im Vergleich zum Polypol bleibt bestehen.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- TOPIC 8: Externe Effekte -->
-  <div class="intro-topic" id="t8">
-    <div class="intro-topic-header" onclick="toggleIntro('t8')">
-      <div class="intro-topic-title">
-        <div class="intro-num">8</div>
-        Externe Effekte &amp; Pigou-Steuer
-      </div>
-      <span class="intro-arrow">▼</span>
-    </div>
-    <div class="intro-topic-body">
-      <p>Externe Effekte: Dritte sind von einer Transaktion betroffen, ohne dafür entschädigt/belastet zu werden. <strong>Negativ:</strong> MSC &gt; MPC (z.B. Umweltverschmutzung). Lösung: Pigou-Steuer t = MSC − MPC am sozialen Optimum.</p>
-      <div class="formula-box">
-Beispiel: MSB (Nachfrage) = 80−Q, MPC = 10, MSC = 30
-
-Privates Gleichgewicht:  MSB = MPC → 80−Q = 10 → Q_priv = 70, P_priv = 10
-Soziales Optimum:        MSB = MSC → 80−Q = 30 → Q_soz  = 50, P_soz  = 30
-Pigou-Steuer: t = MSC−MPC = 30−10 = 20
-Wohlfahrtsverlust: ½·(Q_priv−Q_soz)·(MSC−MPC) = ½·20·20 = 200
-      </div>
-
-      <div class="graph-wrap">
-        <svg width="380" height="255" viewBox="0 0 380 255" font-family="inherit" font-size="11">
-          <line x1="50" y1="15" x2="50" y2="235" stroke="currentColor" stroke-width="1.5"/>
-          <line x1="50" y1="235" x2="370" y2="235" stroke="currentColor" stroke-width="1.5"/>
-          <text x="370" y="248">Q</text>
-          <text x="22" y="18">P/MC</text>
-          <!-- Scale: Q∈[0,80]→px=50+Q*4; P∈[0,80]→py=235-P*2.75 -->
-
-          <!-- MSB: P=80-Q: Q=0→py=235-220=15; Q=80→px=370,py=235 -->
-          <line x1="50" y1="15" x2="370" y2="235" stroke="#3b82f6" stroke-width="2"/>
-          <text x="372" y="233" fill="#3b82f6">MSB=D</text>
-
-          <!-- MPC: P=10 → py=235-27.5=207.5 -->
-          <line x1="50" y1="207" x2="370" y2="207" stroke="#10b981" stroke-width="2"/>
-          <text x="372" y="210" fill="#10b981">MPC=10</text>
-
-          <!-- MSC: P=30 → py=235-82.5=152.5 -->
-          <line x1="50" y1="152" x2="370" y2="152" stroke="#c0392b" stroke-width="2"/>
-          <text x="372" y="155" fill="#c0392b">MSC=30</text>
-
-          <!-- Q_priv=70: px=50+280=330; P=10→py=207 -->
-          <circle cx="330" cy="207" r="4" fill="#10b981"/>
-          <line x1="330" y1="207" x2="330" y2="235" stroke="#10b981" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="325" y="248" text-anchor="middle">70</text>
-          <text x="305" y="202" fill="#10b981" font-size="10">Q_priv</text>
-
-          <!-- Q_soz=50: px=50+200=250; P=30→py=152 -->
-          <circle cx="250" cy="152" r="4" fill="#c0392b"/>
-          <line x1="250" y1="152" x2="250" y2="235" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="250" y="248" text-anchor="middle">50</text>
-          <text x="255" y="148" fill="#c0392b" font-weight="700">Q_soz</text>
-
-          <!-- DWL Dreieck: (250,152),(330,207),(250,207) -->
-          <polygon points="250,152 330,207 250,207" fill="rgba(192,57,43,0.25)" stroke="#c0392b" stroke-width="1"/>
-          <text x="285" y="198" fill="#c0392b" font-size="10">DWL=200</text>
-
-          <!-- Pigou-Steuer Pfeil -->
-          <line x1="370" y1="207" x2="370" y2="152" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr2)"/>
-          <text x="342" y="183" fill="#f59e0b" font-size="10">t=20</text>
-
-          <!-- Labels -->
-          <text x="44" y="156" text-anchor="end">30</text>
-          <text x="44" y="211" text-anchor="end">10</text>
-        </svg>
-      </div>
-      <p class="graph-caption">Pigou-Steuer t=20 verschiebt MPC auf MSC → soziales Optimum Q=50 wird erreicht.</p>
-
-      <div class="vertiefung">
-        <div class="vertiefung-header" onclick="toggleVertiefung(this)">
-          🔍 Vertiefung: Coase-Theorem als Alternative <span>▼</span>
-        </div>
-        <div class="vertiefung-body">
-          <p>Coase: Bei klar definierten Eigentumsrechten und vernachlässigbaren Transaktionskosten handeln die Parteien selbst das soziale Optimum aus – ohne staatliche Eingriffe. Problem: In der Realität sind Verhandlungskosten hoch und Eigentumsrechte oft unklar (z.B. Luft als Allmende).</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- TOPIC 9: Preisdifferenzierung -->
-  <div class="intro-topic" id="t9">
-    <div class="intro-topic-header" onclick="toggleIntro('t9')">
-      <div class="intro-topic-title">
-        <div class="intro-num">9</div>
-        Preisdifferenzierung (1°, 2°, 3°)
-        <span class="intro-klausur-tag">🔥 Klausur</span>
-      </div>
-      <span class="intro-arrow">▼</span>
-    </div>
-    <div class="intro-topic-body">
-      <p><strong>1. Grades:</strong> Jeder zahlt seine maximale Zahlungsbereitschaft → keine KR, kein DWL. <strong>2. Grades:</strong> Mengenstaffelung (Rabatte bei Großmengen). <strong>3. Grades:</strong> Marktsegmentierung – verschiedene Preise in verschiedenen Märkten.</p>
-      <div class="formula-box">
-3. Grades Beispiel: MC=20, zwei Märkte
-Markt 1: P₁ = 100−Q₁  →  MR₁ = 100−2Q₁
-Markt 2: P₂ = 60−Q₂   →  MR₂ = 60−2Q₂
-
-Optimum: MR₁ = MR₂ = MC = 20
-100−2Q₁ = 20 → Q₁* = 40, P₁* = 60
-60−2Q₂  = 20 → Q₂* = 20, P₂* = 40
-
-Preisdifferenz: ΔP = 60−40 = 20 (Markt 1 zahlt mehr)
-π = (60−20)·40 + (40−20)·20 = 1600+400 = 2000
-      </div>
-
-      <div class="graph-wrap">
-        <svg width="380" height="255" viewBox="0 0 380 255" font-family="inherit" font-size="11">
-          <!-- Two sub-graphs side by side -->
-          <!-- Left: Markt 1 (Q∈[0,60], P∈[0,100]) -->
-          <!-- Scale left: Q∈[0,60]→px=10+Q*2.5; P∈[0,100]→py=235-P*2.2 -->
-          <text x="100" y="12" text-anchor="middle" font-weight="700" fill="#7c3aed">Markt 1</text>
-          <line x1="10" y1="20" x2="10" y2="235" stroke="currentColor" stroke-width="1.5"/>
-          <line x1="10" y1="235" x2="200" y2="235" stroke="currentColor" stroke-width="1.5"/>
-          <text x="200" y="248">Q₁</text>
-          <text x="12" y="18">P₁</text>
-          <!-- D1: P=100-Q1: Q=0→px=10,py=235-220=15; Q=60→px=160,py=235 (off, at px=160+clip) -->
-          <!-- At Q=50→px=135,py=235-0=235 (P=50); at Q=60→P=40,py=147... wait P=100-60=40, not 0 -->
-          <!-- P=0 when Q=100, which is off chart. Draw to Q=80 max -->
-          <!-- Let's draw to Q=60: px=10+60*2.5=160, py=235-40*2.2=147 -->
-          <line x1="10" y1="15" x2="160" y2="147" stroke="#3b82f6" stroke-width="2"/>
-          <text x="162" y="145" fill="#3b82f6">D₁</text>
-
-          <!-- MR1: 100-2Q: Q=0→py=15; Q=50→px=135,py=235 -->
-          <line x1="10" y1="15" x2="135" y2="235" stroke="#7c3aed" stroke-width="1.5"/>
-          <text x="136" y="233" fill="#7c3aed">MR₁</text>
-
-          <!-- MC=20→py=235-44=191 -->
-          <line x1="10" y1="191" x2="195" y2="191" stroke="#10b981" stroke-width="2"/>
-          <text x="197" y="194" fill="#10b981" font-size="10">MC</text>
-
-          <!-- Q1*=40: px=10+100=110; P1*=60→py=235-132=103 -->
-          <line x1="110" y1="103" x2="110" y2="235" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
-          <line x1="10" y1="103" x2="110" y2="103" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
-          <circle cx="110" cy="103" r="4" fill="#c0392b"/>
-          <text x="110" y="248" text-anchor="middle" font-size="10">40</text>
-          <text x="8" y="107" text-anchor="end" font-size="10">60</text>
-          <text x="8" y="195" text-anchor="end" font-size="10">20</text>
-
-          <!-- Right: Markt 2 (Q∈[0,40], P∈[0,60]) -->
-          <!-- Scale right: Q∈[0,40]→px=210+Q*4; P∈[0,60]→py=235-P*3.67 -->
-          <text x="295" y="12" text-anchor="middle" font-weight="700" fill="#3b82f6">Markt 2</text>
-          <line x1="210" y1="20" x2="210" y2="235" stroke="currentColor" stroke-width="1.5"/>
-          <line x1="210" y1="235" x2="375" y2="235" stroke="currentColor" stroke-width="1.5"/>
-          <text x="377" y="248">Q₂</text>
-          <!-- D2: P=60-Q2: Q=0→px=210,py=235-220=15; Q=60→px=450 (off), clip at Q=40→px=370,py=235-73.4=162 -->
-          <!-- At Q=40: P=20→py=235-73.4=162; at Q=0: P=60→py=15.8≈15 -->
-          <line x1="210" y1="15" x2="370" y2="161" stroke="#3b82f6" stroke-width="2"/>
-          <text x="372" y="159" fill="#3b82f6">D₂</text>
-
-          <!-- MR2: 60-2Q: Q=0→py=15; Q=30→px=330,py=235 -->
-          <line x1="210" y1="15" x2="330" y2="235" stroke="#7c3aed" stroke-width="1.5"/>
-          <text x="331" y="233" fill="#7c3aed">MR₂</text>
-
-          <!-- MC=20→py=235-73.4=162 ... wait MC=20 → py=235-20*3.67=235-73.4=161.6 -->
-          <line x1="210" y1="162" x2="375" y2="162" stroke="#10b981" stroke-width="2"/>
-
-          <!-- Q2*=20: px=210+80=290; P2*=40→py=235-146.8=88 -->
-          <line x1="290" y1="88" x2="290" y2="235" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
-          <line x1="210" y1="88" x2="290" y2="88" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
-          <circle cx="290" cy="88" r="4" fill="#c0392b"/>
-          <text x="290" y="248" text-anchor="middle" font-size="10">20</text>
-          <text x="208" y="92" text-anchor="end" font-size="10">40</text>
-          <text x="208" y="166" text-anchor="end" font-size="10">20</text>
-        </svg>
-      </div>
-      <p class="graph-caption">Preisdifferenzierung 3°: P₁*=60 (Markt 1, elastischer), P₂*=40 (Markt 2). MR₁=MR₂=MC=20.</p>
-
-      <div class="vertiefung">
-        <div class="vertiefung-header" onclick="toggleVertiefung(this)">
-          🔍 Vertiefung: Bedingungen für Preisdifferenzierung <span>▼</span>
-        </div>
-        <div class="vertiefung-body">
-          <p>Voraussetzungen: (1) Marktmacht, (2) trennbare Märkte (kein Arbitrage), (3) unterschiedliche Elastizitäten. Faustregel: Der Markt mit der unelastischeren Nachfrage zahlt mehr. Elastizität Markt 1 bei Q=40: ε₁ = −(1/1)·(60/40) = −1.5; Markt 2: ε₂ = −(1/1)·(40/20) = −2. Da |ε₁| &lt; |ε₂| gilt P₁ &gt; P₂. ✓</p>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
+<!-- END TAB 1 -->
 <!-- END TAB 1 -->
 
 <!-- ══════════════════════════════════════════
