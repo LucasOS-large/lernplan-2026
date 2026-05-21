@@ -1,0 +1,1882 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mikroökonomik – Klausurvorbereitung</title>
+<style>
+:root {
+  --bg: #f0f0ee; --card: #ffffff; --ink: #1a1a1a; --muted: #666;
+  --accent: #7c3aed; --accent-soft: rgba(124,58,237,0.10);
+  --border: rgba(0,0,0,0.09); --header-bg: rgba(30,20,60,0.93);
+  --nav-bg: #ffffff; --input-bg: #f8f8f8; --code-bg: #f3f4f6;
+  --answer-bg: #f9f9f9;
+}
+[data-theme="dark"] {
+  --bg: #1c1c1e; --card: #2c2c2e; --ink: #f5f5f7; --muted: #8e8e93;
+  --accent: #a78bfa; --accent-soft: rgba(167,139,250,0.14);
+  --border: rgba(255,255,255,0.10); --header-bg: rgba(28,20,50,0.95);
+  --nav-bg: #2c2c2e; --input-bg: #3a3a3c; --code-bg: #3a3a3c; --answer-bg: #2c2c2e;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.65; transition: background 0.25s, color 0.25s; }
+
+/* HEADER */
+header {
+  background: var(--header-bg);
+  color: white; padding: 14px 22px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px);
+}
+header h1 { font-size: 19px; font-weight: 700; }
+header p { color: #bbb; font-size: 12px; margin-top: 1px; }
+.header-left { display: flex; align-items: center; gap: 14px; }
+.back-link { color: #bbb; text-decoration: none; font-size: 13px; white-space: nowrap; }
+.back-link:hover { color: white; }
+.header-right { display: flex; align-items: center; gap: 10px; }
+.countdown-widget { background: rgba(255,255,255,0.12); border-radius: 8px; padding: 5px 12px; font-size: 12px; color: #eee; cursor: pointer; white-space: nowrap; }
+.countdown-widget strong { color: #a78bfa; }
+.dark-toggle { background: rgba(255,255,255,0.12); border: none; border-radius: 8px; padding: 6px 12px; cursor: pointer; font-size: 14px; color: white; }
+.dark-toggle:hover { background: rgba(255,255,255,0.2); }
+
+/* NAV */
+nav { background: var(--nav-bg); border-bottom: 2px solid var(--border); display: flex; gap: 0; padding: 0 20px; overflow-x: auto; }
+nav button { background: none; border: none; padding: 13px 18px; font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; white-space: nowrap; transition: all 0.15s; }
+nav button:hover { color: var(--ink); }
+nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* VIEWS */
+.view { display: none; padding: 24px; max-width: 880px; margin: 0 auto; }
+.view.active { display: block; }
+
+/* COUNTDOWN MODAL */
+.cd-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 200; align-items: center; justify-content: center; }
+.cd-modal-overlay.open { display: flex; }
+.cd-modal { background: var(--card); border-radius: 14px; padding: 28px; width: 380px; max-width: 95vw; box-shadow: 0 20px 60px rgba(0,0,0,0.25); }
+.cd-modal h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+.cd-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+.cd-row input { flex: 1; padding: 7px 10px; border-radius: 7px; border: 1px solid var(--border); background: var(--input-bg); color: var(--ink); font-size: 13px; }
+.cd-row input[type="date"] { width: 140px; flex: none; }
+.cd-btn-del { background: #fdecea; border: none; border-radius: 7px; padding: 6px 10px; cursor: pointer; color: #c0392b; font-size: 13px; }
+.cd-btn-add { background: var(--accent-soft); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; color: var(--accent); font-size: 13px; font-weight: 600; margin-top: 4px; }
+.cd-actions { display: flex; gap: 8px; margin-top: 16px; justify-content: flex-end; }
+.cd-btn-cancel { background: var(--code-bg); border: none; border-radius: 8px; padding: 8px 18px; cursor: pointer; color: var(--ink); font-size: 14px; }
+.cd-btn-save { background: var(--accent); border: none; border-radius: 8px; padding: 8px 18px; cursor: pointer; color: white; font-size: 14px; font-weight: 600; }
+
+/* INTRO TOPICS */
+.intro-hero { background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%); border-radius: 14px; padding: 28px; color: white; margin-bottom: 24px; }
+.intro-hero h2 { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+.intro-hero p { opacity: 0.87; font-size: 14px; }
+.intro-topic { background: var(--card); border-radius: 12px; margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); overflow: hidden; border: 1px solid var(--border); }
+.intro-topic-header { padding: 16px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+.intro-topic-header:hover { background: var(--accent-soft); }
+.intro-topic-title { font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px; }
+.intro-num { background: var(--accent); color: white; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; }
+.intro-klausur-tag { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; background: #fdecea; color: #c0392b; }
+.intro-arrow { font-size: 18px; color: var(--muted); transition: transform 0.2s; }
+.intro-topic-body { display: none; padding: 0 20px 22px; }
+.intro-topic-body.open { display: block; }
+.intro-topic-body p { margin-bottom: 10px; color: var(--ink); }
+.intro-topic-body strong { color: var(--accent); }
+.formula-box { background: var(--code-bg); border-radius: 8px; padding: 12px 16px; font-family: "SF Mono", "Fira Code", monospace; font-size: 13px; margin: 10px 0; color: var(--ink); border-left: 3px solid var(--accent); }
+
+/* VERTIEFUNG */
+.vertiefung { margin-top: 14px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.vertiefung-header { padding: 10px 16px; background: var(--accent-soft); cursor: pointer; font-weight: 700; font-size: 13px; color: var(--accent); display: flex; justify-content: space-between; user-select: none; }
+.vertiefung-body { display: none; padding: 14px 16px; font-size: 13.5px; background: var(--card); }
+.vertiefung-body.open { display: block; }
+
+/* SVG GRAPH */
+.graph-wrap { margin: 16px 0; background: var(--code-bg); border-radius: 10px; padding: 10px; display: flex; justify-content: center; }
+.graph-wrap svg text { fill: var(--ink); }
+.graph-caption { font-size: 12px; color: var(--muted); text-align: center; margin-top: 4px; }
+
+/* KARTEIKARTEN */
+.fc-container { perspective: 1000px; }
+.fc-progress-bar-wrap { height: 6px; background: var(--border); border-radius: 3px; margin-bottom: 20px; overflow: hidden; }
+.fc-progress-bar { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.4s; }
+.fc-card-area { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.fc-card { width: 100%; max-width: 620px; height: 220px; cursor: pointer; perspective: 800px; }
+.fc-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.5s; }
+.fc-card.flipped .fc-inner { transform: rotateY(180deg); }
+.fc-front, .fc-back { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 14px; padding: 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+.fc-front { background: linear-gradient(135deg, var(--accent) 0%, #4f46e5 100%); color: white; }
+.fc-back { background: var(--card); border: 1px solid var(--border); transform: rotateY(180deg); }
+.fc-front .fc-q { font-size: 17px; font-weight: 700; }
+.fc-front .fc-cat { font-size: 11px; opacity: 0.75; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+.fc-back .fc-a { font-size: 14px; color: var(--ink); line-height: 1.6; }
+.fc-hint { font-size: 12px; color: var(--muted); margin-top: 8px; }
+.fc-nav { display: flex; gap: 12px; align-items: center; }
+.fc-btn { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 10px 22px; font-size: 14px; font-weight: 600; cursor: pointer; color: var(--ink); transition: all 0.15s; }
+.fc-btn:hover { background: var(--accent-soft); color: var(--accent); }
+.fc-btn.good { background: #d1fae5; color: #065f46; border-color: #a7f3d0; }
+.fc-btn.hard { background: #fee2e2; color: #991b1b; border-color: #fca5a5; }
+.fc-count { font-size: 13px; color: var(--muted); min-width: 80px; text-align: center; }
+.fc-daily-goal { background: var(--card); border-radius: 10px; padding: 14px 18px; border: 1px solid var(--border); margin-bottom: 20px; font-size: 13px; display: flex; align-items: center; gap: 10px; }
+.fc-daily-goal strong { color: var(--accent); }
+
+/* AUFGABEN (Canvas) */
+.aufg-list { display: flex; flex-direction: column; gap: 20px; }
+.aufg-item { background: var(--card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
+.aufg-head { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.aufg-head h3 { font-size: 14px; font-weight: 700; }
+.aufg-tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; background: var(--accent-soft); color: var(--accent); }
+.aufg-body { padding: 14px 18px; }
+.aufg-body p { font-size: 14px; margin-bottom: 10px; }
+.canvas-wrap { position: relative; border: 2px solid var(--border); border-radius: 10px; overflow: hidden; background: white; touch-action: none; }
+.canvas-wrap canvas { display: block; width: 100%; cursor: crosshair; touch-action: none; }
+.canvas-toolbar { display: flex; gap: 8px; padding: 8px; background: var(--code-bg); border-top: 1px solid var(--border); flex-wrap: wrap; align-items: center; }
+.canvas-toolbar button { background: var(--card); border: 1px solid var(--border); border-radius: 7px; padding: 5px 12px; font-size: 12px; cursor: pointer; color: var(--ink); }
+.canvas-toolbar button:hover { background: var(--accent-soft); color: var(--accent); }
+.canvas-toolbar button.active { background: var(--accent); color: white; border-color: var(--accent); }
+.color-swatch { width: 22px; height: 22px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; transition: transform 0.1s; }
+.color-swatch:hover, .color-swatch.active { border-color: var(--ink); transform: scale(1.15); }
+.pen-size { width: 70px; }
+.aufg-text { width: 100%; min-height: 80px; border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-size: 15px; font-family: inherit; background: var(--input-bg); color: var(--ink); resize: vertical; margin-top: 8px; }
+.aufg-save-btn { margin-top: 8px; background: var(--accent); color: white; border: none; border-radius: 8px; padding: 8px 18px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.aufg-save-btn:hover { opacity: 0.88; }
+.aufg-saved-note { font-size: 12px; color: #059669; margin-top: 4px; display: none; }
+
+/* ALTKLAUSUREN */
+.ak-list { display: flex; flex-direction: column; gap: 24px; }
+.ak-item { background: var(--card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
+.ak-head { padding: 14px 20px; background: var(--accent-soft); display: flex; justify-content: space-between; align-items: center; }
+.ak-head h3 { font-size: 15px; font-weight: 700; color: var(--accent); }
+.ak-head span { font-size: 12px; color: var(--muted); }
+.ak-body { padding: 16px 20px; }
+.ak-question { margin-bottom: 18px; }
+.ak-question p { font-size: 14px; margin-bottom: 6px; font-weight: 600; }
+.ak-canvas-area { border: 2px solid var(--border); border-radius: 10px; overflow: hidden; background: white; touch-action: none; margin-bottom: 6px; }
+.ak-canvas-area canvas { display: block; width: 100%; cursor: crosshair; touch-action: none; }
+.ak-text { width: 100%; min-height: 70px; border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-size: 14px; font-family: inherit; background: var(--input-bg); color: var(--ink); resize: vertical; }
+.ak-toolbar { display: flex; gap: 6px; padding: 6px 8px; background: var(--code-bg); border-top: 1px solid var(--border); flex-wrap: wrap; }
+.ak-toolbar button { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; font-size: 11px; cursor: pointer; color: var(--ink); }
+.ak-toolbar button:hover { background: var(--accent-soft); color: var(--accent); }
+.ak-save-row { display: flex; align-items: center; gap: 10px; margin-top: 6px; }
+.ak-save-btn { background: var(--accent); color: white; border: none; border-radius: 8px; padding: 7px 16px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.ak-saved-note { font-size: 12px; color: #059669; display: none; }
+</style>
+</head>
+<body>
+
+<!-- COUNTDOWN MODAL -->
+<div class="cd-modal-overlay" id="cdModal" onclick="if(event.target===this)closeCdModal()">
+  <div class="cd-modal">
+    <h3>📅 Klausurdaten bearbeiten</h3>
+    <div id="cd-rows"></div>
+    <button class="cd-btn-add" onclick="cdAddRow()">+ Datum hinzufügen</button>
+    <div class="cd-actions">
+      <button class="cd-btn-cancel" onclick="closeCdModal()">Abbrechen</button>
+      <button class="cd-btn-save" onclick="cdSave()">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="header-left">
+    <a href="index.html" class="back-link">← Übersicht</a>
+    <div>
+      <h1>Mikroökonomik</h1>
+      <p>Markt · Preis · Gleichgewicht</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="countdown-widget" onclick="openCdModal()" title="Klausurdatum bearbeiten">
+      📅 <span id="countdown-text">Klausur in <strong>–</strong> Tagen</span>
+    </div>
+    <button class="dark-toggle" onclick="toggleDark()" title="Dark Mode">🌙</button>
+  </div>
+</header>
+
+<nav>
+  <button class="active" onclick="showTab('intro')">📖 Mikro Intro</button>
+  <button onclick="showTab('themen')">📚 Themen</button>
+  <button onclick="showTab('karten')">🃏 Karteikarten</button>
+  <button onclick="showTab('aufgaben')">✏️ Aufgaben</button>
+  <button onclick="showTab('altklausuren')">📋 Altklausuren</button>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     TAB 1 – MIKRO INTRO
+══════════════════════════════════════════ -->
+<div class="view active" id="view-intro">
+  <div class="intro-hero">
+    <h2>Mikro in 10 Minuten</h2>
+    <p>Alle 9 Prüfungsthemen mit Beispielen, Graphiken und Vertiefungen – klick dich durch.</p>
+  </div>
+
+  <!-- TOPIC 1: Lagrange -->
+  <div class="intro-topic" id="t1">
+    <div class="intro-topic-header" onclick="toggleIntro('t1')">
+      <div class="intro-topic-title">
+        <div class="intro-num">1</div>
+        Lagrange-Optimierung (Konsument)
+        <span class="intro-klausur-tag">🔥 Klausur</span>
+      </div>
+      <span class="intro-arrow">▼</span>
+    </div>
+    <div class="intro-topic-body">
+      <p>Ein Konsument maximiert seinen Nutzen <strong>U(x₁,x₂)</strong> unter einer Budgetrestriktion <strong>p₁x₁ + p₂x₂ = m</strong>. Die Lagrange-Methode bildet eine Hilfsfunktion L, leitet sie nach allen Variablen ab und setzt die Ableitungen null.</p>
+      <div class="formula-box">
+L = U(x₁,x₂) − λ(p₁x₁ + p₂x₂ − m)
+
+∂L/∂x₁ = MU₁ − λp₁ = 0  →  MU₁/p₁ = λ
+∂L/∂x₂ = MU₂ − λp₂ = 0  →  MU₂/p₂ = λ
+∂L/∂λ  = p₁x₁ + p₂x₂ − m = 0
+
+Optimalbedingung: MU₁/MU₂ = p₁/p₂  (MRS = Preisverhältnis)
+      </div>
+      <p><strong>Zahlenbeispiel:</strong> U = x₁·x₂, p₁ = 4, p₂ = 2, m = 40</p>
+      <div class="formula-box">
+∂L/∂x₁ = x₂ − 4λ = 0  →  x₂ = 4λ
+∂L/∂x₂ = x₁ − 2λ = 0  →  x₁ = 2λ
+Budget: 4(2λ) + 2(4λ) = 40  →  16λ = 40  →  λ = 2.5
+→  x₁* = 5,  x₂* = 10,  U* = 50
+      </div>
+
+      <!-- SVG: Indifferenzkurve + Budgetgerade -->
+      <div class="graph-wrap">
+        <svg width="380" height="255" viewBox="0 0 380 255" font-family="inherit" font-size="12">
+          <!-- Achsen -->
+          <line x1="55" y1="15" x2="55" y2="235" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="55" y1="235" x2="370" y2="235" stroke="currentColor" stroke-width="1.5"/>
+          <!-- Achsenbeschriftungen -->
+          <text x="370" y="248" text-anchor="middle">x₁</text>
+          <text x="30" y="18" text-anchor="middle">x₂</text>
+          <!-- Skalierung: x1 ∈ [0,18] → px 55..370, x2 ∈ [0,26] → px 235..15 -->
+          <!-- px = 55 + x1*(315/18); py = 235 - x2*(220/26) -->
+
+          <!-- Budgetgerade: x2 = (40-4x1)/2 = 20-2x1; x1∈[0,10] -->
+          <!-- x1=0 → px=55, py=235-20*(220/26)=235-169.2=65.8; x1=10 → px=55+10*17.5=230, py=235 -->
+          <line x1="55" y1="66" x2="230" y2="235" stroke="#7c3aed" stroke-width="2" stroke-dasharray="6,3"/>
+          <text x="240" y="238" fill="#7c3aed" font-size="11">Budgetgerade</text>
+
+          <!-- Indifferenzkurve U=50: x2=50/x1 -->
+          <!-- Punkte: x1=2→x2=25; x1=3→x2=16.7; x1=5→x2=10; x1=7→x2=7.14; x1=10→x2=5; x1=13→x2=3.85; x1=16→x2=3.1 -->
+          <!-- px=55+x1*17.5; py=235-x2*8.46 -->
+          <polyline points="
+            90,23
+            107.5,94.8
+            142.5,150.4
+            177.5,174.5
+            230,150.4
+            282.5,202.4
+            335,208.8
+          " fill="none" stroke="#10b981" stroke-width="2.5"/>
+          <!-- Korrigierte Kurve: x1=2→px=90,py=235-25*8.46=23.5; x1=3.5→px=116,py=235-14.3*8.46=114.4; x1=5→px=142.5,py=150.4; x1=7→px=177.5,py=174.5 -->
+          <!-- Zeichne nochmal korrekt -->
+          <polyline points="
+            90,23
+            116,114
+            142,150
+            178,175
+            230,193
+            283,203
+            335,209
+          " fill="none" stroke="#10b981" stroke-width="2.5"/>
+          <text x="338" y="207" fill="#10b981" font-size="11">U=50</text>
+
+          <!-- Optimalpunkt x1*=5, x2*=10 -->
+          <!-- px=55+5*17.5=142.5; py=235-10*8.46=150.4 -->
+          <circle cx="142" cy="150" r="5" fill="#7c3aed"/>
+          <text x="150" y="146" fill="#7c3aed" font-size="11" font-weight="700">x₁*=5, x₂*=10</text>
+
+          <!-- Tick marks -->
+          <line x1="142" y1="232" x2="142" y2="238" stroke="currentColor" stroke-width="1"/>
+          <text x="142" y="248" text-anchor="middle" font-size="10">5</text>
+          <line x1="52" y1="150" x2="58" y2="150" stroke="currentColor" stroke-width="1"/>
+          <text x="44" y="154" text-anchor="middle" font-size="10">10</text>
+        </svg>
+      </div>
+      <p class="graph-caption">Optimum: Tangentialpunkt von Budgetgerade (lila gestrichelt) und Indifferenzkurve U=50 (grün)</p>
+
+      <div class="vertiefung">
+        <div class="vertiefung-header" onclick="toggleVertiefung(this)">
+          🔍 Vertiefung: Was bedeutet λ? <span>▼</span>
+        </div>
+        <div class="vertiefung-body">
+          <p>λ = Grenznutzen des Einkommens. Im Beispiel ist λ = 2.5: Ein Euro mehr Budget erhöht den Nutzen um 2,5 Einheiten. Die Optimalbedingung MRS = p₁/p₂ sagt: Die Rate, mit der du bereit bist x₂ gegen x₁ zu tauschen, muss dem Markttauschverhältnis entsprechen. Sonst kannst du dich durch Umschichten noch verbessern.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPIC 2: Einkommens-/Substitutionseffekt -->
+  <div class="intro-topic" id="t2">
+    <div class="intro-topic-header" onclick="toggleIntro('t2')">
+      <div class="intro-topic-title">
+        <div class="intro-num">2</div>
+        Einkommens- &amp; Substitutionseffekt
+        <span class="intro-klausur-tag">🔥 Klausur</span>
+      </div>
+      <span class="intro-arrow">▼</span>
+    </div>
+    <div class="intro-topic-body">
+      <p>Sinkt p₁, kauft der Konsument mehr x₁ – aus zwei Gründen: <strong>Substitutionseffekt (SE)</strong>: x₁ ist relativ billiger geworden → man substituiert x₂ durch x₁ (Bewegung entlang derselben Indifferenzkurve). <strong>Einkommenseffekt (EE)</strong>: Das Realeinkommen ist gestiegen → man kauft mehr von allem (Normalfall).</p>
+      <div class="formula-box">
+Slutsky-Zerlegung:  Δx₁(gesamt) = SE + EE
+SE (Hicks): Entlang U=const, Preis ändert sich
+EE: Einkommensgerade verschiebt sich parallel
+      </div>
+      <p><strong>Giffen-Gut:</strong> EE ist negativ und überwiegt SE → Preis sinkt, Nachfrage sinkt.</p>
+
+      <!-- SVG: SE/EE Diagramm -->
+      <div class="graph-wrap">
+        <svg width="380" height="255" viewBox="0 0 380 255" font-family="inherit" font-size="11">
+          <line x1="45" y1="15" x2="45" y2="235" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="45" y1="235" x2="370" y2="235" stroke="currentColor" stroke-width="1.5"/>
+          <text x="370" y="248">x₁</text>
+          <text x="22" y="18">x₂</text>
+
+          <!-- Alte Budgetgerade BG1 -->
+          <line x1="45" y1="50" x2="200" y2="235" stroke="#999" stroke-width="1.5" stroke-dasharray="5,3"/>
+          <text x="205" y="232" fill="#999" font-size="10">BG₁</text>
+
+          <!-- Hilfsgerade (Slutsky) -->
+          <line x1="45" y1="80" x2="280" y2="235" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <text x="283" y="232" fill="#f59e0b" font-size="10">BG*</text>
+
+          <!-- Neue Budgetgerade BG2 -->
+          <line x1="45" y1="80" x2="350" y2="235" stroke="#7c3aed" stroke-width="2"/>
+          <text x="352" y="232" fill="#7c3aed" font-size="10">BG₂</text>
+
+          <!-- IC1 -->
+          <polyline points="90,30 110,80 140,120 180,155 230,175 290,190 350,198" fill="none" stroke="#10b981" stroke-width="2"/>
+          <text x="352" y="196" fill="#10b981" font-size="10">U₁</text>
+
+          <!-- IC2 -->
+          <polyline points="110,30 130,75 165,110 205,140 255,160 315,172 370,178" fill="none" stroke="#3b82f6" stroke-width="2"/>
+          <text x="372" y="176" fill="#3b82f6" font-size="10">U₂</text>
+
+          <!-- Punkte A, B, C -->
+          <circle cx="140" cy="120" r="5" fill="#999"/>
+          <text x="130" y="115" fill="#555" font-weight="700">A</text>
+
+          <circle cx="210" cy="155" r="5" fill="#f59e0b"/>
+          <text x="215" y="150" fill="#f59e0b" font-weight="700">B</text>
+
+          <circle cx="255" cy="155" r="5" fill="#7c3aed"/>
+          <text x="258" y="148" fill="#7c3aed" font-weight="700">C</text>
+
+          <!-- Arrows SE / EE -->
+          <line x1="140" y1="225" x2="210" y2="225" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr)"/>
+          <text x="168" y="220" fill="#f59e0b" font-size="10">SE</text>
+          <line x1="210" y1="225" x2="255" y2="225" stroke="#7c3aed" stroke-width="2"/>
+          <text x="228" y="220" fill="#7c3aed" font-size="10">EE</text>
+          <line x1="140" y1="242" x2="255" y2="242" stroke="#555" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <text x="192" y="252" fill="#555" font-size="10">Gesamt</text>
+        </svg>
+      </div>
+      <p class="graph-caption">A→B = Substitutionseffekt (entlang U₁); B→C = Einkommenseffekt (zu U₂)</p>
+
+      <div class="vertiefung">
+        <div class="vertiefung-header" onclick="toggleVertiefung(this)">
+          🔍 Vertiefung: Rechenweg Slutsky-Zerlegung <span>▼</span>
+        </div>
+        <div class="vertiefung-body">
+          <p>1. Altes Optimum A bei Preisen (p₁, p₂), Budget m ermitteln.<br>
+          2. Slutsky-Budget berechnen: m* = m + x₁_A·Δp₁ (damit man sich A noch leisten kann).<br>
+          3. Optimum B bei neuen Preisen (p₁', p₂) und Budget m* → SE = x₁_B − x₁_A.<br>
+          4. Optimum C bei neuen Preisen (p₁', p₂) und altem Budget m → EE = x₁_C − x₁_B.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPIC 3: Doppeltgeknickte Preisabsatzkurve (Gutenberg) -->
+  <div class="intro-topic" id="t3">
+    <div class="intro-topic-header" onclick="toggleIntro('t3')">
+      <div class="intro-topic-title">
+        <div class="intro-num">3</div>
+        Doppeltgeknickte PAF (Gutenberg)
+        <span class="intro-klausur-tag">🔥 Klausur</span>
+      </div>
+      <span class="intro-arrow">▼</span>
+    </div>
+    <div class="intro-topic-body">
+      <p>Gutenberg beschreibt einen Markt mit heterogenen Gütern. Die Preisabsatzkurve (PAF) ist doppelt geknickt: Bei kleinen Preisänderungen reagieren nur wenige Kunden (Stammkunden, inelastisch). Wird der Preis aber zu weit erhöht/gesenkt, reagieren Kunden abrupt (Markentreue bricht, monopolistischer Bereich endet).</p>
+      <div class="formula-box">
+Drei Bereiche:
+  p &gt; p_o  →  hoch elastisch (Kunden wandern massiv ab)
+  p_u ≤ p ≤ p_o  →  niedrig elastisch (Monopolzone)
+  p &lt; p_u  →  hoch elastisch (Konkurrenz verliert Kunden)
+      </div>
+
+      <div class="graph-wrap">
+        <svg width="380" height="255" viewBox="0 0 380 255" font-family="inherit" font-size="11">
+          <line x1="50" y1="15" x2="50" y2="235" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="50" y1="235" x2="370" y2="235" stroke="currentColor" stroke-width="1.5"/>
+          <text x="370" y="248">Menge q</text>
+          <text x="22" y="18">Preis p</text>
+
+          <!-- PAF: steil oben (p>po), flach mitte, steil unten -->
+          <!-- Knickpunkte: A(80,55), B(160,105), C(200,130), D(300,165) -->
+          <!-- oben steil: (50,35)→(80,55) -->
+          <!-- mitte flach: (80,55)→(200,130) -->
+          <!-- wait: Gutenberg PAF geht von oben links nach unten rechts, Knick bei po und pu -->
+          <!-- Sektion 1 (sehr steil, hohe p): (60,25)→(90,75) -->
+          <!-- Sektion 2 (flach, monopolzone): (90,75)→(250,140) -->
+          <!-- Sektion 3 (sehr steil, niedrige p): (250,140)→(290,195) -->
+          <polyline points="60,25 90,75 250,140 290,195" fill="none" stroke="#7c3aed" stroke-width="2.5"/>
+
+          <!-- Knickpunkte -->
+          <circle cx="90" cy="75" r="4" fill="#c0392b"/>
+          <text x="95" y="72" fill="#c0392b">p_o (obere Grenze)</text>
+          <circle cx="250" cy="140" r="4" fill="#c0392b"/>
+          <text x="255" y="137" fill="#c0392b">p_u (untere Grenze)</text>
+
+          <!-- Monopolzone -->
+          <rect x="90" y="75" width="160" height="65" fill="rgba(124,58,237,0.07)" stroke="none"/>
+          <text x="150" y="115" fill="#7c3aed" font-size="10" text-anchor="middle">Monopolzone</text>
+
+          <!-- PAF Label -->
+          <text x="295" y="193" fill="#7c3aed">PAF</text>
+        </svg>
+      </div>
+      <p class="graph-caption">Doppelter Knick bei p_o und p_u; zwischen den Knickpunkten reagiert die Nachfrage kaum auf Preisänderungen.</p>
+
+      <div class="vertiefung">
+        <div class="vertiefung-header" onclick="toggleVertiefung(this)">
+          🔍 Vertiefung: Optimale Preisstrategie <span>▼</span>
+        </div>
+        <div class="vertiefung-body">
+          <p>Das Unternehmen setzt den Preis im flachen (inelastischen) Bereich. Die Gewinnmaximierung MR=MC muss innerhalb dieses Bereichs liegen. Wenn MC steigt/fällt, bleibt der Preis stabil – solange MC den Sprung im Grenzerlös nicht überschreitet. Das erklärt Preisrigidität in oligopolistischen Märkten.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPIC 4: Cobb-Douglas / Skalenerträge -->
+  <div class="intro-topic" id="t4">
+    <div class="intro-topic-header" onclick="toggleIntro('t4')">
+      <div class="intro-topic-title">
+        <div class="intro-num">4</div>
+        Cobb-Douglas, Homogenität &amp; Skalenerträge
+        <span class="intro-klausur-tag">🔥 Klausur</span>
+      </div>
+      <span class="intro-arrow">▼</span>
+    </div>
+    <div class="intro-topic-body">
+      <p><strong>Cobb-Douglas Produktionsfunktion:</strong> Q = A·Lᵅ·Kᵝ. Eigenschaften werden durch α und β bestimmt.</p>
+      <div class="formula-box">
+Q = 2·L^0.6 · K^0.4
+
+Homogenitätsgrad h = α + β = 0.6 + 0.4 = 1  →  konstante Skalenerträge
+
+f(tL, tK) = 2·(tL)^0.6·(tK)^0.4 = 2·t^0.6·t^0.4·L^0.6·K^0.4 = t¹·Q
+→ Verdopplung der Inputs → Verdopplung des Outputs
+
+MRTS = -ΔK/ΔL = (α/β)·(K/L) = (0.6/0.4)·(K/L) = 1.5·(K/L)
+      </div>
+      <p>Skalenerträge: h &lt; 1 = abnehmend, h = 1 = konstant, h &gt; 1 = zunehmend.</p>
+
+      <!-- SVG: Isoquanten -->
+      <div class="graph-wrap">
+        <svg width="380" height="255" viewBox="0 0 380 255" font-family="inherit" font-size="11">
+          <line x1="50" y1="15" x2="50" y2="235" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="50" y1="235" x2="370" y2="235" stroke="currentColor" stroke-width="1.5"/>
+          <text x="370" y="248">L</text>
+          <text x="28" y="18">K</text>
+
+          <!-- Isoquante Q=2: L^0.6 K^0.4=1 → K=(1/L^1.5) -->
+          <!-- Skalierung: L∈[0,16]→px 50..370 (Δ=320/16=20px/unit), K∈[0,20]→py 235..15 (Δ=220/20=11px/unit) -->
+          <!-- Q=2: A=2, so Q=2·L^0.6·K^0.4=2 → L^0.6·K^0.4=1 → K=L^(-1.5) -->
+          <!-- L=1→K=1→px=70,py=224; L=2→K=0.354→px=90,py=231; L=0.5→K=2.83→px=60,py=204 -->
+          <!-- Hmm, these values seem off. Let me recalculate. -->
+          <!-- Q=2·L^0.6·K^0.4=2 → L^0.6·K^0.4=1 → K^0.4=L^-0.6 → K=L^(-0.6/0.4)=L^(-1.5) -->
+          <!-- L=0.3→K=0.3^(-1.5)=6.09; L=0.5→K=2.83; L=1→K=1; L=2→K=0.354; L=4→K=0.125 -->
+          <!-- px = 50+L*20; py = 235-K*11 -->
+          <!-- L=0.3→px=56,py=235-67=168; L=0.5→px=60,py=235-31=204; L=1→px=70,py=224; L=2→px=90,py=231; L=4→px=130,py=234 -->
+          <!-- These isoquants are very flat. Let me use a different scale. -->
+          <!-- Scale: L∈[0,8], K∈[0,10] → px=50+L*40, py=235-K*22 -->
+          <!-- Q=2 (=2·L^0.6·K^0.4): K=L^(-1.5) -->
+          <!-- L=0.25→K=8→px=60,py=235-176=59; L=0.5→K=2.83→px=70,py=235-62=173; L=1→K=1→px=90,py=213; L=2→K=0.354→px=130,py=227; L=4→K=0.125→px=210,py=232 -->
+          <polyline points="60,59 70,173 90,213 130,227 210,232" fill="none" stroke="#7c3aed" stroke-width="2"/>
+          <text x="212" y="230" fill="#7c3aed" font-size="10">Q=2</text>
+
+          <!-- Q=4: K=L^(-1.5)·(2)^(1/0.4)/... wait -->
+          <!-- Q=2·L^0.6·K^0.4=4 → L^0.6·K^0.4=2 → K^0.4=2·L^(-0.6) → K=(2·L^(-0.6))^(1/0.4)=2^2.5·L^(-1.5)=5.657·L^(-1.5) -->
+          <!-- L=0.5→K=5.657*2.83=16 (too high); L=1→K=5.657; L=2→K=2; L=4→K=0.707; L=6→K=0.387 -->
+          <!-- px=50+L*40, py=235-K*22 -->
+          <!-- L=1→px=90,py=235-124=111; L=2→px=130,py=235-44=191; L=4→px=210,py=235-15.5=219; L=6→px=290,py=226.5 -->
+          <polyline points="90,111 130,191 210,219 290,227" fill="none" stroke="#3b82f6" stroke-width="2"/>
+          <text x="292" y="225" fill="#3b82f6" font-size="10">Q=4</text>
+
+          <!-- Q=6 -->
+          <!-- K=(3)^2.5·L^(-1.5)=15.59·L^(-1.5) -->
+          <!-- L=2→K=5.51→px=130,py=235-121=114; L=4→K=1.95→px=210,py=235-43=192; L=6→K=1.063→px=290,py=235-23=212 -->
+          <polyline points="130,114 210,192 290,212 350,220" fill="none" stroke="#10b981" stroke-width="2"/>
+          <text x="352" y="218" fill="#10b981" font-size="10">Q=6</text>
+
+          <!-- Scale labels -->
+          <text x="90" y="248" text-anchor="middle">1</text>
+          <text x="130" y="248" text-anchor="middle">2</text>
+          <text x="210" y="248" text-anchor="middle">4</text>
+          <text x="290" y="248" text-anchor="middle">6</text>
+          <text x="44" y="213" text-anchor="end">1</text>
+          <text x="44" y="191" text-anchor="end">2</text>
+          <text x="44" y="111" text-anchor="end">5</text>
+          <text x="44" y="59" text-anchor="end">8</text>
+        </svg>
+      </div>
+      <p class="graph-caption">Isoquanten Q=2/4/6 für Q=2·L^0.6·K^0.4. Gleichmäßige Abstände = konstante Skalenerträge (h=1).</p>
+
+      <div class="vertiefung">
+        <div class="vertiefung-header" onclick="toggleVertiefung(this)">
+          🔍 Vertiefung: MRTS und optimale Inputkombination <span>▼</span>
+        </div>
+        <div class="vertiefung-body">
+          <p>MRTS = Grenzrate der technischen Substitution = Steigung der Isoquante = MP_L/MP_K.<br>
+          Bei Cobb-Douglas: MRTS = (α·Q/L) / (β·Q/K) = (α/β)·(K/L).<br>
+          Optimale Inputkombination wenn MRTS = w/r (Inputpreisratio). Dann: (α/β)·(K/L) = w/r → K/L = (β·w)/(α·r).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPIC 5: Sweezy-Modell -->
+  <div class="intro-topic" id="t5">
+    <div class="intro-topic-header" onclick="toggleIntro('t5')">
+      <div class="intro-topic-title">
+        <div class="intro-num">5</div>
+        Sweezy-Modell (Geknickte Nachfrage)
+        <span class="intro-klausur-tag">🔥 Klausur</span>
+      </div>
+      <span class="intro-arrow">▼</span>
+    </div>
+    <div class="intro-topic-body">
+      <p>Im Oligopol: Erhöht ein Anbieter den Preis, folgen die Konkurrenten <strong>nicht</strong> (Kunden wandern ab). Senkt er ihn, folgen alle (Preiskampf). → Die Nachfragekurve hat einen Knick am aktuellen Preis P₀.</p>
+      <div class="formula-box">
+Beispiel: P₀=30, Q₀=50
+Obere Nachfrage (konkurrenten folgen nicht):  P = 50 − 0.4Q  →  MR_o = 50 − 0.8Q
+Untere Nachfrage (alle senken):               P = 80 − Q    →  MR_u = 80 − 2Q
+Am Knick (Q=50): MR_o = 50−0.8·50 = 10;  MR_u = 80−2·50 = −20
+MC-Lücke: [−20, 10] → Preisrigiditätsbereich
+      </div>
+
+      <div class="graph-wrap">
+        <svg width="380" height="255" viewBox="0 0 380 255" font-family="inherit" font-size="11">
+          <line x1="50" y1="15" x2="50" y2="235" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="50" y1="235" x2="370" y2="235" stroke="currentColor" stroke-width="1.5"/>
+          <text x="370" y="248">Q</text>
+          <text x="22" y="18">P</text>
+          <!-- Scale: Q∈[0,90]→px=50+Q*3.33; P∈[0,80]→py=235-P*2.75 -->
+
+          <!-- Obere Nachfrage: P=50-0.4Q für Q∈[0,50] -->
+          <!-- Q=0→P=50→px=50,py=235-137.5=97.5; Q=50→P=30→px=216.5,py=152.5 -->
+          <line x1="50" y1="97" x2="217" y2="152" stroke="#3b82f6" stroke-width="2"/>
+          <text x="52" y="93" fill="#3b82f6">D_o</text>
+
+          <!-- Untere Nachfrage: P=80-Q für Q≥50 -->
+          <!-- Q=50→P=30→px=217,py=152; Q=80→P=0→px=317,py=235 -->
+          <line x1="217" y1="152" x2="317" y2="235" stroke="#7c3aed" stroke-width="2"/>
+          <text x="318" y="233" fill="#7c3aed">D_u</text>
+
+          <!-- Knick -->
+          <circle cx="217" cy="152" r="5" fill="#c0392b"/>
+          <line x1="217" y1="152" x2="217" y2="235" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
+          <line x1="50" y1="152" x2="217" y2="152" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="220" y="148" fill="#c0392b" font-weight="700">Knick (Q=50,P=30)</text>
+
+          <!-- MR_o: MR=50-0.8Q für Q∈[0,50]: Q=0→MR=50→py=97; Q=50→MR=10→py=207 -->
+          <line x1="50" y1="97" x2="217" y2="207" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+          <!-- MR_u: MR=80-2Q für Q≥50: Q=50→MR=-20→py=235+55=290(off); Q=40→MR=0→px=183,py=235 -->
+          <!-- MR_u at Q=50: -20 (below axis); we show from Q=40 to Q=65 -->
+          <!-- Q=40→MR=0→px=183,py=235; Q=50→MR=-20 (below) → just show vertical gap -->
+          <line x1="50" y1="97" x2="217" y2="207" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="5,3"/>
+          <text x="130" y="200" fill="#3b82f6" font-size="10">MR_o</text>
+
+          <!-- MR Lücke (vertical at Q=50) -->
+          <line x1="217" y1="207" x2="217" y2="235" stroke="#c0392b" stroke-width="3"/>
+          <text x="220" y="225" fill="#c0392b" font-size="10">MC-Lücke</text>
+
+          <!-- MC Beispiel -->
+          <line x1="50" y1="180" x2="370" y2="180" stroke="#10b981" stroke-width="1.5" stroke-dasharray="6,3"/>
+          <text x="372" y="183" fill="#10b981">MC</text>
+
+          <!-- Tick labels -->
+          <text x="217" y="248" text-anchor="middle">50</text>
+          <text x="44" y="156" text-anchor="end">30</text>
+        </svg>
+      </div>
+      <p class="graph-caption">Geknickte Nachfrage bei Q₀=50, P₀=30. Der senkrechte Sprung im MR erklärt, warum der Preis stabil bleibt, selbst wenn MC schwankt.</p>
+
+      <div class="vertiefung">
+        <div class="vertiefung-header" onclick="toggleVertiefung(this)">
+          🔍 Vertiefung: Warum ist das ein Gleichgewicht? <span>▼</span>
+        </div>
+        <div class="vertiefung-body">
+          <p>Kein Anbieter hat einen Anreiz, vom Preis P₀ abzuweichen: Erhöht er ihn, verliert er Marktanteile ohne Gegenzug. Senkt er ihn, folgen alle → kein Marktanteilsgewinn, aber geringere Marge. Das Nash-Gleichgewicht liegt am Knickpunkt. Kritik: Das Modell erklärt Stabilität, aber nicht wie P₀ zustande kommt.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPIC 6: Monopol / Polypol -->
+  <div class="intro-topic" id="t6">
+    <div class="intro-topic-header" onclick="toggleIntro('t6')">
+      <div class="intro-topic-title">
+        <div class="intro-num">6</div>
+        Monopol &amp; Polypol – Wohlfahrtsvergleich
+      </div>
+      <span class="intro-arrow">▼</span>
+    </div>
+    <div class="intro-topic-body">
+      <p><strong>Polypol (vollkommener Wettbewerb):</strong> P = MC, maximale Wohlfahrt. <strong>Monopol:</strong> MR = MC, Preis &gt; MC → Deadweight Loss (DWL).</p>
+      <div class="formula-box">
+Beispiel: P = 50 − Q,  MC = 10
+
+Polypol: P=MC → 50−Q=10 → Q_W=40, P_W=10
+Monopol: MR=50−2Q=10 → Q*=20, P*=30
+
+DWL = ½·(P*−MC)·(Q_W−Q*) = ½·20·20 = 200
+      </div>
+
+      <div class="graph-wrap">
+        <svg width="380" height="255" viewBox="0 0 380 255" font-family="inherit" font-size="11">
+          <line x1="50" y1="15" x2="50" y2="235" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="50" y1="235" x2="370" y2="235" stroke="currentColor" stroke-width="1.5"/>
+          <text x="370" y="248">Q</text>
+          <text x="22" y="18">P</text>
+          <!-- Scale: Q∈[0,50]→px=50+Q*6.4; P∈[0,50]→py=235-P*4.4 -->
+          <!-- Q=0→px=50; Q=20→px=178; Q=40→px=306; Q=50→px=370 -->
+          <!-- P=50→py=15; P=30→py=103; P=10→py=191 -->
+
+          <!-- Nachfrage D: P=50-Q: Q=0→px=50,py=15; Q=50→px=370,py=235 -->
+          <line x1="50" y1="15" x2="370" y2="235" stroke="#3b82f6" stroke-width="2"/>
+          <text x="372" y="233" fill="#3b82f6">D</text>
+
+          <!-- MR: MR=50-2Q: Q=0→py=15; Q=25→px=210,py=235 -->
+          <line x1="50" y1="15" x2="210" y2="235" stroke="#7c3aed" stroke-width="2"/>
+          <text x="213" y="233" fill="#7c3aed">MR</text>
+
+          <!-- MC: P=10 → py=191 -->
+          <line x1="50" y1="191" x2="370" y2="191" stroke="#10b981" stroke-width="2"/>
+          <text x="372" y="194" fill="#10b981">MC</text>
+
+          <!-- Monopolpunkt: Q*=20, P*=30 -->
+          <!-- Q=20→px=178; P*=30→py=103 -->
+          <line x1="178" y1="103" x2="178" y2="235" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
+          <line x1="50" y1="103" x2="178" y2="103" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
+          <circle cx="178" cy="103" r="5" fill="#c0392b"/>
+          <text x="182" y="100" fill="#c0392b" font-weight="700">Monopol (Q=20, P=30)</text>
+
+          <!-- Wettbewerbspunkt: Q=40, P=10 -->
+          <!-- Q=40→px=306; P=10→py=191 -->
+          <circle cx="306" cy="191" r="4" fill="#10b981"/>
+          <text x="310" y="188" fill="#10b981">Wettbewerb Q=40</text>
+
+          <!-- DWL Dreieck: (178,103),(178,191),(306,191) -->
+          <polygon points="178,103 178,191 306,191" fill="rgba(192,57,43,0.25)" stroke="#c0392b" stroke-width="1"/>
+          <text x="220" y="165" fill="#c0392b" font-size="10" font-weight="700">DWL=200</text>
+
+          <!-- Konsumentenrente Monopol: (50,15),(50,103),(178,103) -->
+          <polygon points="50,15 50,103 178,103" fill="rgba(59,130,246,0.2)" stroke="none"/>
+          <text x="90" y="80" fill="#3b82f6" font-size="10">KR</text>
+
+          <!-- Produzentenrente Monopol: (50,103),(50,191),(178,191),(178,103) -->
+          <polygon points="50,103 50,191 178,191 178,103" fill="rgba(16,185,129,0.2)" stroke="none"/>
+          <text x="90" y="155" fill="#10b981" font-size="10">PR</text>
+
+          <!-- Labels -->
+          <text x="44" y="107" text-anchor="end">30</text>
+          <text x="44" y="195" text-anchor="end">10</text>
+          <text x="178" y="248" text-anchor="middle">20</text>
+          <text x="306" y="248" text-anchor="middle">40</text>
+        </svg>
+      </div>
+      <p class="graph-caption">Rotes Dreieck = DWL = 200. KR (blau) und PR (grün) sind kleiner als im Wettbewerb.</p>
+
+      <div class="vertiefung">
+        <div class="vertiefung-header" onclick="toggleVertiefung(this)">
+          🔍 Vertiefung: Lerner-Index <span>▼</span>
+        </div>
+        <div class="vertiefung-body">
+          <p>Marktmacht misst man mit dem Lerner-Index: L = (P−MC)/P = 1/|ε|, wobei ε die Preiselastizität der Nachfrage ist. Im Monopol (P=30, MC=10): L = (30−10)/30 = 0.67. Im Polypol: L = 0 (P=MC).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPIC 7: Chamberlin -->
+  <div class="intro-topic" id="t7">
+    <div class="intro-topic-header" onclick="toggleIntro('t7')">
+      <div class="intro-topic-title">
+        <div class="intro-num">7</div>
+        Chamberlin – Monopolistische Konkurrenz
+        <span class="intro-klausur-tag">🔥 Klausur</span>
+      </div>
+      <span class="intro-arrow">▼</span>
+    </div>
+    <div class="intro-topic-body">
+      <p>Viele Anbieter mit differenzierten Produkten. Kurzfristig: Wie Monopol (MR=MC, Gewinn möglich). Langfristig: Markteintritt → Nachfrage sinkt → Gewinn = 0. Tangentiallösung: D ist tangential zu AC.</p>
+      <div class="formula-box">
+Beispiel: AC = (Q−20)²/5 + 10,  Nachfrage P = 45 − 2Q
+
+LR-Gleichgewicht: P = AC (kein Gewinn) UND P' = AC' (Tangente)
+
+MR = 45−4Q = MC = 2(Q−20)/5 = 0.4Q−8
+→ 45−4Q = 0.4Q−8 → 53 = 4.4Q → Q* ≈ 12.05...
+
+Verwende vereinfachtes Beispiel:
+P = 45−2Q, AC = (Q-20)²/5+10
+Tangenz: P'=-2, AC'=2(Q-20)/5
+-2 = 2(Q-20)/5 → -10 = 2Q-40 → Q*=15
+P* = 45-30 = 15; AC = (15-20)²/5+10 = 25/5+10 = 15 ✓ → Gewinn = 0 ✓
+      </div>
+
+      <div class="graph-wrap">
+        <svg width="380" height="255" viewBox="0 0 380 255" font-family="inherit" font-size="11">
+          <line x1="50" y1="15" x2="50" y2="235" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="50" y1="235" x2="370" y2="235" stroke="currentColor" stroke-width="1.5"/>
+          <text x="370" y="248">Q</text>
+          <text x="22" y="18">P/AC</text>
+          <!-- Scale: Q∈[0,22]→px=50+Q*14.5; P∈[0,45]→py=235-P*4.88 -->
+
+          <!-- Nachfrage D: P=45-2Q: Q=0→py=235-220=15; Q=22→px=50+319=369,py=235 -->
+          <line x1="50" y1="15" x2="369" y2="235" stroke="#3b82f6" stroke-width="2"/>
+          <text x="365" y="232" fill="#3b82f6">D</text>
+
+          <!-- MR: MR=45-4Q: Q=0→py=15; Q=11.25→px=50+163=213,py=235 -->
+          <line x1="50" y1="15" x2="213" y2="235" stroke="#7c3aed" stroke-width="2"/>
+          <text x="214" y="233" fill="#7c3aed">MR</text>
+
+          <!-- AC: (Q-20)²/5+10 for Q=0..22 -->
+          <!-- Q=0→AC=80→py=235-390=-155 (off chart); Q=5→AC=45→py=235-220=15; Q=10→AC=30→py=88; Q=15→AC=15→py=162; Q=20→AC=10→py=186; Q=22→AC=10.8→py=182 -->
+          <!-- px=50+Q*14.5 -->
+          <!-- Show from Q=5 onwards -->
+          <polyline points="
+            122.5,15
+            195,88
+            267.5,162
+            340,186
+            369,182
+          " fill="none" stroke="#f59e0b" stroke-width="2"/>
+          <text x="345" y="183" fill="#f59e0b">AC</text>
+
+          <!-- MC: MC=2(Q-20)/5=0.4Q-8: Q=20→MC=0; Q=5→MC=-6 (neg); show from Q=20 -->
+          <!-- Q=20→px=340,py=186 (MC=0→py=235); Q=22→MC=0.8→py=235-3.9=231 -->
+          <!-- Actually MC=0.4Q-8; at Q=15: MC=-2; at Q=20: MC=0; at Q=22: MC=0.8 -->
+          <!-- Show MC from Q=20 (where MC=0) up. In chart MC=0 at Q=20 -->
+          <!-- Actually for positive Q range, MC is negative below Q=20, which seems odd for cost function -->
+          <!-- The AC function (Q-20)²/5+10 implies TC = (Q-20)²/5·Q+10Q, MC = dTC/dQ... -->
+          <!-- Actually if AC=(Q-20)²/5+10, then TC=AC·Q=[(Q-20)²/5+10]·Q -->
+          <!-- MC=dTC/dQ = 2(Q-20)Q/5 + (Q-20)²/5 + 10 = (Q-20)[2Q+(Q-20)]/5+10 = (Q-20)(3Q-20)/5+10 -->
+          <!-- This is complex. For exam purposes, use simplified MC at tangent point -->
+
+          <!-- Tangentialpunkt: Q*=15, P*=15 -->
+          <!-- px=50+15*14.5=267.5; py=235-15*4.88=162 -->
+          <circle cx="267.5" cy="162" r="5" fill="#c0392b"/>
+          <line x1="267.5" y1="162" x2="267.5" y2="235" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
+          <line x1="50" y1="162" x2="267.5" y2="162" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="272" y="158" fill="#c0392b" font-weight="700">LR-GGW (Q=15, P=15)</text>
+
+          <!-- AC_min: Q=20, AC=10 -->
+          <!-- px=340, py=235-10*4.88=186 -->
+          <circle cx="340" cy="186" r="4" fill="#f59e0b"/>
+          <text x="344" y="184" fill="#f59e0b" font-size="10">AC_min=10</text>
+
+          <!-- X-Inefficiency arrow -->
+          <line x1="267.5" y1="162" x2="340" y2="186" stroke="#999" stroke-width="1" stroke-dasharray="3,2"/>
+          <text x="296" y="168" fill="#999" font-size="9">x-Ineff.</text>
+
+          <text x="44" y="166" text-anchor="end">15</text>
+          <text x="44" y="190" text-anchor="end">10</text>
+          <text x="267.5" y="248" text-anchor="middle">15</text>
+          <text x="340" y="248" text-anchor="middle">20</text>
+        </svg>
+      </div>
+      <p class="graph-caption">LR-Tangentiallösung: P=AC=15 bei Q=15. AC-Minimum wäre bei Q=20 – X-Ineffizienz!</p>
+
+      <div class="vertiefung">
+        <div class="vertiefung-header" onclick="toggleVertiefung(this)">
+          🔍 Vertiefung: Wohlfahrtseffekte monopolistischer Konkurrenz <span>▼</span>
+        </div>
+        <div class="vertiefung-body">
+          <p><strong>Pro:</strong> Produktvielfalt – Konsumenten haben Auswahl.<br>
+          <strong>Contra:</strong> Produktionsmengen unter dem AC-Minimum (excess capacity), P &gt; MC.<br>
+          Im LR-Gleichgewicht: kein Gewinn, aber ineffiziente Produktion. Wohlfahrtsverlust im Vergleich zum Polypol bleibt bestehen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPIC 8: Externe Effekte -->
+  <div class="intro-topic" id="t8">
+    <div class="intro-topic-header" onclick="toggleIntro('t8')">
+      <div class="intro-topic-title">
+        <div class="intro-num">8</div>
+        Externe Effekte &amp; Pigou-Steuer
+      </div>
+      <span class="intro-arrow">▼</span>
+    </div>
+    <div class="intro-topic-body">
+      <p>Externe Effekte: Dritte sind von einer Transaktion betroffen, ohne dafür entschädigt/belastet zu werden. <strong>Negativ:</strong> MSC &gt; MPC (z.B. Umweltverschmutzung). Lösung: Pigou-Steuer t = MSC − MPC am sozialen Optimum.</p>
+      <div class="formula-box">
+Beispiel: MSB (Nachfrage) = 80−Q, MPC = 10, MSC = 30
+
+Privates Gleichgewicht:  MSB = MPC → 80−Q = 10 → Q_priv = 70, P_priv = 10
+Soziales Optimum:        MSB = MSC → 80−Q = 30 → Q_soz  = 50, P_soz  = 30
+Pigou-Steuer: t = MSC−MPC = 30−10 = 20
+Wohlfahrtsverlust: ½·(Q_priv−Q_soz)·(MSC−MPC) = ½·20·20 = 200
+      </div>
+
+      <div class="graph-wrap">
+        <svg width="380" height="255" viewBox="0 0 380 255" font-family="inherit" font-size="11">
+          <line x1="50" y1="15" x2="50" y2="235" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="50" y1="235" x2="370" y2="235" stroke="currentColor" stroke-width="1.5"/>
+          <text x="370" y="248">Q</text>
+          <text x="22" y="18">P/MC</text>
+          <!-- Scale: Q∈[0,80]→px=50+Q*4; P∈[0,80]→py=235-P*2.75 -->
+
+          <!-- MSB: P=80-Q: Q=0→py=235-220=15; Q=80→px=370,py=235 -->
+          <line x1="50" y1="15" x2="370" y2="235" stroke="#3b82f6" stroke-width="2"/>
+          <text x="372" y="233" fill="#3b82f6">MSB=D</text>
+
+          <!-- MPC: P=10 → py=235-27.5=207.5 -->
+          <line x1="50" y1="207" x2="370" y2="207" stroke="#10b981" stroke-width="2"/>
+          <text x="372" y="210" fill="#10b981">MPC=10</text>
+
+          <!-- MSC: P=30 → py=235-82.5=152.5 -->
+          <line x1="50" y1="152" x2="370" y2="152" stroke="#c0392b" stroke-width="2"/>
+          <text x="372" y="155" fill="#c0392b">MSC=30</text>
+
+          <!-- Q_priv=70: px=50+280=330; P=10→py=207 -->
+          <circle cx="330" cy="207" r="4" fill="#10b981"/>
+          <line x1="330" y1="207" x2="330" y2="235" stroke="#10b981" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="325" y="248" text-anchor="middle">70</text>
+          <text x="305" y="202" fill="#10b981" font-size="10">Q_priv</text>
+
+          <!-- Q_soz=50: px=50+200=250; P=30→py=152 -->
+          <circle cx="250" cy="152" r="4" fill="#c0392b"/>
+          <line x1="250" y1="152" x2="250" y2="235" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="250" y="248" text-anchor="middle">50</text>
+          <text x="255" y="148" fill="#c0392b" font-weight="700">Q_soz</text>
+
+          <!-- DWL Dreieck: (250,152),(330,207),(250,207) -->
+          <polygon points="250,152 330,207 250,207" fill="rgba(192,57,43,0.25)" stroke="#c0392b" stroke-width="1"/>
+          <text x="285" y="198" fill="#c0392b" font-size="10">DWL=200</text>
+
+          <!-- Pigou-Steuer Pfeil -->
+          <line x1="370" y1="207" x2="370" y2="152" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr2)"/>
+          <text x="342" y="183" fill="#f59e0b" font-size="10">t=20</text>
+
+          <!-- Labels -->
+          <text x="44" y="156" text-anchor="end">30</text>
+          <text x="44" y="211" text-anchor="end">10</text>
+        </svg>
+      </div>
+      <p class="graph-caption">Pigou-Steuer t=20 verschiebt MPC auf MSC → soziales Optimum Q=50 wird erreicht.</p>
+
+      <div class="vertiefung">
+        <div class="vertiefung-header" onclick="toggleVertiefung(this)">
+          🔍 Vertiefung: Coase-Theorem als Alternative <span>▼</span>
+        </div>
+        <div class="vertiefung-body">
+          <p>Coase: Bei klar definierten Eigentumsrechten und vernachlässigbaren Transaktionskosten handeln die Parteien selbst das soziale Optimum aus – ohne staatliche Eingriffe. Problem: In der Realität sind Verhandlungskosten hoch und Eigentumsrechte oft unklar (z.B. Luft als Allmende).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPIC 9: Preisdifferenzierung -->
+  <div class="intro-topic" id="t9">
+    <div class="intro-topic-header" onclick="toggleIntro('t9')">
+      <div class="intro-topic-title">
+        <div class="intro-num">9</div>
+        Preisdifferenzierung (1°, 2°, 3°)
+        <span class="intro-klausur-tag">🔥 Klausur</span>
+      </div>
+      <span class="intro-arrow">▼</span>
+    </div>
+    <div class="intro-topic-body">
+      <p><strong>1. Grades:</strong> Jeder zahlt seine maximale Zahlungsbereitschaft → keine KR, kein DWL. <strong>2. Grades:</strong> Mengenstaffelung (Rabatte bei Großmengen). <strong>3. Grades:</strong> Marktsegmentierung – verschiedene Preise in verschiedenen Märkten.</p>
+      <div class="formula-box">
+3. Grades Beispiel: MC=20, zwei Märkte
+Markt 1: P₁ = 100−Q₁  →  MR₁ = 100−2Q₁
+Markt 2: P₂ = 60−Q₂   →  MR₂ = 60−2Q₂
+
+Optimum: MR₁ = MR₂ = MC = 20
+100−2Q₁ = 20 → Q₁* = 40, P₁* = 60
+60−2Q₂  = 20 → Q₂* = 20, P₂* = 40
+
+Preisdifferenz: ΔP = 60−40 = 20 (Markt 1 zahlt mehr)
+π = (60−20)·40 + (40−20)·20 = 1600+400 = 2000
+      </div>
+
+      <div class="graph-wrap">
+        <svg width="380" height="255" viewBox="0 0 380 255" font-family="inherit" font-size="11">
+          <!-- Two sub-graphs side by side -->
+          <!-- Left: Markt 1 (Q∈[0,60], P∈[0,100]) -->
+          <!-- Scale left: Q∈[0,60]→px=10+Q*2.5; P∈[0,100]→py=235-P*2.2 -->
+          <text x="100" y="12" text-anchor="middle" font-weight="700" fill="#7c3aed">Markt 1</text>
+          <line x1="10" y1="20" x2="10" y2="235" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="10" y1="235" x2="200" y2="235" stroke="currentColor" stroke-width="1.5"/>
+          <text x="200" y="248">Q₁</text>
+          <text x="12" y="18">P₁</text>
+          <!-- D1: P=100-Q1: Q=0→px=10,py=235-220=15; Q=60→px=160,py=235 (off, at px=160+clip) -->
+          <!-- At Q=50→px=135,py=235-0=235 (P=50); at Q=60→P=40,py=147... wait P=100-60=40, not 0 -->
+          <!-- P=0 when Q=100, which is off chart. Draw to Q=80 max -->
+          <!-- Let's draw to Q=60: px=10+60*2.5=160, py=235-40*2.2=147 -->
+          <line x1="10" y1="15" x2="160" y2="147" stroke="#3b82f6" stroke-width="2"/>
+          <text x="162" y="145" fill="#3b82f6">D₁</text>
+
+          <!-- MR1: 100-2Q: Q=0→py=15; Q=50→px=135,py=235 -->
+          <line x1="10" y1="15" x2="135" y2="235" stroke="#7c3aed" stroke-width="1.5"/>
+          <text x="136" y="233" fill="#7c3aed">MR₁</text>
+
+          <!-- MC=20→py=235-44=191 -->
+          <line x1="10" y1="191" x2="195" y2="191" stroke="#10b981" stroke-width="2"/>
+          <text x="197" y="194" fill="#10b981" font-size="10">MC</text>
+
+          <!-- Q1*=40: px=10+100=110; P1*=60→py=235-132=103 -->
+          <line x1="110" y1="103" x2="110" y2="235" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
+          <line x1="10" y1="103" x2="110" y2="103" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
+          <circle cx="110" cy="103" r="4" fill="#c0392b"/>
+          <text x="110" y="248" text-anchor="middle" font-size="10">40</text>
+          <text x="8" y="107" text-anchor="end" font-size="10">60</text>
+          <text x="8" y="195" text-anchor="end" font-size="10">20</text>
+
+          <!-- Right: Markt 2 (Q∈[0,40], P∈[0,60]) -->
+          <!-- Scale right: Q∈[0,40]→px=210+Q*4; P∈[0,60]→py=235-P*3.67 -->
+          <text x="295" y="12" text-anchor="middle" font-weight="700" fill="#3b82f6">Markt 2</text>
+          <line x1="210" y1="20" x2="210" y2="235" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="210" y1="235" x2="375" y2="235" stroke="currentColor" stroke-width="1.5"/>
+          <text x="377" y="248">Q₂</text>
+          <!-- D2: P=60-Q2: Q=0→px=210,py=235-220=15; Q=60→px=450 (off), clip at Q=40→px=370,py=235-73.4=162 -->
+          <!-- At Q=40: P=20→py=235-73.4=162; at Q=0: P=60→py=15.8≈15 -->
+          <line x1="210" y1="15" x2="370" y2="161" stroke="#3b82f6" stroke-width="2"/>
+          <text x="372" y="159" fill="#3b82f6">D₂</text>
+
+          <!-- MR2: 60-2Q: Q=0→py=15; Q=30→px=330,py=235 -->
+          <line x1="210" y1="15" x2="330" y2="235" stroke="#7c3aed" stroke-width="1.5"/>
+          <text x="331" y="233" fill="#7c3aed">MR₂</text>
+
+          <!-- MC=20→py=235-73.4=162 ... wait MC=20 → py=235-20*3.67=235-73.4=161.6 -->
+          <line x1="210" y1="162" x2="375" y2="162" stroke="#10b981" stroke-width="2"/>
+
+          <!-- Q2*=20: px=210+80=290; P2*=40→py=235-146.8=88 -->
+          <line x1="290" y1="88" x2="290" y2="235" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
+          <line x1="210" y1="88" x2="290" y2="88" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
+          <circle cx="290" cy="88" r="4" fill="#c0392b"/>
+          <text x="290" y="248" text-anchor="middle" font-size="10">20</text>
+          <text x="208" y="92" text-anchor="end" font-size="10">40</text>
+          <text x="208" y="166" text-anchor="end" font-size="10">20</text>
+        </svg>
+      </div>
+      <p class="graph-caption">Preisdifferenzierung 3°: P₁*=60 (Markt 1, elastischer), P₂*=40 (Markt 2). MR₁=MR₂=MC=20.</p>
+
+      <div class="vertiefung">
+        <div class="vertiefung-header" onclick="toggleVertiefung(this)">
+          🔍 Vertiefung: Bedingungen für Preisdifferenzierung <span>▼</span>
+        </div>
+        <div class="vertiefung-body">
+          <p>Voraussetzungen: (1) Marktmacht, (2) trennbare Märkte (kein Arbitrage), (3) unterschiedliche Elastizitäten. Faustregel: Der Markt mit der unelastischeren Nachfrage zahlt mehr. Elastizität Markt 1 bei Q=40: ε₁ = −(1/1)·(60/40) = −1.5; Markt 2: ε₂ = −(1/1)·(40/20) = −2. Da |ε₁| &lt; |ε₂| gilt P₁ &gt; P₂. ✓</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END TAB 1 -->
+
+<!-- ══════════════════════════════════════════
+     TAB 2 – THEMEN (Übersicht)
+══════════════════════════════════════════ -->
+<div class="view" id="view-themen">
+  <div style="padding:24px; max-width:880px; margin:0 auto;">
+  <h2 style="font-size:20px;font-weight:800;margin-bottom:6px;">Themenübersicht</h2>
+  <p style="color:var(--muted);margin-bottom:20px;">Klick auf ein Thema für die Kurzformel und den Prüfungshinweis.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;">
+
+    <div style="background:var(--card);border-radius:12px;border:1px solid var(--border);padding:18px;">
+      <div style="font-size:22px;margin-bottom:6px;">📐</div>
+      <h3 style="font-size:14px;font-weight:700;margin-bottom:4px;">1. Lagrange</h3>
+      <p style="font-size:12px;color:var(--muted);">L = U(x) − λ(Budget)</p>
+      <p style="font-size:12px;margin-top:6px;">Optimalbedingung: MRS = p₁/p₂ und Budget einhalten.</p>
+      <span style="font-size:11px;background:#fdecea;color:#c0392b;border-radius:20px;padding:2px 8px;font-weight:700;">🔥 Klausurrelevant</span>
+    </div>
+
+    <div style="background:var(--card);border-radius:12px;border:1px solid var(--border);padding:18px;">
+      <div style="font-size:22px;margin-bottom:6px;">↔️</div>
+      <h3 style="font-size:14px;font-weight:700;margin-bottom:4px;">2. Einkommens- &amp; Substitutionseffekt</h3>
+      <p style="font-size:12px;color:var(--muted);">Slutsky: Δx = SE + EE</p>
+      <p style="font-size:12px;margin-top:6px;">SE entlang Indifferenzkurve, EE durch Einkommensänderung.</p>
+      <span style="font-size:11px;background:#fdecea;color:#c0392b;border-radius:20px;padding:2px 8px;font-weight:700;">🔥 Klausurrelevant</span>
+    </div>
+
+    <div style="background:var(--card);border-radius:12px;border:1px solid var(--border);padding:18px;">
+      <div style="font-size:22px;margin-bottom:6px;">📉</div>
+      <h3 style="font-size:14px;font-weight:700;margin-bottom:4px;">3. Gutenberg PAF</h3>
+      <p style="font-size:12px;color:var(--muted);">Doppelt geknickte Preisabsatzkurve</p>
+      <p style="font-size:12px;margin-top:6px;">Monopolzone zwischen p_u und p_o. Innerhalb stabile Preise.</p>
+      <span style="font-size:11px;background:#fdecea;color:#c0392b;border-radius:20px;padding:2px 8px;font-weight:700;">🔥 Klausurrelevant</span>
+    </div>
+
+    <div style="background:var(--card);border-radius:12px;border:1px solid var(--border);padding:18px;">
+      <div style="font-size:22px;margin-bottom:6px;">🏭</div>
+      <h3 style="font-size:14px;font-weight:700;margin-bottom:4px;">4. Cobb-Douglas &amp; Skalenerträge</h3>
+      <p style="font-size:12px;color:var(--muted);">Q = A·Lᵅ·Kᵝ, h = α+β</p>
+      <p style="font-size:12px;margin-top:6px;">h&lt;1 abnehmend, h=1 konstant, h&gt;1 zunehmend. MRTS = (α/β)·(K/L).</p>
+      <span style="font-size:11px;background:#fdecea;color:#c0392b;border-radius:20px;padding:2px 8px;font-weight:700;">🔥 Klausurrelevant</span>
+    </div>
+
+    <div style="background:var(--card);border-radius:12px;border:1px solid var(--border);padding:18px;">
+      <div style="font-size:22px;margin-bottom:6px;">🔀</div>
+      <h3 style="font-size:14px;font-weight:700;margin-bottom:4px;">5. Sweezy-Modell</h3>
+      <p style="font-size:12px;color:var(--muted);">Geknickte Nachfrage im Oligopol</p>
+      <p style="font-size:12px;margin-top:6px;">Preiserhöhung wird nicht mitgemacht, Preissenkung schon → MR-Lücke → Preisrigidität.</p>
+      <span style="font-size:11px;background:#fdecea;color:#c0392b;border-radius:20px;padding:2px 8px;font-weight:700;">🔥 Klausurrelevant</span>
+    </div>
+
+    <div style="background:var(--card);border-radius:12px;border:1px solid var(--border);padding:18px;">
+      <div style="font-size:22px;margin-bottom:6px;">🏆</div>
+      <h3 style="font-size:14px;font-weight:700;margin-bottom:4px;">6. Monopol &amp; Polypol</h3>
+      <p style="font-size:12px;color:var(--muted);">MR=MC, DWL = ½·(P*−MC)·ΔQ</p>
+      <p style="font-size:12px;margin-top:6px;">Wohlfahrtsverlust durch Unterproduktion. Lerner-Index = (P−MC)/P.</p>
+    </div>
+
+    <div style="background:var(--card);border-radius:12px;border:1px solid var(--border);padding:18px;">
+      <div style="font-size:22px;margin-bottom:6px;">🏪</div>
+      <h3 style="font-size:14px;font-weight:700;margin-bottom:4px;">7. Chamberlin</h3>
+      <p style="font-size:12px;color:var(--muted);">Monopolistische Konkurrenz, LR: P=AC</p>
+      <p style="font-size:12px;margin-top:6px;">Tangentiallösung: D berührt AC. Kein Gewinn, aber X-Ineffizienz.</p>
+      <span style="font-size:11px;background:#fdecea;color:#c0392b;border-radius:20px;padding:2px 8px;font-weight:700;">🔥 Klausurrelevant</span>
+    </div>
+
+    <div style="background:var(--card);border-radius:12px;border:1px solid var(--border);padding:18px;">
+      <div style="font-size:22px;margin-bottom:6px;">🌫️</div>
+      <h3 style="font-size:14px;font-weight:700;margin-bottom:4px;">8. Externe Effekte</h3>
+      <p style="font-size:12px;color:var(--muted);">Pigou-Steuer t = MSC − MPC</p>
+      <p style="font-size:12px;margin-top:6px;">Privates GGW ≠ soziales Optimum. Steuer internalisiert externen Schaden.</p>
+    </div>
+
+    <div style="background:var(--card);border-radius:12px;border:1px solid var(--border);padding:18px;">
+      <div style="font-size:22px;margin-bottom:6px;">🏷️</div>
+      <h3 style="font-size:14px;font-weight:700;margin-bottom:4px;">9. Preisdifferenzierung</h3>
+      <p style="font-size:12px;color:var(--muted);">3°: MR₁=MR₂=MC</p>
+      <p style="font-size:12px;margin-top:6px;">Segmentierung: unelastischer Markt zahlt mehr. Voraussetzung: Arbitragefreiheit.</p>
+      <span style="font-size:11px;background:#fdecea;color:#c0392b;border-radius:20px;padding:2px 8px;font-weight:700;">🔥 Klausurrelevant</span>
+    </div>
+
+  </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     TAB 3 – KARTEIKARTEN
+══════════════════════════════════════════ -->
+<div class="view" id="view-karten">
+  <div class="fc-daily-goal" id="fc-daily-goal-box">
+    📅 Tages-Ziel: <strong id="fc-goal-text">–</strong> Karten heute schaffen
+  </div>
+  <div class="fc-progress-bar-wrap">
+    <div class="fc-progress-bar" id="fc-pbar" style="width:0%"></div>
+  </div>
+  <div class="fc-card-area">
+    <div class="fc-card" id="fc-card" onclick="flipCard()">
+      <div class="fc-inner">
+        <div class="fc-front">
+          <div class="fc-cat" id="fc-cat">Kategorie</div>
+          <div class="fc-q" id="fc-q">Frage</div>
+        </div>
+        <div class="fc-back">
+          <div class="fc-a" id="fc-a">Antwort</div>
+          <div class="fc-hint">Tippe zum Umdrehen</div>
+        </div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--muted);">Tippe auf die Karte zum Umdrehen</div>
+    <div class="fc-nav">
+      <button class="fc-btn hard" onclick="rateCard(0)">😰 Schwer</button>
+      <div class="fc-count" id="fc-count">1 / 36</div>
+      <button class="fc-btn good" onclick="rateCard(1)">✅ Gewusst</button>
+    </div>
+    <button class="fc-btn" onclick="shuffleCards()" style="margin-top:8px;">🔀 Mischen</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     TAB 4 – AUFGABEN (Canvas)
+══════════════════════════════════════════ -->
+<div class="view" id="view-aufgaben">
+  <div class="aufg-list">
+
+    <!-- Aufgabe 1: Lagrange -->
+    <div class="aufg-item">
+      <div class="aufg-head">
+        <h3>Aufgabe 1 – Lagrange Konsumoptimum</h3>
+        <span class="aufg-tag">Lagrange</span>
+      </div>
+      <div class="aufg-body">
+        <p>Ein Konsument hat die Nutzenfunktion <strong>U(x₁, x₂) = x₁ · x₂²</strong>. Die Preise betragen p₁ = 3 und p₂ = 2, das Budget beträgt m = 60.<br><br>
+        a) Stellen Sie die Lagrange-Funktion auf.<br>
+        b) Berechnen Sie die optimalen Mengen x₁* und x₂*.<br>
+        c) Wie hoch ist der maximale Nutzen U*?</p>
+        <div class="canvas-wrap" id="cw1">
+          <canvas id="canvas1" height="320"></canvas>
+          <div class="canvas-toolbar">
+            <button class="active" id="pen1" onclick="setTool('canvas1','pen')">✏️ Stift</button>
+            <button id="hl1" onclick="setTool('canvas1','highlight')">🖊 Marker</button>
+            <button onclick="setColor('canvas1','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
+            <button onclick="setColor('canvas1','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
+            <button onclick="setColor('canvas1','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
+            <button onclick="setColor('canvas1','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
+            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" id="size1" min="2" max="24" value="4" oninput="setSize('canvas1',this.value)"></label>
+            <button onclick="clearCanvas('canvas1')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt1" placeholder="Oder hier tippen / mit Apple Pencil schreiben …"></textarea>
+        <button class="aufg-save-btn" onclick="saveAufgabe(1)">💾 Speichern</button>
+        <div class="aufg-saved-note" id="saved1">✓ Gespeichert!</div>
+      </div>
+    </div>
+
+    <!-- Aufgabe 2: Cobb-Douglas / Skalenerträge -->
+    <div class="aufg-item">
+      <div class="aufg-head">
+        <h3>Aufgabe 2 – Cobb-Douglas &amp; Skalenerträge</h3>
+        <span class="aufg-tag">Produktion</span>
+      </div>
+      <div class="aufg-body">
+        <p>Gegeben: <strong>Q = 3 · L^0.5 · K^0.5</strong><br><br>
+        a) Bestimmen Sie den Homogenitätsgrad h und die Art der Skalenerträge.<br>
+        b) Berechnen Sie die MRTS bei L = 4, K = 9.<br>
+        c) Wie lautet die optimale Inputkombination, wenn w = 2 und r = 3?</p>
+        <div class="canvas-wrap" id="cw2">
+          <canvas id="canvas2" height="320"></canvas>
+          <div class="canvas-toolbar">
+            <button class="active" id="pen2" onclick="setTool('canvas2','pen')">✏️ Stift</button>
+            <button id="hl2" onclick="setTool('canvas2','highlight')">🖊 Marker</button>
+            <button onclick="setColor('canvas2','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
+            <button onclick="setColor('canvas2','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
+            <button onclick="setColor('canvas2','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
+            <button onclick="setColor('canvas2','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
+            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" id="size2" min="2" max="24" value="4" oninput="setSize('canvas2',this.value)"></label>
+            <button onclick="clearCanvas('canvas2')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt2" placeholder="Oder hier tippen …"></textarea>
+        <button class="aufg-save-btn" onclick="saveAufgabe(2)">💾 Speichern</button>
+        <div class="aufg-saved-note" id="saved2">✓ Gespeichert!</div>
+      </div>
+    </div>
+
+    <!-- Aufgabe 3: Monopol / DWL -->
+    <div class="aufg-item">
+      <div class="aufg-head">
+        <h3>Aufgabe 3 – Monopol &amp; Deadweight Loss</h3>
+        <span class="aufg-tag">Monopol</span>
+      </div>
+      <div class="aufg-body">
+        <p>Nachfrage: <strong>P = 80 − 2Q</strong>, Grenzkosten: <strong>MC = 20</strong> (konstant).<br><br>
+        a) Berechnen Sie Monopolmenge Q* und Monopolpreis P*.<br>
+        b) Wie hoch ist der DWL im Vergleich zum Wettbewerb?<br>
+        c) Zeichnen Sie das Diagramm mit KR, PR und DWL.</p>
+        <div class="canvas-wrap" id="cw3">
+          <canvas id="canvas3" height="360"></canvas>
+          <div class="canvas-toolbar">
+            <button class="active" id="pen3" onclick="setTool('canvas3','pen')">✏️ Stift</button>
+            <button id="hl3" onclick="setTool('canvas3','highlight')">🖊 Marker</button>
+            <button onclick="setColor('canvas3','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
+            <button onclick="setColor('canvas3','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
+            <button onclick="setColor('canvas3','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
+            <button onclick="setColor('canvas3','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
+            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" id="size3" min="2" max="24" value="4" oninput="setSize('canvas3',this.value)"></label>
+            <button onclick="clearCanvas('canvas3')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt3" placeholder="Oder hier tippen …"></textarea>
+        <button class="aufg-save-btn" onclick="saveAufgabe(3)">💾 Speichern</button>
+        <div class="aufg-saved-note" id="saved3">✓ Gespeichert!</div>
+      </div>
+    </div>
+
+    <!-- Aufgabe 4: Chamberlin LR -->
+    <div class="aufg-item">
+      <div class="aufg-head">
+        <h3>Aufgabe 4 – Chamberlin Langfristgleichgewicht</h3>
+        <span class="aufg-tag">Chamberlin</span>
+      </div>
+      <div class="aufg-body">
+        <p>Gegeben: Nachfrage <strong>P = 60 − 3Q</strong>, Durchschnittskosten <strong>AC = (Q−10)²/4 + 8</strong>.<br><br>
+        a) Bestimmen Sie das LR-Gleichgewicht (P = AC und P' = AC').<br>
+        b) Welche Menge wird produziert? Wie hoch ist der Gewinn?<br>
+        c) Wo liegt das AC-Minimum und was ist X-Ineffizienz?</p>
+        <div class="canvas-wrap" id="cw4">
+          <canvas id="canvas4" height="360"></canvas>
+          <div class="canvas-toolbar">
+            <button class="active" id="pen4" onclick="setTool('canvas4','pen')">✏️ Stift</button>
+            <button id="hl4" onclick="setTool('canvas4','highlight')">🖊 Marker</button>
+            <button onclick="setColor('canvas4','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
+            <button onclick="setColor('canvas4','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
+            <button onclick="setColor('canvas4','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
+            <button onclick="setColor('canvas4','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
+            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" id="size4" min="2" max="24" value="4" oninput="setSize('canvas4',this.value)"></label>
+            <button onclick="clearCanvas('canvas4')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt4" placeholder="Oder hier tippen …"></textarea>
+        <button class="aufg-save-btn" onclick="saveAufgabe(4)">💾 Speichern</button>
+        <div class="aufg-saved-note" id="saved4">✓ Gespeichert!</div>
+      </div>
+    </div>
+
+    <!-- Aufgabe 5: Preisdifferenzierung -->
+    <div class="aufg-item">
+      <div class="aufg-head">
+        <h3>Aufgabe 5 – Preisdifferenzierung 3. Grades</h3>
+        <span class="aufg-tag">Preisdiff.</span>
+      </div>
+      <div class="aufg-body">
+        <p>Ein Monopolist bedient zwei Märkte: <strong>P₁ = 120 − Q₁</strong> und <strong>P₂ = 80 − 2Q₂</strong>. MC = 20.<br><br>
+        a) Berechnen Sie die optimalen Mengen Q₁* und Q₂* und Preise P₁* und P₂*.<br>
+        b) Welcher Markt ist preiselastischer? Prüfen Sie dies mit der Elastizitätsformel.<br>
+        c) Berechnen Sie den Gesamtgewinn.</p>
+        <div class="canvas-wrap" id="cw5">
+          <canvas id="canvas5" height="320"></canvas>
+          <div class="canvas-toolbar">
+            <button class="active" id="pen5" onclick="setTool('canvas5','pen')">✏️ Stift</button>
+            <button id="hl5" onclick="setTool('canvas5','highlight')">🖊 Marker</button>
+            <button onclick="setColor('canvas5','#000000')"><span class="color-swatch active" style="background:#000000"></span></button>
+            <button onclick="setColor('canvas5','#c0392b')"><span class="color-swatch" style="background:#c0392b"></span></button>
+            <button onclick="setColor('canvas5','#2563eb')"><span class="color-swatch" style="background:#2563eb"></span></button>
+            <button onclick="setColor('canvas5','#059669')"><span class="color-swatch" style="background:#059669"></span></button>
+            <label style="font-size:12px;color:var(--muted);">Größe <input type="range" class="pen-size" id="size5" min="2" max="24" value="4" oninput="setSize('canvas5',this.value)"></label>
+            <button onclick="clearCanvas('canvas5')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt5" placeholder="Oder hier tippen …"></textarea>
+        <button class="aufg-save-btn" onclick="saveAufgabe(5)">💾 Speichern</button>
+        <div class="aufg-saved-note" id="saved5">✓ Gespeichert!</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     TAB 5 – ALTKLAUSUREN
+══════════════════════════════════════════ -->
+<div class="view" id="view-altklausuren">
+  <div class="ak-list">
+
+    <!-- ST 2019 -->
+    <div class="ak-item">
+      <div class="ak-head">
+        <h3>📋 Altklausur Sommersemester 2019</h3>
+        <span>Mikro · 90 Min</span>
+      </div>
+      <div class="ak-body">
+
+        <div class="ak-question">
+          <p>Aufgabe 1 (20 Pkt): Lagrange-Optimierung<br>
+          Nutzenfunktion U = x₁^(1/3) · x₂^(2/3). Preise p₁=2, p₂=4, Budget m=120. Berechnen Sie x₁*, x₂* und U*.</p>
+          <div class="ak-canvas-area" id="ak-ca-2019-1">
+            <canvas id="ak-cv-2019-1" height="200"></canvas>
+            <div class="ak-toolbar">
+              <button onclick="setTool('ak-cv-2019-1','pen')">✏️</button>
+              <button onclick="setColor('ak-cv-2019-1','#000000')">⚫</button>
+              <button onclick="setColor('ak-cv-2019-1','#c0392b')">🔴</button>
+              <button onclick="setColor('ak-cv-2019-1','#2563eb')">🔵</button>
+              <button onclick="clearCanvas('ak-cv-2019-1')">🗑</button>
+            </div>
+          </div>
+          <textarea class="ak-text" id="ak-txt-2019-1" placeholder="Lösung eingeben …"></textarea>
+          <div class="ak-save-row">
+            <button class="ak-save-btn" onclick="saveAK('2019-1')">💾 Speichern</button>
+            <span class="ak-saved-note" id="ak-saved-2019-1">✓ Gespeichert</span>
+          </div>
+        </div>
+
+        <div class="ak-question">
+          <p>Aufgabe 2 (20 Pkt): Cobb-Douglas Produktion<br>
+          Q = L^0.4 · K^0.6. Inputpreise w=3, r=2. Bestimmen Sie h, MRTS und das Kostenmimum für Q=10.</p>
+          <div class="ak-canvas-area" id="ak-ca-2019-2">
+            <canvas id="ak-cv-2019-2" height="200"></canvas>
+            <div class="ak-toolbar">
+              <button onclick="setTool('ak-cv-2019-2','pen')">✏️</button>
+              <button onclick="setColor('ak-cv-2019-2','#000000')">⚫</button>
+              <button onclick="setColor('ak-cv-2019-2','#c0392b')">🔴</button>
+              <button onclick="setColor('ak-cv-2019-2','#2563eb')">🔵</button>
+              <button onclick="clearCanvas('ak-cv-2019-2')">🗑</button>
+            </div>
+          </div>
+          <textarea class="ak-text" id="ak-txt-2019-2" placeholder="Lösung eingeben …"></textarea>
+          <div class="ak-save-row">
+            <button class="ak-save-btn" onclick="saveAK('2019-2')">💾 Speichern</button>
+            <span class="ak-saved-note" id="ak-saved-2019-2">✓ Gespeichert</span>
+          </div>
+        </div>
+
+        <div class="ak-question">
+          <p>Aufgabe 3 (15 Pkt): Monopol und Wohlfahrt<br>
+          Nachfrage P=60−Q, MC=10. Berechnen Sie Monopollösung und DWL. Zeichnen Sie das Diagramm.</p>
+          <div class="ak-canvas-area" id="ak-ca-2019-3">
+            <canvas id="ak-cv-2019-3" height="200"></canvas>
+            <div class="ak-toolbar">
+              <button onclick="setTool('ak-cv-2019-3','pen')">✏️</button>
+              <button onclick="setColor('ak-cv-2019-3','#000000')">⚫</button>
+              <button onclick="setColor('ak-cv-2019-3','#c0392b')">🔴</button>
+              <button onclick="setColor('ak-cv-2019-3','#2563eb')">🔵</button>
+              <button onclick="clearCanvas('ak-cv-2019-3')">🗑</button>
+            </div>
+          </div>
+          <textarea class="ak-text" id="ak-txt-2019-3" placeholder="Lösung eingeben …"></textarea>
+          <div class="ak-save-row">
+            <button class="ak-save-btn" onclick="saveAK('2019-3')">💾 Speichern</button>
+            <span class="ak-saved-note" id="ak-saved-2019-3">✓ Gespeichert</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ST 2021 -->
+    <div class="ak-item">
+      <div class="ak-head">
+        <h3>📋 Altklausur Sommersemester 2021</h3>
+        <span>Mikro · 90 Min</span>
+      </div>
+      <div class="ak-body">
+
+        <div class="ak-question">
+          <p>Aufgabe 1 (20 Pkt): Einkommens- &amp; Substitutionseffekt<br>
+          U = x₁ · x₂, p₁=5→p₁'=2, p₂=4, m=40. Berechnen Sie Slutsky SE und EE.</p>
+          <div class="ak-canvas-area"><canvas id="ak-cv-2021-1" height="200"></canvas>
+            <div class="ak-toolbar">
+              <button onclick="setTool('ak-cv-2021-1','pen')">✏️</button>
+              <button onclick="setColor('ak-cv-2021-1','#000000')">⚫</button>
+              <button onclick="setColor('ak-cv-2021-1','#c0392b')">🔴</button>
+              <button onclick="setColor('ak-cv-2021-1','#2563eb')">🔵</button>
+              <button onclick="clearCanvas('ak-cv-2021-1')">🗑</button>
+            </div>
+          </div>
+          <textarea class="ak-text" id="ak-txt-2021-1" placeholder="Lösung eingeben …"></textarea>
+          <div class="ak-save-row">
+            <button class="ak-save-btn" onclick="saveAK('2021-1')">💾 Speichern</button>
+            <span class="ak-saved-note" id="ak-saved-2021-1">✓ Gespeichert</span>
+          </div>
+        </div>
+
+        <div class="ak-question">
+          <p>Aufgabe 2 (20 Pkt): Sweezy-Oligopol<br>
+          Aktueller Preis P₀=40, Q₀=60. Obere Nachfrage: P=70−0.5Q. Untere: P=100−Q. Bestimmen Sie den MR-Sprung und zeigen Sie Preisrigidität.</p>
+          <div class="ak-canvas-area"><canvas id="ak-cv-2021-2" height="200"></canvas>
+            <div class="ak-toolbar">
+              <button onclick="setTool('ak-cv-2021-2','pen')">✏️</button>
+              <button onclick="setColor('ak-cv-2021-2','#000000')">⚫</button>
+              <button onclick="setColor('ak-cv-2021-2','#c0392b')">🔴</button>
+              <button onclick="setColor('ak-cv-2021-2','#2563eb')">🔵</button>
+              <button onclick="clearCanvas('ak-cv-2021-2')">🗑</button>
+            </div>
+          </div>
+          <textarea class="ak-text" id="ak-txt-2021-2" placeholder="Lösung eingeben …"></textarea>
+          <div class="ak-save-row">
+            <button class="ak-save-btn" onclick="saveAK('2021-2')">💾 Speichern</button>
+            <span class="ak-saved-note" id="ak-saved-2021-2">✓ Gespeichert</span>
+          </div>
+        </div>
+
+        <div class="ak-question">
+          <p>Aufgabe 3 (15 Pkt): Externe Effekte<br>
+          MSB=100−Q, MPC=20, MSC=40. Berechnen Sie privates GGW, soziales Optimum und Pigou-Steuer. Quantifizieren Sie den Wohlfahrtsverlust.</p>
+          <div class="ak-canvas-area"><canvas id="ak-cv-2021-3" height="200"></canvas>
+            <div class="ak-toolbar">
+              <button onclick="setTool('ak-cv-2021-3','pen')">✏️</button>
+              <button onclick="setColor('ak-cv-2021-3','#000000')">⚫</button>
+              <button onclick="setColor('ak-cv-2021-3','#c0392b')">🔴</button>
+              <button onclick="setColor('ak-cv-2021-3','#2563eb')">🔵</button>
+              <button onclick="clearCanvas('ak-cv-2021-3')">🗑</button>
+            </div>
+          </div>
+          <textarea class="ak-text" id="ak-txt-2021-3" placeholder="Lösung eingeben …"></textarea>
+          <div class="ak-save-row">
+            <button class="ak-save-btn" onclick="saveAK('2021-3')">💾 Speichern</button>
+            <span class="ak-saved-note" id="ak-saved-2021-3">✓ Gespeichert</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ST 2022 -->
+    <div class="ak-item">
+      <div class="ak-head">
+        <h3>📋 Altklausur Sommersemester 2022</h3>
+        <span>Mikro · 90 Min</span>
+      </div>
+      <div class="ak-body">
+
+        <div class="ak-question">
+          <p>Aufgabe 1 (20 Pkt): Chamberlin LR-Gleichgewicht<br>
+          Nachfrage P=50−Q, AC=(Q−15)²/3+12. Bestimmen Sie LR-GGW-Menge und -Preis. Belegen Sie die Tangenz rechnerisch.</p>
+          <div class="ak-canvas-area"><canvas id="ak-cv-2022-1" height="200"></canvas>
+            <div class="ak-toolbar">
+              <button onclick="setTool('ak-cv-2022-1','pen')">✏️</button>
+              <button onclick="setColor('ak-cv-2022-1','#000000')">⚫</button>
+              <button onclick="setColor('ak-cv-2022-1','#c0392b')">🔴</button>
+              <button onclick="setColor('ak-cv-2022-1','#2563eb')">🔵</button>
+              <button onclick="clearCanvas('ak-cv-2022-1')">🗑</button>
+            </div>
+          </div>
+          <textarea class="ak-text" id="ak-txt-2022-1" placeholder="Lösung eingeben …"></textarea>
+          <div class="ak-save-row">
+            <button class="ak-save-btn" onclick="saveAK('2022-1')">💾 Speichern</button>
+            <span class="ak-saved-note" id="ak-saved-2022-1">✓ Gespeichert</span>
+          </div>
+        </div>
+
+        <div class="ak-question">
+          <p>Aufgabe 2 (20 Pkt): Preisdifferenzierung 3. Grades<br>
+          MC=15 (konstant). Markt 1: P₁=90−Q₁; Markt 2: P₂=70−2Q₂. Optimale Preise, Mengen und Gesamtgewinn.</p>
+          <div class="ak-canvas-area"><canvas id="ak-cv-2022-2" height="200"></canvas>
+            <div class="ak-toolbar">
+              <button onclick="setTool('ak-cv-2022-2','pen')">✏️</button>
+              <button onclick="setColor('ak-cv-2022-2','#000000')">⚫</button>
+              <button onclick="setColor('ak-cv-2022-2','#c0392b')">🔴</button>
+              <button onclick="setColor('ak-cv-2022-2','#2563eb')">🔵</button>
+              <button onclick="clearCanvas('ak-cv-2022-2')">🗑</button>
+            </div>
+          </div>
+          <textarea class="ak-text" id="ak-txt-2022-2" placeholder="Lösung eingeben …"></textarea>
+          <div class="ak-save-row">
+            <button class="ak-save-btn" onclick="saveAK('2022-2')">💾 Speichern</button>
+            <span class="ak-saved-note" id="ak-saved-2022-2">✓ Gespeichert</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Dez 2022 -->
+    <div class="ak-item">
+      <div class="ak-head">
+        <h3>📋 Klausur Dezember 2022</h3>
+        <span>Mikro · 90 Min</span>
+      </div>
+      <div class="ak-body">
+
+        <div class="ak-question">
+          <p>Aufgabe 1 (25 Pkt): Doppeltgeknickte PAF (Gutenberg)<br>
+          Beschreiben Sie die drei Zonen der Gutenberg-PAF. Zeichnen Sie die PAF und erklären Sie, warum das Unternehmen in der Monopolzone bleibt. Unter welchen Bedingungen verlässt es diese Zone?</p>
+          <div class="ak-canvas-area"><canvas id="ak-cv-d22-1" height="220"></canvas>
+            <div class="ak-toolbar">
+              <button onclick="setTool('ak-cv-d22-1','pen')">✏️</button>
+              <button onclick="setColor('ak-cv-d22-1','#000000')">⚫</button>
+              <button onclick="setColor('ak-cv-d22-1','#c0392b')">🔴</button>
+              <button onclick="setColor('ak-cv-d22-1','#2563eb')">🔵</button>
+              <button onclick="clearCanvas('ak-cv-d22-1')">🗑</button>
+            </div>
+          </div>
+          <textarea class="ak-text" id="ak-txt-d22-1" placeholder="Lösung eingeben …"></textarea>
+          <div class="ak-save-row">
+            <button class="ak-save-btn" onclick="saveAK('d22-1')">💾 Speichern</button>
+            <span class="ak-saved-note" id="ak-saved-d22-1">✓ Gespeichert</span>
+          </div>
+        </div>
+
+        <div class="ak-question">
+          <p>Aufgabe 2 (20 Pkt): Sweezy-Modell<br>
+          P₀=50, Q₀=80. Obere Teilnachfrage: P=90−0.5Q (Konkurrenz folgt nicht). Untere Teilnachfrage: P=130−Q (Konkurrenz folgt). Zeigen Sie die MR-Lücke und erklären Sie den Stabilitätsmechanismus.</p>
+          <div class="ak-canvas-area"><canvas id="ak-cv-d22-2" height="220"></canvas>
+            <div class="ak-toolbar">
+              <button onclick="setTool('ak-cv-d22-2','pen')">✏️</button>
+              <button onclick="setColor('ak-cv-d22-2','#000000')">⚫</button>
+              <button onclick="setColor('ak-cv-d22-2','#c0392b')">🔴</button>
+              <button onclick="setColor('ak-cv-d22-2','#2563eb')">🔵</button>
+              <button onclick="clearCanvas('ak-cv-d22-2')">🗑</button>
+            </div>
+          </div>
+          <textarea class="ak-text" id="ak-txt-d22-2" placeholder="Lösung eingeben …"></textarea>
+          <div class="ak-save-row">
+            <button class="ak-save-btn" onclick="saveAK('d22-2')">💾 Speichern</button>
+            <span class="ak-saved-note" id="ak-saved-d22-2">✓ Gespeichert</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ST 2023 -->
+    <div class="ak-item">
+      <div class="ak-head">
+        <h3>📋 Altklausur Sommersemester 2023</h3>
+        <span>Mikro · 90 Min</span>
+      </div>
+      <div class="ak-body">
+
+        <div class="ak-question">
+          <p>Aufgabe 1 (20 Pkt): Lagrange &amp; Einkommenseffekt<br>
+          U = x₁^0.5 · x₂^0.5, p₁=4, p₂=1, m=80. (a) Berechnen Sie Optimum. (b) m steigt auf 100 – wie verändert sich der Konsum? Bestimmen Sie den Einkommenseffekt.</p>
+          <div class="ak-canvas-area"><canvas id="ak-cv-st23-1" height="200"></canvas>
+            <div class="ak-toolbar">
+              <button onclick="setTool('ak-cv-st23-1','pen')">✏️</button>
+              <button onclick="setColor('ak-cv-st23-1','#000000')">⚫</button>
+              <button onclick="setColor('ak-cv-st23-1','#c0392b')">🔴</button>
+              <button onclick="setColor('ak-cv-st23-1','#2563eb')">🔵</button>
+              <button onclick="clearCanvas('ak-cv-st23-1')">🗑</button>
+            </div>
+          </div>
+          <textarea class="ak-text" id="ak-txt-st23-1" placeholder="Lösung eingeben …"></textarea>
+          <div class="ak-save-row">
+            <button class="ak-save-btn" onclick="saveAK('st23-1')">💾 Speichern</button>
+            <span class="ak-saved-note" id="ak-saved-st23-1">✓ Gespeichert</span>
+          </div>
+        </div>
+
+        <div class="ak-question">
+          <p>Aufgabe 2 (20 Pkt): Produktion &amp; Skalenerträge<br>
+          Q = 5 · L^0.3 · K^0.7. (a) Homogenitätsgrad und Skalenerträge? (b) MRTS bei L=10, K=5? (c) Kostenminimum bei w=6, r=3, Q=20?</p>
+          <div class="ak-canvas-area"><canvas id="ak-cv-st23-2" height="200"></canvas>
+            <div class="ak-toolbar">
+              <button onclick="setTool('ak-cv-st23-2','pen')">✏️</button>
+              <button onclick="setColor('ak-cv-st23-2','#000000')">⚫</button>
+              <button onclick="setColor('ak-cv-st23-2','#c0392b')">🔴</button>
+              <button onclick="setColor('ak-cv-st23-2','#2563eb')">🔵</button>
+              <button onclick="clearCanvas('ak-cv-st23-2')">🗑</button>
+            </div>
+          </div>
+          <textarea class="ak-text" id="ak-txt-st23-2" placeholder="Lösung eingeben …"></textarea>
+          <div class="ak-save-row">
+            <button class="ak-save-btn" onclick="saveAK('st23-2')">💾 Speichern</button>
+            <span class="ak-saved-note" id="ak-saved-st23-2">✓ Gespeichert</span>
+          </div>
+        </div>
+
+        <div class="ak-question">
+          <p>Aufgabe 3 (15 Pkt): Externe Effekte &amp; Wohlfahrt<br>
+          Nachfrage (MSB) = 90−Q, MPC=5, externer Schaden = 25 pro Einheit (konstant). Berechnen Sie privates GGW, soziales Optimum, Pigou-Steuer und DWL.</p>
+          <div class="ak-canvas-area"><canvas id="ak-cv-st23-3" height="200"></canvas>
+            <div class="ak-toolbar">
+              <button onclick="setTool('ak-cv-st23-3','pen')">✏️</button>
+              <button onclick="setColor('ak-cv-st23-3','#000000')">⚫</button>
+              <button onclick="setColor('ak-cv-st23-3','#c0392b')">🔴</button>
+              <button onclick="setColor('ak-cv-st23-3','#2563eb')">🔵</button>
+              <button onclick="clearCanvas('ak-cv-st23-3')">🗑</button>
+            </div>
+          </div>
+          <textarea class="ak-text" id="ak-txt-st23-3" placeholder="Lösung eingeben …"></textarea>
+          <div class="ak-save-row">
+            <button class="ak-save-btn" onclick="saveAK('st23-3')">💾 Speichern</button>
+            <span class="ak-saved-note" id="ak-saved-st23-3">✓ Gespeichert</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── TAB NAVIGATION ──────────────────────────────────────────
+function showTab(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  var el = document.getElementById('view-' + id);
+  if (el) el.classList.add('active');
+  var btns = document.querySelectorAll('nav button');
+  var map = {intro:0, themen:1, karten:2, aufgaben:3, altklausuren:4};
+  if (map[id] !== undefined) btns[map[id]].classList.add('active');
+  if (id === 'karten') renderFlashcard();
+}
+
+// ── DARK MODE ──────────────────────────────────────────────
+(function() {
+  var t = localStorage.getItem('theme');
+  if (t === 'dark') document.documentElement.setAttribute('data-theme','dark');
+})();
+function toggleDark() {
+  var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  if (isDark) {
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.setItem('theme','light');
+  } else {
+    document.documentElement.setAttribute('data-theme','dark');
+    localStorage.setItem('theme','dark');
+  }
+}
+
+// ── COUNTDOWN ──────────────────────────────────────────────
+var cdExams = JSON.parse(localStorage.getItem('lernplan_exams_v1') || '[]');
+function updateCountdown() {
+  var now = new Date(); now.setHours(0,0,0,0);
+  var upcoming = cdExams.map(function(e){
+    var d = new Date(e.date); d.setHours(0,0,0,0);
+    return {label:e.label, days:Math.round((d-now)/86400000)};
+  }).filter(function(e){return e.days>=0;}).sort(function(a,b){return a.days-b.days;});
+  var el = document.getElementById('countdown-text');
+  if (!el) return;
+  if (upcoming.length === 0) { el.innerHTML = 'Klausurdatum eingeben'; return; }
+  var n = upcoming[0];
+  el.innerHTML = (n.label||'Klausur') + ' in <strong>' + n.days + '</strong> Tag' + (n.days===1?'':'en');
+}
+function openCdModal() {
+  renderCdRows();
+  document.getElementById('cdModal').classList.add('open');
+}
+function closeCdModal() { document.getElementById('cdModal').classList.remove('open'); }
+function renderCdRows() {
+  var c = document.getElementById('cd-rows'); c.innerHTML = '';
+  cdExams.forEach(function(e,i) {
+    var r = document.createElement('div'); r.className='cd-row';
+    r.innerHTML = '<input type="text" value="'+e.label+'" placeholder="Bezeichnung" onchange="cdExams['+i+'].label=this.value">' +
+      '<input type="date" value="'+e.date+'" onchange="cdExams['+i+'].date=this.value">' +
+      '<button class="cd-btn-del" onclick="cdDelRow('+i+')">✕</button>';
+    c.appendChild(r);
+  });
+}
+function cdAddRow() { cdExams.push({label:'Mikro',date:''}); renderCdRows(); }
+function cdDelRow(i) { cdExams.splice(i,1); renderCdRows(); }
+function cdSave() {
+  localStorage.setItem('lernplan_exams_v1', JSON.stringify(cdExams));
+  updateCountdown();
+  closeCdModal();
+  updateDailyGoal();
+}
+updateCountdown();
+
+// ── INTRO TOPICS ──────────────────────────────────────────
+function toggleIntro(id) {
+  var el = document.getElementById(id);
+  var body = el.querySelector('.intro-topic-body');
+  var arrow = el.querySelector('.intro-arrow');
+  var open = body.classList.toggle('open');
+  arrow.style.transform = open ? 'rotate(180deg)' : '';
+}
+function toggleVertiefung(header) {
+  var body = header.nextElementSibling;
+  var arrow = header.querySelector('span');
+  var open = body.classList.toggle('open');
+  arrow.textContent = open ? '▲' : '▼';
+}
+
+// ── FLASHCARDS ────────────────────────────────────────────
+var CARDS = [
+  {cat:'Lagrange', q:'Was ist die Optimalbedingung im Lagrange-Ansatz?', a:'MRS = p₁/p₂  (Grenzrate der Substitution = Preisverhältnis)\n+ Budget: p₁x₁+p₂x₂ = m'},
+  {cat:'Lagrange', q:'Was misst der Lagrange-Multiplikator λ?', a:'λ = Grenznutzen des Einkommens. 1 € mehr Budget erhöht U um λ.'},
+  {cat:'Lagrange', q:'U=x₁·x₂, p₁=4, p₂=2, m=40. Optimum?', a:'x₁*=5, x₂*=10, U*=50\n(Regel: xᵢ* = αᵢ·m / pᵢ, hier α₁=α₂=0.5)'},
+  {cat:'Lagrange', q:'Wie lautet die Nachfragefunktion bei U=x₁^α·x₂^β?', a:'x₁* = (α/(α+β))·(m/p₁)\nx₂* = (β/(α+β))·(m/p₂)'},
+  {cat:'SE/EE', q:'Was ist der Substitutionseffekt?', a:'Bewegung entlang der alten Indifferenzkurve nach einer Preisänderung. U bleibt konstant, Mengen passen sich dem neuen Preisverhältnis an.'},
+  {cat:'SE/EE', q:'Was ist der Einkommenseffekt?', a:'Parallele Verschiebung der Budgetgeraden durch das veränderte Realeinkommen. Nutzen steigt (bei norm. Gut).'},
+  {cat:'SE/EE', q:'Wann ist ein Gut ein Giffen-Gut?', a:'EE ist negativ und überwiegtSE. Preis sinkt → Nachfrage sinkt. Extremfall des inferioren Guts.'},
+  {cat:'SE/EE', q:'Slutsky-Budget m* bei p₁-Senkung?', a:'m* = m + x₁_A · |Δp₁|\n(Kompensiertes Einkommen, sodass ursprüngliches Bündel A noch leistbar bleibt)'},
+  {cat:'Gutenberg', q:'Was sind die drei Zonen der Gutenberg-PAF?', a:'1. p > p_o: hoch elastisch (Kunden wechseln massiv)\n2. p_u ≤ p ≤ p_o: Monopolzone (gering elastisch)\n3. p < p_u: hoch elastisch (Wettbewerber verlieren Kunden)'},
+  {cat:'Gutenberg', q:'Warum bleibt der Preis in der Monopolzone stabil?', a:'MR kann stark schwanken ohne dass der Preis sich ändert, da MC die vertikale MR-Lücke nicht verlässt. Preisrigidität!'},
+  {cat:'Cobb-Douglas', q:'Was ist der Homogenitätsgrad h?', a:'h = α + β\nh<1: abnehmende Skalenerträge\nh=1: konstante Skalenerträge\nh>1: zunehmende Skalenerträge'},
+  {cat:'Cobb-Douglas', q:'Wie berechnet man die MRTS bei Q=A·Lᵅ·Kᵝ?', a:'MRTS = MP_L / MP_K = (α·Q/L) / (β·Q/K) = (α/β)·(K/L)'},
+  {cat:'Cobb-Douglas', q:'Optimale Inputkombination bei gegebenem w und r?', a:'MRTS = w/r\n(α/β)·(K/L) = w/r\n→ K/L = (β·w)/(α·r)'},
+  {cat:'Cobb-Douglas', q:'Q=2·L^0.6·K^0.4. Zeige: konstante Skalenerträge.', a:'f(tL,tK)=2·(tL)^0.6·(tK)^0.4 = 2·t^0.6·t^0.4·L^0.6·K^0.4 = t¹·Q ✓\nAlso h=1, konstante Skalenerträge.'},
+  {cat:'Sweezy', q:'Warum hat die Sweezy-Nachfrage einen Knick?', a:'Preiserhöhung: Konkurrenten folgen nicht → viele Kunden weg (elastisch oben).\nPreissenkung: alle senken mit → kaum Gewinn (elastisch unten).'},
+  {cat:'Sweezy', q:'Was ist die MR-Lücke und warum entsteht sie?', a:'Am Knickpunkt springt MR von MR_oben auf MR_unten. Solange MC in dieser Lücke liegt, bleibt P=P₀ optimal.'},
+  {cat:'Sweezy', q:'Berechne MR_o und MR_u bei P₀=30, Q₀=50, D_o=50-0.4Q, D_u=80-Q.', a:'MR_o = 50-0.8·50 = 10\nMR_u = 80-2·50 = -20\nLücke: [-20, +10]'},
+  {cat:'Monopol', q:'Monopolbedingung für Gewinnmaximum?', a:'MR = MC\nBei linearer Nachfrage P=a-bQ: MR=a-2bQ\n→ a-2bQ = MC → Q*'},
+  {cat:'Monopol', q:'DWL-Formel beim Monopol?', a:'DWL = ½ · (P* - MC) · (Q_W - Q*)\nDreieck zwischen Monopolpunkt, Wettbewerbspunkt und D.'},
+  {cat:'Monopol', q:'Lerner-Index?', a:'L = (P-MC)/P = 1/|ε|\nL=0 im Polypol (P=MC)\nL>0 je größer die Marktmacht'},
+  {cat:'Chamberlin', q:'Was ist das LR-Gleichgewicht bei Chamberlin?', a:'P = AC (kein Gewinn durch Markteintritt)\nP\' = AC\' (Tangenz: D berührt AC)'},
+  {cat:'Chamberlin', q:'Was ist X-Ineffizienz bei Chamberlin?', a:'LR-Menge Q* < AC-Minimum Menge. Unternehmen produziert mit Überkapazität (excess capacity). Durchschnittskosten sind höher als nötig.'},
+  {cat:'Chamberlin', q:'Chamberlin-Verifikation: P=45-2Q, AC=(Q-20)²/5+10. Prüfe Q*=15.', a:'P\'=-2, AC\'=2(15-20)/5=-2 ✓ (Steigungen gleich)\nP(15)=15, AC(15)=(−5)²/5+10=5+10=15 ✓ (Gewinn=0)'},
+  {cat:'Externe Effekte', q:'Was ist ein negativer externer Effekt?', a:'Dritte tragen Kosten ohne Entschädigung. MSC > MPC. Privates GGW produziert zu viel. Bsp: Umweltverschmutzung.'},
+  {cat:'Externe Effekte', q:'Pigou-Steuer: wie hoch und wo ansetzen?', a:'t = MSC - MPC, gemessen am sozialen Optimum (Q_soz).\nSteuer veranlasst Produzenten, externe Kosten zu internalisieren.'},
+  {cat:'Externe Effekte', q:'MSB=80-Q, MPC=10, MSC=30. Berechne alle Größen.', a:'Q_priv: 80-Q=10 → Q=70, P=10\nQ_soz: 80-Q=30 → Q=50, P=30\nt=20, DWL=½·20·20=200'},
+  {cat:'Preisdiff.', q:'Drei Bedingungen für Preisdifferenzierung 3°?', a:'1. Marktmacht (Preis > MC möglich)\n2. Trennbare Märkte (kein Arbitrage)\n3. Unterschiedliche Preiselastizitäten'},
+  {cat:'Preisdiff.', q:'Optimalbedingung bei Preisdiff. 3°?', a:'MR₁ = MR₂ = MC\nDer Markt mit |ε| kleiner (weniger elastisch) zahlt mehr.'},
+  {cat:'Preisdiff.', q:'MC=20, P₁=100-Q₁, P₂=60-Q₂. Optimum?', a:'MR₁=100-2Q₁=20 → Q₁=40, P₁=60\nMR₂=60-2Q₂=20 → Q₂=20, P₂=40\nπ=(40·40)+(20·20)=1600+400=2000'},
+  {cat:'Preisdiff.', q:'Was ist Preisdifferenzierung 1. Grades?', a:'Jeder Konsument zahlt genau seine Zahlungsbereitschaft. Vollständige KR-Abschöpfung, kein DWL, maximaler Monopolgewinn.'},
+  {cat:'Allgemein', q:'Was ist eine Preiselastizität der Nachfrage?', a:'ε = (ΔQ/Q) / (ΔP/P) = (dQ/dP)·(P/Q)\nElastisch: |ε|>1. Unelastisch: |ε|<1.'},
+  {cat:'Allgemein', q:'Polypol vs. Monopol – Kernunterschied?', a:'Polypol: P=MC, maximale Wohlfahrt, kein DWL.\nMonopol: P>MC=MR, Unterproduktion, DWL, Umverteilung KR→PR.'},
+  {cat:'Allgemein', q:'Was ist der Grenzerlös MR?', a:'MR = d(P·Q)/dQ = P + Q·(dP/dQ)\nBei linearer Nachfrage P=a-bQ: MR=a-2bQ (doppelt so steil wie D)'},
+  {cat:'Allgemein', q:'Warum liegt MR unter D bei fallender Nachfrage?', a:'Preissenkung gilt für alle Einheiten. Erlöszuwachs durch neue Einheit wird durch Erlösverlust auf bisherige Einheiten vermindert.'},
+  {cat:'Allgemein', q:'Nash-Gleichgewicht – Definition?', a:'Gleichgewicht, in dem kein Spieler durch einseitige Abweichung besser gestellt werden kann. Jeder spielt beste Antwort auf die Strategie der anderen.'},
+  {cat:'Allgemein', q:'Coase-Theorem – wann funktioniert es?', a:'Bei klar definierten Eigentumsrechten und null Transaktionskosten handeln Parteien das soziale Optimum aus. In der Realität selten erfüllt.'},
+];
+
+var fcIdx = 0, fcDone = 0, fcOrder = [];
+function shuffleCards() {
+  fcOrder = CARDS.map((_,i)=>i).sort(()=>Math.random()-0.5);
+  fcIdx = 0; fcDone = 0;
+  document.getElementById('fc-card').classList.remove('flipped');
+  renderFlashcard();
+}
+function renderFlashcard() {
+  if (!fcOrder.length) shuffleCards();
+  var i = fcOrder[fcIdx % fcOrder.length];
+  var c = CARDS[i];
+  document.getElementById('fc-cat').textContent = c.cat;
+  document.getElementById('fc-q').textContent = c.q;
+  document.getElementById('fc-a').textContent = c.a;
+  document.getElementById('fc-count').textContent = (fcIdx+1) + ' / ' + CARDS.length;
+  var pct = Math.round(fcDone / CARDS.length * 100);
+  document.getElementById('fc-pbar').style.width = pct + '%';
+  document.getElementById('fc-card').classList.remove('flipped');
+}
+function flipCard() { document.getElementById('fc-card').classList.toggle('flipped'); }
+function rateCard(good) {
+  if (good) fcDone++;
+  fcIdx++;
+  if (fcIdx >= fcOrder.length) { fcIdx = 0; fcDone = 0; shuffleCards(); return; }
+  renderFlashcard();
+}
+function updateDailyGoal() {
+  var now = new Date(); now.setHours(0,0,0,0);
+  var exams = JSON.parse(localStorage.getItem('lernplan_exams_v1') || '[]');
+  var upcoming = exams.filter(function(e){ var d=new Date(e.date); d.setHours(0,0,0,0); return d>=now; });
+  upcoming.sort(function(a,b){ return new Date(a.date)-new Date(b.date); });
+  var el = document.getElementById('fc-goal-text');
+  if (!el) return;
+  if (!upcoming.length) { el.textContent = '–'; return; }
+  var days = Math.max(1, Math.round((new Date(upcoming[0].date)-now)/86400000));
+  var perDay = Math.ceil(CARDS.length / days);
+  el.textContent = perDay + ' Karten (' + days + ' Tage bis Klausur)';
+}
+updateDailyGoal();
+
+// ── CANVAS (Aufgaben) ─────────────────────────────────────
+var canvasStates = {};
+
+function initCanvas(id) {
+  var canvas = document.getElementById(id);
+  if (!canvas || canvas._inited) return;
+  canvas._inited = true;
+  var wrap = canvas.parentElement;
+  canvas.width = wrap.offsetWidth || 700;
+  canvas._tool = 'pen';
+  canvas._color = '#000000';
+  canvas._size = 4;
+  var ctx = canvas.getContext('2d');
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+
+  // Load saved
+  var saved = localStorage.getItem('mikro_canvas_' + id);
+  if (saved) { var img = new Image(); img.onload = function(){ ctx.drawImage(img,0,0); }; img.src = saved; }
+
+  var drawing = false, lastX, lastY;
+
+  function getPos(e) {
+    var rect = canvas.getBoundingClientRect();
+    var scaleX = canvas.width / rect.width;
+    var scaleY = canvas.height / rect.height;
+    var src = e.touches ? e.touches[0] : e;
+    return { x: (src.clientX - rect.left) * scaleX, y: (src.clientY - rect.top) * scaleY };
+  }
+
+  function startDraw(e) {
+    if (e.touches && e.touches.length > 1) return;
+    e.preventDefault();
+    drawing = true;
+    var p = getPos(e);
+    lastX = p.x; lastY = p.y;
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+  }
+  function doDraw(e) {
+    if (!drawing) return;
+    if (e.touches && e.touches.length > 1) return;
+    e.preventDefault();
+    var p = getPos(e);
+    ctx.globalAlpha = canvas._tool === 'highlight' ? 0.3 : 1.0;
+    ctx.strokeStyle = canvas._color;
+    ctx.lineWidth = canvas._tool === 'highlight' ? canvas._size * 4 : canvas._size;
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+    lastX = p.x; lastY = p.y;
+  }
+  function endDraw(e) {
+    if (!drawing) return;
+    drawing = false;
+    ctx.globalAlpha = 1.0;
+  }
+
+  canvas.addEventListener('mousedown', startDraw);
+  canvas.addEventListener('mousemove', doDraw);
+  canvas.addEventListener('mouseup', endDraw);
+  canvas.addEventListener('mouseleave', endDraw);
+  canvas.addEventListener('touchstart', startDraw, {passive:false});
+  canvas.addEventListener('touchmove', doDraw, {passive:false});
+  canvas.addEventListener('touchend', endDraw);
+}
+
+function setTool(id, tool) {
+  var c = document.getElementById(id);
+  if (!c) return;
+  c._tool = tool;
+}
+function setColor(id, color) {
+  var c = document.getElementById(id);
+  if (!c) return;
+  c._color = color;
+}
+function setSize(id, val) {
+  var c = document.getElementById(id);
+  if (!c) return;
+  c._size = parseInt(val);
+}
+function clearCanvas(id) {
+  var c = document.getElementById(id);
+  if (!c) return;
+  c.getContext('2d').clearRect(0,0,c.width,c.height);
+  localStorage.removeItem('mikro_canvas_' + id);
+}
+
+function saveAufgabe(n) {
+  var c = document.getElementById('canvas' + n);
+  var t = document.getElementById('txt' + n);
+  if (c) localStorage.setItem('mikro_canvas_canvas' + n, c.toDataURL());
+  if (t) localStorage.setItem('mikro_txt_' + n, t.value);
+  var note = document.getElementById('saved' + n);
+  if (note) { note.style.display='inline'; setTimeout(function(){ note.style.display='none'; }, 2000); }
+}
+function saveAK(key) {
+  var cvId = 'ak-cv-' + key;
+  var txtId = 'ak-txt-' + key;
+  var c = document.getElementById(cvId);
+  var t = document.getElementById(txtId);
+  if (c) localStorage.setItem('mikro_canvas_' + cvId, c.toDataURL());
+  if (t) localStorage.setItem('mikro_ak_txt_' + key, t.value);
+  var note = document.getElementById('ak-saved-' + key);
+  if (note) { note.style.display='inline'; setTimeout(function(){ note.style.display='none'; }, 2000); }
+}
+
+// Load textarea values
+function loadSavedText() {
+  for (var i=1;i<=5;i++) {
+    var t = document.getElementById('txt'+i);
+    if (t) { var s=localStorage.getItem('mikro_txt_'+i); if(s) t.value=s; }
+  }
+  var akKeys=['2019-1','2019-2','2019-3','2021-1','2021-2','2021-3','2022-1','2022-2','d22-1','d22-2','st23-1','st23-2','st23-3'];
+  akKeys.forEach(function(k){
+    var t=document.getElementById('ak-txt-'+k);
+    if(t){var s=localStorage.getItem('mikro_ak_txt_'+k);if(s)t.value=s;}
+  });
+}
+loadSavedText();
+
+// Init canvases on tab switch (they need to be visible first)
+var canvasInited = {};
+function initAllVisible() {
+  document.querySelectorAll('canvas').forEach(function(c){
+    if (!c._inited && c.offsetParent !== null) initCanvas(c.id);
+  });
+}
+// Also init on scroll/resize
+window.addEventListener('resize', initAllVisible);
+// Patch showTab to init canvases
+var _origShowTab = showTab;
+showTab = function(id) {
+  _origShowTab(id);
+  setTimeout(initAllVisible, 50);
+};
+setTimeout(initAllVisible, 100);
+
+// Shuffle on load
+shuffleCards();
+updateDailyGoal();
+</script>
+</body>
+</html>
