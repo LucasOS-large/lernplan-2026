@@ -22,7 +22,12 @@
 html { overscroll-behavior: none; }
 body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.65; transition: background 0.25s, color 0.25s;
-  overscroll-behavior: none; }
+  overscroll-behavior: none;
+  /* Prevent palm from selecting text while writing with Apple Pencil */
+  -webkit-user-select: none; user-select: none;
+  -webkit-touch-callout: none; }
+/* Re-enable selection only for actual input fields */
+input, textarea, [contenteditable] { -webkit-user-select: text; user-select: text; }
 
 /* HEADER */
 header {
