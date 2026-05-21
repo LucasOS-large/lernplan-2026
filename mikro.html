@@ -1374,8 +1374,16 @@ function initCanvas(id) {
   var drawing = false, lastPos = { x: 0, y: 0 };
 
   function saveSnap() {
-    canvas._history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    // createImageBitmap is fully async — zero blocking time on the pen thread.
+    // Fallback to getImageData (sync) only if API unavailable.
+    var entry = { bmp: null, data: null };
+    canvas._history.push(entry);
     if (canvas._history.length > 15) canvas._history.shift();
+    if (typeof createImageBitmap !== 'undefined') {
+      createImageBitmap(canvas).then(function(bmp) { entry.bmp = bmp; });
+    } else {
+      entry.data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    }
   }
 
   function getPos(e) {
@@ -1446,12 +1454,13 @@ function initCanvas(id) {
     saveSnap();
   }
 
-  // Pointer Events API — handles Pencil, Mouse, and rejects Touch
-  canvas.addEventListener('pointerdown',  startDraw);
-  canvas.addEventListener('pointermove',  doDraw);
-  canvas.addEventListener('pointerup',    endDraw);
-  canvas.addEventListener('pointerleave', endDraw);
-  canvas.addEventListener('pointercancel',endDraw);
+  // passive:false lets preventDefault() fire without browser waiting
+  var opt = { passive: false };
+  canvas.addEventListener('pointerdown',   startDraw,  opt);
+  canvas.addEventListener('pointermove',   doDraw,     opt);
+  canvas.addEventListener('pointerup',     endDraw);
+  canvas.addEventListener('pointerleave',  endDraw);
+  canvas.addEventListener('pointercancel', endDraw);
 
   // Two-finger pinch-to-zoom (touch only, pen drawing unaffected)
   initCanvasZoom(canvas);
@@ -1460,7 +1469,14 @@ function initCanvas(id) {
 function undoCanvas(id) {
   var c = document.getElementById(id);
   if (!c || !c._history || !c._history.length) return;
-  c.getContext('2d').putImageData(c._history.pop(), 0, 0);
+  var ctx = c.getContext('2d', { desynchronized: true });
+  var entry = c._history.pop();
+  if (!entry) return;
+  ctx.clearRect(0, 0, c.width, c.height);
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, c.width, c.height);
+  if (entry.bmp)  { ctx.drawImage(entry.bmp, 0, 0); }  // fast GPU blit
+  else if (entry.data) { ctx.putImageData(entry.data, 0, 0); } // fallback
 }
 
 // ── PINCH-TO-ZOOM ──────────────────────────────────────────────────────────
