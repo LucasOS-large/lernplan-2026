@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Mikroökonomik – Klausurvorbereitung</title>
 <style>
 :root {
@@ -19,8 +19,10 @@
   --nav-bg: #2c2c2e; --input-bg: #3a3a3c; --code-bg: #3a3a3c; --answer-bg: #2c2c2e;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
+html { overscroll-behavior: none; }
 body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-  background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.65; transition: background 0.25s, color 0.25s; }
+  background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.65; transition: background 0.25s, color 0.25s;
+  overscroll-behavior: none; }
 
 /* HEADER */
 header {
@@ -1371,11 +1373,13 @@ function initCanvas(id) {
   var saved = localStorage.getItem(savedKey);
   if (saved) { var img = new Image(); img.onload = function(){ ctx.drawImage(img,0,0); }; img.src = saved; }
 
-  var drawing = false, lastPos = { x: 0, y: 0 };
+  var drawing = false;
+  var lastPos = { x: 0, y: 0 };
+  // Cached per-stroke: getBoundingClientRect() called ONCE at stroke start,
+  // reused for every coalesced point — avoids repeated forced-layout recalcs.
+  var _left = 0, _top = 0, _scaleX = 1, _scaleY = 1;
 
   function saveSnap() {
-    // createImageBitmap is fully async — zero blocking time on the pen thread.
-    // Fallback to getImageData (sync) only if API unavailable.
     var entry = { bmp: null, data: null };
     canvas._history.push(entry);
     if (canvas._history.length > 15) canvas._history.shift();
@@ -1384,14 +1388,6 @@ function initCanvas(id) {
     } else {
       entry.data = ctx.getImageData(0, 0, canvas.width, canvas.height);
     }
-  }
-
-  function getPos(e) {
-    var rect = canvas.getBoundingClientRect();
-    return {
-      x: (e.clientX - rect.left) * (canvas.width / rect.width),
-      y: (e.clientY - rect.top)  * (canvas.height / rect.height)
-    };
   }
 
   function applyStyle() {
@@ -1414,15 +1410,19 @@ function initCanvas(id) {
   }
 
   function startDraw(e) {
-    // ── PALM REJECTION: nur Apple Pencil (pen) und Maus (mouse) erlaubt ──
     if (e.pointerType === 'touch') return;
     e.preventDefault();
     drawing = true;
-    // NOTE: saveSnap() moved to endDraw — getImageData() blockiert GPU→CPU
-    // und verursacht Lag am Strich-Anfang. Snapshot nach Strich-Ende ist schnell genug.
     try { canvas.setPointerCapture(e.pointerId); } catch(x) {}
     applyStyle();
-    lastPos = getPos(e);
+    // Cache rect ONCE per stroke — all pointermove events reuse this
+    var r = canvas.getBoundingClientRect();
+    _left   = r.left;
+    _top    = r.top;
+    _scaleX = canvas.width  / r.width;
+    _scaleY = canvas.height / r.height;
+    lastPos.x = (e.clientX - _left) * _scaleX;
+    lastPos.y = (e.clientY - _top)  * _scaleY;
     ctx.beginPath();
     ctx.moveTo(lastPos.x, lastPos.y);
   }
@@ -1430,19 +1430,16 @@ function initCanvas(id) {
   function doDraw(e) {
     if (!drawing || e.pointerType === 'touch') return;
     e.preventDefault();
-    // All coalesced points (Apple Pencil up to 240Hz) → ONE path → ONE stroke()
-    // Calling stroke() per-point was flushing the GPU on every coalesced sample
     var evts = (e.getCoalescedEvents && e.getCoalescedEvents()) || [e];
+    // No getBoundingClientRect() here — uses values cached at stroke start
     ctx.beginPath();
     ctx.moveTo(lastPos.x, lastPos.y);
     for (var i = 0; i < evts.length; i++) {
-      lastPos = getPos(evts[i]);
+      lastPos.x = (evts[i].clientX - _left) * _scaleX;
+      lastPos.y = (evts[i].clientY - _top)  * _scaleY;
       ctx.lineTo(lastPos.x, lastPos.y);
     }
     ctx.stroke();
-    // Continue path from current tip for next event
-    ctx.beginPath();
-    ctx.moveTo(lastPos.x, lastPos.y);
   }
 
   function endDraw(e) {
