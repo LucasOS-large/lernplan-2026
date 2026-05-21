@@ -109,6 +109,9 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
 .canvas-toolbar button.eraser-btn { background: #fff8f0; border-color: #f59e0b; color: #92400e; }
 .canvas-toolbar button.eraser-btn.tool-active { background: #f59e0b; color: white; border-color: #f59e0b; }
 .canvas-toolbar button.undo-btn { background: var(--code-bg); }
+.canvas-toolbar button.zoom-reset-btn { background: #f0f7ff; border-color: #3b82f6; color: #1d4ed8; }
+.canvas-toolbar button.zoom-reset-btn:hover { background: #3b82f6; color: white; }
+.canvas-wrap canvas { will-change: transform; }
 .color-swatch { width: 22px; height: 22px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; transition: transform 0.1s; }
 .color-swatch:hover, .color-swatch.active { border-color: var(--ink); transform: scale(1.15); }
 .pen-size { width: 70px; }
@@ -1428,12 +1431,124 @@ function initCanvas(id) {
   canvas.addEventListener('pointerup',    endDraw);
   canvas.addEventListener('pointerleave', endDraw);
   canvas.addEventListener('pointercancel',endDraw);
+
+  // Two-finger pinch-to-zoom (touch only, pen drawing unaffected)
+  initCanvasZoom(canvas);
 }
 
 function undoCanvas(id) {
   var c = document.getElementById(id);
   if (!c || !c._history || !c._history.length) return;
   c.getContext('2d').putImageData(c._history.pop(), 0, 0);
+}
+
+// ── PINCH-TO-ZOOM ──────────────────────────────────────────────────────────
+// Two-finger touch → zoom + pan. Apple Pencil drawing is unaffected.
+// getBoundingClientRect() already returns the CSS-scaled rect, so getPos()
+// needs zero changes — pen coordinates are always pixel-perfect.
+function initCanvasZoom(canvas) {
+  if (canvas._zoomInited) return;
+  canvas._zoomInited = true;
+  canvas._zs = { scale: 1, x: 0, y: 0 };
+  canvas.style.transformOrigin = '0 0';
+  canvas.style.willChange = 'transform';
+
+  var ptrs = {}, lastDist = null, lastMid = null;
+
+  function applyZoom() {
+    var z = canvas._zs;
+    canvas.style.transform = 'translate('+z.x+'px,'+z.y+'px) scale('+z.scale+')';
+    // Show/hide reset button in toolbar
+    var wrap = canvas.parentElement;
+    if (wrap) {
+      var tb = wrap.querySelector('.canvas-toolbar, .ak-toolbar');
+      if (tb) {
+        var rb = tb.querySelector('.zoom-reset-btn');
+        if (rb) rb.style.display = z.scale > 1.05 ? '' : 'none';
+      }
+    }
+  }
+
+  function clampZoom() {
+    var z = canvas._zs;
+    var wrap = canvas.parentElement;
+    var ww = wrap ? wrap.clientWidth  : 700;
+    var wh = wrap ? wrap.clientHeight : 400;
+    var cw = canvas.offsetWidth, ch = canvas.offsetHeight;
+    z.x = Math.min(ww * 0.8, Math.max(-(cw * z.scale - ww * 0.2), z.x));
+    z.y = Math.min(wh * 0.8, Math.max(-(ch * z.scale - wh * 0.2), z.y));
+  }
+
+  function pDist(a, b) {
+    var dx = a.clientX-b.clientX, dy = a.clientY-b.clientY;
+    return Math.sqrt(dx*dx+dy*dy);
+  }
+  function pMid(a, b) {
+    return { clientX:(a.clientX+b.clientX)/2, clientY:(a.clientY+b.clientY)/2 };
+  }
+
+  canvas.addEventListener('pointerdown', function(e) {
+    if (e.pointerType !== 'touch') return;
+    ptrs[e.pointerId] = { clientX: e.clientX, clientY: e.clientY };
+    var ids = Object.keys(ptrs);
+    if (ids.length === 2) {
+      lastDist = pDist(ptrs[ids[0]], ptrs[ids[1]]);
+      lastMid  = pMid (ptrs[ids[0]], ptrs[ids[1]]);
+    }
+    e.preventDefault();
+  }, { passive: false });
+
+  canvas.addEventListener('pointermove', function(e) {
+    if (e.pointerType !== 'touch' || !ptrs[e.pointerId]) return;
+    ptrs[e.pointerId] = { clientX: e.clientX, clientY: e.clientY };
+    var ids = Object.keys(ptrs);
+    if (ids.length >= 2 && lastDist !== null) {
+      var p1 = ptrs[ids[0]], p2 = ptrs[ids[1]];
+      var newDist = pDist(p1, p2);
+      var newMid  = pMid (p1, p2);
+      var z = canvas._zs;
+      var scaleDelta = newDist / lastDist;
+      var newScale = Math.min(6, Math.max(1, z.scale * scaleDelta));
+      // Zoom toward pinch midpoint
+      var wrap = canvas.parentElement;
+      var wr = wrap ? wrap.getBoundingClientRect() : { left:0, top:0 };
+      var pivotX = (newMid.clientX - wr.left - z.x) / z.scale;
+      var pivotY = (newMid.clientY - wr.top  - z.y) / z.scale;
+      z.x -= pivotX * (newScale - z.scale);
+      z.y -= pivotY * (newScale - z.scale);
+      z.scale = newScale;
+      // Pan from midpoint movement
+      z.x += newMid.clientX - lastMid.clientX;
+      z.y += newMid.clientY - lastMid.clientY;
+      clampZoom();
+      applyZoom();
+      lastDist = newDist;
+      lastMid  = newMid;
+    }
+    e.preventDefault();
+  }, { passive: false });
+
+  function onUp(e) {
+    if (e.pointerType !== 'touch') return;
+    delete ptrs[e.pointerId];
+    if (Object.keys(ptrs).length < 2) { lastDist = null; lastMid = null; }
+  }
+  canvas.addEventListener('pointerup',     onUp);
+  canvas.addEventListener('pointercancel', onUp);
+  canvas.addEventListener('pointerleave',  onUp);
+}
+
+function resetZoom(id) {
+  var c = document.getElementById(id);
+  if (!c || !c._zs) return;
+  c._zs.scale = 1; c._zs.x = 0; c._zs.y = 0;
+  c.style.transform = '';
+  // Hide reset button
+  var wrap = c.parentElement;
+  if (wrap) {
+    var tb = wrap.querySelector('.canvas-toolbar, .ak-toolbar');
+    if (tb) { var rb = tb.querySelector('.zoom-reset-btn'); if (rb) rb.style.display='none'; }
+  }
 }
 
 function setTool(id, tool) {
@@ -1506,6 +1621,15 @@ function enhanceToolbars() {
       tb.appendChild(erBtn);
       tb.appendChild(undoBtn);
     }
+
+    // Zoom reset button (hidden until user zooms in)
+    var zoomBtn = document.createElement('button');
+    zoomBtn.textContent = '🔍↺';
+    zoomBtn.title = 'Zoom zurücksetzen';
+    zoomBtn.className = 'zoom-reset-btn';
+    zoomBtn.style.display = 'none';
+    zoomBtn.onclick = function() { resetZoom(cid); };
+    tb.appendChild(zoomBtn);
 
     // Mark pen-button as active by default
     var penBtn = tb.querySelector('[data-tool="pen"]') || btns[0];
