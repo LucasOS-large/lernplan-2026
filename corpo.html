@@ -101,6 +101,53 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
 .cf-label { font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 14px 0 6px; }
 .cf-divider { border: none; border-top: 2px dashed var(--border); margin: 36px 0; }
 
+/* 3-COLUMN LAYOUT */
+.themen-layout { display: flex; width: 100%; min-height: calc(100vh - 110px); }
+.themen-nav { width: 220px; flex-shrink: 0; position: sticky; top: 110px; height: calc(100vh - 110px); overflow-y: auto; border-right: 1px solid var(--border); padding: 12px 8px; background: var(--bg); }
+.themen-sidebar { width: 270px; flex-shrink: 0; position: sticky; top: 110px; height: calc(100vh - 110px); overflow-y: auto; border-left: 1px solid var(--border); padding: 14px; background: var(--bg); }
+.themen-main { flex: 1; min-width: 0; padding: 24px 32px 60px; overflow-y: auto; }
+.tnav-item { display: flex; align-items: center; gap: 9px; width: 100%; padding: 8px 10px; border: none; background: transparent; cursor: pointer; border-radius: 10px; text-align: left; transition: background 0.15s; }
+.tnav-item:hover { background: var(--accent-soft); }
+.tnav-item.active { background: linear-gradient(135deg, rgba(14,165,233,0.13), rgba(14,165,233,0.06)); box-shadow: inset 3px 0 0 var(--accent); }
+.tnav-title { font-size: 12.5px; color: var(--ink); font-weight: 500; line-height: 1.3; }
+.tnav-sub { font-size: 10.5px; color: var(--muted); margin-top: 1px; }
+.tnav-ring { flex-shrink: 0; }
+.progress-ring-bg { fill: none; stroke: #e5e7eb; stroke-width: 2.5; }
+.progress-ring-fill { fill: none; stroke-width: 2.5; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset 0.4s; }
+[data-theme="dark"] .progress-ring-bg { stroke: #3a3a3c; }
+.topic-panel { display: none; }
+.topic-panel.active { display: block; }
+.module-header { margin-bottom: 24px; padding-bottom: 16px; border-bottom: 2px solid var(--border); }
+.module-header h2 { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+.module-header p { font-size: 14px; color: var(--muted); }
+.module-num-badge { display: inline-block; background: var(--accent); color: white; border-radius: 8px; padding: 2px 10px; font-size: 11px; font-weight: 800; margin-bottom: 10px; }
+.section-title { font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 28px 0 10px; padding: 6px 12px; background: var(--accent-soft); border-radius: 6px; display: inline-block; }
+.qa-block { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin: 10px 0; overflow: hidden; }
+.qa-q { padding: 12px 16px; cursor: pointer; font-size: 14px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+.qa-q:hover { background: var(--accent-soft); }
+.qa-a { display: none; padding: 12px 16px 14px; font-size: 13.5px; line-height: 1.75; border-top: 1px solid var(--border); background: var(--answer-bg); }
+.qa-a.open { display: block; }
+.qa-arrow { font-size: 14px; color: var(--muted); transition: transform 0.2s; flex-shrink: 0; }
+.read-btn { display: flex; align-items: center; gap: 8px; margin-top: 28px; padding: 10px 18px; background: var(--accent-soft); border: 1px solid var(--accent); border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--accent); width: fit-content; }
+.read-btn:hover { background: var(--accent); color: white; }
+.read-btn.done { background: #ecfdf5; border-color: #059669; color: #059669; }
+[data-theme="dark"] .read-btn.done { background: #022c1c; }
+/* RIGHT SIDEBAR */
+.sb-title { font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.sb-progress-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; cursor: pointer; padding: 5px 8px; border-radius: 7px; }
+.sb-progress-row:hover { background: var(--accent-soft); }
+.sb-progress-row span { font-size: 12px; color: var(--ink); flex: 1; }
+.sb-bar-wrap { width: 60px; height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden; }
+.sb-bar { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.4s; }
+[data-theme="dark"] .sb-bar-wrap { background: #3a3a3c; }
+.sb-overall { text-align: center; margin-bottom: 18px; padding: 14px; background: var(--card); border-radius: 10px; border: 1px solid var(--border); }
+.sb-overall-num { font-size: 28px; font-weight: 800; color: var(--accent); }
+.sb-overall-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.sb-formula-box { background: var(--code-bg); border-radius: 7px; padding: 8px 10px; font-size: 11.5px; font-family: "SF Mono","Fira Code",monospace; margin-bottom: 6px; border-left: 2px solid var(--accent); line-height: 1.6; color: var(--ink); }
+.sb-divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+@media (max-width: 900px) { .themen-sidebar { display: none; } }
+@media (max-width: 599px) { .themen-nav { display: none; } .themen-main { padding: 16px; } }
+
 /* AUFGABEN */
 .aufg-list { display: flex; flex-direction: column; gap: 20px; }
 .aufg-item { background: var(--card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
@@ -184,288 +231,685 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
 </header>
 
 <nav>
-  <button class="active" onclick="showTab('intro')">📖 CF Intro</button>
+  <button class="active" onclick="showTab('intro')">📖 Lernen</button>
   <button onclick="showTab('aufgaben')">✏️ Aufgaben</button>
   <button onclick="showTab('altklausuren')">📋 Altklausuren</button>
 </nav>
 
 <!-- ══════════════════════════════════════════
-     TAB 1 – CF INTRO
+     TAB 1 – LERNEN (3-COLUMN)
 ══════════════════════════════════════════ -->
 <div class="view active" id="view-intro">
-<div class="cf-wrap">
+<div class="themen-layout">
 
-  <div class="cf-hero">
-    <h2>Corporate Finance – alle 7 Module im Überblick</h2>
-    <p>Von der Grundidee der Unternehmensfinanzierung bis zu CAPM und WACC. Klicke jedes Modul auf, um Formeln, Definitionen und Zusammenhänge zu sehen.</p>
+<!-- LEFT NAV -->
+<div class="themen-nav">
+  <div style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:4px 10px 10px;">Module</div>
+  <button class="tnav-item active" onclick="selectModule(0)" data-mod="0">
+    <div class="tnav-ring"><svg width="24" height="24" viewBox="0 0 24 24"><circle class="progress-ring-bg" cx="12" cy="12" r="9"/><circle class="progress-ring-fill" id="ring-0" cx="12" cy="12" r="9" stroke="#0ea5e9" stroke-dasharray="56.5" stroke-dashoffset="56.5"/></svg></div>
+    <div><div class="tnav-title">Einführung CF</div><div class="tnav-sub">Grundlagen · Agency</div></div>
+  </button>
+  <button class="tnav-item" onclick="selectModule(1)" data-mod="1">
+    <div class="tnav-ring"><svg width="24" height="24" viewBox="0 0 24 24"><circle class="progress-ring-bg" cx="12" cy="12" r="9"/><circle class="progress-ring-fill" id="ring-1" cx="12" cy="12" r="9" stroke="#0ea5e9" stroke-dasharray="56.5" stroke-dashoffset="56.5"/></svg></div>
+    <div><div class="tnav-title">Bewertung & NPV</div><div class="tnav-sub">Rendite · Zinsrechnung</div></div>
+  </button>
+  <button class="tnav-item" onclick="selectModule(2)" data-mod="2">
+    <div class="tnav-ring"><svg width="24" height="24" viewBox="0 0 24 24"><circle class="progress-ring-bg" cx="12" cy="12" r="9"/><circle class="progress-ring-fill" id="ring-2" cx="12" cy="12" r="9" stroke="#0ea5e9" stroke-dasharray="56.5" stroke-dashoffset="56.5"/></svg></div>
+    <div><div class="tnav-title">Anleihen & Aktien</div><div class="tnav-sub">Duration · Gordon · YTM</div></div>
+  </button>
+  <button class="tnav-item" onclick="selectModule(3)" data-mod="3">
+    <div class="tnav-ring"><svg width="24" height="24" viewBox="0 0 24 24"><circle class="progress-ring-bg" cx="12" cy="12" r="9"/><circle class="progress-ring-fill" id="ring-3" cx="12" cy="12" r="9" stroke="#0ea5e9" stroke-dasharray="56.5" stroke-dashoffset="56.5"/></svg></div>
+    <div><div class="tnav-title">IRR & NPV-Regeln</div><div class="tnav-sub">Fallstricke · PI · EAC</div></div>
+  </button>
+  <button class="tnav-item" onclick="selectModule(4)" data-mod="4">
+    <div class="tnav-ring"><svg width="24" height="24" viewBox="0 0 24 24"><circle class="progress-ring-bg" cx="12" cy="12" r="9"/><circle class="progress-ring-fill" id="ring-4" cx="12" cy="12" r="9" stroke="#0ea5e9" stroke-dasharray="56.5" stroke-dashoffset="56.5"/></svg></div>
+    <div><div class="tnav-title">Risiko & Rendite</div><div class="tnav-sub">σ · β · Diversifikation</div></div>
+  </button>
+  <button class="tnav-item" onclick="selectModule(5)" data-mod="5">
+    <div class="tnav-ring"><svg width="24" height="24" viewBox="0 0 24 24"><circle class="progress-ring-bg" cx="12" cy="12" r="9"/><circle class="progress-ring-fill" id="ring-5" cx="12" cy="12" r="9" stroke="#0ea5e9" stroke-dasharray="56.5" stroke-dashoffset="56.5"/></svg></div>
+    <div><div class="tnav-title">Portfoliotheorie</div><div class="tnav-sub">Effizienzlinie · CAL · Tangency</div></div>
+  </button>
+  <button class="tnav-item" onclick="selectModule(6)" data-mod="6">
+    <div class="tnav-ring"><svg width="24" height="24" viewBox="0 0 24 24"><circle class="progress-ring-bg" cx="12" cy="12" r="9"/><circle class="progress-ring-fill" id="ring-6" cx="12" cy="12" r="9" stroke="#0ea5e9" stroke-dasharray="56.5" stroke-dashoffset="56.5"/></svg></div>
+    <div><div class="tnav-title">CAPM & WACC</div><div class="tnav-sub">SML · APT · Fama-French</div></div>
+  </button>
+</div>
+
+<!-- CENTER CONTENT -->
+<div class="themen-main">
+
+<!-- ── MODULE 0 ── -->
+<div class="topic-panel active" id="panel-0">
+  <div class="module-header">
+    <div class="module-num-badge">Modul 1</div>
+    <h2>Einführung in Corporate Finance</h2>
+    <p>Grundfragen der Unternehmensfinanzierung · Ziele · Agency-Problem</p>
   </div>
 
-  <!-- MODUL 1 -->
-  <div class="cf-module" id="cf-m1">
-    <div class="cf-module-header" onclick="toggleModule('cf-m1')">
-      <div class="cf-module-title"><span class="cf-num">1</span> Einführung in Corporate Finance</div>
-      <span class="cf-arrow">▼</span>
-    </div>
-    <div class="cf-module-body">
-      <p><strong>Was ist Corporate Finance?</strong> Die Wissenschaft der optimalen Kapitalallokation im Unternehmen – welche Investitionen tätigen, wie finanzieren?</p>
-      <div class="cf-two-col">
-        <div class="cf-box">
-          <div style="font-size:11px;font-weight:800;color:var(--accent);margin-bottom:6px;">INVESTITIONSENTSCHEIDUNG (CAPEX)</div>
-          Kauf von Realvermögen (tangibel/intangibel) → Capital Budgeting<br>
-          <em>Beispiel: Intel kauft neue Fertigungsanlage</em>
-        </div>
-        <div class="cf-box">
-          <div style="font-size:11px;font-weight:800;color:var(--accent);margin-bottom:6px;">FINANZIERUNGSENTSCHEIDUNG</div>
-          Verkauf von Finanzaktiva → Kapitalstruktur (Eigen- vs. Fremdkapital)<br>
-          <em>Beispiel: VW emittiert Anleihen</em>
-        </div>
-      </div>
-      <p><strong>Unternehmensziel:</strong> Maximierung des Shareholder Value – nicht nur Gewinnmaximierung. Unterschied: Wealth berücksichtigt Zeitwert und Risiko.</p>
-      <div class="cf-label">Cash Flow Kreislauf</div>
-      <div class="formula-box">Investoren → Kapital → Unternehmen → Investition in Realvermögen → Operativer CF → Reinvestition oder Rückzahlung an Investoren</div>
-      <p><strong>Hurdle Rate / Cost of Capital:</strong> Mindestrendite einer Investition = Opportunitätskosten des Kapitals. Nur investieren wenn Rendite &gt; Hurdle Rate.</p>
-      <p><strong>Agency Problem:</strong> Interessenkonflikt zwischen Managern (Agenten) und Aktionären (Prinzipale). Manager könnten eigene Ziele verfolgen (Prestige, Jobsicherheit) statt Aktionärswert zu maximieren.</p>
-      <div class="cf-label">Monitoring-Instrumente</div>
-      <ul>
-        <li><strong>Aufsichtsrat/Board of Directors</strong> – Kontrolle der Geschäftsführung</li>
-        <li><strong>Wirtschaftsprüfer</strong> – GAAP-Konformität der Berichte</li>
-        <li><strong>Kreditgeber</strong> – Banken überwachen Vermögenswerte und Covenants</li>
-        <li><strong>Aktionäre</strong> – „Wall Street Walk": Aktienverkauf als Signal</li>
-        <li><strong>Konkurrenten</strong> – Übernahmedrohung diszipliniert Management</li>
-        <li><strong>Finanzielle Anreize</strong> – Aktienoptionen, erfolgsgebundene Vergütung</li>
-      </ul>
-    </div>
-  </div>
+  <div class="section-title">🏢 Was ist Corporate Finance?</div>
+  <p style="font-size:14.5px;line-height:1.8;margin-bottom:12px;">Corporate Finance befasst sich mit zwei Kernentscheidungen: <strong>Was soll das Unternehmen investieren?</strong> (Investitionsentscheidung) und <strong>Wie soll es sich finanzieren?</strong> (Finanzierungsentscheidung). Ziel ist immer die Maximierung des Unternehmenswertes für die Eigentümer.</p>
 
-  <!-- MODUL 2 -->
-  <div class="cf-module" id="cf-m2">
-    <div class="cf-module-header" onclick="toggleModule('cf-m2')">
-      <div class="cf-module-title"><span class="cf-num">2</span> Bewertungsprinzipien & NPV</div>
-      <span class="cf-arrow">▼</span>
+  <div class="cf-two-col">
+    <div class="cf-box">
+      <div style="font-size:11px;font-weight:800;color:var(--accent);margin-bottom:6px;">INVESTITIONSENTSCHEIDUNG (CAPEX)</div>
+      Kauf von Realvermögen (tangibel/intangibel) → Capital Budgeting.<br>
+      <em>Beispiel: Neue Fertigungsanlage, Patent, IT-System.</em><br>
+      Entscheidungskriterium: NPV &gt; 0 bzw. Rendite &gt; Hurdle Rate.
     </div>
-    <div class="cf-module-body">
-      <p><strong>Rendite-Berechnungen:</strong></p>
-      <div class="formula-box">Einfache Rendite: r<sub>t</sub> = (P<sub>t</sub> − P<sub>t−1</sub> + DIV<sub>t</sub>) / P<sub>t−1</sub></div>
-      <div class="formula-box">Geometrische Rendite (Haltedauer): (1+H) = (1+r<sub>1</sub>)(1+r<sub>2</sub>)···(1+r<sub>N</sub>)
-Annualisiert: (1+r') = (1+H)^(1/N)</div>
-      <div class="formula-box">Log-Rendite: r<sup>log</sup> = ln((P<sub>t</sub> + DIV<sub>t</sub>) / P<sub>t−1</sub>) → zeitlich additiv</div>
-      <div class="cf-box green"><strong>Merke:</strong> Arithmetisches Mittel → zur Vorhersage zukünftiger Renditen. Geometrisches Mittel → zur Bewertung vergangener Performance.</div>
-      <p><strong>Compounding (Aufzinsung):</strong></p>
-      <div class="formula-box">Halbjährlich: (1 + r/2)² − 1 = effektiver Jahreszins
-Kontinuierlich: A = P · e^(r·t) → bei 10%: e^0,10 = 1,1052 → eff. 10,52%</div>
-      <p><strong>Net Present Value (NPV):</strong></p>
-      <div class="formula-box">NPV = −I<sub>0</sub> + CF<sub>1</sub>/(1+r)¹ + CF<sub>2</sub>/(1+r)² + ··· + CF<sub>n</sub>/(1+r)ⁿ</div>
-      <div class="cf-box green"><strong>NPV-Regel:</strong> Investiere wenn NPV &gt; 0. Diskontierungssatz muss das Risiko des Projekts widerspiegeln.</div>
-      <p><strong>Beispiel:</strong> r=10%, CFs: −1.000 / +300 / +400 / +500 / +600 → NPV = +390 € → Investition lohnt sich.</p>
-      <p><strong>Realvermögen vs. Finanzvermögen:</strong> Realvermögen = produktive Güter (Fabrik, Patente). Finanzvermögen = Ansprüche auf Erträge aus Realvermögen (Aktien, Anleihen, Derivate).</p>
+    <div class="cf-box">
+      <div style="font-size:11px;font-weight:800;color:var(--accent);margin-bottom:6px;">FINANZIERUNGSENTSCHEIDUNG</div>
+      Verkauf von Finanzaktiva → Kapitalstruktur optimieren.<br>
+      <em>Beispiel: Aktienemission, Anleihe, Bankkredit.</em><br>
+      Frage: Wie viel EK vs. FK? Welche Konditionen?
     </div>
   </div>
 
-  <!-- MODUL 3 -->
-  <div class="cf-module" id="cf-m3">
-    <div class="cf-module-header" onclick="toggleModule('cf-m3')">
-      <div class="cf-module-title"><span class="cf-num">3</span> Anleihen & Aktien</div>
-      <span class="cf-arrow">▼</span>
-    </div>
-    <div class="cf-module-body">
-      <p><strong>Anleihenbewertung:</strong></p>
-      <div class="formula-box">PV = Σ cpn/(1+r)^t + Nennwert/(1+r)^T</div>
-      <div class="formula-box">YTM (Yield to Maturity) = IRR der Anleihe
-→ Solve: Marktpreis = Σ cpn/(1+YTM)^t + Nennwert/(1+YTM)^T</div>
-      <div class="cf-box red"><strong>Goldene Regel:</strong> Steigende Zinsen → fallende Anleihenkurse (inverse Beziehung). Längere Laufzeit → höhere Kurssensitivität.</div>
-      <p><strong>Duration & Modified Duration:</strong></p>
-      <div class="formula-box">Duration = Σ [t × PV(C<sub>t</sub>)] / PV(Anleihe)
-(Gewichtetes Mittel der Zahlungszeitpunkte, in Jahren)
+  <div class="section-title">📊 Unternehmensformen im Vergleich</div>
+  <table class="cf-table">
+    <tr><th>Merkmal</th><th>Einzelunternehmen</th><th>GmbH</th><th>AG</th></tr>
+    <tr><td>Haftung</td><td>Unbegrenzt persönlich</td><td>Beschränkt auf Einlage</td><td>Beschränkt auf Einlage</td></tr>
+    <tr><td>Kapitalbeschaffung</td><td>Sehr eingeschränkt</td><td>Eingeschränkt</td><td>Kapitalmarkt (Börse)</td></tr>
+    <tr><td>Eigentum/Kontrolle</td><td>Identisch</td><td>Oft identisch</td><td>Getrennt (Aktionäre/Mgmt.)</td></tr>
+    <tr><td>Lebensdauer</td><td>An Person gebunden</td><td>Unbegrenzt</td><td>Unbegrenzt</td></tr>
+    <tr><td>Agency-Problem</td><td>Keines</td><td>Gering</td><td>Stark ausgeprägt</td></tr>
+  </table>
 
-Modified Duration = Duration / (1 + YTM)
-→ %Δ Kurs ≈ −Modified Duration × ΔZins</div>
-      <div class="cf-label">Zinsstrukturkurve (Yield Curve)</div>
-      <p>Zeigt YTM vs. Laufzeit. Form wird bestimmt durch: Erwartungen zukünftiger Zinsen + Risikozuschlag + Inflation. Inverse Kurve oft Vorbote einer Rezession.</p>
-      <p><strong>Aktien – Dividend Discount Model (DDM):</strong></p>
-      <div class="formula-box">P<sub>0</sub> = (DIV<sub>1</sub> + P<sub>1</sub>) / (1+r)
-DDM allgemein: P<sub>0</sub> = Σ DIV<sub>t</sub>/(1+r)^t</div>
-      <p><strong>Gordon-Wachstumsmodell:</strong></p>
-      <div class="formula-box">P<sub>0</sub> = DIV<sub>1</sub> / (r − g)
-Umgestellt: r = DIV<sub>1</sub>/P<sub>0</sub> + g (Dividendenrendite + Wachstum)</div>
-      <div class="formula-box">Nachhaltiges Wachstum: g = Thesaurierungsquote × ROE
-PVGO = P<sub>0</sub> (mit Reinvestition) − EPS/r (ohne Wachstum)</div>
-      <div class="cf-box green"><strong>Wann lohnt Thesaurierung?</strong> Nur wenn ROE &gt; r → PVGO &gt; 0 → Reinvestition schafft Wert.</div>
-      <table class="cf-table">
-        <tr><th>Bewertungsmerkmal</th><th>Anleihe</th><th>Aktie</th></tr>
-        <tr><td>Cashflows</td><td>Fix (Kupon + Nennwert)</td><td>Variabel (Dividenden)</td></tr>
-        <tr><td>Laufzeit</td><td>Definiert</td><td>Unbegrenzt</td></tr>
-        <tr><td>Rangfolge Insolvenz</td><td>Vorrangig</td><td>Nachrangig</td></tr>
-        <tr><td>Upside</td><td>Begrenzt</td><td>Unbegrenzt</td></tr>
-      </table>
-    </div>
+  <div class="section-title">💰 Cash Flow Kreislauf</div>
+  <div class="formula-box">Investoren stellen Kapital bereit → Unternehmen investiert in Realvermögen → Operativer Cash Flow entsteht → Rückzahlung an Investoren (Dividenden, Zinsen) oder Reinvestition</div>
+  <p style="font-size:14px;line-height:1.75;margin-top:10px;">Der Kapitalmarkt ist dabei ein effizienter Mechanismus zur Allokation von Kapital. <strong>Hurdle Rate</strong> = Mindestrendite einer Investition = Opportunitätskosten des Kapitals. Die Hurdle Rate reflektiert das Risiko des Projekts – höheres Risiko → höhere Hurdle Rate.</p>
+
+  <div class="section-title">⚠️ Das Agency-Problem</div>
+  <p style="font-size:14.5px;line-height:1.8;margin-bottom:10px;">In großen Unternehmen (AG) sind Eigentümer (Aktionäre = Prinzipale) und Manager (Agenten) getrennt. Manager könnten eigene Interessen verfolgen: Prestige, Jobsicherheit, Unternehmensexpansion für höheres Gehalt – statt Aktionärswert zu maximieren. Diese <strong>Agency Costs</strong> entstehen durch Interessenkonflikte.</p>
+  <div class="cf-box red" style="margin-bottom:12px;"><strong>Beispiel:</strong> CEO investiert in ein prestigeträchtiges Projekt mit NPV &lt; 0 (Prestige, Medienpräsenz), das dem Aktionär schadet aber das CEO-Ansehen steigert → Agency Cost.</div>
+
+  <div class="cf-label">6 Instrumente zur Kontrolle von Managern</div>
+  <table class="cf-table">
+    <tr><th>#</th><th>Instrument</th><th>Wirkmechanismus</th></tr>
+    <tr><td>1</td><td><strong>Aufsichtsrat / Board</strong></td><td>Direkte Überwachung, kann CEO abberufen</td></tr>
+    <tr><td>2</td><td><strong>Wirtschaftsprüfer</strong></td><td>GAAP-Konformität sicherstellen, Manipulationen aufdecken</td></tr>
+    <tr><td>3</td><td><strong>Kreditgeber (Banken)</strong></td><td>Covenants, Monitoring von Vermögen und Cash Flows</td></tr>
+    <tr><td>4</td><td><strong>Aktionäre</strong></td><td>„Wall Street Walk": Aktienverkauf → Kursrückgang → Druck</td></tr>
+    <tr><td>5</td><td><strong>Übernahmedruck</strong></td><td>Schlecht geführte Firmen sind Übernahmeziele → diszipliniert</td></tr>
+    <tr><td>6</td><td><strong>Anreizentlohnung</strong></td><td>Aktienoptionen, Boni → Interessen angleichen</td></tr>
+  </table>
+
+  <div class="section-title">❓ Prüfungsfragen Modul 1</div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Was ist der Unterschied zwischen Gewinnmaximierung und Shareholder Value Maximierung?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Gewinnmaximierung ignoriert den Zeitwert des Geldes (1€ heute ≠ 1€ in 5 Jahren) und das Risiko. Shareholder Value = Barwert aller zukünftigen Cash Flows → berücksichtigt Zeitwert und Risiko. Ein Projekt kann kurzfristig Gewinn generieren aber langfristig Wert vernichten (NPV &lt; 0) – z.B. durch Raubbau an Ressourcen.</div>
+  </div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Warum entstehen Agency-Kosten speziell bei Aktiengesellschaften?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Bei AGs sind Eigentum (Aktionäre) und Kontrolle (Management) getrennt. Aktionäre sind oft anonym und haben keine Zeit/Expertise zur direkten Überwachung. Manager haben Informationsvorsprung (asymmetrische Information). Bei Einzelunternehmen ist Eigentümer = Manager → kein Interessenkonflikt. Agency Costs umfassen: Monitoring-Kosten (Aufsichtsrat, Prüfer), Bonding-Kosten (Managementverträge), Residual Loss (verbleibende Effizienzeinbuße).</div>
+  </div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Was ist die Hurdle Rate und wie wird sie bestimmt?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Die Hurdle Rate ist die Mindestrendite, die eine Investition erzielen muss, damit sie für Investoren attraktiv ist. Sie entspricht den Opportunitätskosten des Kapitals – was Investoren alternativ am Kapitalmarkt verdienen könnten bei gleichem Risiko. Bestimmung: über CAPM (r = rf + β(rm−rf)) oder WACC. Projekte mit Rendite &gt; Hurdle Rate schaffen Wert (NPV &gt; 0).</div>
+  </div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Was ist der Unterschied zwischen Realvermögen und Finanzvermögen?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Realvermögen (tangibel: Gebäude, Maschinen; intangibel: Patente, Marken) ist das eigentlich produktive Vermögen, das Cash Flows erzeugt. Finanzvermögen (Aktien, Anleihen, Derivate) sind Ansprüche auf die Cash Flows des Realvermögens – sie verteilen Wert nur um, schaffen ihn nicht selbst. Corporate Finance fragt: welches Realvermögen lohnt sich (NPV &gt; 0) und wie finanziert man den Kauf?</div>
   </div>
 
-  <!-- MODUL 4 -->
-  <div class="cf-module" id="cf-m4">
-    <div class="cf-module-header" onclick="toggleModule('cf-m4')">
-      <div class="cf-module-title"><span class="cf-num">4</span> Investitionsentscheidungen (NPV, IRR, PI)</div>
-      <span class="cf-arrow">▼</span>
+  <button class="read-btn" id="readbtn-0" onclick="markRead(0)">✓ Modul als gelesen markieren</button>
+</div>
+
+<!-- ── MODULE 1 ── -->
+<div class="topic-panel" id="panel-1">
+  <div class="module-header">
+    <div class="module-num-badge">Modul 2</div>
+    <h2>Bewertungsprinzipien & NPV</h2>
+    <p>Renditemaße · Zinsrechnung · Net Present Value</p>
+  </div>
+
+  <div class="section-title">📈 Renditemaße</div>
+  <div class="formula-box"><strong>Einfache Rendite (Holding Period Return):</strong>
+r<sub>t</sub> = (P<sub>t</sub> − P<sub>t−1</sub> + DIV<sub>t</sub>) / P<sub>t−1</sub></div>
+  <div class="formula-box"><strong>Geometrische Rendite (Haltedauerrendite):</strong>
+(1+H) = (1+r₁)(1+r₂)···(1+r_N)
+Annualisiert: (1+r') = (1+H)^(1/N) − 1</div>
+  <div class="formula-box"><strong>Log-Rendite (stetig, zeitlich additiv):</strong>
+r^log = ln((P_t + DIV_t) / P_{t−1})
+→ log-Renditen addieren sich über Zeit: r₁+r₂+···+r_N</div>
+  <div class="cf-two-col" style="margin-top:12px;">
+    <div class="cf-box green"><strong>Arithmetisches Mittel:</strong><br>Für Prognose zukünftiger Renditen verwenden. Überschätzt langfristige Performance wenn Volatilität hoch.</div>
+    <div class="cf-box"><strong>Geometrisches Mittel:</strong><br>Für Bewertung vergangener Performance. Zeigt tatsächlich erzielten Zinseszinseffekt.</div>
+  </div>
+
+  <div class="section-title">⏱ Compounding (Aufzinsung)</div>
+  <table class="cf-table">
+    <tr><th>Methode</th><th>Formel</th><th>Beispiel bei r=10%</th></tr>
+    <tr><td>Jährlich</td><td>(1+r)^t</td><td>1,10 → eff. 10,00%</td></tr>
+    <tr><td>Halbjährlich</td><td>(1+r/2)^2 − 1</td><td>1,1025 → eff. 10,25%</td></tr>
+    <tr><td>Monatlich</td><td>(1+r/12)^12 − 1</td><td>1,1047 → eff. 10,47%</td></tr>
+    <tr><td>Kontinuierlich</td><td>e^(r·t) − 1</td><td>e^0,1 = 1,1052 → eff. 10,52%</td></tr>
+  </table>
+  <div class="cf-box yellow"><strong>Merke:</strong> Je häufiger compounded wird, desto höher der effektive Jahreszins. Bei kontinuierlichem Compounding ist der EAR maximal.</div>
+
+  <div class="section-title">💰 Net Present Value (NPV)</div>
+  <div class="formula-box">NPV = −I₀ + CF₁/(1+r)¹ + CF₂/(1+r)² + ··· + CF_n/(1+r)^n = Σ CF_t/(1+r)^t − I₀</div>
+  <div class="cf-box green"><strong>NPV-Entscheidungsregel:</strong> NPV &gt; 0 → Investition erhöht Unternehmenswert → investieren. NPV = 0 → indifferent. NPV &lt; 0 → ablehnen.</div>
+
+  <div class="cf-label">Vollständiges Rechenbeispiel</div>
+  <table class="cf-table">
+    <tr><th>t</th><th>CF</th><th>Diskontierungsfaktor (r=10%)</th><th>PV(CF)</th></tr>
+    <tr><td>0</td><td>−1.000</td><td>1,0000</td><td>−1.000,00</td></tr>
+    <tr><td>1</td><td>+300</td><td>0,9091</td><td>+272,73</td></tr>
+    <tr><td>2</td><td>+400</td><td>0,8264</td><td>+330,58</td></tr>
+    <tr><td>3</td><td>+500</td><td>0,7513</td><td>+375,66</td></tr>
+    <tr><td>4</td><td>+600</td><td>0,6830</td><td>+409,81</td></tr>
+    <tr><td colspan="3"><strong>NPV</strong></td><td><strong>+388,78 ≈ +390 €</strong></td></tr>
+  </table>
+  <div class="cf-box green">NPV = +390 € &gt; 0 → Investition lohnt sich. Das Unternehmen schafft €390 an Wert für seine Aktionäre.</div>
+
+  <div class="section-title">📐 Wichtige Barwertformeln</div>
+  <div class="formula-box"><strong>Ewige Rente (Perpetuity):</strong>  PV = CF / r
+Beispiel: CF=100 p.a., r=8% → PV = 100/0,08 = 1.250</div>
+  <div class="formula-box"><strong>Wachsende ewige Rente (Growing Perpetuity):</strong>  PV = CF₁ / (r − g)
+Voraussetzung: r &gt; g</div>
+  <div class="formula-box"><strong>Annuität (Annuity):</strong>  PV = CF · [1 − 1/(1+r)^T] / r
+Beispiel: CF=100, r=8%, T=5 → PV = 100 · [1−1/1,08⁵]/0,08 = 399,27</div>
+  <div class="cf-box"><strong>NPV-Additivität:</strong> NPV(A+B) = NPV(A) + NPV(B). Diese Eigenschaft gilt nur für NPV, nicht für IRR. Projekte können unabhängig bewertet und aggregiert werden.</div>
+
+  <div class="section-title">❓ Prüfungsfragen Modul 2</div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Wann verwendet man arithmetisches vs. geometrisches Mittel?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a"><strong>Arithmetisches Mittel</strong> = Summe Renditen / N. Verwendet für Prognosen zukünftiger Renditen (erwartete Rendite in einer Periode). <strong>Geometrisches Mittel</strong> = (Endwert/Startwert)^(1/N) − 1. Verwendet für historische Performance-Messung (tatsächlich erzielte Verzinsung). Faustregel: Geo ≈ Arithm. − σ²/2. Je höher die Volatilität, desto größer die Differenz.</div>
+  </div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Warum ist der Diskontierungssatz im NPV das Risiko des Projekts – nicht der Zinssatz für Fremdkapital?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Der Diskontierungssatz entspricht den Opportunitätskosten des Kapitals – was Investoren alternativ verdienen könnten bei gleichem Risiko. Der FK-Zinssatz ist die Rendite für Gläubiger (niedriges Risiko, vorrangig). Das Projekt trägt aber das Gesamtrisiko des operativen Geschäfts. Würde man FK-Zinssatz verwenden, würde man riskante Projekte zu attraktiv bewerten. Korrekt: WACC oder un-leveraged Cost of Capital (bei reiner Eigenfinanzierung).</div>
+  </div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Ein Projekt hat Anfangsinvestition €100.000 und CF von €30.000 p.a. für 5 Jahre, r=8%. Ist es sinnvoll?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">PV der Annuität = 30.000 · [1−1/(1,08)⁵]/0,08 = 30.000 · 3,9927 = 119.782. NPV = 119.782 − 100.000 = +19.782 &gt; 0 → Investition lohnt sich. Der IRR lässt sich approximieren: bei r=18,6% ist NPV=0 (IRR &gt; 8% → bestätigt NPV-Ergebnis).</div>
+  </div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Was ist der Unterschied zwischen kontinuierlichem und diskretem Compounding?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Diskretes Compounding: Zinsen werden zu bestimmten Zeitpunkten gutgeschrieben (jährlich, halbjährlich etc.), effektiver Jahreszins = (1+r/m)^m − 1. Kontinuierliches Compounding: Zinsen wachsen instantan, A = P·e^(rt). Bei r=10%: diskret jährlich → 10,00%, halbjährlich → 10,25%, kontinuierlich → 10,52%. Kontinuierlich ist theoretisches Maximum. Log-Renditen sind die diskreten Äquivalente von kontinuierlichem Compounding.</div>
+  </div>
+
+  <button class="read-btn" id="readbtn-1" onclick="markRead(1)">✓ Modul als gelesen markieren</button>
+</div>
+
+<!-- ── MODULE 2 ── -->
+<div class="topic-panel" id="panel-2">
+  <div class="module-header">
+    <div class="module-num-badge">Modul 3</div>
+    <h2>Anleihen & Aktien</h2>
+    <p>Anleihenbewertung · Duration · Yield Curve · DDM · Gordon · PVGO</p>
+  </div>
+
+  <div class="section-title">📋 Anleihenbewertung</div>
+  <div class="formula-box"><strong>Preis einer Kuponanleihe:</strong>
+P = Σ_{t=1}^{T} cpn/(1+r)^t + Nennwert/(1+r)^T
+= cpn · [1−1/(1+r)^T]/r + Nennwert/(1+r)^T</div>
+  <div class="cf-box red"><strong>Goldene Regel:</strong> Steigende Marktzinsen → fallende Anleihekurse (inverse Beziehung). Fallen Zinsen → steigen Kurse. Kupon &lt; Marktzins → under par. Kupon &gt; Marktzins → over par. Kupon = Marktzins → at par (Kurs = Nennwert).</div>
+
+  <div class="cf-label">Beispiel: Anleihe mit Kupon 6%, Nennwert €1.000, 4 Jahre, Marktzins 8%</div>
+  <table class="cf-table">
+    <tr><th>t</th><th>CF</th><th>PV-Faktor (8%)</th><th>PV</th></tr>
+    <tr><td>1</td><td>60</td><td>0,9259</td><td>55,56</td></tr>
+    <tr><td>2</td><td>60</td><td>0,8573</td><td>51,44</td></tr>
+    <tr><td>3</td><td>60</td><td>0,7938</td><td>47,63</td></tr>
+    <tr><td>4</td><td>1.060</td><td>0,7350</td><td>779,10</td></tr>
+    <tr><td colspan="3"><strong>Kurs</strong></td><td><strong>933,73 €</strong></td></tr>
+  </table>
+  <p style="font-size:14px;line-height:1.75;">Kurs &lt; Nennwert (under par), weil Marktzins (8%) &gt; Kupon (6%).</p>
+
+  <div class="section-title">📏 Duration & Modified Duration</div>
+  <div class="formula-box"><strong>Macaulay Duration</strong> (gewichtetes Mittel der Zahlungszeitpunkte):
+D = Σ_{t=1}^{T} [t × PV(C_t)] / P
+
+<strong>Modified Duration:</strong>  ModD = D / (1 + YTM)
+
+<strong>Kursveränderung:</strong>  ΔP/P ≈ −ModD × ΔYield</div>
+
+  <div class="cf-label">Vollständiges Duration-Beispiel (3-jährige Anleihe, Kupon 5%, YTM 4%)</div>
+  <table class="cf-table">
+    <tr><th>t</th><th>CF</th><th>PV(CF) bei 4%</th><th>Gewicht w_t</th><th>t × w_t</th></tr>
+    <tr><td>1</td><td>5</td><td>4,808</td><td>0,0463</td><td>0,0463</td></tr>
+    <tr><td>2</td><td>5</td><td>4,623</td><td>0,0445</td><td>0,0890</td></tr>
+    <tr><td>3</td><td>105</td><td>93,35</td><td>0,8992 (=Nennwert+Kupon)</td><td>2,6976</td></tr>
+    <tr><td colspan="3"><strong>Summe (= Kurs)</strong></td><td><strong>102,78</strong></td><td><strong>D = 2,833 Jahre</strong></td></tr>
+  </table>
+  <p style="font-size:14px;margin:8px 0;">ModD = 2,833 / (1+0,04) = <strong>2,724</strong>. Zinsstieg um 1%: ΔP/P ≈ −2,724 × 0,01 = −2,72% → Kurs fällt von 102,78 auf ~99,98.</p>
+
+  <div class="cf-two-col">
+    <div class="cf-box green"><strong>Höhere Duration bei:</strong><br>• Längerer Laufzeit<br>• Niedrigerem Kupon<br>• Zero-Coupon-Anleihe (D = Laufzeit)<br>• Niedrigerem YTM</div>
+    <div class="cf-box red"><strong>Duration als Risikomaß:</strong><br>Portfoliomanager mit Anleiheportfolios steuern Zinsrisiko durch Duration-Matching (Immunisierung): Portfolio-Duration = Investment-Horizont.</div>
+  </div>
+
+  <div class="section-title">📈 Yield Curve (Zinsstrukturkurve)</div>
+  <p style="font-size:14.5px;line-height:1.8;">Zeigt YTM vs. Restlaufzeit für gleichartige Anleihen (z.B. Staatsanleihen). <strong>Normal (upward sloping):</strong> Langfristige Zinsen &gt; kurzfristige → Wachstumserwartung, Liquiditätsprämie. <strong>Invers (downward sloping):</strong> Kurzfristig &gt; langfristig → Rezessionserwartung, Zentralbank straff. <strong>Flat:</strong> Unsicherheit, Wendepunkt.</p>
+  <div class="cf-box yellow"><strong>Prüfungsrelevant:</strong> Erwartungstheorie: Forward Rates = erwartete zukünftige Spot Rates. Liquiditätspräferenztheorie: Anleger wollen Prämie für längere Bindung. Marktsegmentierungstheorie: verschiedene Investoren in verschiedenen Laufzeitsegmenten.</div>
+
+  <div class="section-title">📊 Aktien – Dividend Discount Model (DDM)</div>
+  <div class="formula-box"><strong>Grundform:</strong>  P₀ = (DIV₁ + P₁) / (1+r)
+<strong>Allgemein:</strong>   P₀ = Σ_{t=1}^∞ DIV_t / (1+r)^t</div>
+  <div class="formula-box"><strong>Gordon-Wachstumsmodell (konstantes g):</strong>
+P₀ = DIV₁ / (r − g)
+Umgestellt: r = DIV₁/P₀ + g  (Dividendenrendite + Kapitalwachstum)
+
+<strong>Nachhaltiges Wachstum:</strong>  g = Plowback-Ratio × ROE
+(Plowback = Thesaurierungsquote = 1 − Ausschüttungsquote)</div>
+
+  <div class="cf-label">PVGO-Beispiel (Present Value of Growth Opportunities)</div>
+  <p style="font-size:14px;line-height:1.75;">Gegeben: EPS=€5, r=12%, Plowback=40%, ROE=25%. <br>g = 0,40 × 25% = 10%. DIV₁ = EPS × (1−0,40) = €3. Kurs mit Wachstum: P₀ = 3/(0,12−0,10) = <strong>€150</strong>. Kurs ohne Wachstum: EPS/r = 5/0,12 = <strong>€41,67</strong>. PVGO = 150 − 41,67 = <strong>€108,33</strong> → 72% des Wertes kommt aus Wachstumschancen!</p>
+  <div class="cf-box green"><strong>Lohnt sich Thesaurierung?</strong> Nur wenn ROE &gt; r (hier 25% &gt; 12%) → PVGO &gt; 0. Wenn ROE = r → Thesaurierung egal. Wenn ROE &lt; r → Dividende ist besser (Kapital effektiver beim Aktionär angelegt).</div>
+
+  <div class="section-title">❓ Prüfungsfragen Modul 3</div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Erklären Sie die inverse Beziehung zwischen Zinsen und Anleihekursen.</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Eine Anleihe zahlt feste Kupons (z.B. €60 p.a.). Steigt der Marktzins, wollen neue Investoren höhere Kupons. Die alte Anleihe mit €60 Kupon wird unattraktiver → ihr Preis fällt bis die Rendite (YTM) dem Marktzins entspricht. Mathematisch: P = Σ CF/(1+r)^t → steigendes r → kleinere Nenner → kleinerer Barwert. Je länger die Laufzeit, desto mehr Zahlungen sind betroffen → stärkere Kurssensitivität (höhere Duration).</div>
+  </div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Wie berechnet man die Macaulay Duration und wozu dient sie?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">D = Σ[t × PV(CF_t)] / P. Sie ist das gewichtete Mittel der Zahlungszeitpunkte, wobei die Gewichte die PV-Anteile der Cash Flows am Gesamtkurs sind. Wirtschaftliche Bedeutung: Gibt die durchschnittliche Kapitalbindungsdauer an. Als Risikomaß: ΔP/P ≈ −ModD × ΔY. Bei Duration-Matching (Portfolio-Duration = Anlagehorizont) ist man gegen Zinsänderungsrisiko immunisiert – Kursverluste werden durch Wiederanlagegewinne kompensiert.</div>
+  </div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Wann ist es sinnvoll, Gewinne einzubehalten statt Dividenden zu zahlen?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Thesaurierung lohnt sich genau dann, wenn das Unternehmen die einbehaltenen Mittel zu einer Rendite (ROE) anlegen kann, die über dem geforderten Return r der Aktionäre liegt. Dann gilt PVGO &gt; 0 → Kurs &gt; EPS/r. Beispiel: ROE=25%, r=12% → Reinvestition ist vorteilhaft. Wenn ROE = r → Thesaurierung egal, Wert identisch. Wenn ROE &lt; r (z.B. reifes Unternehmen ohne gute Projekte) → Dividende zahlen, Kapital beim Aktionär ist effizienter eingesetzt.</div>
+  </div>
+
+  <button class="read-btn" id="readbtn-2" onclick="markRead(2)">✓ Modul als gelesen markieren</button>
+</div>
+
+<!-- ── MODULE 3 ── -->
+<div class="topic-panel" id="panel-3">
+  <div class="module-header">
+    <div class="module-num-badge">Modul 4</div>
+    <h2>Investitionsentscheidungen: NPV, IRR, PI</h2>
+    <p>Die 4 Fallstricke des IRR · Die 4 NPV-Regeln · Kapitalrationierung · EAC</p>
+  </div>
+
+  <div class="section-title">⚔️ NPV vs. IRR – Vergleich</div>
+  <div class="cf-two-col">
+    <div class="cf-box green">
+      <strong>NPV – immer korrekt</strong><br>
+      Absoluter Wertbeitrag in €<br>
+      Additiv: NPV(A+B) = NPV(A)+NPV(B)<br>
+      Eindeutig, konsistent mit Marktwert<br>
+      Berücksichtigt Skala der Investition
     </div>
-    <div class="cf-module-body">
-      <div class="cf-two-col">
-        <div class="cf-box green">
-          <strong>NPV – immer überlegen</strong><br>
-          NPV(A+B) = NPV(A) + NPV(B)<br>
-          Additiv, absolut, konsistent
-        </div>
-        <div class="cf-box yellow">
-          <strong>IRR – Fallstricke beachten!</strong><br>
-          Rate wo NPV = 0<br>
-          Akzeptiere wenn IRR &gt; r
-        </div>
-      </div>
-      <p><strong>Die 4 Fallstricke des IRR:</strong></p>
-      <ul>
-        <li><strong>Fallstrick 1 – Kredit vs. Anlage:</strong> Bei ungewöhnlichen CFs steigt NPV mit höherem Zinssatz (falsche Richtung). IRR-Regel umkehren!</li>
-        <li><strong>Fallstrick 2 – Mehrere IRRs:</strong> Bei Vorzeichenwechseln im CF-Strom können mehrere Nullstellen existieren → IRR nicht eindeutig.</li>
-        <li><strong>Fallstrick 3 – Skalenproblem:</strong> Kleineres Projekt kann höheren IRR haben aber niedrigeren absoluten NPV. Beispiel: Projekt A (IRR=100%, NPV=8.182€) vs. B (IRR=75%, NPV=11.818€) → B ist besser!</li>
-        <li><strong>Fallstrick 4 – Zinsstruktur:</strong> IRR unterstellt flache Zinskurve und Reinvestition zum IRR – in der Praxis falsch.</li>
-      </ul>
-      <p><strong>Die 4 NPV-Regeln:</strong></p>
-      <div class="formula-box">Regel 1: Nur Cashflows zählen (kein Buchgewinn)
-CF = Gewinn + Abschreibung − Investitionen (CAPEX)
-→ Sunk Costs ignorieren! Opportunitätskosten, Steuern, Restwert einrechnen.</div>
-      <div class="formula-box">Regel 2: Inkrementelle Basis
-Nur die durch das Projekt verursachten Änderungen zählen.
-Allgemeine Gemeinkosten ignorieren.</div>
-      <div class="formula-box">Regel 3: Inflation konsistent behandeln
+    <div class="cf-box yellow">
+      <strong>IRR – Vorsicht!</strong><br>
+      Rate, bei der NPV = 0<br>
+      Relative Kennzahl (%), nicht absolut<br>
+      Bei normalen CFs: IRR &gt; r → investieren<br>
+      Kann irreführen (4 Fallstricke!)
+    </div>
+  </div>
+  <div class="formula-box"><strong>IRR-Definition:</strong>  NPV = 0 = −I₀ + CF₁/(1+IRR)¹ + CF₂/(1+IRR)² + ···
+→ IRR iterativ lösen (kein analytischer Weg bei T&gt;2)</div>
+
+  <div class="section-title">🚨 Die 4 Fallstricke des IRR</div>
+  <div class="cf-box red" style="margin-bottom:10px;">
+    <strong>Fallstrick 1 – Kredit vs. Anlage (unkonventionelle CFs):</strong><br>
+    Wenn CFs erst positiv, dann negativ (Kreditcharakter), steigt NPV bei höherem Zinssatz. IRR-Regel muss umgekehrt werden: IRR &lt; r → investieren. Erkennbar an: erster CF positiv, dann negativ.
+  </div>
+  <div class="cf-box red" style="margin-bottom:10px;">
+    <strong>Fallstrick 2 – Mehrere IRRs:</strong><br>
+    Bei mehr als einem Vorzeichenwechsel im CF-Strom kann die NPV-Funktion mehrere Nullstellen haben. Beispiel: −100, +300, −250 → zwei IRRs. NPV-Regel ist eindeutig, IRR nicht verwendbar.
+  </div>
+  <div class="cf-box red" style="margin-bottom:10px;">
+    <strong>Fallstrick 3 – Skalenproblem (wichtigster Fallstrick!):</strong>
+    <table class="cf-table" style="margin-top:8px;">
+      <tr><th>Projekt</th><th>Investment</th><th>CF in t=1</th><th>IRR</th><th>NPV (r=10%)</th></tr>
+      <tr><td>A</td><td>−10.000</td><td>+20.000</td><td>100%</td><td>+8.182 €</td></tr>
+      <tr><td>B</td><td>−20.000</td><td>+35.000</td><td>75%</td><td>+11.818 €</td></tr>
+    </table>
+    IRR-Regel: A wählen (100% &gt; 75%). NPV-Regel: B wählen (+11.818 &gt; +8.182). <strong>B ist besser!</strong> IRR ignoriert die Skala – ein großes Projekt mit mittlerem IRR kann mehr Wert schaffen.
+  </div>
+  <div class="cf-box red" style="margin-bottom:10px;">
+    <strong>Fallstrick 4 – Zinsstruktur:</strong><br>
+    IRR vergleicht sich mit einem einzigen Kalkulationssatz. Bei einer Zinsstrukturkurve (unterschiedliche Zinsen für verschiedene Laufzeiten) gibt es keinen eindeutigen Vergleichszinssatz. NPV diskontiert jeden CF mit dem laufzeitgerechten Zinssatz.
+  </div>
+
+  <div class="section-title">📜 Die 4 NPV-Regeln</div>
+  <div class="formula-box"><strong>Regel 1 – Nur Cashflows zählen (kein Buchgewinn):</strong>
+CF = Gewinn + Abschreibung − CAPEX − ΔNWC
+→ Sunk Costs ignorieren! | Opportunitätskosten einrechnen | Steuern &amp; Restwert berücksichtigen</div>
+  <div class="formula-box"><strong>Regel 2 – Inkrementelle Basis:</strong>
+Nur durch das Projekt verursachte Änderungen zählen.
+Allgemeinkosten (Overhead) ignorieren, wenn sie unabhängig vom Projekt entstehen.</div>
+  <div class="formula-box"><strong>Regel 3 – Inflation konsistent behandeln:</strong>
 Nominalzins für nominale CFs | Realzins für reale CFs
-Realzins = (1+nominal)/(1+Inflation) − 1</div>
-      <div class="formula-box">Regel 4: Investition von Finanzierung trennen
-Keine Schuldenerlöse abziehen, keine Zinszahlungen als Projekt-CF!</div>
-      <p><strong>Kapitalrationierung:</strong></p>
-      <div class="formula-box">Profitability Index (PI) = NPV / Investition
-→ Bei begrenztem Budget: Projekte nach höchstem PI reihen.</div>
-      <p><strong>Weiterführend:</strong> Äquivalente Annuität (EAC) für Maschinenvergleich mit unterschiedlichen Laufzeiten. Optimaler Investitionszeitpunkt durch NPV-Vergleich aller möglichen Zeitpunkte.</p>
+Realzins = (1+r_nominal) / (1+π) − 1</div>
+  <div class="formula-box"><strong>Regel 4 – Investition von Finanzierung trennen:</strong>
+Keine Fremdkapitalerlöse im CF | Keine Zinszahlungen als Projekt-CF
+Finanzierungseffekte werden im Diskontierungssatz (WACC) erfasst.</div>
+
+  <div class="section-title">📊 Kapitalrationierung & PI</div>
+  <div class="formula-box"><strong>Profitability Index (PI):</strong>  PI = NPV / Investitionsvolumen
+→ Bei begrenztem Budget: Rangfolge nach PI, bis Budget erschöpft
+→ Wähle Kombination mit höchstem Gesamt-NPV</div>
+  <div class="cf-box yellow"><strong>PI-Grenze:</strong> PI gilt nur bei echtem Kapitalbudget-Constraint. Bei unbegrenztem Kapital immer alle Projekte mit NPV &gt; 0 durchführen.</div>
+
+  <div class="section-title">⚖️ EAC – Äquivalente Annuität</div>
+  <div class="formula-box"><strong>Equivalent Annual Cost (EAC):</strong>
+EAC = NPV(Kosten) × r / [1 − 1/(1+r)^T]
+= NPV(Kosten) / Annuitätenfaktor
+
+Verwendung: Vergleich von Maschinen mit unterschiedlicher Nutzungsdauer (Maschine A: 3 Jahre vs. Maschine B: 5 Jahre). Wähle kleinere EAC.</div>
+
+  <div class="section-title">❓ Prüfungsfragen Modul 4</div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Warum ist NPV dem IRR generell überlegen?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">NPV misst absoluten Wertbeitrag in €, ist additiv (Portfoliobetrachtung möglich), eindeutig (immer eine Lösung), und berücksichtigt die Skala der Investition. IRR: Relative Kennzahl (%) ignoriert Skala, kann mehrere Lösungen haben, setzt flache Zinskurve voraus, und impliziert Reinvestition zum IRR (unrealistisch bei hohem IRR). Die einzige Situation, in der IRR unproblematisch ist: normaler CF-Verlauf (− dann +), kein Größenvergleich, flache Zinskurve.</div>
+  </div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Was ist ein Sunk Cost und warum wird er ignoriert?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Sunk Cost = bereits getätigte, nicht mehr rückgängig zu machende Ausgabe (z.B. Marktforschung €100.000 vor dem Projekt). Er ist irreversibel und entsteht unabhängig davon, ob das Projekt durchgeführt wird oder nicht. NPV-Entscheidungen basieren auf inkrementellen Cash Flows – was ändert sich durch das Projekt? Da Sunk Costs sich nicht ändern, gehören sie nicht in die NPV-Berechnung. Gegenteil: Opportunity Costs müssen eingerechnet werden, da sie das entgangene Beste der nächstbesten Alternative darstellen.</div>
+  </div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Wann setzen Sie EAC ein statt direktem NPV-Vergleich?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">EAC bei unterschiedlichen Nutzungsdauern, wenn Projekte replizierbar sind (Maschine wird nach Ablauf durch gleiche ersetzt). Maschine A (3J, NPV-Kosten=€50.000) vs. B (5J, NPV-Kosten=€75.000). Direkter NPV-Vergleich ist unfair (A deckt 3, B 5 Jahre ab). EAC(A) = 50.000 × r/[1−1/(1+r)³]; EAC(B) = 75.000 × r/[1−1/(1+r)⁵] → kleinere EAC ist günstiger. Bei nicht-replizierbaren Projekten (z.B. einmalig): direkter NPV-Vergleich.</div>
+  </div>
+
+  <button class="read-btn" id="readbtn-3" onclick="markRead(3)">✓ Modul als gelesen markieren</button>
+</div>
+
+<!-- ── MODULE 4 ── -->
+<div class="topic-panel" id="panel-4">
+  <div class="module-header">
+    <div class="module-num-badge">Modul 5</div>
+    <h2>Risiko & Rendite</h2>
+    <p>Erwartungswert · Varianz · Beta · Systematisches vs. Unsystematisches Risiko</p>
+  </div>
+
+  <div class="section-title">📊 Rendite und Risiko messen</div>
+  <div class="formula-box"><strong>Erwartete Rendite (ex ante):</strong>
+E[r] = Σ p(s) · r(s)   (s = Szenario/Zustand)
+
+<strong>Varianz (ex ante):</strong>
+σ² = Σ p(s) · (r(s) − E[r])²
+
+<strong>Varianz (ex post, historisch):</strong>
+σ² = Σ(r_t − r̄)² / (T−1)   (Bessel-Korrektur: T−1 statt T)
+
+<strong>Standardabweichung (Volatilität):</strong>  σ = √σ²</div>
+
+  <div class="cf-label">Rechenbeispiel</div>
+  <table class="cf-table">
+    <tr><th>Szenario</th><th>p(s)</th><th>r(s)</th><th>p·r</th><th>r−E[r]</th><th>p·(r−E[r])²</th></tr>
+    <tr><td>Boom</td><td>0,30</td><td>+30%</td><td>+9%</td><td>+20%</td><td>0,30·0,04 = 0,0120</td></tr>
+    <tr><td>Normal</td><td>0,50</td><td>+10%</td><td>+5%</td><td>0%</td><td>0</td></tr>
+    <tr><td>Rezession</td><td>0,20</td><td>−10%</td><td>−2%</td><td>−20%</td><td>0,20·0,04 = 0,0080</td></tr>
+    <tr><td colspan="3"><strong>E[r] = 12%</strong></td><td></td><td></td><td><strong>σ² = 0,02 → σ = 14,14%</strong></td></tr>
+  </table>
+
+  <div class="section-title">📐 Portfoliorendite und -varianz</div>
+  <div class="formula-box"><strong>Portfolio-Rendite (N Aktien):</strong>
+r_p = Σ x_i · r_i   (x_i = Gewicht von Aktie i, Σx_i = 1)
+
+<strong>Portfolio-Varianz (2 Aktien):</strong>
+σ²_p = x₁²σ₁² + x₂²σ₂² + 2·x₁·x₂·Cov(r₁,r₂)
+     = x₁²σ₁² + x₂²σ₂² + 2·x₁·x₂·ρ₁₂·σ₁·σ₂
+
+<strong>Kovarianz:</strong>  Cov(r₁,r₂) = ρ₁₂ · σ₁ · σ₂
+<strong>Korrelation:</strong>  ρ ∈ [−1, +1]</div>
+  <div class="cf-box"><strong>Diversifikationseffekt:</strong> σ_p &lt; Σ x_i·σ_i wenn ρ &lt; 1. Bei ρ = −1: vollständige Diversifikation möglich (σ_p = 0 bei richtigen Gewichten). Bei ρ = +1: keine Diversifikation. Je niedriger ρ, desto stärker der Diversifikationsvorteil.</div>
+
+  <div class="section-title">🎯 Systematisches vs. Unsystematisches Risiko</div>
+  <table class="cf-table">
+    <tr><th>Merkmal</th><th>Systematisches Risiko</th><th>Unsystematisches Risiko</th></tr>
+    <tr><td>Bezeichnung</td><td>Marktrisiko, nicht-diversifizierbar</td><td>Idiosynkratisch, diversifizierbar</td></tr>
+    <tr><td>Quelle</td><td>BIP, Zinsen, Inflation, Ölpreis</td><td>Managementfehler, Produktrückruf, Patentstreit</td></tr>
+    <tr><td>Maß</td><td>Beta (β)</td><td>Residualvarianz</td></tr>
+    <tr><td>Entschädigt?</td><td>Ja (Risikoprämie)</td><td>Nein (kann wegdiversifiziert werden)</td></tr>
+    <tr><td>Elimination</td><td>Nicht eliminierbar</td><td>Bei N→∞ Aktien → verschwindet</td></tr>
+  </table>
+
+  <div class="section-title">📏 Beta (β) – Maß für systematisches Risiko</div>
+  <div class="formula-box"><strong>Beta:</strong>  β_i = Cov(r_i, r_m) / Var(r_m) = Cov(r_i, r_m) / σ²_m
+
+β &gt; 1: Aktie ist volatiler als Markt (aggressiv, z.B. Technologie)
+β = 1: Aktie bewegt sich wie Markt
+β &lt; 1: Aktie ist defensiver als Markt (z.B. Versorger)
+β = 0: Uncorrelated mit Markt (risikofreies Asset)
+β &lt; 0: Gegenläufig zum Markt (Hedge, z.B. Gold)</div>
+  <div class="cf-box"><strong>Portfolio-Beta:</strong> β_p = Σ x_i · β_i (gewichtetes Mittel der Einzel-Betas). Im Gegensatz zur Varianz: Beta ist additiv!</div>
+
+  <div class="section-title">📚 Historische Evidenz: Risikoprämien</div>
+  <p style="font-size:14.5px;line-height:1.8;">Über lange Zeiträume (US-Daten 1926–heute): Aktien ≈ 10–12% p.a., Staatsanleihen ≈ 5–6%, Geldmarkt ≈ 3–4%. <strong>Equity Risk Premium (ERP)</strong> = Aktienrendite − risikofreier Zins ≈ 6–8% historisch. Aktien werden für höheres Risiko entschädigt. Kurzfristig dominiert unsystematisches Risiko – erst langfristig dominiert der Markttrend.</p>
+
+  <div class="section-title">❓ Prüfungsfragen Modul 5</div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Warum wird unsystematisches Risiko nicht durch eine Risikoprämie entschädigt?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Unsystematisches Risiko kann durch Diversifikation eliminiert werden – einfach viele verschiedene Aktien halten. Da rational handelnde Investoren dies tun (kostenlos!), wollen sie keine Prämie für ein Risiko zahlen, das sie selbst beseitigen können. Der Marktpreis reflektiert nur das nicht-diversifizierbare systematische Risiko. Ein schlecht diversifizierter Investor trägt mehr Risiko, erhält aber keine höhere Rendite – er macht nur einen Fehler. Fazit: Halte immer ein gut diversifiziertes Portfolio.</div>
+  </div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Aktie A: E[r]=15%, σ=25%. Aktie B: E[r]=12%, σ=18%. Welche wählen Sie?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Kein eindeutiges Urteil ohne Sharpe Ratio! A bietet mehr Rendite (+3%), B weniger Risiko (−7%). Sharpe(A) = (15−rf)/25, Sharpe(B) = (12−rf)/18. Bei rf=4%: Sharpe(A)=(15−4)/25=0,44, Sharpe(B)=(12−4)/18=0,44 → identisch! Risikoaverser Investor bevorzugt B (gleiche Rendite/Risiko-Rate). In einem Portfolio-Kontext kommt es auf Korrelation mit dem restlichen Portfolio an – nicht auf σ allein.</div>
+  </div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Was passiert mit der Portfolio-Varianz, wenn N → ∞?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Bei gleichgewichtiger Anlage in N Aktien: σ²_p = (1/N)·σ̄²_i + (1−1/N)·Cov̄. Wenn N→∞: (1/N)→0, Varianzen verschwinden, σ²_p → Cov̄ (durchschnittliche Kovarianz). Das unsystematische Risiko wird vollständig wegdiversifiziert. Es bleibt nur das systematische Marktrisiko übrig = Kovarianz aller Aktien mit dem Markt. Praktisch: Mit ~20–30 gut gewählten Aktien ist bereits ~90% der Diversifikation erreicht.</div>
+  </div>
+
+  <button class="read-btn" id="readbtn-4" onclick="markRead(4)">✓ Modul als gelesen markieren</button>
+</div>
+
+<!-- ── MODULE 5 ── -->
+<div class="topic-panel" id="panel-5">
+  <div class="module-header">
+    <div class="module-num-badge">Modul 6</div>
+    <h2>Portfoliotheorie & Effizienzlinie</h2>
+    <p>Efficient Frontier · GMVP · CAL · Tangency Portfolio · Sharpe Ratio</p>
+  </div>
+
+  <div class="section-title">🎯 Mean-Variance-Optimierung</div>
+  <p style="font-size:14.5px;line-height:1.8;margin-bottom:10px;">Ziel: Finde das Portfolio mit höchster erwarteter Rendite bei gegebenem Risiko (oder kleinstem Risiko bei gegebener Rendite). <strong>Annahmen:</strong> Reibungslose Märkte, keine Steuern/Transaktionskosten, beliebig teilbare Wertpapiere, keine Leerverkaufsbeschränkungen, Investoren sind mean-variance-optimal und risikoavers.</p>
+  <div class="formula-box"><strong>Korrelation:</strong>  ρ_{XY} = Cov(X,Y) / (σ_X · σ_Y),  ρ ∈ [−1,+1]
+<strong>Rechenregel:</strong>  Var(aX+bY) = a²σ²_X + b²σ²_Y + 2ab·Cov(X,Y)
+<strong>Sharpe Ratio:</strong>  SR = (E[r_p] − r_f) / σ_p  → Rendite pro Risikoeinheit</div>
+
+  <div class="section-title">📈 Die Effizienzlinie (Efficient Frontier)</div>
+  <p style="font-size:14.5px;line-height:1.8;">Die Menge aller mean-varianz-effizienten Portfolios (σ,E[r])-Raum. Kein anderes Portfolio bietet höhere Rendite bei gleichem Risiko, oder gleiches Risiko bei höherer Rendite.</p>
+  <div class="cf-two-col">
+    <div class="cf-box">
+      <strong>GMVP</strong> (Global Minimum Variance Portfolio)<br>
+      • Kleinstes σ auf der ganzen Frontier<br>
+      • Unterhalb des GMVP: ineffizient (gleiche σ, weniger μ)<br>
+      • Effizienter Teil: Kurve ab GMVP aufwärts
+    </div>
+    <div class="cf-box green">
+      <strong>Tangency Portfolio T</strong><br>
+      • Höchste Sharpe Ratio aller Portfolios<br>
+      • Punkt, wo CAL die Frontier berührt<br>
+      • Unter CAPM: T = Marktportfolio
     </div>
   </div>
 
-  <!-- MODUL 5 -->
-  <div class="cf-module" id="cf-m5">
-    <div class="cf-module-header" onclick="toggleModule('cf-m5')">
-      <div class="cf-module-title"><span class="cf-num">5</span> Risiko & Rendite</div>
-      <span class="cf-arrow">▼</span>
-    </div>
-    <div class="cf-module-body">
-      <div class="formula-box">Erwartete Rendite: E[r] = Σ p(s) · r(s)
-Varianz (ex-ante):  σ² = Σ p(s) · (r(s) − E[r])²
-Varianz (ex-post):  σ² = Σ(r<sub>t</sub> − r̄)² / (T−1)
-Standardabweichung (Volatilität): σ = √σ²</div>
-      <div class="formula-box">Portfolio-Rendite: r<sub>p</sub> = x<sub>1</sub>·r<sub>1</sub> + x<sub>2</sub>·r<sub>2</sub>
-Portfolio-Varianz (2 Aktien):
-σ²<sub>p</sub> = x₁²σ₁² + x₂²σ₂² + 2·x₁·x₂·ρ₁₂·σ₁·σ₂</div>
-      <div class="cf-two-col">
-        <div class="cf-box red">
-          <strong>Systematisches Risiko</strong><br>
-          Marktrisiko, nicht diversifizierbar<br>
-          Gemessen durch Beta (β)<br>
-          Wird entschädigt (Risikoprämie)
-        </div>
-        <div class="cf-box green">
-          <strong>Unsystematisches Risiko</strong><br>
-          Unternehmens-spezifisch<br>
-          Durch Diversifikation eliminierbar<br>
-          Wird NICHT entschädigt
-        </div>
-      </div>
-      <div class="formula-box">Beta: β<sub>i</sub> = Cov(r<sub>i</sub>, r<sub>m</sub>) / σ²<sub>m</sub>
-β &gt; 1: volatiler als Markt | β &lt; 1: weniger volatil | β = 1: Markt-Bewegung</div>
-      <p>Als Portfoliogröße N→∞: Portfolio-Varianz → durchschnittliche Kovarianz (nur systematisches Risiko bleibt). Historisch: Aktien &gt; Anleihen &gt; Geldmarkt über lange Zeiträume → Equity Risk Premium.</p>
-    </div>
+  <div class="section-title">📐 Capital Allocation Line (CAL)</div>
+  <div class="formula-box"><strong>CAL:</strong>  E[r_p] = r_f + SR_T · σ_p
+Steigung der CAL = Sharpe Ratio des riskanten Portfolios
+
+Investorenwahl: Anteil a in Tangency-Portfolio T, (1−a) in risikofreiem Asset
+E[r] = (1−a)·r_f + a·E[r_T]
+σ_p  = a · σ_T   (da Cov(rf, T) = 0)</div>
+  <div class="cf-box green"><strong>Two-Fund Separation Theorem:</strong> Jeder optimale Investor (unabhängig von Risikoaversion) hält eine Kombination aus risikofreiem Asset und dem Tangency Portfolio. Unterschied ist nur der Anteil a: risikoscheuer → kleines a, risikofreudig → großes a (evtl. a&gt;1 = Hebel).</div>
+
+  <div class="section-title">🔧 Lagrange-Optimierung (Prüfungsrelevant)</div>
+  <div class="formula-box">Minimierungsproblem:
+min σ²_p = x'Σx
+s.t.  x'μ = μ̄  (Zielrendite)
+      x'1 = 1   (Budgetbeschränkung)
+
+Lagrange-Funktion:
+L = x'Σx − λ₁(x'μ − μ̄) − λ₂(x'1 − 1)
+
+Lösung über ∂L/∂x = 0 → effizienzliniendefinierendes Gleichungssystem</div>
+  <div class="cf-box yellow"><strong>⚠️ PRÜFUNGSHINWEIS:</strong> Aus den Folien: „MAXIMUM OF POINTS → INTERPRET RESULTS!!!" Immer nach der Berechnung erklären: Was bedeutet das Portfolio? Warum ist Sharpe Ratio hoch/niedrig? Welche Aktie dominiert und warum?</div>
+
+  <div class="section-title">📊 Konstruktion der Effizienzlinie – Schritt für Schritt</div>
+  <p style="font-size:14px;line-height:1.8;">1. Berechne E[r] und σ für alle Einzelwertpapiere. 2. Berechne Kovarianzmatrix Σ (oder paarweise Cov für 2 Aktien). 3. Variiere Gewichte x₁ und x₂=(1−x₁) und berechne σ²_p für jede Kombination. 4. Zeichne die σ-E[r]-Kurve → Parabolform. 5. GMVP: minimaler σ-Punkt. 6. Effizienter Teil: ab GMVP aufwärts. 7. Tangency: maximale Sharpe Ratio (= Steigung CAL durch r_f).</p>
+
+  <div class="section-title">❓ Prüfungsfragen Modul 6</div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Was ist das Two-Fund Separation Theorem und was impliziert es?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">In einer Welt mit risikofreiem Asset kombinieren alle optimalen Investoren nur zwei „Fonds": das risikofreie Asset und das Tangency Portfolio. Unabhängig von der individuellen Risikoaversion ist die optimale Aktienallokation die gleiche (= Tangency Portfolio) – nur der Anteil variiert. Implikation: Es gibt keine Notwendigkeit maßgeschneiderter Aktienportfolios. Ein Indexfonds (≈ Marktportfolio) + risikofreies Asset ist für jeden Investor optimal. Grundlage für passive Investmentstrategien.</div>
+  </div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Erklären Sie den Unterschied zwischen CAL und der Efficient Frontier.</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Efficient Frontier: Menge aller effizienten Portfolios aus riskanten Assets (ohne risikofreies Asset). Kurvenform (Parabel) im σ-E[r]-Raum. CAL (Capital Allocation Line): Gerade durch r_f und ein riskantes Portfolio. Steigung = Sharpe Ratio. Die optimale CAL ist die, die die Frontier tangiert (höchste Sharpe Ratio) – ihr Tangentialpunkt ist das Tangency Portfolio T. Mit risikofreiem Asset sind Portfolios auf der CAL erreichbar und immer besser (gleiche oder höhere Rendite) als Portfolios auf der Frontier (außer bei T).</div>
+  </div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Gegeben: r_f=4%, E[r_T]=14%, σ_T=20%. Investor will σ=12%. Was ist E[r]?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Auf der CAL: a = σ_p/σ_T = 12/20 = 0,60. E[r_p] = r_f + a·(E[r_T]−r_f) = 4% + 0,60·(14%−4%) = 4% + 6% = 10%. Interpretation: 60% in Tangency Portfolio, 40% in risikofreies Asset. Sharpe Ratio = (14%−4%)/20% = 0,50. Überprüfung: SR = (10%−4%)/12% = 0,50 ✓.</div>
   </div>
 
-  <!-- MODUL 6 -->
-  <div class="cf-module" id="cf-m6">
-    <div class="cf-module-header" onclick="toggleModule('cf-m6')">
-      <div class="cf-module-title"><span class="cf-num">6</span> Portfoliotheorie & Effizienzlinie</div>
-      <span class="cf-arrow">▼</span>
-    </div>
-    <div class="cf-module-body">
-      <p><strong>Ziel:</strong> Maximiere Erwartungsrendite bei gegebenem Risiko – oder minimiere Risiko bei gegebener Rendite.</p>
-      <div class="formula-box">Korrelation: ρ<sub>XY</sub> = Cov(X,Y) / (σ<sub>X</sub>·σ<sub>Y</sub>)   Wertebereich [−1, +1]
-Var(aX+bY) = a²σ²<sub>X</sub> + b²σ²<sub>Y</sub> + 2ab·Cov(X,Y)</div>
-      <div class="formula-box">Sharpe Ratio = (E[r<sub>p</sub>] − r<sub>f</sub>) / σ<sub>p</sub>
-→ Rendite pro Risikoeinheit; höher = besser</div>
-      <p><strong>Effizienzlinie (Efficient Frontier):</strong> Menge aller mean-varianz-effizienten Portfolios – kein anderes Portfolio bietet höhere Rendite bei gleichem Risiko.</p>
-      <p><strong>GMVP (Global Minimum Variance Portfolio):</strong> Portfolio mit geringstem σ auf der Effizienzlinie.</p>
-      <p><strong>Capital Allocation Line (CAL):</strong> Gerade durch r<sub>f</sub> und ein riskantes Portfolio. Steigung = Sharpe Ratio. Alle Kombinationen aus risikofreiem Asset + riskantes Portfolio liegen auf der CAL.</p>
-      <div class="cf-box green"><strong>Tangency Portfolio T:</strong> Das riskante Portfolio, bei dem die CAL die Effizienzlinie tangiert → höchste Sharpe Ratio. Unter CAPM-Annahmen gilt: T = Marktportfolio.</div>
-      <p><strong>Optimierung:</strong> Lagrange-Methode mit Zielrendite μ̄ und Budgetbeschränkung Σx<sub>i</sub>=1.</p>
-      <div class="cf-box yellow"><strong>Prüfungshinweis aus Folien:</strong> „MAXIMUM OF POINTS → INTERPRET RESULTS!!!" – immer Ergebnisse wirtschaftlich interpretieren, nicht nur ausrechnen.</div>
-      <p><strong>Annahmen Mean-Variance:</strong> Reibungslose Märkte, keine Steuern, perfekt teilbare Wertpapiere, keine Leerverkaufsbeschränkungen.</p>
-    </div>
+  <button class="read-btn" id="readbtn-5" onclick="markRead(5)">✓ Modul als gelesen markieren</button>
+</div>
+
+<!-- ── MODULE 6 ── -->
+<div class="topic-panel" id="panel-6">
+  <div class="module-header">
+    <div class="module-num-badge">Modul 7</div>
+    <h2>CAPM, WACC & Kapitalkosten</h2>
+    <p>Security Market Line · COC · WACC · APT · Fama-French</p>
   </div>
 
-  <!-- MODUL 7 -->
-  <div class="cf-module" id="cf-m7">
-    <div class="cf-module-header" onclick="toggleModule('cf-m7')">
-      <div class="cf-module-title"><span class="cf-num">7</span> CAPM, WACC & Kapitalkosten</div>
-      <span class="cf-arrow">▼</span>
-    </div>
-    <div class="cf-module-body">
-      <div class="formula-box">CAPM: r<sub>i</sub> = r<sub>f</sub> + β<sub>i</sub> · (r<sub>m</sub> − r<sub>f</sub>)
-Marktrisikoproämie = r<sub>m</sub> − r<sub>f</sub></div>
-      <div class="formula-box">Security Market Line (SML):
-Über SML → unterbewertet (kaufen) | Unter SML → überbewertet (meiden/verkaufen)</div>
-      <div class="cf-two-col">
-        <div class="cf-box">
-          <strong>CAL</strong><br>
-          x-Achse: Gesamtrisiko (σ)<br>
-          Zeigt optimale Portfolios<br>
-          Gilt für jeden individuell
-        </div>
-        <div class="cf-box">
-          <strong>SML</strong><br>
-          x-Achse: Systemat. Risiko (β)<br>
-          Zeigt faire Rendite pro Asset<br>
-          Gilt für alle Assets
-        </div>
-      </div>
-      <p><strong>Unternehmenskapitalkosten (COC – unlevered):</strong></p>
-      <div class="formula-box">r<sub>assets</sub> = (D/V) · r<sub>debt</sub> + (E/V) · r<sub>equity</sub></div>
-      <p><strong>WACC (Weighted Average Cost of Capital):</strong></p>
-      <div class="formula-box">WACC = (D/V) · r<sub>d</sub> · (1−Steuersatz) + (E/V) · r<sub>e</sub>
-→ WACC &lt; COC, weil Zinsen steuerlich absetzbar (Tax Shield)</div>
-      <div class="formula-box">Beta-Schätzung: β<sub>i</sub> = Cov(r<sub>i</sub>, r<sub>m</sub>) / Var(r<sub>m</sub>)
-→ Aus historischer Regression Aktie vs. Marktindex</div>
-      <div class="cf-box green"><strong>r<sub>E</sub> schätzen:</strong> (1) CAPM mit geschätztem Beta, (2) Historische Regression Aktie vs. Markt → Beta → CAPM anwenden.</div>
-      <p><strong>APT (Arbitrage Pricing Theory):</strong> Mehrfaktorenmodell. Erwartete Rendite = r<sub>f</sub> + Σ(β<sub>k</sub> × Faktor-Risikoprämie<sub>k</sub>). Nutzt Arbitragemöglichkeiten.</p>
-      <p><strong>Fama-French 3-Faktor-Modell:</strong> Marktfaktor + Größenfaktor (SMB: Small minus Big) + Wertfaktor (HML: High minus Low Book-to-Market).</p>
-      <table class="cf-table">
-        <tr><th>Methode</th><th>Risikofaktor</th><th>Typische Anwendung</th></tr>
-        <tr><td>CAPM</td><td>β (Markt)</td><td>Einzel-Asset, einfach</td></tr>
-        <tr><td>APT</td><td>Mehrere Makrofaktoren</td><td>Arbitrage, flexibel</td></tr>
-        <tr><td>Fama-French</td><td>Markt + Size + Value</td><td>Empirische Forschung</td></tr>
-      </table>
-    </div>
+  <div class="section-title">📐 CAPM – Capital Asset Pricing Model</div>
+  <div class="formula-box"><strong>CAPM:</strong>  r_i = r_f + β_i · (r_m − r_f)
+
+r_f       = risikofreier Zinssatz (z.B. Staatsanleihe)
+β_i       = systematisches Risiko von Asset i
+(r_m−r_f) = Marktrisikoprimie (ERP ≈ 6−8% historisch)
+r_i       = erwartete Rendite (= geforderte Mindestrendite)</div>
+  <div class="cf-two-col">
+    <div class="cf-box green"><strong>SML (Security Market Line):</strong><br>Gerade im (β, E[r])-Raum<br>• Über SML: unterbewertet → α &gt; 0 (kaufen!)<br>• Unter SML: überbewertet → α &lt; 0 (meiden!)<br>• Gilt für alle Assets (diversifizierbar)</div>
+    <div class="cf-box"><strong>CAL vs. SML – Unterschied:</strong><br>CAL: x-Achse = σ (Gesamtrisiko)<br>SML: x-Achse = β (systemat. Risiko)<br>CAL: für optimale Portfolios<br>SML: für fair bewertete Einzel-Assets</div>
   </div>
 
-  <hr class="cf-divider">
-  <div style="background:linear-gradient(135deg,#ecfdf5,#eff6ff);border:1px solid #a7f3d0;border-radius:14px;padding:24px 28px;margin-bottom:40px;">
-    <div style="font-size:16px;font-weight:800;margin-bottom:14px;">📋 Formelsammlung auf einen Blick</div>
+  <div class="cf-label">CAPM-Beispiel</div>
+  <p style="font-size:14px;line-height:1.75;">r_f=3%, ERP=7%, β=1,4 → r_CAPM = 3% + 1,4 × 7% = 3% + 9,8% = <strong>12,8%</strong>. Eine Aktie mit dieser Beta sollte 12,8% rentieren. Aktuelle Rendite aus Marktdaten 15% → Aktie über SML → <strong>unterbewertet</strong> (Alpha = +2,2%).</p>
+
+  <div class="section-title">💼 Unternehmenskapitalkosten (COC)</div>
+  <div class="formula-box"><strong>COC (unlevered / asset beta):</strong>
+r_assets = (D/V) · r_debt + (E/V) · r_equity
+V = D + E (Marktwerte)
+
+→ Mischt FK- und EK-Rendite nach Kapitalstrukturanteilen
+→ Verwendet für NPV-Berechnung bei reiner EK-Finanzierung</div>
+
+  <div class="section-title">🏗️ WACC – Weighted Average Cost of Capital</div>
+  <div class="formula-box"><strong>WACC:</strong>
+WACC = (D/V) · r_d · (1−t_c) + (E/V) · r_e
+
+D/V = FK-Anteil am Gesamtkapital (Marktwerte!)
+E/V = EK-Anteil
+r_d = Fremdkapitalkosten (vor Steuer)
+t_c = Körperschaftsteuersatz
+r_e = Eigenkapitalkosten (via CAPM)
+
+WACC &lt; COC, da Zinsen steuerlich absetzbar → Tax Shield senkt effektive FK-Kosten</div>
+  <div class="cf-box yellow"><strong>Wichtig:</strong> WACC mit Marktwerten (nicht Buchwerten) berechnen! D/V und E/V sind Marktgewichte. WACC ändert sich bei Änderung der Kapitalstruktur.</div>
+
+  <div class="cf-label">WACC-Beispiel</div>
+  <p style="font-size:14px;line-height:1.75;">Marktkapitalisierung: €600Mio. Schulden: €400Mio. r_d=5%, r_e=12%, t_c=30%. V=1.000Mio. D/V=0,4, E/V=0,6. WACC = 0,4 × 5% × 0,70 + 0,6 × 12% = 1,40% + 7,20% = <strong>8,60%</strong>.</p>
+
+  <div class="section-title">📊 r_E schätzen – Beta-Methode</div>
+  <div class="formula-box"><strong>Schritte zur CAPM-basierten r_E Schätzung:</strong>
+1. Historische Aktienrenditen und Marktrenditen sammeln
+2. OLS-Regression: r_i = α + β·r_m + ε → schätzt β
+3. r_f bestimmen (aktuelle Staatsanleihe)
+4. ERP schätzen (historisch oder implizit)
+5. r_e = r_f + β̂ · ERP</div>
+
+  <div class="section-title">🔬 APT & Fama-French Faktormodelle</div>
+  <div class="formula-box"><strong>APT (Arbitrage Pricing Theory):</strong>
+E[r_i] = r_f + Σ_k β_{i,k} · λ_k
+λ_k = Risikoprämie für Faktor k
+→ Ermöglicht mehrere Risikofaktoren (nicht nur Markt)</div>
+  <div class="formula-box"><strong>Fama-French 3-Faktor-Modell:</strong>
+E[r_i] = r_f + β_i · MKT + s_i · SMB + h_i · HML
+
+MKT = Marktüberschussrendite (r_m − r_f)
+SMB = Small minus Big (Größenprämie: kleine Firmen &gt; große)
+HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
+  <table class="cf-table">
+    <tr><th>Modell</th><th>Faktoren</th><th>Stärken</th><th>Schwächen</th></tr>
+    <tr><td>CAPM</td><td>1 (Markt β)</td><td>Einfach, weit verbreitet</td><td>Empirisch schwach, erklärt wenig</td></tr>
+    <tr><td>APT</td><td>Flexibel (k)</td><td>Allgemein, kein Marktportfolio nötig</td><td>Faktoren nicht spezifiziert</td></tr>
+    <tr><td>Fama-French</td><td>3 (Markt+Size+Value)</td><td>Hohe empirische Erklärungskraft</td><td>Keine Risikobegründung für Faktoren</td></tr>
+  </table>
+
+  <div class="section-title">❓ Prüfungsfragen Modul 7</div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Was ist der Unterschied zwischen COC und WACC?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">COC (unlevered) = r_assets = gewichtete Kosten aus EK und FK ohne Steuereffekt. WACC = gewichtete Kosten mit Steuereffekt auf FK (Zinsen steuerlich absetzbar → Tax Shield). WACC &lt; COC. COC verwendest du, wenn du das Projekt so bewertest als wäre es rein eigenkapitalfinanziert. WACC verwendest du wenn du den Wert inklusive Finanzierungseffekt (Steuervorteil von Schulden) in den Diskontierungssatz einbauest. WACC-Methode: NPV = FCF diskontiert mit WACC (enthält Tax Shield implizit).</div>
+  </div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Aktie über der SML vs. unter der SML – was bedeutet das?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">SML zeigt die faire erwartete Rendite für ein gegebenes Beta. Aktie über SML: aktuelle erwartete Rendite &gt; CAPM-Rendite → Alpha positiv → Aktie ist unterbewertet (bietet zu viel für ihr Risiko) → kaufen bis Preis steigt und Rendite auf SML fällt. Aktie unter SML: aktuelle erwartete Rendite &lt; CAPM-Rendite → Alpha negativ → überbewertet → verkaufen/meiden. In effizienten Märkten gibt es keine persistenten Abweichungen von der SML (Arbitrage treibt Preise auf SML zurück).</div>
+  </div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Wie berechnet man WACC praktisch für ein börsennotieres Unternehmen?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">1. E (EK-Marktwert) = Aktienkurs × Anzahl Aktien. 2. D (FK-Marktwert) = Marktwert aller Schulden (oft Buchwert ≈ Marktwert). 3. V = E + D, E/V und D/V berechnen. 4. r_e via CAPM: schätze β aus Regression, r_e = r_f + β·ERP. 5. r_d = Rendite auf aktuelle Unternehmensanleihen oder Fremdkapitalkosten. 6. t_c = Steuersatz. 7. WACC = (D/V)·r_d·(1−t_c) + (E/V)·r_e. Typische Werte: r_e 10–15%, r_d 3–7%, WACC 7–12%.</div>
+  </div>
+  <div class="qa-block">
+    <div class="qa-q" onclick="toggleQA(this)"><span>Worin unterscheiden sich APT und CAPM?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">CAPM: Ein Faktor (Marktportfolio), theoretisch fundiert (Gleichgewichtsmodell), braucht das Marktportfolio. APT: Mehrere Faktoren (Makroökonomisch: BIP, Inflation, Zinsen…), basiert auf No-Arbitrage statt Gleichgewicht, Marktportfolio nicht benötigt. APT ist allgemeiner, aber die Faktoren müssen identifiziert werden (nicht theoretisch vorgegeben). Fama-French ist quasi ein empirisch motiviertes APT mit drei spezifischen Faktoren. In der Praxis: CAPM für einfache Anwendungen, FF3F für empirische Forschung.</div>
+  </div>
+
+  <div style="background:linear-gradient(135deg,#ecfdf5,#eff6ff);border:1px solid #a7f3d0;border-radius:14px;padding:20px 24px;margin:24px 0;">
+    <div style="font-size:15px;font-weight:800;margin-bottom:12px;">📋 Formelsammlung auf einen Blick</div>
     <table class="cf-table">
       <tr><th>Thema</th><th>Formel</th></tr>
-      <tr><td>NPV</td><td>Σ CF<sub>t</sub>/(1+r)^t − I₀ &gt; 0 → investieren</td></tr>
-      <tr><td>IRR</td><td>NPV = 0 lösen nach r</td></tr>
-      <tr><td>PI</td><td>NPV / Investition</td></tr>
-      <tr><td>Realzins</td><td>(1+nominal)/(1+Inflation) − 1</td></tr>
+      <tr><td>NPV</td><td>Σ CF_t/(1+r)^t − I₀</td></tr>
+      <tr><td>IRR</td><td>NPV=0 lösen nach r (iterativ)</td></tr>
+      <tr><td>PI</td><td>NPV / Investitionsvolumen</td></tr>
+      <tr><td>EAC</td><td>NPV(Kosten) × r / [1−(1+r)^{−T}]</td></tr>
+      <tr><td>Realzins</td><td>(1+r_nom)/(1+π) − 1</td></tr>
       <tr><td>Anleihe PV</td><td>Σ cpn/(1+r)^t + par/(1+r)^T</td></tr>
-      <tr><td>Modified Duration</td><td>Duration / (1+YTM)</td></tr>
+      <tr><td>Macaulay Duration</td><td>Σ[t·PV(CF_t)] / P</td></tr>
+      <tr><td>Modified Duration</td><td>D/(1+YTM)</td></tr>
       <tr><td>Gordon-Modell</td><td>P₀ = DIV₁/(r−g)</td></tr>
-      <tr><td>PVGO</td><td>P₀(mit Wachstum) − EPS/r</td></tr>
+      <tr><td>PVGO</td><td>P₀(mit g) − EPS/r</td></tr>
       <tr><td>Portfolio-Varianz</td><td>x₁²σ₁²+x₂²σ₂²+2x₁x₂ρσ₁σ₂</td></tr>
-      <tr><td>Beta</td><td>Cov(r<sub>i</sub>,r<sub>m</sub>) / σ²<sub>m</sub></td></tr>
-      <tr><td>CAPM</td><td>r<sub>i</sub> = r<sub>f</sub> + β(r<sub>m</sub>−r<sub>f</sub>)</td></tr>
-      <tr><td>WACC</td><td>(D/V)·r<sub>d</sub>·(1−t) + (E/V)·r<sub>e</sub></td></tr>
+      <tr><td>Beta</td><td>Cov(r_i,r_m)/σ²_m</td></tr>
+      <tr><td>Sharpe Ratio</td><td>(E[r_p]−r_f)/σ_p</td></tr>
+      <tr><td>CAPM</td><td>r_f + β·(r_m−r_f)</td></tr>
+      <tr><td>WACC</td><td>(D/V)·r_d·(1−t) + (E/V)·r_e</td></tr>
     </table>
   </div>
 
+  <button class="read-btn" id="readbtn-6" onclick="markRead(6)">✓ Modul als gelesen markieren</button>
 </div>
+
+</div><!-- end themen-main -->
+
+<!-- RIGHT SIDEBAR -->
+<div class="themen-sidebar">
+  <div class="sb-overall">
+    <div class="sb-overall-num" id="sb-pct">0%</div>
+    <div class="sb-overall-label">Module abgeschlossen</div>
+    <div style="width:100%;height:6px;background:#e5e7eb;border-radius:3px;margin-top:10px;overflow:hidden;"><div id="sb-total-bar" style="height:100%;background:var(--accent);border-radius:3px;width:0%;transition:width 0.4s;"></div></div>
+  </div>
+
+  <div class="sb-title">Fortschritt je Modul</div>
+  <div class="sb-progress-row" onclick="selectModule(0)"><span>M1 Einführung</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-0" style="width:0%"></div></div></div>
+  <div class="sb-progress-row" onclick="selectModule(1)"><span>M2 NPV & Rendite</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-1" style="width:0%"></div></div></div>
+  <div class="sb-progress-row" onclick="selectModule(2)"><span>M3 Anleihen</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-2" style="width:0%"></div></div></div>
+  <div class="sb-progress-row" onclick="selectModule(3)"><span>M4 IRR & Regeln</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-3" style="width:0%"></div></div></div>
+  <div class="sb-progress-row" onclick="selectModule(4)"><span>M5 Risiko</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-4" style="width:0%"></div></div></div>
+  <div class="sb-progress-row" onclick="selectModule(5)"><span>M6 Portfolio</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-5" style="width:0%"></div></div></div>
+  <div class="sb-progress-row" onclick="selectModule(6)"><span>M7 CAPM/WACC</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-6" style="width:0%"></div></div></div>
+
+  <div class="sb-divider"></div>
+  <div class="sb-title">⚡ Schnell-Formeln</div>
+  <div class="sb-formula-box">NPV = Σ CF_t/(1+r)^t − I₀</div>
+  <div class="sb-formula-box">WACC = (D/V)·r_d·(1−t)+(E/V)·r_e</div>
+  <div class="sb-formula-box">CAPM: r = r_f + β·(r_m−r_f)</div>
+  <div class="sb-formula-box">Duration/Price: ΔP/P ≈ −ModD·Δr</div>
+  <div class="sb-formula-box">Gordon: P₀ = DIV₁/(r−g)</div>
+  <div class="sb-formula-box">Sharpe = (E[r]−r_f)/σ</div>
+  <div class="sb-formula-box">σ²_p = x₁²σ₁²+x₂²σ₂²+2x₁x₂ρσ₁σ₂</div>
+</div><!-- end sidebar -->
+
+</div><!-- end themen-layout -->
 </div>
 <!-- END TAB 1 -->
 
@@ -477,7 +921,6 @@ Marktrisikoproämie = r<sub>m</sub> − r<sub>f</sub></div>
 
     <div class="aufg-section-label">📊 NPV &amp; Investitionsentscheidung</div>
 
-    <!-- CF-1 -->
     <div class="aufg-item">
       <div class="aufg-head"><h3>Aufgabe CF-1 – NPV-Berechnung (Grundaufgabe)</h3><span class="aufg-tag">NPV</span></div>
       <div class="aufg-body">
@@ -980,14 +1423,50 @@ function cdDelRow(i) { cdExams.splice(i,1); renderCdRows(); }
 function cdSave() { localStorage.setItem('lernplan_exams_v1', JSON.stringify(cdExams)); updateCountdown(); closeCdModal(); }
 updateCountdown();
 
-// ── MODULE TOGGLE ──────────────────────────────────────────
-function toggleModule(id) {
-  var el = document.getElementById(id);
-  var body = el.querySelector('.cf-module-body');
-  var arrow = el.querySelector('.cf-arrow');
-  var open = body.classList.toggle('open');
-  arrow.style.transform = open ? 'rotate(180deg)' : '';
+// ── MODULE NAVIGATION ──────────────────────────────────────
+function selectModule(idx) {
+  document.querySelectorAll('.topic-panel').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.tnav-item').forEach(function(b){b.classList.remove('active');});
+  var panel = document.getElementById('panel-'+idx);
+  if (panel) panel.classList.add('active');
+  var btn = document.querySelector('[data-mod="'+idx+'"]');
+  if (btn) btn.classList.add('active');
+  var main = document.querySelector('.themen-main');
+  if (main) main.scrollTop = 0;
 }
+
+// ── Q&A TOGGLE ──────────────────────────────────────────────
+function toggleQA(qEl) {
+  var ans = qEl.nextElementSibling;
+  var arrow = qEl.querySelector('.qa-arrow');
+  var isOpen = ans.classList.toggle('open');
+  if (arrow) arrow.style.transform = isOpen ? 'rotate(180deg)' : '';
+}
+
+// ── PROGRESS TRACKING ───────────────────────────────────────
+var CF_READ = JSON.parse(localStorage.getItem('cf_read_v1') || '{}');
+function markRead(idx) {
+  CF_READ[idx] = !CF_READ[idx];
+  localStorage.setItem('cf_read_v1', JSON.stringify(CF_READ));
+  updateProgress();
+}
+function updateProgress() {
+  var total = 7, done = 0;
+  for (var i = 0; i < total; i++) {
+    var read = !!CF_READ[i];
+    var bar = document.getElementById('sbbar-'+i);
+    var ring = document.getElementById('ring-'+i);
+    var btn = document.getElementById('readbtn-'+i);
+    if (bar) bar.style.width = read ? '100%' : '0%';
+    if (ring) { ring.style.strokeDashoffset = read ? '0' : '56.5'; ring.style.stroke = read ? '#22c55e' : '#0ea5e9'; }
+    if (btn) { btn.classList.toggle('done', read); btn.textContent = read ? '✓ Gelesen!' : '✓ Modul als gelesen markieren'; }
+    if (read) done++;
+  }
+  var pct = Math.round(done/total*100);
+  var pctEl = document.getElementById('sb-pct'); if (pctEl) pctEl.textContent = pct+'%';
+  var barEl = document.getElementById('sb-total-bar'); if (barEl) barEl.style.width = pct+'%';
+}
+updateProgress();
 
 // ── CANVAS ENGINE ──────────────────────────────────────────
 function initCanvas(id) {
