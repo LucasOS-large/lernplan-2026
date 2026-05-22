@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Corporate Finance – Klausurvorbereitung</title>
+<style>
+:root {
+  --bg: #f0f0ee; --card: #ffffff; --ink: #1a1a1a; --muted: #666;
+  --accent: #0ea5e9; --accent-soft: rgba(14,165,233,0.10);
+  --border: rgba(0,0,0,0.09); --header-bg: rgba(5,30,50,0.95);
+  --nav-bg: #ffffff; --input-bg: #f8f8f8; --code-bg: #f3f4f6;
+  --answer-bg: #f9f9f9;
+}
+[data-theme="dark"] {
+  --bg: #1c1c1e; --card: #2c2c2e; --ink: #f5f5f7; --muted: #8e8e93;
+  --accent: #38bdf8; --accent-soft: rgba(56,189,248,0.14);
+  --border: rgba(255,255,255,0.10); --header-bg: rgba(5,20,40,0.97);
+  --nav-bg: #2c2c2e; --input-bg: #3a3a3c; --code-bg: #3a3a3c; --answer-bg: #2c2c2e;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { overscroll-behavior: none; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.65;
+  transition: background 0.25s, color 0.25s; overscroll-behavior: none;
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+input, textarea, [contenteditable] { -webkit-user-select: text; user-select: text; }
+
+/* HEADER */
+header { background: var(--header-bg); color: white; padding: 14px 22px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+header h1 { font-size: 19px; font-weight: 700; }
+header p { color: #bbb; font-size: 12px; margin-top: 1px; }
+.header-left { display: flex; align-items: center; gap: 14px; }
+.back-link { color: #bbb; text-decoration: none; font-size: 13px; white-space: nowrap; }
+.back-link:hover { color: white; }
+.header-right { display: flex; align-items: center; gap: 10px; }
+.countdown-widget { background: rgba(255,255,255,0.12); border-radius: 8px; padding: 5px 12px; font-size: 12px; color: #eee; cursor: pointer; white-space: nowrap; }
+.countdown-widget strong { color: #38bdf8; }
+.dark-toggle { background: rgba(255,255,255,0.12); border: none; border-radius: 8px; padding: 6px 12px; cursor: pointer; font-size: 14px; color: white; }
+.dark-toggle:hover { background: rgba(255,255,255,0.2); }
+
+/* NAV */
+nav { background: var(--nav-bg); border-bottom: 2px solid var(--border); display: flex; gap: 0; padding: 0 20px; overflow-x: auto; }
+nav button { background: none; border: none; padding: 13px 18px; font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; white-space: nowrap; transition: all 0.15s; }
+nav button:hover { color: var(--ink); }
+nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* VIEWS */
+.view { display: none; padding: 24px; max-width: 880px; margin: 0 auto; }
+.view.active { display: block; }
+#view-aufgaben, #view-altklausuren { max-width: none; padding: 20px 16px; }
+
+/* COUNTDOWN MODAL */
+.cd-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 200; align-items: center; justify-content: center; }
+.cd-modal-overlay.open { display: flex; }
+.cd-modal { background: var(--card); border-radius: 14px; padding: 28px; width: 380px; max-width: 95vw; box-shadow: 0 20px 60px rgba(0,0,0,0.25); }
+.cd-modal h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+.cd-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+.cd-row input { flex: 1; padding: 7px 10px; border-radius: 7px; border: 1px solid var(--border); background: var(--input-bg); color: var(--ink); font-size: 13px; }
+.cd-row input[type="date"] { width: 140px; flex: none; }
+.cd-btn-del { background: #fdecea; border: none; border-radius: 7px; padding: 6px 10px; cursor: pointer; color: #c0392b; font-size: 13px; }
+.cd-btn-add { background: var(--accent-soft); border: none; border-radius: 7px; padding: 7px 14px; cursor: pointer; color: var(--accent); font-size: 13px; font-weight: 600; margin-top: 4px; }
+.cd-actions { display: flex; gap: 8px; margin-top: 16px; justify-content: flex-end; }
+.cd-btn-cancel { background: var(--code-bg); border: none; border-radius: 8px; padding: 8px 18px; cursor: pointer; color: var(--ink); font-size: 14px; }
+.cd-btn-save { background: var(--accent); border: none; border-radius: 8px; padding: 8px 18px; cursor: pointer; color: white; font-size: 14px; font-weight: 600; }
+
+/* INTRO */
+.cf-wrap { width: 78%; margin: 0 auto; padding: 36px 0 80px; }
+@media (max-width: 700px) { .cf-wrap { width: 94%; } }
+.cf-hero { background: linear-gradient(135deg, #0369a1 0%, #0ea5e9 100%); border-radius: 14px; padding: 32px 36px; color: white; margin-bottom: 40px; }
+.cf-hero h2 { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
+.cf-hero p { opacity: 0.88; font-size: 15px; line-height: 1.65; }
+.cf-module { background: var(--card); border-radius: 12px; margin-bottom: 14px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); overflow: hidden; border: 1px solid var(--border); }
+.cf-module-header { padding: 16px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+.cf-module-header:hover { background: var(--accent-soft); }
+.cf-module-title { font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px; }
+.cf-num { background: var(--accent); color: white; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; }
+.cf-arrow { font-size: 18px; color: var(--muted); transition: transform 0.2s; }
+.cf-module-body { display: none; padding: 4px 20px 22px; }
+.cf-module-body.open { display: block; }
+.cf-module-body p { margin-bottom: 10px; font-size: 14.5px; line-height: 1.75; }
+.cf-module-body strong { color: var(--accent); }
+.cf-module-body ul { margin: 8px 0 12px 20px; font-size: 14px; line-height: 1.8; }
+.cf-module-body li { margin-bottom: 4px; }
+.formula-box { background: var(--code-bg); border-radius: 8px; padding: 12px 16px; font-family: "SF Mono","Fira Code",monospace; font-size: 13px; margin: 10px 0; color: var(--ink); border-left: 3px solid var(--accent); }
+.formula-box.green { border-left-color: #059669; }
+.formula-box.yellow { border-left-color: #d97706; }
+.cf-box { background: var(--code-bg); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 12px 0; font-size: 14px; line-height: 1.75; }
+.cf-box.green { border-left-color: #059669; background: #ecfdf5; }
+.cf-box.red   { border-left-color: #dc2626; background: #fef2f2; }
+.cf-box.yellow{ border-left-color: #d97706; background: #fffbeb; }
+[data-theme="dark"] .cf-box.green  { background: #022c1c; }
+[data-theme="dark"] .cf-box.red    { background: #2c0a0a; }
+[data-theme="dark"] .cf-box.yellow { background: #271d00; }
+.cf-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0; }
+@media (max-width: 680px) { .cf-two-col { grid-template-columns: 1fr; } }
+.cf-table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 14px 0; }
+.cf-table th { background: var(--accent-soft); color: var(--accent); font-weight: 700; padding: 9px 12px; text-align: left; border: 1px solid var(--border); }
+.cf-table td { padding: 9px 12px; border: 1px solid var(--border); line-height: 1.5; }
+.cf-table tr:nth-child(even) td { background: var(--code-bg); }
+.cf-label { font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 14px 0 6px; }
+.cf-divider { border: none; border-top: 2px dashed var(--border); margin: 36px 0; }
+
+/* AUFGABEN */
+.aufg-list { display: flex; flex-direction: column; gap: 20px; }
+.aufg-item { background: var(--card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
+.aufg-head { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.aufg-head h3 { font-size: 14px; font-weight: 700; }
+.aufg-tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; background: var(--accent-soft); color: var(--accent); }
+.aufg-body { padding: 14px 0; }
+.aufg-body p { font-size: 14px; margin-bottom: 10px; padding: 0 18px; }
+.canvas-wrap { position: relative; border: 2px solid var(--border); border-radius: 0; overflow: hidden; background: white; touch-action: none; }
+.canvas-wrap canvas { display: block; width: 100%; cursor: crosshair; touch-action: none; will-change: transform; }
+.canvas-toolbar { display: flex; gap: 6px; padding: 8px 12px; background: var(--code-bg); border-top: 1px solid var(--border); flex-wrap: wrap; align-items: center; }
+.canvas-toolbar button { background: var(--card); border: 1px solid var(--border); border-radius: 7px; padding: 5px 11px; font-size: 12px; cursor: pointer; color: var(--ink); }
+.canvas-toolbar button:hover { background: var(--accent-soft); color: var(--accent); }
+.canvas-toolbar button.tool-active { background: var(--accent); color: white; border-color: var(--accent); }
+.canvas-toolbar button.eraser-btn { background: #fff8f0; border-color: #f59e0b; color: #92400e; }
+.canvas-toolbar button.eraser-btn.tool-active { background: #f59e0b; color: white; border-color: #f59e0b; }
+.canvas-toolbar button.undo-btn { background: var(--code-bg); }
+.canvas-toolbar button.zoom-reset-btn { background: #f0f7ff; border-color: #3b82f6; color: #1d4ed8; }
+.canvas-toolbar button.zoom-reset-btn:hover { background: #3b82f6; color: white; }
+.color-swatch { width: 22px; height: 22px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; transition: transform 0.1s; }
+.color-swatch:hover, .color-swatch.active { border-color: var(--ink); transform: scale(1.15); }
+.pen-size { width: 70px; }
+.aufg-text { display: block; width: 100%; min-height: 100px; border: none; border-top: 1px solid var(--border); border-radius: 0; padding: 12px 18px; font-size: 15px; font-family: inherit; background: var(--input-bg); color: var(--ink); resize: vertical; box-sizing: border-box; }
+.aufg-text:focus { outline: none; border-top-color: var(--accent); background: var(--card); }
+.aufg-save-row { padding: 8px 18px; display: flex; align-items: center; gap: 10px; }
+.aufg-save-btn { background: var(--accent); color: white; border: none; border-radius: 8px; padding: 8px 18px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.aufg-save-btn:hover { opacity: 0.88; }
+.aufg-saved-note { font-size: 12px; color: #059669; display: none; }
+.aufg-section-label { font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin: 28px 0 10px; padding: 6px 12px; background: var(--accent-soft); border-radius: 6px; display: inline-block; }
+
+/* ALTKLAUSUREN */
+.ak-list { display: flex; flex-direction: column; gap: 24px; }
+.ak-item { background: var(--card); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
+.ak-head { padding: 14px 20px; background: var(--accent-soft); display: flex; justify-content: space-between; align-items: center; }
+.ak-head h3 { font-size: 15px; font-weight: 700; color: var(--accent); }
+.ak-head span { font-size: 12px; color: var(--muted); }
+.ak-body { padding: 16px 20px; }
+.ak-question { margin-bottom: 18px; }
+.ak-question p { font-size: 14px; margin-bottom: 6px; font-weight: 600; }
+.ak-canvas-area { border: 2px solid var(--border); border-radius: 10px; overflow: hidden; background: white; touch-action: none; margin-bottom: 6px; }
+.ak-canvas-area canvas { display: block; width: 100%; cursor: crosshair; touch-action: none; }
+.ak-text { display: block; width: 100%; min-height: 80px; border: none; border-top: 1px solid var(--border); border-radius: 0; padding: 12px 16px; font-size: 14px; font-family: inherit; background: var(--input-bg); color: var(--ink); resize: vertical; box-sizing: border-box; }
+.ak-text:focus { outline: none; background: var(--card); }
+.ak-toolbar { display: flex; gap: 6px; padding: 6px 8px; background: var(--code-bg); border-top: 1px solid var(--border); flex-wrap: wrap; }
+.ak-toolbar button { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; font-size: 11px; cursor: pointer; color: var(--ink); }
+.ak-toolbar button:hover { background: var(--accent-soft); color: var(--accent); }
+.ak-save-row { display: flex; align-items: center; gap: 10px; margin-top: 6px; }
+.ak-save-btn { background: var(--accent); color: white; border: none; border-radius: 8px; padding: 7px 16px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.ak-saved-note { font-size: 12px; color: #059669; display: none; }
+</style>
+</head>
+<body>
+
+<!-- COUNTDOWN MODAL -->
+<div class="cd-modal-overlay" id="cdModal" onclick="if(event.target===this)closeCdModal()">
+  <div class="cd-modal">
+    <h3>📅 Klausurdaten bearbeiten</h3>
+    <div id="cd-rows"></div>
+    <button class="cd-btn-add" onclick="cdAddRow()">+ Datum hinzufügen</button>
+    <div class="cd-actions">
+      <button class="cd-btn-cancel" onclick="closeCdModal()">Abbrechen</button>
+      <button class="cd-btn-save" onclick="cdSave()">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="header-left">
+    <a href="index.html" class="back-link">← Übersicht</a>
+    <div>
+      <h1>Corporate Finance</h1>
+      <p>NPV · WACC · Risiko · Bewertung</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="countdown-widget" onclick="openCdModal()" title="Klausurdatum bearbeiten">
+      📅 <span id="countdown-text">Klausurdatum eingeben</span>
+    </div>
+    <button class="dark-toggle" onclick="toggleDark()" title="Dark Mode">🌙</button>
+  </div>
+</header>
+
+<nav>
+  <button class="active" onclick="showTab('intro')">📖 CF Intro</button>
+  <button onclick="showTab('aufgaben')">✏️ Aufgaben</button>
+  <button onclick="showTab('altklausuren')">📋 Altklausuren</button>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     TAB 1 – CF INTRO
+══════════════════════════════════════════ -->
+<div class="view active" id="view-intro">
+<div class="cf-wrap">
+
+  <div class="cf-hero">
+    <h2>Corporate Finance – alle 7 Module im Überblick</h2>
+    <p>Von der Grundidee der Unternehmensfinanzierung bis zu CAPM und WACC. Klicke jedes Modul auf, um Formeln, Definitionen und Zusammenhänge zu sehen.</p>
+  </div>
+
+  <!-- MODUL 1 -->
+  <div class="cf-module" id="cf-m1">
+    <div class="cf-module-header" onclick="toggleModule('cf-m1')">
+      <div class="cf-module-title"><span class="cf-num">1</span> Einführung in Corporate Finance</div>
+      <span class="cf-arrow">▼</span>
+    </div>
+    <div class="cf-module-body">
+      <p><strong>Was ist Corporate Finance?</strong> Die Wissenschaft der optimalen Kapitalallokation im Unternehmen – welche Investitionen tätigen, wie finanzieren?</p>
+      <div class="cf-two-col">
+        <div class="cf-box">
+          <div style="font-size:11px;font-weight:800;color:var(--accent);margin-bottom:6px;">INVESTITIONSENTSCHEIDUNG (CAPEX)</div>
+          Kauf von Realvermögen (tangibel/intangibel) → Capital Budgeting<br>
+          <em>Beispiel: Intel kauft neue Fertigungsanlage</em>
+        </div>
+        <div class="cf-box">
+          <div style="font-size:11px;font-weight:800;color:var(--accent);margin-bottom:6px;">FINANZIERUNGSENTSCHEIDUNG</div>
+          Verkauf von Finanzaktiva → Kapitalstruktur (Eigen- vs. Fremdkapital)<br>
+          <em>Beispiel: VW emittiert Anleihen</em>
+        </div>
+      </div>
+      <p><strong>Unternehmensziel:</strong> Maximierung des Shareholder Value – nicht nur Gewinnmaximierung. Unterschied: Wealth berücksichtigt Zeitwert und Risiko.</p>
+      <div class="cf-label">Cash Flow Kreislauf</div>
+      <div class="formula-box">Investoren → Kapital → Unternehmen → Investition in Realvermögen → Operativer CF → Reinvestition oder Rückzahlung an Investoren</div>
+      <p><strong>Hurdle Rate / Cost of Capital:</strong> Mindestrendite einer Investition = Opportunitätskosten des Kapitals. Nur investieren wenn Rendite &gt; Hurdle Rate.</p>
+      <p><strong>Agency Problem:</strong> Interessenkonflikt zwischen Managern (Agenten) und Aktionären (Prinzipale). Manager könnten eigene Ziele verfolgen (Prestige, Jobsicherheit) statt Aktionärswert zu maximieren.</p>
+      <div class="cf-label">Monitoring-Instrumente</div>
+      <ul>
+        <li><strong>Aufsichtsrat/Board of Directors</strong> – Kontrolle der Geschäftsführung</li>
+        <li><strong>Wirtschaftsprüfer</strong> – GAAP-Konformität der Berichte</li>
+        <li><strong>Kreditgeber</strong> – Banken überwachen Vermögenswerte und Covenants</li>
+        <li><strong>Aktionäre</strong> – „Wall Street Walk": Aktienverkauf als Signal</li>
+        <li><strong>Konkurrenten</strong> – Übernahmedrohung diszipliniert Management</li>
+        <li><strong>Finanzielle Anreize</strong> – Aktienoptionen, erfolgsgebundene Vergütung</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MODUL 2 -->
+  <div class="cf-module" id="cf-m2">
+    <div class="cf-module-header" onclick="toggleModule('cf-m2')">
+      <div class="cf-module-title"><span class="cf-num">2</span> Bewertungsprinzipien & NPV</div>
+      <span class="cf-arrow">▼</span>
+    </div>
+    <div class="cf-module-body">
+      <p><strong>Rendite-Berechnungen:</strong></p>
+      <div class="formula-box">Einfache Rendite: r<sub>t</sub> = (P<sub>t</sub> − P<sub>t−1</sub> + DIV<sub>t</sub>) / P<sub>t−1</sub></div>
+      <div class="formula-box">Geometrische Rendite (Haltedauer): (1+H) = (1+r<sub>1</sub>)(1+r<sub>2</sub>)···(1+r<sub>N</sub>)
+Annualisiert: (1+r') = (1+H)^(1/N)</div>
+      <div class="formula-box">Log-Rendite: r<sup>log</sup> = ln((P<sub>t</sub> + DIV<sub>t</sub>) / P<sub>t−1</sub>) → zeitlich additiv</div>
+      <div class="cf-box green"><strong>Merke:</strong> Arithmetisches Mittel → zur Vorhersage zukünftiger Renditen. Geometrisches Mittel → zur Bewertung vergangener Performance.</div>
+      <p><strong>Compounding (Aufzinsung):</strong></p>
+      <div class="formula-box">Halbjährlich: (1 + r/2)² − 1 = effektiver Jahreszins
+Kontinuierlich: A = P · e^(r·t) → bei 10%: e^0,10 = 1,1052 → eff. 10,52%</div>
+      <p><strong>Net Present Value (NPV):</strong></p>
+      <div class="formula-box">NPV = −I<sub>0</sub> + CF<sub>1</sub>/(1+r)¹ + CF<sub>2</sub>/(1+r)² + ··· + CF<sub>n</sub>/(1+r)ⁿ</div>
+      <div class="cf-box green"><strong>NPV-Regel:</strong> Investiere wenn NPV &gt; 0. Diskontierungssatz muss das Risiko des Projekts widerspiegeln.</div>
+      <p><strong>Beispiel:</strong> r=10%, CFs: −1.000 / +300 / +400 / +500 / +600 → NPV = +390 € → Investition lohnt sich.</p>
+      <p><strong>Realvermögen vs. Finanzvermögen:</strong> Realvermögen = produktive Güter (Fabrik, Patente). Finanzvermögen = Ansprüche auf Erträge aus Realvermögen (Aktien, Anleihen, Derivate).</p>
+    </div>
+  </div>
+
+  <!-- MODUL 3 -->
+  <div class="cf-module" id="cf-m3">
+    <div class="cf-module-header" onclick="toggleModule('cf-m3')">
+      <div class="cf-module-title"><span class="cf-num">3</span> Anleihen & Aktien</div>
+      <span class="cf-arrow">▼</span>
+    </div>
+    <div class="cf-module-body">
+      <p><strong>Anleihenbewertung:</strong></p>
+      <div class="formula-box">PV = Σ cpn/(1+r)^t + Nennwert/(1+r)^T</div>
+      <div class="formula-box">YTM (Yield to Maturity) = IRR der Anleihe
+→ Solve: Marktpreis = Σ cpn/(1+YTM)^t + Nennwert/(1+YTM)^T</div>
+      <div class="cf-box red"><strong>Goldene Regel:</strong> Steigende Zinsen → fallende Anleihenkurse (inverse Beziehung). Längere Laufzeit → höhere Kurssensitivität.</div>
+      <p><strong>Duration & Modified Duration:</strong></p>
+      <div class="formula-box">Duration = Σ [t × PV(C<sub>t</sub>)] / PV(Anleihe)
+(Gewichtetes Mittel der Zahlungszeitpunkte, in Jahren)
+
+Modified Duration = Duration / (1 + YTM)
+→ %Δ Kurs ≈ −Modified Duration × ΔZins</div>
+      <div class="cf-label">Zinsstrukturkurve (Yield Curve)</div>
+      <p>Zeigt YTM vs. Laufzeit. Form wird bestimmt durch: Erwartungen zukünftiger Zinsen + Risikozuschlag + Inflation. Inverse Kurve oft Vorbote einer Rezession.</p>
+      <p><strong>Aktien – Dividend Discount Model (DDM):</strong></p>
+      <div class="formula-box">P<sub>0</sub> = (DIV<sub>1</sub> + P<sub>1</sub>) / (1+r)
+DDM allgemein: P<sub>0</sub> = Σ DIV<sub>t</sub>/(1+r)^t</div>
+      <p><strong>Gordon-Wachstumsmodell:</strong></p>
+      <div class="formula-box">P<sub>0</sub> = DIV<sub>1</sub> / (r − g)
+Umgestellt: r = DIV<sub>1</sub>/P<sub>0</sub> + g (Dividendenrendite + Wachstum)</div>
+      <div class="formula-box">Nachhaltiges Wachstum: g = Thesaurierungsquote × ROE
+PVGO = P<sub>0</sub> (mit Reinvestition) − EPS/r (ohne Wachstum)</div>
+      <div class="cf-box green"><strong>Wann lohnt Thesaurierung?</strong> Nur wenn ROE &gt; r → PVGO &gt; 0 → Reinvestition schafft Wert.</div>
+      <table class="cf-table">
+        <tr><th>Bewertungsmerkmal</th><th>Anleihe</th><th>Aktie</th></tr>
+        <tr><td>Cashflows</td><td>Fix (Kupon + Nennwert)</td><td>Variabel (Dividenden)</td></tr>
+        <tr><td>Laufzeit</td><td>Definiert</td><td>Unbegrenzt</td></tr>
+        <tr><td>Rangfolge Insolvenz</td><td>Vorrangig</td><td>Nachrangig</td></tr>
+        <tr><td>Upside</td><td>Begrenzt</td><td>Unbegrenzt</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- MODUL 4 -->
+  <div class="cf-module" id="cf-m4">
+    <div class="cf-module-header" onclick="toggleModule('cf-m4')">
+      <div class="cf-module-title"><span class="cf-num">4</span> Investitionsentscheidungen (NPV, IRR, PI)</div>
+      <span class="cf-arrow">▼</span>
+    </div>
+    <div class="cf-module-body">
+      <div class="cf-two-col">
+        <div class="cf-box green">
+          <strong>NPV – immer überlegen</strong><br>
+          NPV(A+B) = NPV(A) + NPV(B)<br>
+          Additiv, absolut, konsistent
+        </div>
+        <div class="cf-box yellow">
+          <strong>IRR – Fallstricke beachten!</strong><br>
+          Rate wo NPV = 0<br>
+          Akzeptiere wenn IRR &gt; r
+        </div>
+      </div>
+      <p><strong>Die 4 Fallstricke des IRR:</strong></p>
+      <ul>
+        <li><strong>Fallstrick 1 – Kredit vs. Anlage:</strong> Bei ungewöhnlichen CFs steigt NPV mit höherem Zinssatz (falsche Richtung). IRR-Regel umkehren!</li>
+        <li><strong>Fallstrick 2 – Mehrere IRRs:</strong> Bei Vorzeichenwechseln im CF-Strom können mehrere Nullstellen existieren → IRR nicht eindeutig.</li>
+        <li><strong>Fallstrick 3 – Skalenproblem:</strong> Kleineres Projekt kann höheren IRR haben aber niedrigeren absoluten NPV. Beispiel: Projekt A (IRR=100%, NPV=8.182€) vs. B (IRR=75%, NPV=11.818€) → B ist besser!</li>
+        <li><strong>Fallstrick 4 – Zinsstruktur:</strong> IRR unterstellt flache Zinskurve und Reinvestition zum IRR – in der Praxis falsch.</li>
+      </ul>
+      <p><strong>Die 4 NPV-Regeln:</strong></p>
+      <div class="formula-box">Regel 1: Nur Cashflows zählen (kein Buchgewinn)
+CF = Gewinn + Abschreibung − Investitionen (CAPEX)
+→ Sunk Costs ignorieren! Opportunitätskosten, Steuern, Restwert einrechnen.</div>
+      <div class="formula-box">Regel 2: Inkrementelle Basis
+Nur die durch das Projekt verursachten Änderungen zählen.
+Allgemeine Gemeinkosten ignorieren.</div>
+      <div class="formula-box">Regel 3: Inflation konsistent behandeln
+Nominalzins für nominale CFs | Realzins für reale CFs
+Realzins = (1+nominal)/(1+Inflation) − 1</div>
+      <div class="formula-box">Regel 4: Investition von Finanzierung trennen
+Keine Schuldenerlöse abziehen, keine Zinszahlungen als Projekt-CF!</div>
+      <p><strong>Kapitalrationierung:</strong></p>
+      <div class="formula-box">Profitability Index (PI) = NPV / Investition
+→ Bei begrenztem Budget: Projekte nach höchstem PI reihen.</div>
+      <p><strong>Weiterführend:</strong> Äquivalente Annuität (EAC) für Maschinenvergleich mit unterschiedlichen Laufzeiten. Optimaler Investitionszeitpunkt durch NPV-Vergleich aller möglichen Zeitpunkte.</p>
+    </div>
+  </div>
+
+  <!-- MODUL 5 -->
+  <div class="cf-module" id="cf-m5">
+    <div class="cf-module-header" onclick="toggleModule('cf-m5')">
+      <div class="cf-module-title"><span class="cf-num">5</span> Risiko & Rendite</div>
+      <span class="cf-arrow">▼</span>
+    </div>
+    <div class="cf-module-body">
+      <div class="formula-box">Erwartete Rendite: E[r] = Σ p(s) · r(s)
+Varianz (ex-ante):  σ² = Σ p(s) · (r(s) − E[r])²
+Varianz (ex-post):  σ² = Σ(r<sub>t</sub> − r̄)² / (T−1)
+Standardabweichung (Volatilität): σ = √σ²</div>
+      <div class="formula-box">Portfolio-Rendite: r<sub>p</sub> = x<sub>1</sub>·r<sub>1</sub> + x<sub>2</sub>·r<sub>2</sub>
+Portfolio-Varianz (2 Aktien):
+σ²<sub>p</sub> = x₁²σ₁² + x₂²σ₂² + 2·x₁·x₂·ρ₁₂·σ₁·σ₂</div>
+      <div class="cf-two-col">
+        <div class="cf-box red">
+          <strong>Systematisches Risiko</strong><br>
+          Marktrisiko, nicht diversifizierbar<br>
+          Gemessen durch Beta (β)<br>
+          Wird entschädigt (Risikoprämie)
+        </div>
+        <div class="cf-box green">
+          <strong>Unsystematisches Risiko</strong><br>
+          Unternehmens-spezifisch<br>
+          Durch Diversifikation eliminierbar<br>
+          Wird NICHT entschädigt
+        </div>
+      </div>
+      <div class="formula-box">Beta: β<sub>i</sub> = Cov(r<sub>i</sub>, r<sub>m</sub>) / σ²<sub>m</sub>
+β &gt; 1: volatiler als Markt | β &lt; 1: weniger volatil | β = 1: Markt-Bewegung</div>
+      <p>Als Portfoliogröße N→∞: Portfolio-Varianz → durchschnittliche Kovarianz (nur systematisches Risiko bleibt). Historisch: Aktien &gt; Anleihen &gt; Geldmarkt über lange Zeiträume → Equity Risk Premium.</p>
+    </div>
+  </div>
+
+  <!-- MODUL 6 -->
+  <div class="cf-module" id="cf-m6">
+    <div class="cf-module-header" onclick="toggleModule('cf-m6')">
+      <div class="cf-module-title"><span class="cf-num">6</span> Portfoliotheorie & Effizienzlinie</div>
+      <span class="cf-arrow">▼</span>
+    </div>
+    <div class="cf-module-body">
+      <p><strong>Ziel:</strong> Maximiere Erwartungsrendite bei gegebenem Risiko – oder minimiere Risiko bei gegebener Rendite.</p>
+      <div class="formula-box">Korrelation: ρ<sub>XY</sub> = Cov(X,Y) / (σ<sub>X</sub>·σ<sub>Y</sub>)   Wertebereich [−1, +1]
+Var(aX+bY) = a²σ²<sub>X</sub> + b²σ²<sub>Y</sub> + 2ab·Cov(X,Y)</div>
+      <div class="formula-box">Sharpe Ratio = (E[r<sub>p</sub>] − r<sub>f</sub>) / σ<sub>p</sub>
+→ Rendite pro Risikoeinheit; höher = besser</div>
+      <p><strong>Effizienzlinie (Efficient Frontier):</strong> Menge aller mean-varianz-effizienten Portfolios – kein anderes Portfolio bietet höhere Rendite bei gleichem Risiko.</p>
+      <p><strong>GMVP (Global Minimum Variance Portfolio):</strong> Portfolio mit geringstem σ auf der Effizienzlinie.</p>
+      <p><strong>Capital Allocation Line (CAL):</strong> Gerade durch r<sub>f</sub> und ein riskantes Portfolio. Steigung = Sharpe Ratio. Alle Kombinationen aus risikofreiem Asset + riskantes Portfolio liegen auf der CAL.</p>
+      <div class="cf-box green"><strong>Tangency Portfolio T:</strong> Das riskante Portfolio, bei dem die CAL die Effizienzlinie tangiert → höchste Sharpe Ratio. Unter CAPM-Annahmen gilt: T = Marktportfolio.</div>
+      <p><strong>Optimierung:</strong> Lagrange-Methode mit Zielrendite μ̄ und Budgetbeschränkung Σx<sub>i</sub>=1.</p>
+      <div class="cf-box yellow"><strong>Prüfungshinweis aus Folien:</strong> „MAXIMUM OF POINTS → INTERPRET RESULTS!!!" – immer Ergebnisse wirtschaftlich interpretieren, nicht nur ausrechnen.</div>
+      <p><strong>Annahmen Mean-Variance:</strong> Reibungslose Märkte, keine Steuern, perfekt teilbare Wertpapiere, keine Leerverkaufsbeschränkungen.</p>
+    </div>
+  </div>
+
+  <!-- MODUL 7 -->
+  <div class="cf-module" id="cf-m7">
+    <div class="cf-module-header" onclick="toggleModule('cf-m7')">
+      <div class="cf-module-title"><span class="cf-num">7</span> CAPM, WACC & Kapitalkosten</div>
+      <span class="cf-arrow">▼</span>
+    </div>
+    <div class="cf-module-body">
+      <div class="formula-box">CAPM: r<sub>i</sub> = r<sub>f</sub> + β<sub>i</sub> · (r<sub>m</sub> − r<sub>f</sub>)
+Marktrisikoproämie = r<sub>m</sub> − r<sub>f</sub></div>
+      <div class="formula-box">Security Market Line (SML):
+Über SML → unterbewertet (kaufen) | Unter SML → überbewertet (meiden/verkaufen)</div>
+      <div class="cf-two-col">
+        <div class="cf-box">
+          <strong>CAL</strong><br>
+          x-Achse: Gesamtrisiko (σ)<br>
+          Zeigt optimale Portfolios<br>
+          Gilt für jeden individuell
+        </div>
+        <div class="cf-box">
+          <strong>SML</strong><br>
+          x-Achse: Systemat. Risiko (β)<br>
+          Zeigt faire Rendite pro Asset<br>
+          Gilt für alle Assets
+        </div>
+      </div>
+      <p><strong>Unternehmenskapitalkosten (COC – unlevered):</strong></p>
+      <div class="formula-box">r<sub>assets</sub> = (D/V) · r<sub>debt</sub> + (E/V) · r<sub>equity</sub></div>
+      <p><strong>WACC (Weighted Average Cost of Capital):</strong></p>
+      <div class="formula-box">WACC = (D/V) · r<sub>d</sub> · (1−Steuersatz) + (E/V) · r<sub>e</sub>
+→ WACC &lt; COC, weil Zinsen steuerlich absetzbar (Tax Shield)</div>
+      <div class="formula-box">Beta-Schätzung: β<sub>i</sub> = Cov(r<sub>i</sub>, r<sub>m</sub>) / Var(r<sub>m</sub>)
+→ Aus historischer Regression Aktie vs. Marktindex</div>
+      <div class="cf-box green"><strong>r<sub>E</sub> schätzen:</strong> (1) CAPM mit geschätztem Beta, (2) Historische Regression Aktie vs. Markt → Beta → CAPM anwenden.</div>
+      <p><strong>APT (Arbitrage Pricing Theory):</strong> Mehrfaktorenmodell. Erwartete Rendite = r<sub>f</sub> + Σ(β<sub>k</sub> × Faktor-Risikoprämie<sub>k</sub>). Nutzt Arbitragemöglichkeiten.</p>
+      <p><strong>Fama-French 3-Faktor-Modell:</strong> Marktfaktor + Größenfaktor (SMB: Small minus Big) + Wertfaktor (HML: High minus Low Book-to-Market).</p>
+      <table class="cf-table">
+        <tr><th>Methode</th><th>Risikofaktor</th><th>Typische Anwendung</th></tr>
+        <tr><td>CAPM</td><td>β (Markt)</td><td>Einzel-Asset, einfach</td></tr>
+        <tr><td>APT</td><td>Mehrere Makrofaktoren</td><td>Arbitrage, flexibel</td></tr>
+        <tr><td>Fama-French</td><td>Markt + Size + Value</td><td>Empirische Forschung</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <hr class="cf-divider">
+  <div style="background:linear-gradient(135deg,#ecfdf5,#eff6ff);border:1px solid #a7f3d0;border-radius:14px;padding:24px 28px;margin-bottom:40px;">
+    <div style="font-size:16px;font-weight:800;margin-bottom:14px;">📋 Formelsammlung auf einen Blick</div>
+    <table class="cf-table">
+      <tr><th>Thema</th><th>Formel</th></tr>
+      <tr><td>NPV</td><td>Σ CF<sub>t</sub>/(1+r)^t − I₀ &gt; 0 → investieren</td></tr>
+      <tr><td>IRR</td><td>NPV = 0 lösen nach r</td></tr>
+      <tr><td>PI</td><td>NPV / Investition</td></tr>
+      <tr><td>Realzins</td><td>(1+nominal)/(1+Inflation) − 1</td></tr>
+      <tr><td>Anleihe PV</td><td>Σ cpn/(1+r)^t + par/(1+r)^T</td></tr>
+      <tr><td>Modified Duration</td><td>Duration / (1+YTM)</td></tr>
+      <tr><td>Gordon-Modell</td><td>P₀ = DIV₁/(r−g)</td></tr>
+      <tr><td>PVGO</td><td>P₀(mit Wachstum) − EPS/r</td></tr>
+      <tr><td>Portfolio-Varianz</td><td>x₁²σ₁²+x₂²σ₂²+2x₁x₂ρσ₁σ₂</td></tr>
+      <tr><td>Beta</td><td>Cov(r<sub>i</sub>,r<sub>m</sub>) / σ²<sub>m</sub></td></tr>
+      <tr><td>CAPM</td><td>r<sub>i</sub> = r<sub>f</sub> + β(r<sub>m</sub>−r<sub>f</sub>)</td></tr>
+      <tr><td>WACC</td><td>(D/V)·r<sub>d</sub>·(1−t) + (E/V)·r<sub>e</sub></td></tr>
+    </table>
+  </div>
+
+</div>
+</div>
+<!-- END TAB 1 -->
+
+<!-- ══════════════════════════════════════════
+     TAB 2 – AUFGABEN
+══════════════════════════════════════════ -->
+<div class="view" id="view-aufgaben">
+  <div class="aufg-list">
+
+    <div class="aufg-section-label">📊 NPV &amp; Investitionsentscheidung</div>
+
+    <!-- CF-1 -->
+    <div class="aufg-item">
+      <div class="aufg-head"><h3>Aufgabe CF-1 – NPV-Berechnung (Grundaufgabe)</h3><span class="aufg-tag">NPV</span></div>
+      <div class="aufg-body">
+        <p>Ein Unternehmen prüft eine Investition von <strong>€50.000</strong>. Die erwarteten Cash Flows betragen: Jahr 1: €15.000, Jahr 2: €20.000, Jahr 3: €25.000. Kalkulationszinssatz: <strong>10%</strong>.</p>
+        <p>a) Berechnen Sie den NPV.<br>b) Soll investiert werden? Begründen Sie.<br>c) Bei welchem Zinssatz wäre das Unternehmen indifferent? (IRR)</p>
+        <div class="canvas-wrap"><canvas id="canvas-cf1" height="320"></canvas>
+          <div class="canvas-toolbar">
+            <button data-tool="pen" onclick="setTool('canvas-cf1','pen')">🖊 Stift</button>
+            <button onclick="setTool('canvas-cf1','highlight')">✏️ Marker</button>
+            <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf1','#000000')"></div>
+            <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf1','#dc2626')"></div>
+            <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf1','#2563eb')"></div>
+            <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf1','#059669')"></div>
+            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf1',this.value)">
+            <button onclick="clearCanvas('canvas-cf1')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt-cf1" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <div class="aufg-save-row">
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf1')">💾 Speichern</button>
+          <span class="aufg-saved-note" id="saved-cf1">✓ Gespeichert</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CF-2 -->
+    <div class="aufg-item">
+      <div class="aufg-head"><h3>Aufgabe CF-2 – IRR &amp; Skalenproblem (Fallstrick 3)</h3><span class="aufg-tag">IRR</span></div>
+      <div class="aufg-body">
+        <p>Projekt A: −€10.000 heute, +€20.000 in t=1. Projekt B: −€20.000 heute, +€35.000 in t=1. Opportunitätskosten = <strong>10%</strong>.</p>
+        <p>a) Berechnen Sie IRR für beide Projekte.<br>b) Welches Projekt wählen Sie nach der IRR-Regel?<br>c) Welches nach der NPV-Regel?<br>d) Welcher Fallstrick des IRR zeigt sich hier? Erklären Sie das Problem.</p>
+        <div class="canvas-wrap"><canvas id="canvas-cf2" height="320"></canvas>
+          <div class="canvas-toolbar">
+            <button data-tool="pen" onclick="setTool('canvas-cf2','pen')">🖊 Stift</button>
+            <button onclick="setTool('canvas-cf2','highlight')">✏️ Marker</button>
+            <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf2','#000000')"></div>
+            <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf2','#dc2626')"></div>
+            <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf2','#2563eb')"></div>
+            <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf2','#059669')"></div>
+            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf2',this.value)">
+            <button onclick="clearCanvas('canvas-cf2')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt-cf2" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <div class="aufg-save-row">
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf2')">💾 Speichern</button>
+          <span class="aufg-saved-note" id="saved-cf2">✓ Gespeichert</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CF-3 -->
+    <div class="aufg-item">
+      <div class="aufg-head"><h3>Aufgabe CF-3 – Kapitalrationierung &amp; Profitability Index</h3><span class="aufg-tag">PI</span></div>
+      <div class="aufg-body">
+        <p>Budget: <strong>€300.000</strong>. Vier Projekte stehen zur Auswahl:</p>
+        <p>P1: Invest €100.000 / NPV €30.000 &nbsp;|&nbsp; P2: Invest €200.000 / NPV €50.000<br>P3: Invest €100.000 / NPV €40.000 &nbsp;|&nbsp; P4: Invest €150.000 / NPV €35.000</p>
+        <p>a) Berechnen Sie den Profitability Index für jedes Projekt.<br>b) Welche Projektkombination maximiert den Gesamt-NPV innerhalb des Budgets?</p>
+        <div class="canvas-wrap"><canvas id="canvas-cf3" height="300"></canvas>
+          <div class="canvas-toolbar">
+            <button data-tool="pen" onclick="setTool('canvas-cf3','pen')">🖊 Stift</button>
+            <button onclick="setTool('canvas-cf3','highlight')">✏️ Marker</button>
+            <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf3','#000000')"></div>
+            <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf3','#dc2626')"></div>
+            <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf3','#2563eb')"></div>
+            <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf3','#059669')"></div>
+            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf3',this.value)">
+            <button onclick="clearCanvas('canvas-cf3')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt-cf3" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <div class="aufg-save-row">
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf3')">💾 Speichern</button>
+          <span class="aufg-saved-note" id="saved-cf3">✓ Gespeichert</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CF-4 -->
+    <div class="aufg-item">
+      <div class="aufg-head"><h3>Aufgabe CF-4 – Die 4 NPV-Regeln anwenden</h3><span class="aufg-tag">NPV-Regeln</span></div>
+      <div class="aufg-body">
+        <p>Ein Projekt: Umsatz €100.000/Jahr, Betriebskosten €40.000/Jahr, Abschreibung €10.000/Jahr, Investition €80.000 in t=0. Steuersatz <strong>30%</strong>, Inflation <strong>4%</strong>, nominaler Zinssatz <strong>14,4%</strong>. Laufzeit 5 Jahre.</p>
+        <p>a) Berechnen Sie den jährlichen Cash Flow (nicht Buchgewinn).<br>b) Berechnen Sie den realen Zinssatz.<br>c) Warum müssen Zinszahlungen aus dem Projekt-CF ausgeschlossen werden (NPV-Regel 4)?<br>d) Wie behandeln Sie Inflation konsistent (Regel 3)?</p>
+        <div class="canvas-wrap"><canvas id="canvas-cf4" height="340"></canvas>
+          <div class="canvas-toolbar">
+            <button data-tool="pen" onclick="setTool('canvas-cf4','pen')">🖊 Stift</button>
+            <button onclick="setTool('canvas-cf4','highlight')">✏️ Marker</button>
+            <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf4','#000000')"></div>
+            <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf4','#dc2626')"></div>
+            <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf4','#2563eb')"></div>
+            <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf4','#059669')"></div>
+            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf4',this.value)">
+            <button onclick="clearCanvas('canvas-cf4')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt-cf4" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <div class="aufg-save-row">
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf4')">💾 Speichern</button>
+          <span class="aufg-saved-note" id="saved-cf4">✓ Gespeichert</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="aufg-section-label">💰 Anleihen &amp; Aktien</div>
+
+    <!-- CF-5 -->
+    <div class="aufg-item">
+      <div class="aufg-head"><h3>Aufgabe CF-5 – Anleihenbewertung &amp; YTM</h3><span class="aufg-tag">Bonds</span></div>
+      <div class="aufg-body">
+        <p>Anleihe: Nennwert <strong>€1.000</strong>, Kupon <strong>6% p.a.</strong>, Laufzeit <strong>4 Jahre</strong>. Marktzinssatz: <strong>8%</strong>.</p>
+        <p>a) Berechnen Sie den aktuellen Kurs der Anleihe (PV aller Zahlungen).<br>b) Die Anleihe wird für <strong>€950</strong> gehandelt. Wie hoch ist die YTM näherungsweise?<br>c) Erklären Sie den Zusammenhang zwischen Kuponrate, Marktzins und Kurs (unter/über/at par).</p>
+        <div class="canvas-wrap"><canvas id="canvas-cf5" height="320"></canvas>
+          <div class="canvas-toolbar">
+            <button data-tool="pen" onclick="setTool('canvas-cf5','pen')">🖊 Stift</button>
+            <button onclick="setTool('canvas-cf5','highlight')">✏️ Marker</button>
+            <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf5','#000000')"></div>
+            <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf5','#dc2626')"></div>
+            <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf5','#2563eb')"></div>
+            <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf5','#059669')"></div>
+            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf5',this.value)">
+            <button onclick="clearCanvas('canvas-cf5')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt-cf5" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <div class="aufg-save-row">
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf5')">💾 Speichern</button>
+          <span class="aufg-saved-note" id="saved-cf5">✓ Gespeichert</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CF-6 -->
+    <div class="aufg-item">
+      <div class="aufg-head"><h3>Aufgabe CF-6 – Duration &amp; Zinssensitivität</h3><span class="aufg-tag">Duration</span></div>
+      <div class="aufg-body">
+        <p>3-jährige Anleihe: Kupon <strong>5%</strong>, Nennwert <strong>€100</strong>, YTM <strong>4%</strong>.</p>
+        <p>a) Berechnen Sie die Duration (gewichtetes Mittel der Zahlungszeitpunkte, 5 Schritte).<br>b) Berechnen Sie die Modified Duration.<br>c) Wie verändert sich der Kurs, wenn der Zinssatz um 1% steigt?<br>d) Welche Anleihe hat höhere Duration: kurze oder lange Laufzeit? Zero-Coupon oder Kuponanleihe? Warum?</p>
+        <div class="canvas-wrap"><canvas id="canvas-cf6" height="360"></canvas>
+          <div class="canvas-toolbar">
+            <button data-tool="pen" onclick="setTool('canvas-cf6','pen')">🖊 Stift</button>
+            <button onclick="setTool('canvas-cf6','highlight')">✏️ Marker</button>
+            <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf6','#000000')"></div>
+            <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf6','#dc2626')"></div>
+            <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf6','#2563eb')"></div>
+            <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf6','#059669')"></div>
+            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf6',this.value)">
+            <button onclick="clearCanvas('canvas-cf6')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt-cf6" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <div class="aufg-save-row">
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf6')">💾 Speichern</button>
+          <span class="aufg-saved-note" id="saved-cf6">✓ Gespeichert</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CF-7 -->
+    <div class="aufg-item">
+      <div class="aufg-head"><h3>Aufgabe CF-7 – Aktienbewertung: Gordon-Modell &amp; PVGO</h3><span class="aufg-tag">DDM / Gordon</span></div>
+      <div class="aufg-body">
+        <p>Unternehmen X: nächste Dividende <strong>€3</strong>, Wachstumsrate <strong>g = 5%</strong>, geforderter Return <strong>r = 12%</strong>.</p>
+        <p>a) Berechnen Sie den fairen Aktienkurs (Gordon-Modell).<br>b) EPS = €5, Thesaurierungsquote = 40%, ROE = 20%.<br>&nbsp;&nbsp;&nbsp;i) Nachhaltige Wachstumsrate?<br>&nbsp;&nbsp;&nbsp;ii) Kurs ohne Wachstum (nur EPS/r)?<br>&nbsp;&nbsp;&nbsp;iii) PVGO?<br>c) Ab wann lohnt sich Thesaurierung? (ROE vs. r)</p>
+        <div class="canvas-wrap"><canvas id="canvas-cf7" height="360"></canvas>
+          <div class="canvas-toolbar">
+            <button data-tool="pen" onclick="setTool('canvas-cf7','pen')">🖊 Stift</button>
+            <button onclick="setTool('canvas-cf7','highlight')">✏️ Marker</button>
+            <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf7','#000000')"></div>
+            <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf7','#dc2626')"></div>
+            <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf7','#2563eb')"></div>
+            <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf7','#059669')"></div>
+            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf7',this.value)">
+            <button onclick="clearCanvas('canvas-cf7')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt-cf7" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <div class="aufg-save-row">
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf7')">💾 Speichern</button>
+          <span class="aufg-saved-note" id="saved-cf7">✓ Gespeichert</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="aufg-section-label">📉 Risiko &amp; Portfolio</div>
+
+    <!-- CF-8 -->
+    <div class="aufg-item">
+      <div class="aufg-head"><h3>Aufgabe CF-8 – Erwartungsrendite &amp; Varianz</h3><span class="aufg-tag">Risiko</span></div>
+      <div class="aufg-body">
+        <p>Aktie A: Boom (p=0,3): r=30% &nbsp;|&nbsp; Normal (p=0,5): r=10% &nbsp;|&nbsp; Rezession (p=0,2): r=−10%.</p>
+        <p>a) Berechnen Sie E[r] und σ² (ex-ante).<br>b) Wie hoch ist die Standardabweichung σ?<br>c) Aktie B hat E[r]=15%, σ=20%. Welche Aktie bevorzugen Sie als risikoaverser Investor? Begründen Sie.</p>
+        <div class="canvas-wrap"><canvas id="canvas-cf8" height="300"></canvas>
+          <div class="canvas-toolbar">
+            <button data-tool="pen" onclick="setTool('canvas-cf8','pen')">🖊 Stift</button>
+            <button onclick="setTool('canvas-cf8','highlight')">✏️ Marker</button>
+            <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf8','#000000')"></div>
+            <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf8','#dc2626')"></div>
+            <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf8','#2563eb')"></div>
+            <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf8','#059669')"></div>
+            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf8',this.value)">
+            <button onclick="clearCanvas('canvas-cf8')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt-cf8" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <div class="aufg-save-row">
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf8')">💾 Speichern</button>
+          <span class="aufg-saved-note" id="saved-cf8">✓ Gespeichert</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CF-9 -->
+    <div class="aufg-item">
+      <div class="aufg-head"><h3>Aufgabe CF-9 – Portfolio &amp; Diversifikation</h3><span class="aufg-tag">Portfolio</span></div>
+      <div class="aufg-body">
+        <p>Portfolio: <strong>60%</strong> Aktie 1 (E[r]=12%, σ=20%) + <strong>40%</strong> Aktie 2 (E[r]=8%, σ=15%).</p>
+        <p>a) Berechnen Sie E[r<sub>p</sub>].<br>b) Berechnen Sie σ²<sub>p</sub> für ρ=+1, ρ=0 und ρ=−1.<br>c) Was zeigen die drei Ergebnisse über den Effekt der Diversifikation?<br>d) Zeichnen Sie qualitativ die drei Fälle in einem σ–E[r]-Diagramm.</p>
+        <div class="canvas-wrap"><canvas id="canvas-cf9" height="360"></canvas>
+          <div class="canvas-toolbar">
+            <button data-tool="pen" onclick="setTool('canvas-cf9','pen')">🖊 Stift</button>
+            <button onclick="setTool('canvas-cf9','highlight')">✏️ Marker</button>
+            <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf9','#000000')"></div>
+            <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf9','#dc2626')"></div>
+            <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf9','#2563eb')"></div>
+            <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf9','#059669')"></div>
+            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf9',this.value)">
+            <button onclick="clearCanvas('canvas-cf9')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt-cf9" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <div class="aufg-save-row">
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf9')">💾 Speichern</button>
+          <span class="aufg-saved-note" id="saved-cf9">✓ Gespeichert</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CF-10 -->
+    <div class="aufg-item">
+      <div class="aufg-head"><h3>Aufgabe CF-10 – CAPM &amp; Security Market Line</h3><span class="aufg-tag">CAPM</span></div>
+      <div class="aufg-body">
+        <p>Gegeben: r<sub>f</sub> = <strong>3%</strong>, E[r<sub>m</sub>] = <strong>10%</strong>, β<sub>A</sub> = <strong>0,8</strong>, β<sub>B</sub> = <strong>1,5</strong>.</p>
+        <p>a) Berechnen Sie die geforderte Rendite für Aktie A und B (CAPM).<br>b) Aktie A hat eine erwartete Rendite von 9,5%. Ist sie über- oder unterbewertet? Begründen Sie mit der SML.<br>c) Erklären Sie den Unterschied zwischen CAL und SML.<br>d) Warum hält unter CAPM-Annahmen jeder Investor das Tangency Portfolio?</p>
+        <div class="canvas-wrap"><canvas id="canvas-cf10" height="360"></canvas>
+          <div class="canvas-toolbar">
+            <button data-tool="pen" onclick="setTool('canvas-cf10','pen')">🖊 Stift</button>
+            <button onclick="setTool('canvas-cf10','highlight')">✏️ Marker</button>
+            <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf10','#000000')"></div>
+            <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf10','#dc2626')"></div>
+            <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf10','#2563eb')"></div>
+            <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf10','#059669')"></div>
+            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf10',this.value)">
+            <button onclick="clearCanvas('canvas-cf10')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt-cf10" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <div class="aufg-save-row">
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf10')">💾 Speichern</button>
+          <span class="aufg-saved-note" id="saved-cf10">✓ Gespeichert</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="aufg-section-label">🏢 WACC &amp; Unternehmensbewertung</div>
+
+    <!-- CF-11 -->
+    <div class="aufg-item">
+      <div class="aufg-head"><h3>Aufgabe CF-11 – WACC-Berechnung</h3><span class="aufg-tag">WACC</span></div>
+      <div class="aufg-body">
+        <p>Unternehmen Y: Eigenkapital (Marktwert) <strong>€600 Mio.</strong>, Fremdkapital <strong>€400 Mio.</strong> Eigenkapitalkosten r<sub>E</sub> = <strong>12%</strong>, Fremdkapitalkosten r<sub>D</sub> = <strong>6%</strong>, Steuersatz <strong>25%</strong>.</p>
+        <p>a) Berechnen Sie den WACC.<br>b) Ein neues Projekt hat einen erwarteten Return von 9%. Soll investiert werden?<br>c) Warum ist WACC &lt; unlevered COC? Erklären Sie den Tax Shield.</p>
+        <div class="canvas-wrap"><canvas id="canvas-cf11" height="300"></canvas>
+          <div class="canvas-toolbar">
+            <button data-tool="pen" onclick="setTool('canvas-cf11','pen')">🖊 Stift</button>
+            <button onclick="setTool('canvas-cf11','highlight')">✏️ Marker</button>
+            <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf11','#000000')"></div>
+            <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf11','#dc2626')"></div>
+            <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf11','#2563eb')"></div>
+            <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf11','#059669')"></div>
+            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf11',this.value)">
+            <button onclick="clearCanvas('canvas-cf11')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt-cf11" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <div class="aufg-save-row">
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf11')">💾 Speichern</button>
+          <span class="aufg-saved-note" id="saved-cf11">✓ Gespeichert</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CF-12 -->
+    <div class="aufg-item">
+      <div class="aufg-head"><h3>Aufgabe CF-12 – DCF Unternehmensbewertung</h3><span class="aufg-tag">Bewertung</span></div>
+      <div class="aufg-body">
+        <p>Unternehmen Z – Free Cash Flows: Jahr 1: <strong>€10 Mio.</strong>, Jahr 2: <strong>€12 Mio.</strong>, Jahr 3: <strong>€15 Mio.</strong> Ab Jahr 4 konstantes Wachstum <strong>g = 3%</strong>. WACC = <strong>9%</strong>.</p>
+        <p>a) Berechnen Sie den Terminal Value (TV) am Ende von Jahr 3.<br>b) Berechnen Sie den Enterprise Value (Unternehmenswert) heute.<br>c) Was passiert mit dem Unternehmenswert, wenn g steigt (bei g &lt; WACC)?<br>d) Was ist der Unterschied zwischen Enterprise Value und Equity Value?</p>
+        <div class="canvas-wrap"><canvas id="canvas-cf12" height="360"></canvas>
+          <div class="canvas-toolbar">
+            <button data-tool="pen" onclick="setTool('canvas-cf12','pen')">🖊 Stift</button>
+            <button onclick="setTool('canvas-cf12','highlight')">✏️ Marker</button>
+            <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf12','#000000')"></div>
+            <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf12','#dc2626')"></div>
+            <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf12','#2563eb')"></div>
+            <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf12','#059669')"></div>
+            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf12',this.value)">
+            <button onclick="clearCanvas('canvas-cf12')">🗑 Löschen</button>
+          </div>
+        </div>
+        <textarea class="aufg-text" id="txt-cf12" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <div class="aufg-save-row">
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf12')">💾 Speichern</button>
+          <span class="aufg-saved-note" id="saved-cf12">✓ Gespeichert</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- END TAB 2 -->
+
+<!-- ══════════════════════════════════════════
+     TAB 3 – ALTKLAUSUREN
+══════════════════════════════════════════ -->
+<div class="view" id="view-altklausuren">
+  <div class="ak-list">
+
+    <div class="ak-item">
+      <div class="ak-head"><h3>Klausur WS 2023/24</h3><span>3 Aufgaben</span></div>
+      <div class="ak-body">
+
+        <div class="ak-question">
+          <p>Aufgabe 1 (20 Pkt): NPV &amp; IRR-Entscheidung<br>
+          Investition €80.000, CFs: Jahr 1–4 jeweils €25.000. r = 8%. Berechne NPV. Entscheide. Bestimme IRR näherungsweise. Vergleiche NPV- und IRR-Regel für zwei Alternativprojekte.</p>
+          <div class="ak-canvas-area"><canvas id="ak-cv-cf-2023-1" height="220"></canvas>
+            <div class="ak-toolbar">
+              <button data-tool="pen" onclick="setTool('ak-cv-cf-2023-1','pen')">✏️</button>
+              <button onclick="setColor('ak-cv-cf-2023-1','#000000')">⚫</button>
+              <button onclick="setColor('ak-cv-cf-2023-1','#dc2626')">🔴</button>
+              <button onclick="setColor('ak-cv-cf-2023-1','#2563eb')">🔵</button>
+              <button onclick="clearCanvas('ak-cv-cf-2023-1')">🗑</button>
+            </div>
+          </div>
+          <textarea class="ak-text" id="ak-txt-cf-2023-1" placeholder="Lösung eingeben …"></textarea>
+          <div class="ak-save-row">
+            <button class="ak-save-btn" onclick="saveAK('cf-2023-1')">💾 Speichern</button>
+            <span class="ak-saved-note" id="ak-saved-cf-2023-1">✓ Gespeichert</span>
+          </div>
+        </div>
+
+        <div class="ak-question">
+          <p>Aufgabe 2 (20 Pkt): Anleihenbewertung &amp; Duration<br>
+          Anleihe: Nennwert €1.000, Kupon 5%, Laufzeit 3 Jahre, YTM 6%. Berechne Kurs. Berechne Duration und Modified Duration. Wie verändert sich der Kurs bei +1% Zinsanstieg?</p>
+          <div class="ak-canvas-area"><canvas id="ak-cv-cf-2023-2" height="220"></canvas>
+            <div class="ak-toolbar">
+              <button data-tool="pen" onclick="setTool('ak-cv-cf-2023-2','pen')">✏️</button>
+              <button onclick="setColor('ak-cv-cf-2023-2','#000000')">⚫</button>
+              <button onclick="setColor('ak-cv-cf-2023-2','#dc2626')">🔴</button>
+              <button onclick="setColor('ak-cv-cf-2023-2','#2563eb')">🔵</button>
+              <button onclick="clearCanvas('ak-cv-cf-2023-2')">🗑</button>
+            </div>
+          </div>
+          <textarea class="ak-text" id="ak-txt-cf-2023-2" placeholder="Lösung eingeben …"></textarea>
+          <div class="ak-save-row">
+            <button class="ak-save-btn" onclick="saveAK('cf-2023-2')">💾 Speichern</button>
+            <span class="ak-saved-note" id="ak-saved-cf-2023-2">✓ Gespeichert</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="ak-item">
+      <div class="ak-head"><h3>Klausur WS 2022/23</h3><span>2 Aufgaben</span></div>
+      <div class="ak-body">
+
+        <div class="ak-question">
+          <p>Aufgabe 1 (25 Pkt): Portfolio &amp; CAPM<br>
+          Aktie X: E[r]=14%, σ=25%. Aktie Y: E[r]=9%, σ=18%. ρ=0,2. Portfolio 50/50.<br>
+          a) E[r<sub>p</sub>] und σ<sub>p</sub>. b) r<sub>f</sub>=3%, r<sub>m</sub>=11%. Berechne Beta für X wenn X auf der SML liegt. c) Ist das 50/50-Portfolio mean-varianz-effizient? Begründung.</p>
+          <div class="ak-canvas-area"><canvas id="ak-cv-cf-2022-1" height="220"></canvas>
+            <div class="ak-toolbar">
+              <button data-tool="pen" onclick="setTool('ak-cv-cf-2022-1','pen')">✏️</button>
+              <button onclick="setColor('ak-cv-cf-2022-1','#000000')">⚫</button>
+              <button onclick="setColor('ak-cv-cf-2022-1','#dc2626')">🔴</button>
+              <button onclick="setColor('ak-cv-cf-2022-1','#2563eb')">🔵</button>
+              <button onclick="clearCanvas('ak-cv-cf-2022-1')">🗑</button>
+            </div>
+          </div>
+          <textarea class="ak-text" id="ak-txt-cf-2022-1" placeholder="Lösung eingeben …"></textarea>
+          <div class="ak-save-row">
+            <button class="ak-save-btn" onclick="saveAK('cf-2022-1')">💾 Speichern</button>
+            <span class="ak-saved-note" id="ak-saved-cf-2022-1">✓ Gespeichert</span>
+          </div>
+        </div>
+
+        <div class="ak-question">
+          <p>Aufgabe 2 (25 Pkt): WACC &amp; DCF-Bewertung<br>
+          EK €500 Mio., FK €300 Mio. r<sub>E</sub>=13%, r<sub>D</sub>=5%, Steuersatz 30%.<br>
+          a) WACC berechnen. b) FCFs: Jahr 1: €40 Mio., Jahr 2: €50 Mio., ab Jahr 3 Wachstum g=2%. Unternehmenswert berechnen. c) Welchen Einfluss hat ein höherer Verschuldungsgrad auf den WACC?</p>
+          <div class="ak-canvas-area"><canvas id="ak-cv-cf-2022-2" height="220"></canvas>
+            <div class="ak-toolbar">
+              <button data-tool="pen" onclick="setTool('ak-cv-cf-2022-2','pen')">✏️</button>
+              <button onclick="setColor('ak-cv-cf-2022-2','#000000')">⚫</button>
+              <button onclick="setColor('ak-cv-cf-2022-2','#dc2626')">🔴</button>
+              <button onclick="setColor('ak-cv-cf-2022-2','#2563eb')">🔵</button>
+              <button onclick="clearCanvas('ak-cv-cf-2022-2')">🗑</button>
+            </div>
+          </div>
+          <textarea class="ak-text" id="ak-txt-cf-2022-2" placeholder="Lösung eingeben …"></textarea>
+          <div class="ak-save-row">
+            <button class="ak-save-btn" onclick="saveAK('cf-2022-2')">💾 Speichern</button>
+            <span class="ak-saved-note" id="ak-saved-cf-2022-2">✓ Gespeichert</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="text-align:center;color:var(--muted);font-size:13px;padding:20px;">
+      Weitere Altklausuren folgen.
+    </div>
+
+  </div>
+</div>
+<!-- END TAB 3 -->
+
+<script>
+// ── TAB NAVIGATION ──────────────────────────────────────────
+function showTab(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  var el = document.getElementById('view-' + id);
+  if (el) el.classList.add('active');
+  var btns = document.querySelectorAll('nav button');
+  var map = {intro:0, aufgaben:1, altklausuren:2};
+  if (map[id] !== undefined) btns[map[id]].classList.add('active');
+  history.replaceState(null, '', '#' + id);
+  setTimeout(function(){ initAllVisible(); enhanceToolbars(); }, 50);
+}
+
+(function() {
+  var hash = location.hash.replace('#','');
+  var valid = {intro:1, aufgaben:1, altklausuren:1};
+  if (hash && valid[hash]) showTab(hash);
+})();
+
+// ── DARK MODE ──────────────────────────────────────────────
+(function() {
+  var t = localStorage.getItem('theme');
+  if (t === 'dark') document.documentElement.setAttribute('data-theme','dark');
+})();
+function toggleDark() {
+  var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  if (isDark) { document.documentElement.removeAttribute('data-theme'); localStorage.setItem('theme','light'); }
+  else { document.documentElement.setAttribute('data-theme','dark'); localStorage.setItem('theme','dark'); }
+}
+
+// ── COUNTDOWN ──────────────────────────────────────────────
+var cdExams = JSON.parse(localStorage.getItem('lernplan_exams_v1') || '[]');
+function updateCountdown() {
+  var now = new Date(); now.setHours(0,0,0,0);
+  var upcoming = cdExams.map(function(e){
+    var d = new Date(e.date); d.setHours(0,0,0,0);
+    return {label:e.label, days:Math.round((d-now)/86400000)};
+  }).filter(function(e){return e.days>=0;}).sort(function(a,b){return a.days-b.days;});
+  var el = document.getElementById('countdown-text');
+  if (!el) return;
+  if (upcoming.length === 0) { el.innerHTML = 'Klausurdatum eingeben'; return; }
+  var n = upcoming[0];
+  el.innerHTML = (n.label||'Klausur') + ' in <strong>' + n.days + '</strong> Tag' + (n.days===1?'':'en');
+}
+function openCdModal() { renderCdRows(); document.getElementById('cdModal').classList.add('open'); }
+function closeCdModal() { document.getElementById('cdModal').classList.remove('open'); }
+function renderCdRows() {
+  var c = document.getElementById('cd-rows'); c.innerHTML = '';
+  cdExams.forEach(function(e,i) {
+    var r = document.createElement('div'); r.className='cd-row';
+    r.innerHTML = '<input type="text" value="'+e.label+'" placeholder="Bezeichnung" onchange="cdExams['+i+'].label=this.value">' +
+      '<input type="date" value="'+e.date+'" onchange="cdExams['+i+'].date=this.value">' +
+      '<button class="cd-btn-del" onclick="cdDelRow('+i+')">✕</button>';
+    c.appendChild(r);
+  });
+}
+function cdAddRow() { cdExams.push({label:'Corp. Finance',date:''}); renderCdRows(); }
+function cdDelRow(i) { cdExams.splice(i,1); renderCdRows(); }
+function cdSave() { localStorage.setItem('lernplan_exams_v1', JSON.stringify(cdExams)); updateCountdown(); closeCdModal(); }
+updateCountdown();
+
+// ── MODULE TOGGLE ──────────────────────────────────────────
+function toggleModule(id) {
+  var el = document.getElementById(id);
+  var body = el.querySelector('.cf-module-body');
+  var arrow = el.querySelector('.cf-arrow');
+  var open = body.classList.toggle('open');
+  arrow.style.transform = open ? 'rotate(180deg)' : '';
+}
+
+// ── CANVAS ENGINE ──────────────────────────────────────────
+function initCanvas(id) {
+  var canvas = document.getElementById(id);
+  if (!canvas || canvas._inited) return;
+  canvas._inited = true;
+  var wrap = canvas.parentElement;
+  canvas.width = Math.min(wrap.offsetWidth || 700, 900);
+  canvas._tool = 'pen';
+  canvas._color = '#000000';
+  canvas._size = 4;
+  canvas._history = [];
+  var ctx = canvas.getContext('2d', { desynchronized: true });
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  var savedKey = id.startsWith('canvas-') ? 'cf_canvas_aufg_' + id.replace('canvas-','') : 'cf_canvas_' + id;
+  var saved = localStorage.getItem(savedKey);
+  if (saved) { var img = new Image(); img.onload = function(){ ctx.drawImage(img,0,0); }; img.src = saved; }
+
+  var drawing = false;
+  var lastPos = { x: 0, y: 0 };
+  var _left = 0, _top = 0, _scaleX = 1, _scaleY = 1;
+
+  function saveSnap() {
+    var entry = { bmp: null, data: null };
+    canvas._history.push(entry);
+    if (canvas._history.length > 15) canvas._history.shift();
+    if (typeof createImageBitmap !== 'undefined') {
+      createImageBitmap(canvas).then(function(bmp) { entry.bmp = bmp; });
+    } else {
+      entry.data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    }
+  }
+
+  function applyStyle() {
+    if (canvas._tool === 'eraser') {
+      ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1.0;
+      ctx.strokeStyle = '#ffffff'; ctx.lineWidth = canvas._size * 6;
+    } else if (canvas._tool === 'highlight') {
+      ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 0.35;
+      ctx.strokeStyle = canvas._color; ctx.lineWidth = canvas._size * 4;
+    } else {
+      ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1.0;
+      ctx.strokeStyle = canvas._color; ctx.lineWidth = canvas._size;
+    }
+  }
+
+  function startDraw(e) {
+    if (e.pointerType === 'touch') return;
+    e.preventDefault();
+    drawing = true;
+    try { canvas.setPointerCapture(e.pointerId); } catch(x) {}
+    applyStyle();
+    var r = canvas.getBoundingClientRect();
+    _left = r.left; _top = r.top;
+    _scaleX = canvas.width / r.width; _scaleY = canvas.height / r.height;
+    lastPos.x = (e.clientX - _left) * _scaleX;
+    lastPos.y = (e.clientY - _top)  * _scaleY;
+    ctx.beginPath(); ctx.moveTo(lastPos.x, lastPos.y);
+  }
+
+  function doDraw(e) {
+    if (!drawing || e.pointerType === 'touch') return;
+    e.preventDefault();
+    var evts = (e.getCoalescedEvents && e.getCoalescedEvents()) || [e];
+    ctx.beginPath(); ctx.moveTo(lastPos.x, lastPos.y);
+    for (var i = 0; i < evts.length; i++) {
+      lastPos.x = (evts[i].clientX - _left) * _scaleX;
+      lastPos.y = (evts[i].clientY - _top)  * _scaleY;
+      ctx.lineTo(lastPos.x, lastPos.y);
+    }
+    ctx.stroke();
+  }
+
+  function endDraw(e) {
+    if (!drawing) return;
+    drawing = false;
+    ctx.globalAlpha = 1.0; ctx.globalCompositeOperation = 'source-over';
+    saveSnap();
+  }
+
+  var opt = { passive: false };
+  canvas.addEventListener('pointerdown',   startDraw, opt);
+  canvas.addEventListener('pointermove',   doDraw,    opt);
+  canvas.addEventListener('pointerup',     endDraw);
+  canvas.addEventListener('pointerleave',  endDraw);
+  canvas.addEventListener('pointercancel', endDraw);
+  initCanvasZoom(canvas);
+}
+
+function undoCanvas(id) {
+  var c = document.getElementById(id);
+  if (!c || !c._history || !c._history.length) return;
+  var ctx = c.getContext('2d', { desynchronized: true });
+  var entry = c._history.pop();
+  if (!entry) return;
+  ctx.clearRect(0, 0, c.width, c.height);
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, c.width, c.height);
+  if (entry.bmp) { ctx.drawImage(entry.bmp, 0, 0); }
+  else if (entry.data) { ctx.putImageData(entry.data, 0, 0); }
+}
+
+function initCanvasZoom(canvas) {
+  if (canvas._zoomInited) return;
+  canvas._zoomInited = true;
+  canvas._zs = { scale: 1, x: 0, y: 0 };
+  canvas.style.transformOrigin = '0 0';
+  canvas.style.willChange = 'transform';
+  var ptrs = {}, lastDist = null, lastMid = null;
+
+  function applyZoom() {
+    var z = canvas._zs;
+    canvas.style.transform = 'translate('+z.x+'px,'+z.y+'px) scale('+z.scale+')';
+    var wrap = canvas.parentElement;
+    if (wrap) { var tb = wrap.querySelector('.canvas-toolbar,.ak-toolbar'); if (tb) { var rb = tb.querySelector('.zoom-reset-btn'); if (rb) rb.style.display = z.scale>1.05?'':'none'; } }
+  }
+  function clampZoom() {
+    var z = canvas._zs, wrap = canvas.parentElement;
+    var ww = wrap?wrap.clientWidth:700, wh = wrap?wrap.clientHeight:400;
+    var cw = canvas.offsetWidth, ch = canvas.offsetHeight;
+    z.x = Math.min(ww*0.8, Math.max(-(cw*z.scale-ww*0.2), z.x));
+    z.y = Math.min(wh*0.8, Math.max(-(ch*z.scale-wh*0.2), z.y));
+  }
+  function pDist(a,b){ var dx=a.clientX-b.clientX,dy=a.clientY-b.clientY; return Math.sqrt(dx*dx+dy*dy); }
+  function pMid(a,b){ return {clientX:(a.clientX+b.clientX)/2,clientY:(a.clientY+b.clientY)/2}; }
+
+  canvas.addEventListener('pointerdown', function(e) {
+    if (e.pointerType!=='touch') return;
+    ptrs[e.pointerId]={clientX:e.clientX,clientY:e.clientY};
+    var ids=Object.keys(ptrs);
+    if (ids.length===2){ lastDist=pDist(ptrs[ids[0]],ptrs[ids[1]]); lastMid=pMid(ptrs[ids[0]],ptrs[ids[1]]); }
+    e.preventDefault();
+  },{passive:false});
+
+  canvas.addEventListener('pointermove', function(e) {
+    if (e.pointerType!=='touch'||!ptrs[e.pointerId]) return;
+    ptrs[e.pointerId]={clientX:e.clientX,clientY:e.clientY};
+    var ids=Object.keys(ptrs);
+    if (ids.length>=2&&lastDist!==null) {
+      var p1=ptrs[ids[0]],p2=ptrs[ids[1]],newDist=pDist(p1,p2),newMid=pMid(p1,p2),z=canvas._zs;
+      var scaleDelta=newDist/lastDist, newScale=Math.min(6,Math.max(1,z.scale*scaleDelta));
+      var wrap=canvas.parentElement, wr=wrap?wrap.getBoundingClientRect():{left:0,top:0};
+      var pivotX=(newMid.clientX-wr.left-z.x)/z.scale, pivotY=(newMid.clientY-wr.top-z.y)/z.scale;
+      z.x-=pivotX*(newScale-z.scale); z.y-=pivotY*(newScale-z.scale); z.scale=newScale;
+      z.x+=newMid.clientX-lastMid.clientX; z.y+=newMid.clientY-lastMid.clientY;
+      clampZoom(); applyZoom(); lastDist=newDist; lastMid=newMid;
+    }
+    e.preventDefault();
+  },{passive:false});
+
+  function onUp(e){ if(e.pointerType!=='touch') return; delete ptrs[e.pointerId]; if(Object.keys(ptrs).length<2){lastDist=null;lastMid=null;} }
+  canvas.addEventListener('pointerup',onUp);
+  canvas.addEventListener('pointercancel',onUp);
+  canvas.addEventListener('pointerleave',onUp);
+}
+
+function resetZoom(id) {
+  var c=document.getElementById(id); if(!c||!c._zs) return;
+  c._zs.scale=1;c._zs.x=0;c._zs.y=0; c.style.transform='';
+  var wrap=c.parentElement; if(wrap){var tb=wrap.querySelector('.canvas-toolbar,.ak-toolbar'); if(tb){var rb=tb.querySelector('.zoom-reset-btn');if(rb)rb.style.display='none';}}
+}
+
+function setTool(id, tool) {
+  var c=document.getElementById(id); if(!c) return;
+  c._tool=tool;
+  var tb=c.closest?c.closest('.canvas-wrap,.ak-canvas-area'):c.parentElement;
+  if(tb){ tb.querySelectorAll('.canvas-toolbar button,.ak-toolbar button').forEach(function(b){b.classList.remove('tool-active');}); var btn=tb.querySelector('[data-tool="'+tool+'"]'); if(btn) btn.classList.add('tool-active'); }
+}
+function setColor(id,color){ var c=document.getElementById(id);if(c)c._color=color; }
+function setSize(id,val){ var c=document.getElementById(id);if(c)c._size=parseInt(val); }
+
+function clearCanvas(id) {
+  var c=document.getElementById(id); if(!c) return;
+  if(c._history){ c._history.push(c.getContext('2d').getImageData(0,0,c.width,c.height)); if(c._history.length>15)c._history.shift(); }
+  var ctx=c.getContext('2d');
+  ctx.clearRect(0,0,c.width,c.height); ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,c.width,c.height);
+  var key=id.startsWith('canvas-')?'cf_canvas_aufg_'+id.replace('canvas-',''):'cf_canvas_'+id;
+  localStorage.removeItem(key);
+}
+
+function enhanceToolbars() {
+  document.querySelectorAll('.canvas-toolbar,.ak-toolbar').forEach(function(tb){
+    if(tb._enhanced) return; tb._enhanced=true;
+    var area=tb.closest?tb.closest('.canvas-wrap,.ak-canvas-area'):tb.parentElement; if(!area) return;
+    var cv=area.querySelector('canvas'); if(!cv||!cv.id) return;
+    var cid=cv.id;
+    var erBtn=document.createElement('button');
+    erBtn.textContent='◻ Radierer'; erBtn.className='eraser-btn'; erBtn.setAttribute('data-tool','eraser');
+    erBtn.onclick=function(){setTool(cid,'eraser');};
+    var undoBtn=document.createElement('button');
+    undoBtn.textContent='↩'; undoBtn.title='Rückgängig'; undoBtn.className='undo-btn';
+    undoBtn.onclick=function(){undoCanvas(cid);};
+    var btns=tb.querySelectorAll('button'), lastBtn=btns[btns.length-1];
+    if(lastBtn){ tb.insertBefore(undoBtn,lastBtn); tb.insertBefore(erBtn,undoBtn); }
+    else { tb.appendChild(erBtn); tb.appendChild(undoBtn); }
+    var zoomBtn=document.createElement('button');
+    zoomBtn.textContent='🔍↺'; zoomBtn.title='Zoom zurücksetzen'; zoomBtn.className='zoom-reset-btn'; zoomBtn.style.display='none';
+    zoomBtn.onclick=function(){resetZoom(cid);};
+    tb.appendChild(zoomBtn);
+    var penBtn=tb.querySelector('[data-tool="pen"]')||btns[0];
+    if(penBtn) penBtn.classList.add('tool-active');
+  });
+}
+
+function saveAufgabe(key) {
+  var c=document.getElementById('canvas-'+key), t=document.getElementById('txt-'+key);
+  if(c) localStorage.setItem('cf_canvas_aufg_'+key, c.toDataURL());
+  if(t) localStorage.setItem('cf_txt_aufg_'+key, t.value);
+  var note=document.getElementById('saved-'+key);
+  if(note){note.style.display='inline';setTimeout(function(){note.style.display='none';},2000);}
+}
+
+function saveAK(key) {
+  var cvId='ak-cv-'+key, txtId='ak-txt-'+key;
+  var c=document.getElementById(cvId), t=document.getElementById(txtId);
+  if(c) localStorage.setItem('cf_canvas_'+cvId, c.toDataURL());
+  if(t) localStorage.setItem('cf_ak_txt_'+key, t.value);
+  var note=document.getElementById('ak-saved-'+key);
+  if(note){note.style.display='inline';setTimeout(function(){note.style.display='none';},2000);}
+}
+
+function loadSavedText() {
+  ['cf1','cf2','cf3','cf4','cf5','cf6','cf7','cf8','cf9','cf10','cf11','cf12'].forEach(function(k){
+    var t=document.getElementById('txt-'+k);
+    if(t){var s=localStorage.getItem('cf_txt_aufg_'+k);if(s)t.value=s;}
+  });
+  ['cf-2023-1','cf-2023-2','cf-2022-1','cf-2022-2'].forEach(function(k){
+    var t=document.getElementById('ak-txt-'+k);
+    if(t){var s=localStorage.getItem('cf_ak_txt_'+k);if(s)t.value=s;}
+  });
+}
+loadSavedText();
+
+function initAllVisible() {
+  document.querySelectorAll('canvas').forEach(function(c){
+    if(!c._inited && c.offsetParent!==null) initCanvas(c.id);
+  });
+}
+window.addEventListener('resize', initAllVisible);
+setTimeout(function(){ initAllVisible(); enhanceToolbars(); }, 100);
+</script>
+</body>
+</html>
