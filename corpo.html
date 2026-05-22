@@ -213,36 +213,36 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
 <!-- COUNTDOWN MODAL -->
 <div class="cd-modal-overlay" id="cdModal" onclick="if(event.target===this)closeCdModal()">
   <div class="cd-modal">
-    <h3>📅 Klausurdaten bearbeiten</h3>
+    <h3>📅 Edit Exam Dates</h3>
     <div id="cd-rows"></div>
-    <button class="cd-btn-add" onclick="cdAddRow()">+ Datum hinzufügen</button>
+    <button class="cd-btn-add" onclick="cdAddRow()">+ Add Date</button>
     <div class="cd-actions">
-      <button class="cd-btn-cancel" onclick="closeCdModal()">Abbrechen</button>
-      <button class="cd-btn-save" onclick="cdSave()">Speichern</button>
+      <button class="cd-btn-cancel" onclick="closeCdModal()">Cancel</button>
+      <button class="cd-btn-save" onclick="cdSave()">Save</button>
     </div>
   </div>
 </div>
 
 <header>
   <div class="header-left">
-    <a href="index.html" class="back-link">← Übersicht</a>
+    <a href="index.html" class="back-link">← Overview</a>
     <div>
       <h1>Corporate Finance</h1>
-      <p>NPV · WACC · Risiko · Bewertung</p>
+      <p>NPV · WACC · Risk · Valuation</p>
     </div>
   </div>
   <div class="header-right">
-    <div class="countdown-widget" onclick="openCdModal()" title="Klausurdatum bearbeiten">
-      📅 <span id="countdown-text">Klausurdatum eingeben</span>
+    <div class="countdown-widget" onclick="openCdModal()" title="Edit exam date">
+      📅 <span id="countdown-text">Enter exam date</span>
     </div>
     <button class="dark-toggle" onclick="toggleDark()" title="Dark Mode">🌙</button>
   </div>
 </header>
 
 <nav>
-  <button class="active" onclick="showTab('intro')">📖 Lernen</button>
-  <button onclick="showTab('aufgaben')">✏️ Aufgaben</button>
-  <button onclick="showTab('altklausuren')">📋 Altklausuren</button>
+  <button class="active" onclick="showTab('intro')">📖 Study</button>
+  <button onclick="showTab('aufgaben')">✏️ Practice</button>
+  <button onclick="showTab('altklausuren')">📋 Past Exams</button>
 </nav>
 
 <!-- ══════════════════════════════════════════
@@ -256,27 +256,27 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
   <div style="font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:4px 10px 10px;">Module</div>
   <button class="tnav-item active" onclick="selectModule(0)" data-mod="0">
     <div class="tnav-ring"><svg width="24" height="24" viewBox="0 0 24 24"><circle class="progress-ring-bg" cx="12" cy="12" r="9"/><circle class="progress-ring-fill" id="ring-0" cx="12" cy="12" r="9" stroke="#0ea5e9" stroke-dasharray="56.5" stroke-dashoffset="56.5"/></svg></div>
-    <div><div class="tnav-title">Einführung CF</div><div class="tnav-sub">Grundlagen · Agency</div></div>
+    <div><div class="tnav-title">Intro to CF</div><div class="tnav-sub">Basics · Agency Problem</div></div>
   </button>
   <button class="tnav-item" onclick="selectModule(1)" data-mod="1">
     <div class="tnav-ring"><svg width="24" height="24" viewBox="0 0 24 24"><circle class="progress-ring-bg" cx="12" cy="12" r="9"/><circle class="progress-ring-fill" id="ring-1" cx="12" cy="12" r="9" stroke="#0ea5e9" stroke-dasharray="56.5" stroke-dashoffset="56.5"/></svg></div>
-    <div><div class="tnav-title">Bewertung & NPV</div><div class="tnav-sub">Rendite · Zinsrechnung</div></div>
+    <div><div class="tnav-title">Valuation & NPV</div><div class="tnav-sub">Returns · Compounding</div></div>
   </button>
   <button class="tnav-item" onclick="selectModule(2)" data-mod="2">
     <div class="tnav-ring"><svg width="24" height="24" viewBox="0 0 24 24"><circle class="progress-ring-bg" cx="12" cy="12" r="9"/><circle class="progress-ring-fill" id="ring-2" cx="12" cy="12" r="9" stroke="#0ea5e9" stroke-dasharray="56.5" stroke-dashoffset="56.5"/></svg></div>
-    <div><div class="tnav-title">Anleihen & Aktien</div><div class="tnav-sub">Duration · Gordon · YTM</div></div>
+    <div><div class="tnav-title">Bonds & Stocks</div><div class="tnav-sub">Duration · Gordon · YTM</div></div>
   </button>
   <button class="tnav-item" onclick="selectModule(3)" data-mod="3">
     <div class="tnav-ring"><svg width="24" height="24" viewBox="0 0 24 24"><circle class="progress-ring-bg" cx="12" cy="12" r="9"/><circle class="progress-ring-fill" id="ring-3" cx="12" cy="12" r="9" stroke="#0ea5e9" stroke-dasharray="56.5" stroke-dashoffset="56.5"/></svg></div>
-    <div><div class="tnav-title">IRR & NPV-Regeln</div><div class="tnav-sub">Fallstricke · PI · EAC</div></div>
+    <div><div class="tnav-title">IRR & NPV Rules</div><div class="tnav-sub">Pitfalls · PI · EAC</div></div>
   </button>
   <button class="tnav-item" onclick="selectModule(4)" data-mod="4">
     <div class="tnav-ring"><svg width="24" height="24" viewBox="0 0 24 24"><circle class="progress-ring-bg" cx="12" cy="12" r="9"/><circle class="progress-ring-fill" id="ring-4" cx="12" cy="12" r="9" stroke="#0ea5e9" stroke-dasharray="56.5" stroke-dashoffset="56.5"/></svg></div>
-    <div><div class="tnav-title">Risiko & Rendite</div><div class="tnav-sub">σ · β · Diversifikation</div></div>
+    <div><div class="tnav-title">Risk & Return</div><div class="tnav-sub">σ · β · Diversification</div></div>
   </button>
   <button class="tnav-item" onclick="selectModule(5)" data-mod="5">
     <div class="tnav-ring"><svg width="24" height="24" viewBox="0 0 24 24"><circle class="progress-ring-bg" cx="12" cy="12" r="9"/><circle class="progress-ring-fill" id="ring-5" cx="12" cy="12" r="9" stroke="#0ea5e9" stroke-dasharray="56.5" stroke-dashoffset="56.5"/></svg></div>
-    <div><div class="tnav-title">Portfoliotheorie</div><div class="tnav-sub">Effizienzlinie · CAL · Tangency</div></div>
+    <div><div class="tnav-title">Portfolio Theory</div><div class="tnav-sub">Efficient Frontier · CAL</div></div>
   </button>
   <button class="tnav-item" onclick="selectModule(6)" data-mod="6">
     <div class="tnav-ring"><svg width="24" height="24" viewBox="0 0 24 24"><circle class="progress-ring-bg" cx="12" cy="12" r="9"/><circle class="progress-ring-fill" id="ring-6" cx="12" cy="12" r="9" stroke="#0ea5e9" stroke-dasharray="56.5" stroke-dashoffset="56.5"/></svg></div>
@@ -290,120 +290,121 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
 <!-- ── MODULE 0 ── -->
 <div class="topic-panel active" id="panel-0">
   <div class="module-header">
-    <div class="module-num-badge">Modul 1</div>
-    <h2>Einführung in Corporate Finance</h2>
-    <p>Grundfragen der Unternehmensfinanzierung · Ziele · Agency-Problem</p>
+    <div class="module-num-badge">Module 1</div>
+    <h2>Introduction to Corporate Finance</h2>
+    <p>Core questions of corporate finance · Goals · Agency Problem</p>
   </div>
 
-  <div class="section-title">🏢 Was ist Corporate Finance?</div>
-  <p style="font-size:14.5px;line-height:1.8;margin-bottom:12px;">Corporate Finance befasst sich mit zwei Kernentscheidungen: <strong>Was soll das Unternehmen investieren?</strong> (Investitionsentscheidung) und <strong>Wie soll es sich finanzieren?</strong> (Finanzierungsentscheidung). Ziel ist immer die Maximierung des Unternehmenswertes für die Eigentümer.</p>
+  <div class="section-title">🏢 What is Corporate Finance?</div>
+  <p style="font-size:14.5px;line-height:1.8;margin-bottom:12px;">Corporate Finance deals with two core decisions: <strong>What should the firm invest in?</strong> (Investment decision) and <strong>How should it be financed?</strong> (Financing decision). The goal is always to maximise firm value for the owners.</p>
 
   <div class="cf-two-col">
     <div class="cf-box">
-      <div style="font-size:11px;font-weight:800;color:var(--accent);margin-bottom:6px;">INVESTITIONSENTSCHEIDUNG (CAPEX)</div>
-      Kauf von Realvermögen (tangibel/intangibel) → Capital Budgeting.<br>
-      <em>Beispiel: Neue Fertigungsanlage, Patent, IT-System.</em><br>
-      Entscheidungskriterium: NPV &gt; 0 bzw. Rendite &gt; Hurdle Rate.
+      <div style="font-size:11px;font-weight:800;color:var(--accent);margin-bottom:6px;">INVESTMENT DECISION (CAPEX)</div>
+      Purchase of real assets (tangible/intangible) → Capital Budgeting.<br>
+      <em>Example: New factory, patent, IT system.</em><br>
+      Decision criterion: NPV &gt; 0 or return &gt; Hurdle Rate.
     </div>
     <div class="cf-box">
-      <div style="font-size:11px;font-weight:800;color:var(--accent);margin-bottom:6px;">FINANZIERUNGSENTSCHEIDUNG</div>
-      Verkauf von Finanzaktiva → Kapitalstruktur optimieren.<br>
-      <em>Beispiel: Aktienemission, Anleihe, Bankkredit.</em><br>
-      Frage: Wie viel EK vs. FK? Welche Konditionen?
+      <div style="font-size:11px;font-weight:800;color:var(--accent);margin-bottom:6px;">FINANCING DECISION</div>
+      Issuance of financial assets → optimise capital structure.<br>
+      <em>Example: Stock issuance, bonds, bank loan.</em><br>
+      Question: How much equity vs. debt? What terms?
     </div>
   </div>
 
-  <div class="section-title">📊 Unternehmensformen im Vergleich</div>
+  <div class="section-title">📊 Corporate Forms Compared</div>
   <table class="cf-table">
-    <tr><th>Merkmal</th><th>Einzelunternehmen</th><th>GmbH</th><th>AG</th></tr>
-    <tr><td>Haftung</td><td>Unbegrenzt persönlich</td><td>Beschränkt auf Einlage</td><td>Beschränkt auf Einlage</td></tr>
-    <tr><td>Kapitalbeschaffung</td><td>Sehr eingeschränkt</td><td>Eingeschränkt</td><td>Kapitalmarkt (Börse)</td></tr>
-    <tr><td>Eigentum/Kontrolle</td><td>Identisch</td><td>Oft identisch</td><td>Getrennt (Aktionäre/Mgmt.)</td></tr>
-    <tr><td>Lebensdauer</td><td>An Person gebunden</td><td>Unbegrenzt</td><td>Unbegrenzt</td></tr>
-    <tr><td>Agency-Problem</td><td>Keines</td><td>Gering</td><td>Stark ausgeprägt</td></tr>
+    <tr><th>Feature</th><th>Sole Proprietorship</th><th>LLC (GmbH)</th><th>Corporation (AG)</th></tr>
+    <tr><td>Liability</td><td>Unlimited personal</td><td>Limited to contribution</td><td>Limited to contribution</td></tr>
+    <tr><td>Capital raising</td><td>Very limited</td><td>Limited</td><td>Capital markets (stock exchange)</td></tr>
+    <tr><td>Ownership/Control</td><td>Identical</td><td>Often identical</td><td>Separated (shareholders/mgmt.)</td></tr>
+    <tr><td>Lifespan</td><td>Tied to owner</td><td>Unlimited</td><td>Unlimited</td></tr>
+    <tr><td>Agency problem</td><td>None</td><td>Minor</td><td>Significant</td></tr>
   </table>
 
-  <div class="section-title">💰 Cash Flow Kreislauf</div>
-  <div class="formula-box">Investoren stellen Kapital bereit → Unternehmen investiert in Realvermögen → Operativer Cash Flow entsteht → Rückzahlung an Investoren (Dividenden, Zinsen) oder Reinvestition</div>
-  <p style="font-size:14px;line-height:1.75;margin-top:10px;">Der Kapitalmarkt ist dabei ein effizienter Mechanismus zur Allokation von Kapital. <strong>Hurdle Rate</strong> = Mindestrendite einer Investition = Opportunitätskosten des Kapitals. Die Hurdle Rate reflektiert das Risiko des Projekts – höheres Risiko → höhere Hurdle Rate.</p>
+  <div class="section-title">💰 Cash Flow Cycle</div>
+  <div class="formula-box">Investors provide capital → Firm invests in real assets → Operating cash flow is generated → Return to investors (dividends, interest) or reinvestment</div>
+  <p style="font-size:14px;line-height:1.75;margin-top:10px;">The capital market is an efficient mechanism for allocating capital. <strong>Hurdle Rate</strong> = minimum required return on an investment = opportunity cost of capital. The hurdle rate reflects project risk – higher risk → higher hurdle rate.</p>
 
-  <div class="section-title">⚠️ Das Agency-Problem</div>
-  <p style="font-size:14.5px;line-height:1.8;margin-bottom:10px;">In großen Unternehmen (AG) sind Eigentümer (Aktionäre = Prinzipale) und Manager (Agenten) getrennt. Manager könnten eigene Interessen verfolgen: Prestige, Jobsicherheit, Unternehmensexpansion für höheres Gehalt – statt Aktionärswert zu maximieren. Diese <strong>Agency Costs</strong> entstehen durch Interessenkonflikte.</p>
-  <div class="cf-box red" style="margin-bottom:12px;"><strong>Beispiel:</strong> CEO investiert in ein prestigeträchtiges Projekt mit NPV &lt; 0 (Prestige, Medienpräsenz), das dem Aktionär schadet aber das CEO-Ansehen steigert → Agency Cost.</div>
+  <div class="section-title">⚠️ The Agency Problem</div>
+  <p style="font-size:14.5px;line-height:1.8;margin-bottom:10px;">In large corporations, owners (shareholders = principals) and managers (agents) are separated. Managers may pursue their own interests: prestige, job security, empire-building for higher pay – instead of maximising shareholder value. These <strong>Agency Costs</strong> arise from conflicts of interest.</p>
+  <div class="cf-box red" style="margin-bottom:12px;"><strong>Example:</strong> CEO invests in a prestigious project with NPV &lt; 0 (boosts CEO profile but harms shareholders) → Agency Cost.</div>
 
-  <div class="cf-label">6 Instrumente zur Kontrolle von Managern</div>
+  <div class="cf-label">6 Mechanisms to Control Managers</div>
   <table class="cf-table">
-    <tr><th>#</th><th>Instrument</th><th>Wirkmechanismus</th></tr>
-    <tr><td>1</td><td><strong>Aufsichtsrat / Board</strong></td><td>Direkte Überwachung, kann CEO abberufen</td></tr>
-    <tr><td>2</td><td><strong>Wirtschaftsprüfer</strong></td><td>GAAP-Konformität sicherstellen, Manipulationen aufdecken</td></tr>
-    <tr><td>3</td><td><strong>Kreditgeber (Banken)</strong></td><td>Covenants, Monitoring von Vermögen und Cash Flows</td></tr>
-    <tr><td>4</td><td><strong>Aktionäre</strong></td><td>„Wall Street Walk": Aktienverkauf → Kursrückgang → Druck</td></tr>
-    <tr><td>5</td><td><strong>Übernahmedruck</strong></td><td>Schlecht geführte Firmen sind Übernahmeziele → diszipliniert</td></tr>
-    <tr><td>6</td><td><strong>Anreizentlohnung</strong></td><td>Aktienoptionen, Boni → Interessen angleichen</td></tr>
+    <tr><th>#</th><th>Mechanism</th><th>How it works</th></tr>
+    <tr><td>1</td><td><strong>Board of Directors</strong></td><td>Direct oversight, can remove CEO</td></tr>
+    <tr><td>2</td><td><strong>Auditors</strong></td><td>Ensure GAAP compliance, detect manipulation</td></tr>
+    <tr><td>3</td><td><strong>Lenders (Banks)</strong></td><td>Covenants, monitoring of assets and cash flows</td></tr>
+    <tr><td>4</td><td><strong>Shareholders</strong></td><td>"Wall Street Walk": selling shares → price drop → pressure</td></tr>
+    <tr><td>5</td><td><strong>Takeover threat</strong></td><td>Poorly run firms become takeover targets → disciplines management</td></tr>
+    <tr><td>6</td><td><strong>Incentive pay</strong></td><td>Stock options, bonuses → align interests</td></tr>
   </table>
 
-  <div class="section-title">❓ Prüfungsfragen Modul 1</div>
+  <div class="section-title">❓ Exam Questions – Module 1</div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Was ist der Unterschied zwischen Gewinnmaximierung und Shareholder Value Maximierung?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Gewinnmaximierung ignoriert den Zeitwert des Geldes (1€ heute ≠ 1€ in 5 Jahren) und das Risiko. Shareholder Value = Barwert aller zukünftigen Cash Flows → berücksichtigt Zeitwert und Risiko. Ein Projekt kann kurzfristig Gewinn generieren aber langfristig Wert vernichten (NPV &lt; 0) – z.B. durch Raubbau an Ressourcen.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>What is the difference between profit maximisation and shareholder value maximisation?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Profit maximisation ignores the time value of money (€1 today ≠ €1 in 5 years) and risk. Shareholder value = present value of all future cash flows → accounts for time value and risk. A project can generate short-term profit but destroy long-term value (NPV &lt; 0) – e.g. by depleting resources. Correct goal: maximise the present value of future cash flows, not accounting profit.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Warum entstehen Agency-Kosten speziell bei Aktiengesellschaften?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Bei AGs sind Eigentum (Aktionäre) und Kontrolle (Management) getrennt. Aktionäre sind oft anonym und haben keine Zeit/Expertise zur direkten Überwachung. Manager haben Informationsvorsprung (asymmetrische Information). Bei Einzelunternehmen ist Eigentümer = Manager → kein Interessenkonflikt. Agency Costs umfassen: Monitoring-Kosten (Aufsichtsrat, Prüfer), Bonding-Kosten (Managementverträge), Residual Loss (verbleibende Effizienzeinbuße).</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>Why do agency costs arise specifically in corporations?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">In corporations, ownership (shareholders) and control (management) are separated. Shareholders are often anonymous and lack time/expertise for direct monitoring. Managers have an information advantage (asymmetric information). In a sole proprietorship, owner = manager → no conflict of interest. Agency costs include: monitoring costs (board, auditors), bonding costs (management contracts), residual loss (remaining efficiency loss).</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Was ist die Hurdle Rate und wie wird sie bestimmt?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Die Hurdle Rate ist die Mindestrendite, die eine Investition erzielen muss, damit sie für Investoren attraktiv ist. Sie entspricht den Opportunitätskosten des Kapitals – was Investoren alternativ am Kapitalmarkt verdienen könnten bei gleichem Risiko. Bestimmung: über CAPM (r = rf + β(rm−rf)) oder WACC. Projekte mit Rendite &gt; Hurdle Rate schaffen Wert (NPV &gt; 0).</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>What is the hurdle rate and how is it determined?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">The hurdle rate is the minimum return an investment must earn to be attractive to investors. It equals the opportunity cost of capital – what investors could alternatively earn in the capital market at the same risk level. Determined via CAPM (r = rf + β(rm−rf)) or WACC. Projects with return &gt; hurdle rate create value (NPV &gt; 0).</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Was ist der Unterschied zwischen Realvermögen und Finanzvermögen?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Realvermögen (tangibel: Gebäude, Maschinen; intangibel: Patente, Marken) ist das eigentlich produktive Vermögen, das Cash Flows erzeugt. Finanzvermögen (Aktien, Anleihen, Derivate) sind Ansprüche auf die Cash Flows des Realvermögens – sie verteilen Wert nur um, schaffen ihn nicht selbst. Corporate Finance fragt: welches Realvermögen lohnt sich (NPV &gt; 0) und wie finanziert man den Kauf?</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>What is the difference between real assets and financial assets?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Real assets (tangible: buildings, machinery; intangible: patents, brands) are the actually productive assets that generate cash flows. Financial assets (stocks, bonds, derivatives) are claims on the cash flows of real assets – they redistribute value but do not create it. Corporate Finance asks: which real assets are worth it (NPV &gt; 0) and how to finance their purchase?</div>
   </div>
 
-  <button class="read-btn" id="readbtn-0" onclick="markRead(0)">✓ Modul als gelesen markieren</button>
+  <button class="read-btn" id="readbtn-0" onclick="markRead(0)">✓ Mark module as read</button>
 </div>
 
 <!-- ── MODULE 1 ── -->
 <div class="topic-panel" id="panel-1">
   <div class="module-header">
-    <div class="module-num-badge">Modul 2</div>
-    <h2>Bewertungsprinzipien & NPV</h2>
-    <p>Renditemaße · Zinsrechnung · Net Present Value</p>
+    <div class="module-num-badge">Module 2</div>
+    <h2>Valuation Principles & NPV</h2>
+    <p>Return measures · Compounding · Net Present Value</p>
   </div>
 
-  <div class="section-title">📈 Renditemaße</div>
+  <div class="section-title">📈 Return Measures</div>
   <div class="formula-box">
-    <span class="f-label">Einfache Rendite (Holding Period Return)</span>
+    <span class="f-label">Simple Return (Holding Period Return)</span>
     <div class="f-row">
       r<sub>t</sub> = <span class="f-frac"><span class="f-num">P<sub>t</sub> − P<sub>t−1</sub> + DIV<sub>t</sub></span><span class="f-den">P<sub>t−1</sub></span></span>
     </div>
   </div>
   <div class="formula-box">
-    <span class="f-label">Geometrische Rendite (Haltedauerrendite)</span>
+    <span class="f-label">Geometric Return (Compounded Holding Period)</span>
     <div class="f-row">(1+H) = (1+r<sub>1</sub>)·(1+r<sub>2</sub>)·····(1+r<sub>N</sub>)</div>
     <div class="f-row">Annualisiert: (1+r') = (1+H)<sup>1/N</sup> − 1</div>
   </div>
   <div class="formula-box">
-    <span class="f-label">Log-Rendite (stetig, zeitlich additiv)</span>
+    <span class="f-label">Log Return (continuously compounded, time-additive)</span>
     <div class="f-row">r<sup>log</sup> = ln<span class="f-frac"><span class="f-num">P<sub>t</sub> + DIV<sub>t</sub></span><span class="f-den">P<sub>t−1</sub></span></span></div>
-    <div style="font-size:12px;color:var(--muted);margin-top:4px;">→ log-Renditen addieren sich über Zeit: r<sub>1</sub> + r<sub>2</sub> + ··· + r<sub>N</sub></div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px;">→ log returns are additive over time: r<sub>1</sub> + r<sub>2</sub> + ··· + r<sub>N</sub></div>
   </div>
   <div class="cf-two-col" style="margin-top:12px;">
-    <div class="cf-box green"><strong>Arithmetisches Mittel:</strong><br>Für Prognose zukünftiger Renditen verwenden. Überschätzt langfristige Performance wenn Volatilität hoch.</div>
-    <div class="cf-box"><strong>Geometrisches Mittel:</strong><br>Für Bewertung vergangener Performance. Zeigt tatsächlich erzielten Zinseszinseffekt.</div>
+    <div class="cf-box green"><strong>Arithmetic Mean:</strong><br>Use for forecasting future returns (expected return in one period). Overestimates long-run performance when volatility is high.</div>
+    <div class="cf-box"><strong>Geometric Mean:</strong><br>Use for evaluating past performance. Shows the actual compounded return achieved.</div>
   </div>
 
-  <div class="section-title">⏱ Compounding (Aufzinsung)</div>
+  <div class="section-title">⏱ Compounding</div>
   <table class="cf-table">
-    <tr><th>Methode</th><th>Formel</th><th>Beispiel bei r=10%</th></tr>
-    <tr><td>Jährlich</td><td>(1+r)^t</td><td>1,10 → eff. 10,00%</td></tr>
-    <tr><td>Halbjährlich</td><td>(1+r/2)^2 − 1</td><td>1,1025 → eff. 10,25%</td></tr>
-    <tr><td>Monatlich</td><td>(1+r/12)^12 − 1</td><td>1,1047 → eff. 10,47%</td></tr>
-    <tr><td>Kontinuierlich</td><td>e^(r·t) − 1</td><td>e^0,1 = 1,1052 → eff. 10,52%</td></tr>
+    <tr><th>Method</th><th>Formula</th><th>Example at r=10%</th></tr>
+    <tr><td>Annual</td><td>(1+r)<sup>t</sup></td><td>1.10 → eff. 10.00%</td></tr>
+    <tr><td>Semi-annual</td><td>(1+r/2)<sup>2</sup> − 1</td><td>1.1025 → eff. 10.25%</td></tr>
+    <tr><td>Monthly</td><td>(1+r/12)<sup>12</sup> − 1</td><td>1.1047 → eff. 10.47%</td></tr>
+    <tr><td>Continuous</td><td>e<sup>r·t</sup> − 1</td><td>e<sup>0.1</sup> = 1.1052 → eff. 10.52%</td></tr>
   </table>
-  <div class="cf-box yellow"><strong>Merke:</strong> Je häufiger compounded wird, desto höher der effektive Jahreszins. Bei kontinuierlichem Compounding ist der EAR maximal.</div>
+  <div class="cf-box yellow"><strong>Key rule:</strong> The more frequently compounding occurs, the higher the effective annual rate (EAR). Continuous compounding yields the maximum EAR.</div>
 
   <div class="section-title">💰 Net Present Value (NPV)</div>
+
   <div class="formula-box">
     <span class="f-label">Net Present Value</span>
     <div class="f-row">
@@ -411,170 +412,170 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
     </div>
     <div class="f-row">= <span class="f-sum">Σ</span> <span class="f-frac"><span class="f-num">CF<sub>t</sub></span><span class="f-den">(1+r)<sup>t</sup></span></span> − I<sub>0</sub></div>
   </div>
-  <div class="cf-box green"><strong>NPV-Entscheidungsregel:</strong> NPV &gt; 0 → Investition erhöht Unternehmenswert → investieren. NPV = 0 → indifferent. NPV &lt; 0 → ablehnen.</div>
+  <div class="cf-box green"><strong>NPV Decision Rule:</strong> NPV &gt; 0 → investment creates value → accept. NPV = 0 → indifferent. NPV &lt; 0 → reject.</div>
 
-  <div class="cf-label">Vollständiges Rechenbeispiel</div>
+  <div class="cf-label">Full Worked Example (r = 10%)</div>
   <table class="cf-table">
-    <tr><th>t</th><th>CF</th><th>Diskontierungsfaktor (r=10%)</th><th>PV(CF)</th></tr>
-    <tr><td>0</td><td>−1.000</td><td>1,0000</td><td>−1.000,00</td></tr>
-    <tr><td>1</td><td>+300</td><td>0,9091</td><td>+272,73</td></tr>
-    <tr><td>2</td><td>+400</td><td>0,8264</td><td>+330,58</td></tr>
-    <tr><td>3</td><td>+500</td><td>0,7513</td><td>+375,66</td></tr>
-    <tr><td>4</td><td>+600</td><td>0,6830</td><td>+409,81</td></tr>
-    <tr><td colspan="3"><strong>NPV</strong></td><td><strong>+388,78 ≈ +390 €</strong></td></tr>
+    <tr><th>t</th><th>CF</th><th>Discount factor (r=10%)</th><th>PV(CF)</th></tr>
+    <tr><td>0</td><td>−1,000</td><td>1.0000</td><td>−1,000.00</td></tr>
+    <tr><td>1</td><td>+300</td><td>0.9091</td><td>+272.73</td></tr>
+    <tr><td>2</td><td>+400</td><td>0.8264</td><td>+330.58</td></tr>
+    <tr><td>3</td><td>+500</td><td>0.7513</td><td>+375.66</td></tr>
+    <tr><td>4</td><td>+600</td><td>0.6830</td><td>+409.81</td></tr>
+    <tr><td colspan="3"><strong>NPV</strong></td><td><strong>+388.78 ≈ +390 €</strong></td></tr>
   </table>
-  <div class="cf-box green">NPV = +390 € &gt; 0 → Investition lohnt sich. Das Unternehmen schafft €390 an Wert für seine Aktionäre.</div>
+  <div class="cf-box green">NPV = +390 € &gt; 0 → Investment is worthwhile. The firm creates €390 of value for its shareholders.</div>
 
-  <div class="section-title">📐 Wichtige Barwertformeln</div>
+  <div class="section-title">📐 Key Present Value Formulas</div>
   <div class="formula-box">
-    <span class="f-label">Ewige Rente (Perpetuity)</span>
+    <span class="f-label">Perpetuity (constant, infinite cash flows)</span>
     <div class="f-row">PV = <span class="f-frac"><span class="f-num">CF</span><span class="f-den">r</span></span></div>
     <div style="font-size:12px;color:var(--muted);margin-top:2px;">Bsp.: CF=100, r=8% → PV = 1.250</div>
   </div>
   <div class="formula-box">
-    <span class="f-label">Wachsende ewige Rente (Growing Perpetuity)</span>
-    <div class="f-row">PV = <span class="f-frac"><span class="f-num">CF<sub>1</sub></span><span class="f-den">r − g</span></span> &nbsp;<span style="font-size:11px;color:var(--muted)">(Voraussetzung: r &gt; g)</span></div>
+    <span class="f-label">Growing Perpetuity</span>
+    <div class="f-row">PV = <span class="f-frac"><span class="f-num">CF<sub>1</sub></span><span class="f-den">r − g</span></span> &nbsp;<span style="font-size:11px;color:var(--muted)">(requires: r &gt; g)</span></div>
   </div>
   <div class="formula-box">
-    <span class="f-label">Annuität (Annuity)</span>
+    <span class="f-label">Annuity (fixed payments for T periods)</span>
     <div class="f-row">PV = CF · <span class="f-frac"><span class="f-num">1 − <span class="f-frac" style="font-size:0.85em;"><span class="f-num">1</span><span class="f-den">(1+r)<sup>T</sup></span></span></span><span class="f-den">r</span></span></div>
-    <div style="font-size:12px;color:var(--muted);margin-top:2px;">Bsp.: CF=100, r=8%, T=5 → PV = 399,27</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:2px;">Ex.: CF=100, r=8%, T=5 → PV = 399.27</div>
   </div>
-  <div class="cf-box"><strong>NPV-Additivität:</strong> NPV(A+B) = NPV(A) + NPV(B). Diese Eigenschaft gilt nur für NPV, nicht für IRR. Projekte können unabhängig bewertet und aggregiert werden.</div>
+  <div class="cf-box"><strong>NPV Additivity:</strong> NPV(A+B) = NPV(A) + NPV(B). This property holds only for NPV, not for IRR. Projects can be valued independently and aggregated.</div>
 
-  <div class="section-title">❓ Prüfungsfragen Modul 2</div>
+  <div class="section-title">❓ Exam Questions – Module 2</div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Wann verwendet man arithmetisches vs. geometrisches Mittel?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a"><strong>Arithmetisches Mittel</strong> = Summe Renditen / N. Verwendet für Prognosen zukünftiger Renditen (erwartete Rendite in einer Periode). <strong>Geometrisches Mittel</strong> = (Endwert/Startwert)^(1/N) − 1. Verwendet für historische Performance-Messung (tatsächlich erzielte Verzinsung). Faustregel: Geo ≈ Arithm. − σ²/2. Je höher die Volatilität, desto größer die Differenz.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>When do you use arithmetic vs. geometric mean?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a"><strong>Arithmetic mean</strong> = sum of returns / N. Use for forecasting future returns (expected return in one period). <strong>Geometric mean</strong> = (end value/start value)^(1/N) − 1. Use for measuring historical performance (actual compounded return earned). Rule of thumb: Geo ≈ Arith. − σ²/2. The higher the volatility, the larger the difference.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Warum ist der Diskontierungssatz im NPV das Risiko des Projekts – nicht der Zinssatz für Fremdkapital?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Der Diskontierungssatz entspricht den Opportunitätskosten des Kapitals – was Investoren alternativ verdienen könnten bei gleichem Risiko. Der FK-Zinssatz ist die Rendite für Gläubiger (niedriges Risiko, vorrangig). Das Projekt trägt aber das Gesamtrisiko des operativen Geschäfts. Würde man FK-Zinssatz verwenden, würde man riskante Projekte zu attraktiv bewerten. Korrekt: WACC oder un-leveraged Cost of Capital (bei reiner Eigenfinanzierung).</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>Why does the NPV discount rate reflect project risk – not the cost of debt?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">The discount rate represents the opportunity cost of capital – what investors could alternatively earn at the same risk level. The debt rate is the return for lenders (low risk, senior claim). The project bears the full operating risk of the business. Using the debt rate would make risky projects look too attractive. Correct: use WACC or un-levered cost of capital (for all-equity financing).</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Ein Projekt hat Anfangsinvestition €100.000 und CF von €30.000 p.a. für 5 Jahre, r=8%. Ist es sinnvoll?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">PV der Annuität = 30.000 · [1−1/(1,08)⁵]/0,08 = 30.000 · 3,9927 = 119.782. NPV = 119.782 − 100.000 = +19.782 &gt; 0 → Investition lohnt sich. Der IRR lässt sich approximieren: bei r=18,6% ist NPV=0 (IRR &gt; 8% → bestätigt NPV-Ergebnis).</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>A project costs €100,000 and generates €30,000/year for 5 years, r=8%. Is it worthwhile?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">PV of annuity = 30,000 · [1−1/(1.08)⁵]/0.08 = 30,000 · 3.9927 = 119,782. NPV = 119,782 − 100,000 = +19,782 &gt; 0 → investment is worthwhile. IRR approximation: at r≈18.6%, NPV=0. Since IRR &gt; 8%, this confirms the NPV result.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Was ist der Unterschied zwischen kontinuierlichem und diskretem Compounding?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Diskretes Compounding: Zinsen werden zu bestimmten Zeitpunkten gutgeschrieben (jährlich, halbjährlich etc.), effektiver Jahreszins = (1+r/m)^m − 1. Kontinuierliches Compounding: Zinsen wachsen instantan, A = P·e^(rt). Bei r=10%: diskret jährlich → 10,00%, halbjährlich → 10,25%, kontinuierlich → 10,52%. Kontinuierlich ist theoretisches Maximum. Log-Renditen sind die diskreten Äquivalente von kontinuierlichem Compounding.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>What is the difference between continuous and discrete compounding?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Discrete compounding: interest is credited at specific points in time (annually, semi-annually, etc.), EAR = (1+r/m)^m − 1. Continuous compounding: interest grows instantaneously, A = P·e^(rt). At r=10%: annual discrete → 10.00%, semi-annual → 10.25%, continuous → 10.52%. Continuous compounding is the theoretical maximum EAR. Log returns are the discrete equivalents of continuously compounded returns.</div>
   </div>
 
-  <button class="read-btn" id="readbtn-1" onclick="markRead(1)">✓ Modul als gelesen markieren</button>
+  <button class="read-btn" id="readbtn-1" onclick="markRead(1)">✓ Mark module as read</button>
 </div>
 
 <!-- ── MODULE 2 ── -->
 <div class="topic-panel" id="panel-2">
   <div class="module-header">
-    <div class="module-num-badge">Modul 3</div>
-    <h2>Anleihen & Aktien</h2>
-    <p>Anleihenbewertung · Duration · Yield Curve · DDM · Gordon · PVGO</p>
+    <div class="module-num-badge">Module 3</div>
+    <h2>Bonds & Stocks</h2>
+    <p>Bond valuation · Duration · Yield Curve · DDM · Gordon · PVGO</p>
   </div>
 
-  <div class="section-title">📋 Anleihenbewertung</div>
+  <div class="section-title">📋 Bond Valuation</div>
   <div class="formula-box">
     <span class="f-label">Preis einer Kuponanleihe</span>
     <div class="f-row">P = <span class="f-sum">Σ</span><sub style="font-size:10px">t=1</sub><sup style="font-size:10px">T</sup> <span class="f-frac"><span class="f-num">Kupon</span><span class="f-den">(1+r)<sup>t</sup></span></span> + <span class="f-frac"><span class="f-num">Nennwert</span><span class="f-den">(1+r)<sup>T</sup></span></span></div>
     <div class="f-row">= Kupon · <span class="f-frac"><span class="f-num">1 − (1+r)<sup>−T</sup></span><span class="f-den">r</span></span> + <span class="f-frac"><span class="f-num">Nennwert</span><span class="f-den">(1+r)<sup>T</sup></span></span></div>
   </div>
-  <div class="cf-box red"><strong>Goldene Regel:</strong> Steigende Marktzinsen → fallende Anleihekurse (inverse Beziehung). Fallen Zinsen → steigen Kurse. Kupon &lt; Marktzins → under par. Kupon &gt; Marktzins → over par. Kupon = Marktzins → at par (Kurs = Nennwert).</div>
+  <div class="cf-box red"><strong>Golden Rule:</strong> Rising market rates → falling bond prices (inverse relationship). Falling rates → rising prices. Coupon &lt; market rate → below par. Coupon &gt; market rate → above par. Coupon = market rate → at par (price = face value).</div>
 
-  <div class="cf-label">Beispiel: Anleihe mit Kupon 6%, Nennwert €1.000, 4 Jahre, Marktzins 8%</div>
+  <div class="cf-label">Example: Bond with 6% coupon, face value €1,000, 4 years, market rate 8%</div>
   <table class="cf-table">
-    <tr><th>t</th><th>CF</th><th>PV-Faktor (8%)</th><th>PV</th></tr>
+    <tr><th>t</th><th>CF</th><th>PV factor (8%)</th><th>PV</th></tr>
     <tr><td>1</td><td>60</td><td>0,9259</td><td>55,56</td></tr>
     <tr><td>2</td><td>60</td><td>0,8573</td><td>51,44</td></tr>
     <tr><td>3</td><td>60</td><td>0,7938</td><td>47,63</td></tr>
     <tr><td>4</td><td>1.060</td><td>0,7350</td><td>779,10</td></tr>
-    <tr><td colspan="3"><strong>Kurs</strong></td><td><strong>933,73 €</strong></td></tr>
+    <tr><td colspan="3"><strong>Price</strong></td><td><strong>€933.73</strong></td></tr>
   </table>
-  <p style="font-size:14px;line-height:1.75;">Kurs &lt; Nennwert (under par), weil Marktzins (8%) &gt; Kupon (6%).</p>
+  <p style="font-size:14px;line-height:1.75;">Price &lt; face value (below par) because market rate (8%) &gt; coupon (6%).</p>
 
   <div class="section-title">📏 Duration & Modified Duration</div>
   <div class="formula-box">
-    <span class="f-label">Macaulay Duration (gewichtetes Mittel der Zahlungszeitpunkte)</span>
+    <span class="f-label">Macaulay Duration (weighted average time of cash flows)</span>
     <div class="f-row">D = <span class="f-frac"><span class="f-num"><span class="f-sum">Σ</span> t · PV(CF<sub>t</sub>)</span><span class="f-den">P</span></span></div>
     <span class="f-label" style="margin-top:10px;">Modified Duration</span>
     <div class="f-row">ModD = <span class="f-frac"><span class="f-num">D</span><span class="f-den">1 + YTM</span></span></div>
-    <span class="f-label" style="margin-top:10px;">Kursveränderung bei Zinsänderung</span>
+    <span class="f-label" style="margin-top:10px;">Price change for a given yield change</span>
     <div class="f-row"><span class="f-frac"><span class="f-num">ΔP</span><span class="f-den">P</span></span> ≈ −ModD × ΔYield</div>
   </div>
 
-  <div class="cf-label">Vollständiges Duration-Beispiel (3-jährige Anleihe, Kupon 5%, YTM 4%)</div>
+  <div class="cf-label">Full Duration Example (3-year bond, 5% coupon, YTM 4%)</div>
   <table class="cf-table">
-    <tr><th>t</th><th>CF</th><th>PV(CF) bei 4%</th><th>Gewicht w_t</th><th>t × w_t</th></tr>
+    <tr><th>t</th><th>CF</th><th>PV(CF) at 4%</th><th>Weight w_t</th><th>t × w_t</th></tr>
     <tr><td>1</td><td>5</td><td>4,808</td><td>0,0463</td><td>0,0463</td></tr>
     <tr><td>2</td><td>5</td><td>4,623</td><td>0,0445</td><td>0,0890</td></tr>
     <tr><td>3</td><td>105</td><td>93,35</td><td>0,8992 (=Nennwert+Kupon)</td><td>2,6976</td></tr>
-    <tr><td colspan="3"><strong>Summe (= Kurs)</strong></td><td><strong>102,78</strong></td><td><strong>D = 2,833 Jahre</strong></td></tr>
+    <tr><td colspan="3"><strong>Sum (= Price)</strong></td><td><strong>102.78</strong></td><td><strong>D = 2.833 years</strong></td></tr>
   </table>
-  <p style="font-size:14px;margin:8px 0;">ModD = 2,833 / (1+0,04) = <strong>2,724</strong>. Zinsstieg um 1%: ΔP/P ≈ −2,724 × 0,01 = −2,72% → Kurs fällt von 102,78 auf ~99,98.</p>
+  <p style="font-size:14px;margin:8px 0;">ModD = 2.833 / (1+0.04) = <strong>2.724</strong>. Rate rise of 1%: ΔP/P ≈ −2.724 × 0.01 = −2.72% → price falls from 102.78 to ~99.98.</p>
 
   <div class="cf-two-col">
-    <div class="cf-box green"><strong>Höhere Duration bei:</strong><br>• Längerer Laufzeit<br>• Niedrigerem Kupon<br>• Zero-Coupon-Anleihe (D = Laufzeit)<br>• Niedrigerem YTM</div>
-    <div class="cf-box red"><strong>Duration als Risikomaß:</strong><br>Portfoliomanager mit Anleiheportfolios steuern Zinsrisiko durch Duration-Matching (Immunisierung): Portfolio-Duration = Investment-Horizont.</div>
+    <div class="cf-box green"><strong>Higher duration when:</strong><br>• Longer maturity<br>• Lower coupon<br>• Zero-coupon bond (D = maturity)<br>• Lower YTM</div>
+    <div class="cf-box red"><strong>Duration as a risk measure:</strong><br>Bond portfolio managers control interest rate risk via duration-matching (immunisation): Portfolio duration = investment horizon.</div>
   </div>
 
-  <div class="section-title">📈 Yield Curve (Zinsstrukturkurve)</div>
-  <p style="font-size:14.5px;line-height:1.8;">Zeigt YTM vs. Restlaufzeit für gleichartige Anleihen (z.B. Staatsanleihen). <strong>Normal (upward sloping):</strong> Langfristige Zinsen &gt; kurzfristige → Wachstumserwartung, Liquiditätsprämie. <strong>Invers (downward sloping):</strong> Kurzfristig &gt; langfristig → Rezessionserwartung, Zentralbank straff. <strong>Flat:</strong> Unsicherheit, Wendepunkt.</p>
-  <div class="cf-box yellow"><strong>Prüfungsrelevant:</strong> Erwartungstheorie: Forward Rates = erwartete zukünftige Spot Rates. Liquiditätspräferenztheorie: Anleger wollen Prämie für längere Bindung. Marktsegmentierungstheorie: verschiedene Investoren in verschiedenen Laufzeitsegmenten.</div>
+  <div class="section-title">📈 Yield Curve (Term Structure of Interest Rates)</div>
+  <p style="font-size:14.5px;line-height:1.8;">Shows YTM vs. remaining maturity for similar bonds (e.g. government bonds). <strong>Normal (upward sloping):</strong> Long-term rates &gt; short-term → growth expectations, liquidity premium. <strong>Inverted (downward sloping):</strong> Short-term &gt; long-term → recession expectations, tight central bank. <strong>Flat:</strong> Uncertainty, turning point.</p>
+  <div class="cf-box yellow"><strong>Exam-relevant theories:</strong> Expectations theory: forward rates = expected future spot rates. Liquidity preference theory: investors demand a premium for longer commitments. Market segmentation theory: different investors operate in different maturity segments.</div>
 
-  <div class="section-title">📊 Aktien – Dividend Discount Model (DDM)</div>
+  <div class="section-title">📊 Stocks – Dividend Discount Model (DDM)</div>
   <div class="formula-box"><strong>Grundform:</strong>  P₀ = (DIV₁ + P₁) / (1+r)
 <strong>Allgemein:</strong>   P₀ = Σ_{t=1}^∞ DIV_t / (1+r)^t</div>
   <div class="formula-box">
-    <span class="f-label">Gordon-Wachstumsmodell (konstantes g)</span>
+    <span class="f-label">Gordon Growth Model (constant g)</span>
     <div class="f-row">P<sub>0</sub> = <span class="f-frac"><span class="f-num">DIV<sub>1</sub></span><span class="f-den">r − g</span></span></div>
-    <div class="f-row" style="margin-top:4px;">r = <span class="f-frac"><span class="f-num">DIV<sub>1</sub></span><span class="f-den">P<sub>0</sub></span></span> + g &nbsp;<span style="font-size:11px;color:var(--muted)">(Dividendenrendite + Wachstum)</span></div>
-    <span class="f-label" style="margin-top:10px;">Nachhaltiges Wachstum</span>
-    <div class="f-row">g = Plowback-Ratio × ROE</div>
-    <div style="font-size:12px;color:var(--muted);">Plowback = Thesaurierungsquote = 1 − Ausschüttungsquote</div>
+    <div class="f-row" style="margin-top:4px;">r = <span class="f-frac"><span class="f-num">DIV<sub>1</sub></span><span class="f-den">P<sub>0</sub></span></span> + g &nbsp;<span style="font-size:11px;color:var(--muted)">(dividend yield + capital growth)</span></div>
+    <span class="f-label" style="margin-top:10px;">Sustainable Growth Rate</span>
+    <div class="f-row">g = Plowback Ratio × ROE</div>
+    <div style="font-size:12px;color:var(--muted);">Plowback = retention ratio = 1 − payout ratio</div>
   </div>
 
-  <div class="cf-label">PVGO-Beispiel (Present Value of Growth Opportunities)</div>
-  <p style="font-size:14px;line-height:1.75;">Gegeben: EPS=€5, r=12%, Plowback=40%, ROE=25%. <br>g = 0,40 × 25% = 10%. DIV₁ = EPS × (1−0,40) = €3. Kurs mit Wachstum: P₀ = 3/(0,12−0,10) = <strong>€150</strong>. Kurs ohne Wachstum: EPS/r = 5/0,12 = <strong>€41,67</strong>. PVGO = 150 − 41,67 = <strong>€108,33</strong> → 72% des Wertes kommt aus Wachstumschancen!</p>
-  <div class="cf-box green"><strong>Lohnt sich Thesaurierung?</strong> Nur wenn ROE &gt; r (hier 25% &gt; 12%) → PVGO &gt; 0. Wenn ROE = r → Thesaurierung egal. Wenn ROE &lt; r → Dividende ist besser (Kapital effektiver beim Aktionär angelegt).</div>
+  <div class="cf-label">PVGO Example (Present Value of Growth Opportunities)</div>
+  <p style="font-size:14px;line-height:1.75;">Given: EPS=€5, r=12%, plowback=40%, ROE=25%. <br>g = 0.40 × 25% = 10%. DIV₁ = EPS × (1−0.40) = €3. Price with growth: P₀ = 3/(0.12−0.10) = <strong>€150</strong>. Price without growth: EPS/r = 5/0.12 = <strong>€41.67</strong>. PVGO = 150 − 41.67 = <strong>€108.33</strong> → 72% of the stock value comes from growth opportunities!</p>
+  <div class="cf-box green"><strong>When does retention pay off?</strong> Only when ROE &gt; r (here 25% &gt; 12%) → PVGO &gt; 0. When ROE = r → retention is indifferent. When ROE &lt; r → pay dividends (capital is more efficiently deployed by shareholders).</div>
 
-  <div class="section-title">❓ Prüfungsfragen Modul 3</div>
+  <div class="section-title">❓ Exam Questions – Module 3</div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Erklären Sie die inverse Beziehung zwischen Zinsen und Anleihekursen.</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Eine Anleihe zahlt feste Kupons (z.B. €60 p.a.). Steigt der Marktzins, wollen neue Investoren höhere Kupons. Die alte Anleihe mit €60 Kupon wird unattraktiver → ihr Preis fällt bis die Rendite (YTM) dem Marktzins entspricht. Mathematisch: P = Σ CF/(1+r)^t → steigendes r → kleinere Nenner → kleinerer Barwert. Je länger die Laufzeit, desto mehr Zahlungen sind betroffen → stärkere Kurssensitivität (höhere Duration).</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>Explain the inverse relationship between interest rates and bond prices.</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">A bond pays fixed coupons (e.g. €60 p.a.). When market rates rise, new investors demand higher coupons. The old bond with €60 coupon becomes less attractive → its price falls until YTM equals the market rate. Mathematically: P = Σ CF/(1+r)^t → higher r → smaller denominators → smaller present value. The longer the maturity, the more payments are affected → greater price sensitivity (higher duration).</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Wie berechnet man die Macaulay Duration und wozu dient sie?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">D = Σ[t × PV(CF_t)] / P. Sie ist das gewichtete Mittel der Zahlungszeitpunkte, wobei die Gewichte die PV-Anteile der Cash Flows am Gesamtkurs sind. Wirtschaftliche Bedeutung: Gibt die durchschnittliche Kapitalbindungsdauer an. Als Risikomaß: ΔP/P ≈ −ModD × ΔY. Bei Duration-Matching (Portfolio-Duration = Anlagehorizont) ist man gegen Zinsänderungsrisiko immunisiert – Kursverluste werden durch Wiederanlagegewinne kompensiert.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>How is Macaulay Duration calculated and what does it measure?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">D = Σ[t × PV(CF_t)] / P. It is the weighted average time to receive cash flows, where the weights are the PV-share of each cash flow in the total price. As a risk measure: ΔP/P ≈ −ModD × ΔY. Duration-matching (portfolio duration = investment horizon) immunises against interest rate risk – capital losses are offset by reinvestment gains.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Wann ist es sinnvoll, Gewinne einzubehalten statt Dividenden zu zahlen?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Thesaurierung lohnt sich genau dann, wenn das Unternehmen die einbehaltenen Mittel zu einer Rendite (ROE) anlegen kann, die über dem geforderten Return r der Aktionäre liegt. Dann gilt PVGO &gt; 0 → Kurs &gt; EPS/r. Beispiel: ROE=25%, r=12% → Reinvestition ist vorteilhaft. Wenn ROE = r → Thesaurierung egal, Wert identisch. Wenn ROE &lt; r (z.B. reifes Unternehmen ohne gute Projekte) → Dividende zahlen, Kapital beim Aktionär ist effizienter eingesetzt.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>When is it beneficial to retain earnings rather than pay dividends?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Retention pays off precisely when the firm can reinvest retained earnings at a return (ROE) above the required return r of shareholders. Then PVGO &gt; 0 → stock price &gt; EPS/r. Example: ROE=25%, r=12% → reinvestment is advantageous. When ROE = r → retention is indifferent. When ROE &lt; r (e.g. mature firm with no good projects) → pay dividends.</div>
   </div>
 
-  <button class="read-btn" id="readbtn-2" onclick="markRead(2)">✓ Modul als gelesen markieren</button>
+  <button class="read-btn" id="readbtn-2" onclick="markRead(2)">✓ Mark module as read</button>
 </div>
 
 <!-- ── MODULE 3 ── -->
 <div class="topic-panel" id="panel-3">
   <div class="module-header">
-    <div class="module-num-badge">Modul 4</div>
-    <h2>Investitionsentscheidungen: NPV, IRR, PI</h2>
-    <p>Die 4 Fallstricke des IRR · Die 4 NPV-Regeln · Kapitalrationierung · EAC</p>
+    <div class="module-num-badge">Module 4</div>
+    <h2>Investment Decisions: NPV, IRR, PI</h2>
+    <p>The 4 IRR pitfalls · The 4 NPV rules · Capital rationing · EAC</p>
   </div>
 
-  <div class="section-title">⚔️ NPV vs. IRR – Vergleich</div>
+  <div class="section-title">⚔️ NPV vs. IRR – Comparison</div>
   <div class="cf-two-col">
     <div class="cf-box green">
-      <strong>NPV – immer korrekt</strong><br>
-      Absoluter Wertbeitrag in €<br>
-      Additiv: NPV(A+B) = NPV(A)+NPV(B)<br>
-      Eindeutig, konsistent mit Marktwert<br>
-      Berücksichtigt Skala der Investition
+      <strong>NPV – always correct</strong><br>
+      Absolute value contribution in €<br>
+      Additive: NPV(A+B) = NPV(A)+NPV(B)<br>
+      Unique, consistent with market value<br>
+      Accounts for investment scale
     </div>
     <div class="cf-box yellow">
-      <strong>IRR – Vorsicht!</strong><br>
-      Rate, bei der NPV = 0<br>
-      Relative Kennzahl (%), nicht absolut<br>
-      Bei normalen CFs: IRR &gt; r → investieren<br>
-      Kann irreführen (4 Fallstricke!)
+      <strong>IRR – Caution!</strong><br>
+      Rate at which NPV = 0<br>
+      Relative measure (%), not absolute<br>
+      For normal CFs: IRR &gt; r → invest<br>
+      Can be misleading (4 pitfalls!)
     </div>
   </div>
   <div class="formula-box">
@@ -583,189 +584,189 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
     <div style="font-size:12px;color:var(--muted);margin-top:4px;">→ Iterativ lösen (kein analytischer Weg bei T &gt; 2)</div>
   </div>
 
-  <div class="section-title">🚨 Die 4 Fallstricke des IRR</div>
+  <div class="section-title">🚨 The 4 Pitfalls of IRR</div>
   <div class="cf-box red" style="margin-bottom:10px;">
-    <strong>Fallstrick 1 – Kredit vs. Anlage (unkonventionelle CFs):</strong><br>
-    Wenn CFs erst positiv, dann negativ (Kreditcharakter), steigt NPV bei höherem Zinssatz. IRR-Regel muss umgekehrt werden: IRR &lt; r → investieren. Erkennbar an: erster CF positiv, dann negativ.
+    <strong>Pitfall 1 – Lending vs. Borrowing (non-conventional CFs):</strong><br>
+    When CFs are first positive then negative (borrowing pattern), NPV rises with higher discount rates. The IRR rule must be reversed: IRR &lt; r → invest. Recognisable by: first CF positive, then negative.
   </div>
   <div class="cf-box red" style="margin-bottom:10px;">
-    <strong>Fallstrick 2 – Mehrere IRRs:</strong><br>
-    Bei mehr als einem Vorzeichenwechsel im CF-Strom kann die NPV-Funktion mehrere Nullstellen haben. Beispiel: −100, +300, −250 → zwei IRRs. NPV-Regel ist eindeutig, IRR nicht verwendbar.
+    <strong>Pitfall 2 – Multiple IRRs:</strong><br>
+    When there is more than one sign change in the CF stream, the NPV function can have multiple roots. Example: −100, +300, −250 → two IRRs. NPV rule is unique; IRR is not applicable.
   </div>
   <div class="cf-box red" style="margin-bottom:10px;">
-    <strong>Fallstrick 3 – Skalenproblem (wichtigster Fallstrick!):</strong>
+    <strong>Pitfall 3 – Scale Problem (most important pitfall!):</strong>
     <table class="cf-table" style="margin-top:8px;">
-      <tr><th>Projekt</th><th>Investment</th><th>CF in t=1</th><th>IRR</th><th>NPV (r=10%)</th></tr>
+      <tr><th>Project</th><th>Investment</th><th>CF at t=1</th><th>IRR</th><th>NPV (r=10%)</th></tr>
       <tr><td>A</td><td>−10.000</td><td>+20.000</td><td>100%</td><td>+8.182 €</td></tr>
       <tr><td>B</td><td>−20.000</td><td>+35.000</td><td>75%</td><td>+11.818 €</td></tr>
     </table>
-    IRR-Regel: A wählen (100% &gt; 75%). NPV-Regel: B wählen (+11.818 &gt; +8.182). <strong>B ist besser!</strong> IRR ignoriert die Skala – ein großes Projekt mit mittlerem IRR kann mehr Wert schaffen.
+    IRR rule: choose A (100% &gt; 75%). NPV rule: choose B (+11,818 &gt; +8,182). <strong>B is better!</strong> IRR ignores scale – a large project with a moderate IRR can create more value.
   </div>
   <div class="cf-box red" style="margin-bottom:10px;">
-    <strong>Fallstrick 4 – Zinsstruktur:</strong><br>
-    IRR vergleicht sich mit einem einzigen Kalkulationssatz. Bei einer Zinsstrukturkurve (unterschiedliche Zinsen für verschiedene Laufzeiten) gibt es keinen eindeutigen Vergleichszinssatz. NPV diskontiert jeden CF mit dem laufzeitgerechten Zinssatz.
+    <strong>Pitfall 4 – Term Structure:</strong><br>
+    IRR is compared against a single discount rate. With a term structure (different rates for different maturities) there is no unique benchmark rate. NPV discounts each CF at the maturity-matched rate.
   </div>
 
-  <div class="section-title">📜 Die 4 NPV-Regeln</div>
-  <div class="formula-box"><strong>Regel 1 – Nur Cashflows zählen (kein Buchgewinn):</strong>
-CF = Gewinn + Abschreibung − CAPEX − ΔNWC
-→ Sunk Costs ignorieren! | Opportunitätskosten einrechnen | Steuern &amp; Restwert berücksichtigen</div>
-  <div class="formula-box"><strong>Regel 2 – Inkrementelle Basis:</strong>
-Nur durch das Projekt verursachte Änderungen zählen.
-Allgemeinkosten (Overhead) ignorieren, wenn sie unabhängig vom Projekt entstehen.</div>
-  <div class="formula-box"><strong>Regel 3 – Inflation konsistent behandeln:</strong>
-Nominalzins für nominale CFs | Realzins für reale CFs
-Realzins = (1+r_nominal) / (1+π) − 1</div>
-  <div class="formula-box"><strong>Regel 4 – Investition von Finanzierung trennen:</strong>
-Keine Fremdkapitalerlöse im CF | Keine Zinszahlungen als Projekt-CF
-Finanzierungseffekte werden im Diskontierungssatz (WACC) erfasst.</div>
+  <div class="section-title">📜 The 4 NPV Rules</div>
+  <div class="formula-box"><strong>Rule 1 – Only cash flows count (not accounting profit):</strong>
+CF = Net income + Depreciation − CAPEX − ΔNWC
+→ Ignore sunk costs! | Include opportunity costs | Account for taxes &amp; salvage value</div>
+  <div class="formula-box"><strong>Rule 2 – Incremental basis:</strong>
+Only changes caused by the project count.
+Ignore overhead costs that arise independently of the project.</div>
+  <div class="formula-box"><strong>Rule 3 – Treat inflation consistently:</strong>
+Nominal rate for nominal CFs | Real rate for real CFs
+Real rate = (1+r_nominal) / (1+π) − 1</div>
+  <div class="formula-box"><strong>Rule 4 – Separate investment from financing:</strong>
+No debt proceeds in CF | No interest payments as project CF
+Financing effects are captured in the discount rate (WACC).</div>
 
-  <div class="section-title">📊 Kapitalrationierung & PI</div>
-  <div class="formula-box"><strong>Profitability Index (PI):</strong>  PI = NPV / Investitionsvolumen
-→ Bei begrenztem Budget: Rangfolge nach PI, bis Budget erschöpft
-→ Wähle Kombination mit höchstem Gesamt-NPV</div>
-  <div class="cf-box yellow"><strong>PI-Grenze:</strong> PI gilt nur bei echtem Kapitalbudget-Constraint. Bei unbegrenztem Kapital immer alle Projekte mit NPV &gt; 0 durchführen.</div>
+  <div class="section-title">📊 Capital Rationing & PI</div>
+  <div class="formula-box"><strong>Profitability Index (PI):</strong>  PI = NPV / Investment amount
+→ With a limited budget: rank by PI until budget is exhausted
+→ Choose the combination that maximises total NPV</div>
+  <div class="cf-box yellow"><strong>PI caveat:</strong> PI applies only under a binding capital budget constraint. With unlimited capital, always accept all projects with NPV &gt; 0.</div>
 
-  <div class="section-title">⚖️ EAC – Äquivalente Annuität</div>
+  <div class="section-title">⚖️ EAC – Equivalent Annual Cost</div>
   <div class="formula-box"><strong>Equivalent Annual Cost (EAC):</strong>
-EAC = NPV(Kosten) × r / [1 − 1/(1+r)^T]
-= NPV(Kosten) / Annuitätenfaktor
+EAC = NPV(costs) × r / [1 − 1/(1+r)^T]
+= NPV(costs) / Annuity factor
 
-Verwendung: Vergleich von Maschinen mit unterschiedlicher Nutzungsdauer (Maschine A: 3 Jahre vs. Maschine B: 5 Jahre). Wähle kleinere EAC.</div>
+Use: compare machines with different useful lives (Machine A: 3 years vs. Machine B: 5 years). Choose the lower EAC.</div>
 
-  <div class="section-title">❓ Prüfungsfragen Modul 4</div>
+  <div class="section-title">❓ Exam Questions – Module 4</div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Warum ist NPV dem IRR generell überlegen?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">NPV misst absoluten Wertbeitrag in €, ist additiv (Portfoliobetrachtung möglich), eindeutig (immer eine Lösung), und berücksichtigt die Skala der Investition. IRR: Relative Kennzahl (%) ignoriert Skala, kann mehrere Lösungen haben, setzt flache Zinskurve voraus, und impliziert Reinvestition zum IRR (unrealistisch bei hohem IRR). Die einzige Situation, in der IRR unproblematisch ist: normaler CF-Verlauf (− dann +), kein Größenvergleich, flache Zinskurve.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>Why is NPV generally superior to IRR?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">NPV measures the absolute value contribution in €, is additive (portfolio view possible), unique (always one solution), and accounts for investment scale. IRR: relative measure (%) ignores scale, can have multiple solutions, assumes a flat yield curve, and implies reinvestment at the IRR (unrealistic when IRR is high). The only situation where IRR is unproblematic: normal CF pattern (− then +), no scale comparison, flat yield curve.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Was ist ein Sunk Cost und warum wird er ignoriert?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Sunk Cost = bereits getätigte, nicht mehr rückgängig zu machende Ausgabe (z.B. Marktforschung €100.000 vor dem Projekt). Er ist irreversibel und entsteht unabhängig davon, ob das Projekt durchgeführt wird oder nicht. NPV-Entscheidungen basieren auf inkrementellen Cash Flows – was ändert sich durch das Projekt? Da Sunk Costs sich nicht ändern, gehören sie nicht in die NPV-Berechnung. Gegenteil: Opportunity Costs müssen eingerechnet werden, da sie das entgangene Beste der nächstbesten Alternative darstellen.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>What is a sunk cost and why is it ignored?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Sunk cost = an expenditure already made that cannot be recovered (e.g. market research €100,000 before the project). It is irreversible and occurs regardless of whether the project is undertaken. NPV decisions are based on incremental cash flows – what changes because of the project? Since sunk costs do not change, they do not belong in the NPV calculation. Opposite: opportunity costs must be included, as they represent the forgone benefit of the next best alternative.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Wann setzen Sie EAC ein statt direktem NPV-Vergleich?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">EAC bei unterschiedlichen Nutzungsdauern, wenn Projekte replizierbar sind (Maschine wird nach Ablauf durch gleiche ersetzt). Maschine A (3J, NPV-Kosten=€50.000) vs. B (5J, NPV-Kosten=€75.000). Direkter NPV-Vergleich ist unfair (A deckt 3, B 5 Jahre ab). EAC(A) = 50.000 × r/[1−1/(1+r)³]; EAC(B) = 75.000 × r/[1−1/(1+r)⁵] → kleinere EAC ist günstiger. Bei nicht-replizierbaren Projekten (z.B. einmalig): direkter NPV-Vergleich.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>When do you use EAC instead of a direct NPV comparison?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Use EAC when projects have different useful lives and are replicable (machine is replaced by an identical one at end of life). Machine A (3y, NPV costs=€50,000) vs. B (5y, NPV costs=€75,000). Direct NPV comparison is unfair (A covers 3, B covers 5 years). EAC(A) = 50,000 × r/[1−1/(1+r)³]; EAC(B) = 75,000 × r/[1−1/(1+r)⁵] → lower EAC is cheaper. For non-replicable projects (one-off): use direct NPV comparison.</div>
   </div>
 
-  <button class="read-btn" id="readbtn-3" onclick="markRead(3)">✓ Modul als gelesen markieren</button>
+  <button class="read-btn" id="readbtn-3" onclick="markRead(3)">✓ Mark module as read</button>
 </div>
 
 <!-- ── MODULE 4 ── -->
 <div class="topic-panel" id="panel-4">
   <div class="module-header">
-    <div class="module-num-badge">Modul 5</div>
-    <h2>Risiko & Rendite</h2>
-    <p>Erwartungswert · Varianz · Beta · Systematisches vs. Unsystematisches Risiko</p>
+    <div class="module-num-badge">Module 5</div>
+    <h2>Risk & Return</h2>
+    <p>Expected value · Variance · Beta · Systematic vs. Unsystematic Risk</p>
   </div>
 
-  <div class="section-title">📊 Rendite und Risiko messen</div>
-  <div class="formula-box"><strong>Erwartete Rendite (ex ante):</strong>
+  <div class="section-title">📊 Measuring Return and Risk</div>
+  <div class="formula-box"><strong>Expected Return (ex ante):</strong>
 E[r] = Σ p(s) · r(s)   (s = Szenario/Zustand)
 
-<strong>Varianz (ex ante):</strong>
+<strong>Variance (ex ante):</strong>
 σ² = Σ p(s) · (r(s) − E[r])²
 
-<strong>Varianz (ex post, historisch):</strong>
-σ² = Σ(r_t − r̄)² / (T−1)   (Bessel-Korrektur: T−1 statt T)
+<strong>Variance (ex post, historical):</strong>
+σ² = Σ(r_t − r̄)² / (T−1)   (Bessel correction: T−1 instead of T)
 
-<strong>Standardabweichung (Volatilität):</strong>  σ = √σ²</div>
+<strong>Standard Deviation (Volatility):</strong>  σ = √σ²</div>
 
-  <div class="cf-label">Rechenbeispiel</div>
+  <div class="cf-label">Worked Example</div>
   <table class="cf-table">
-    <tr><th>Szenario</th><th>p(s)</th><th>r(s)</th><th>p·r</th><th>r−E[r]</th><th>p·(r−E[r])²</th></tr>
-    <tr><td>Boom</td><td>0,30</td><td>+30%</td><td>+9%</td><td>+20%</td><td>0,30·0,04 = 0,0120</td></tr>
-    <tr><td>Normal</td><td>0,50</td><td>+10%</td><td>+5%</td><td>0%</td><td>0</td></tr>
-    <tr><td>Rezession</td><td>0,20</td><td>−10%</td><td>−2%</td><td>−20%</td><td>0,20·0,04 = 0,0080</td></tr>
-    <tr><td colspan="3"><strong>E[r] = 12%</strong></td><td></td><td></td><td><strong>σ² = 0,02 → σ = 14,14%</strong></td></tr>
+    <tr><th>Scenario</th><th>p(s)</th><th>r(s)</th><th>p·r</th><th>r−E[r]</th><th>p·(r−E[r])²</th></tr>
+    <tr><td>Boom</td><td>0.30</td><td>+30%</td><td>+9%</td><td>+20%</td><td>0.30·0.04 = 0.0120</td></tr>
+    <tr><td>Normal</td><td>0.50</td><td>+10%</td><td>+5%</td><td>0%</td><td>0</td></tr>
+    <tr><td>Recession</td><td>0.20</td><td>−10%</td><td>−2%</td><td>−20%</td><td>0.20·0.04 = 0.0080</td></tr>
+    <tr><td colspan="3"><strong>E[r] = 12%</strong></td><td></td><td></td><td><strong>σ² = 0.02 → σ = 14.14%</strong></td></tr>
   </table>
 
-  <div class="section-title">📐 Portfoliorendite und -varianz</div>
+  <div class="section-title">📐 Portfolio Return and Variance</div>
   <div class="formula-box">
-    <span class="f-label">Portfolio-Rendite (N Aktien)</span>
+    <span class="f-label">Portfolio Return (N assets)</span>
     <div class="f-row">r<sub>p</sub> = <span class="f-sum">Σ</span> x<sub>i</sub> · r<sub>i</sub> &nbsp;<span style="font-size:11px;color:var(--muted)">(x<sub>i</sub> = Gewicht, Σx<sub>i</sub> = 1)</span></div>
-    <span class="f-label" style="margin-top:10px;">Portfolio-Varianz (2 Aktien)</span>
+    <span class="f-label" style="margin-top:10px;">Portfolio Variance (2 assets)</span>
     <div class="f-row">σ<sup>2</sup><sub>p</sub> = x<sub>1</sub><sup>2</sup>σ<sub>1</sub><sup>2</sup> + x<sub>2</sub><sup>2</sup>σ<sub>2</sub><sup>2</sup> + 2·x<sub>1</sub>·x<sub>2</sub>·ρ<sub>12</sub>·σ<sub>1</sub>·σ<sub>2</sub></div>
     <span class="f-label" style="margin-top:10px;">Kovarianz & Korrelation</span>
     <div class="f-row">Cov(r<sub>1</sub>,r<sub>2</sub>) = ρ<sub>12</sub>·σ<sub>1</sub>·σ<sub>2</sub> &nbsp;|&nbsp; ρ ∈ [−1, +1]</div>
   </div>
-  <div class="cf-box"><strong>Diversifikationseffekt:</strong> σ_p &lt; Σ x_i·σ_i wenn ρ &lt; 1. Bei ρ = −1: vollständige Diversifikation möglich (σ_p = 0 bei richtigen Gewichten). Bei ρ = +1: keine Diversifikation. Je niedriger ρ, desto stärker der Diversifikationsvorteil.</div>
+  <div class="cf-box"><strong>Diversification effect:</strong> σ_p &lt; Σ x_i·σ_i when ρ &lt; 1. At ρ = −1: perfect diversification possible (σ_p = 0 with correct weights). At ρ = +1: no diversification. The lower ρ, the greater the diversification benefit.</div>
 
-  <div class="section-title">🎯 Systematisches vs. Unsystematisches Risiko</div>
+  <div class="section-title">🎯 Systematic vs. Unsystematic Risk</div>
   <table class="cf-table">
-    <tr><th>Merkmal</th><th>Systematisches Risiko</th><th>Unsystematisches Risiko</th></tr>
-    <tr><td>Bezeichnung</td><td>Marktrisiko, nicht-diversifizierbar</td><td>Idiosynkratisch, diversifizierbar</td></tr>
-    <tr><td>Quelle</td><td>BIP, Zinsen, Inflation, Ölpreis</td><td>Managementfehler, Produktrückruf, Patentstreit</td></tr>
-    <tr><td>Maß</td><td>Beta (β)</td><td>Residualvarianz</td></tr>
-    <tr><td>Entschädigt?</td><td>Ja (Risikoprämie)</td><td>Nein (kann wegdiversifiziert werden)</td></tr>
-    <tr><td>Elimination</td><td>Nicht eliminierbar</td><td>Bei N→∞ Aktien → verschwindet</td></tr>
+    <tr><th>Feature</th><th>Systematic Risk</th><th>Unsystematic Risk</th></tr>
+    <tr><td>Also called</td><td>Market risk, non-diversifiable</td><td>Idiosyncratic, diversifiable</td></tr>
+    <tr><td>Source</td><td>GDP, interest rates, inflation, oil price</td><td>Management errors, product recall, patent dispute</td></tr>
+    <tr><td>Measure</td><td>Beta (β)</td><td>Residual variance</td></tr>
+    <tr><td>Compensated?</td><td>Yes (risk premium)</td><td>No (can be diversified away)</td></tr>
+    <tr><td>Elimination</td><td>Cannot be eliminated</td><td>With N→∞ stocks → disappears</td></tr>
   </table>
 
-  <div class="section-title">📏 Beta (β) – Maß für systematisches Risiko</div>
+  <div class="section-title">📏 Beta (β) – Measure of Systematic Risk</div>
   <div class="formula-box">
-    <span class="f-label">Beta (β) – Maß für systematisches Risiko</span>
+    <span class="f-label">Beta (β) – measure of systematic risk</span>
     <div class="f-row">β<sub>i</sub> = <span class="f-frac"><span class="f-num">Cov(r<sub>i</sub>, r<sub>m</sub>)</span><span class="f-den">σ<sup>2</sup><sub>m</sub></span></span></div>
     <div style="margin-top:8px;font-size:12.5px;line-height:2;">
-      β &gt; 1 &nbsp;→ volatiler als Markt (z.B. Technologie)<br>
-      β = 1 &nbsp;→ bewegt sich wie Markt<br>
-      β &lt; 1 &nbsp;→ defensiver als Markt (z.B. Versorger)<br>
-      β &lt; 0 &nbsp;→ gegenläufig zum Markt (z.B. Gold)
+      β &gt; 1 &nbsp;→ more volatile than market (e.g. tech)<br>
+      β = 1 &nbsp;→ moves with the market<br>
+      β &lt; 1 &nbsp;→ more defensive than market (e.g. utilities)<br>
+      β &lt; 0 &nbsp;→ moves opposite to market (e.g. gold)
     </div>
   </div>
-  <div class="cf-box"><strong>Portfolio-Beta:</strong> β_p = Σ x_i · β_i (gewichtetes Mittel der Einzel-Betas). Im Gegensatz zur Varianz: Beta ist additiv!</div>
+  <div class="cf-box"><strong>Portfolio Beta:</strong> β_p = Σ x_i · β_i (weighted average of individual betas). Unlike variance, beta is additive!</div>
 
-  <div class="section-title">📚 Historische Evidenz: Risikoprämien</div>
-  <p style="font-size:14.5px;line-height:1.8;">Über lange Zeiträume (US-Daten 1926–heute): Aktien ≈ 10–12% p.a., Staatsanleihen ≈ 5–6%, Geldmarkt ≈ 3–4%. <strong>Equity Risk Premium (ERP)</strong> = Aktienrendite − risikofreier Zins ≈ 6–8% historisch. Aktien werden für höheres Risiko entschädigt. Kurzfristig dominiert unsystematisches Risiko – erst langfristig dominiert der Markttrend.</p>
+  <div class="section-title">📚 Historical Evidence: Risk Premia</div>
+  <p style="font-size:14.5px;line-height:1.8;">Over long horizons (US data 1926–present): stocks ≈ 10–12% p.a., government bonds ≈ 5–6%, money market ≈ 3–4%. <strong>Equity Risk Premium (ERP)</strong> = stock return − risk-free rate ≈ 6–8% historically. Stocks are compensated for bearing higher risk. In the short run unsystematic risk dominates – only in the long run does the market trend dominate.</p>
 
-  <div class="section-title">❓ Prüfungsfragen Modul 5</div>
+  <div class="section-title">❓ Exam Questions – Module 5</div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Warum wird unsystematisches Risiko nicht durch eine Risikoprämie entschädigt?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Unsystematisches Risiko kann durch Diversifikation eliminiert werden – einfach viele verschiedene Aktien halten. Da rational handelnde Investoren dies tun (kostenlos!), wollen sie keine Prämie für ein Risiko zahlen, das sie selbst beseitigen können. Der Marktpreis reflektiert nur das nicht-diversifizierbare systematische Risiko. Ein schlecht diversifizierter Investor trägt mehr Risiko, erhält aber keine höhere Rendite – er macht nur einen Fehler. Fazit: Halte immer ein gut diversifiziertes Portfolio.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>Why is unsystematic risk not compensated with a risk premium?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Unsystematic risk can be eliminated through diversification – simply hold many different stocks. Since rational investors do this (for free!), they will not pay a premium for risk they can eliminate themselves. Market prices only reflect non-diversifiable systematic risk. A poorly diversified investor bears more risk but receives no higher return – they are simply making a mistake. Conclusion: always hold a well-diversified portfolio.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Aktie A: E[r]=15%, σ=25%. Aktie B: E[r]=12%, σ=18%. Welche wählen Sie?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Kein eindeutiges Urteil ohne Sharpe Ratio! A bietet mehr Rendite (+3%), B weniger Risiko (−7%). Sharpe(A) = (15−rf)/25, Sharpe(B) = (12−rf)/18. Bei rf=4%: Sharpe(A)=(15−4)/25=0,44, Sharpe(B)=(12−4)/18=0,44 → identisch! Risikoaverser Investor bevorzugt B (gleiche Rendite/Risiko-Rate). In einem Portfolio-Kontext kommt es auf Korrelation mit dem restlichen Portfolio an – nicht auf σ allein.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>Stock A: E[r]=15%, σ=25%. Stock B: E[r]=12%, σ=18%. Which do you choose?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">No clear answer without the Sharpe Ratio! A offers more return (+3%), B less risk (−7%). Sharpe(A) = (15−rf)/25, Sharpe(B) = (12−rf)/18. At rf=4%: Sharpe(A)=(15−4)/25=0.44, Sharpe(B)=(12−4)/18=0.44 → identical! A risk-averse investor prefers B (same return-per-risk ratio). In a portfolio context what matters is the correlation with the rest of the portfolio – not σ alone.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Was passiert mit der Portfolio-Varianz, wenn N → ∞?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Bei gleichgewichtiger Anlage in N Aktien: σ²_p = (1/N)·σ̄²_i + (1−1/N)·Cov̄. Wenn N→∞: (1/N)→0, Varianzen verschwinden, σ²_p → Cov̄ (durchschnittliche Kovarianz). Das unsystematische Risiko wird vollständig wegdiversifiziert. Es bleibt nur das systematische Marktrisiko übrig = Kovarianz aller Aktien mit dem Markt. Praktisch: Mit ~20–30 gut gewählten Aktien ist bereits ~90% der Diversifikation erreicht.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>What happens to portfolio variance as N → ∞?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">With equal weights in N stocks: σ²_p = (1/N)·σ̄²_i + (1−1/N)·Cov̄. As N→∞: (1/N)→0, variances disappear, σ²_p → Cov̄ (average covariance). Unsystematic risk is fully diversified away. Only systematic market risk remains = covariance of all stocks with the market. In practice: with ~20–30 well-chosen stocks, ~90% of diversification is already achieved.</div>
   </div>
 
-  <button class="read-btn" id="readbtn-4" onclick="markRead(4)">✓ Modul als gelesen markieren</button>
+  <button class="read-btn" id="readbtn-4" onclick="markRead(4)">✓ Mark module as read</button>
 </div>
 
 <!-- ── MODULE 5 ── -->
 <div class="topic-panel" id="panel-5">
   <div class="module-header">
-    <div class="module-num-badge">Modul 6</div>
-    <h2>Portfoliotheorie & Effizienzlinie</h2>
+    <div class="module-num-badge">Module 6</div>
+    <h2>Portfolio Theory & Efficient Frontier</h2>
     <p>Efficient Frontier · GMVP · CAL · Tangency Portfolio · Sharpe Ratio</p>
   </div>
 
-  <div class="section-title">🎯 Mean-Variance-Optimierung</div>
-  <p style="font-size:14.5px;line-height:1.8;margin-bottom:10px;">Ziel: Finde das Portfolio mit höchster erwarteter Rendite bei gegebenem Risiko (oder kleinstem Risiko bei gegebener Rendite). <strong>Annahmen:</strong> Reibungslose Märkte, keine Steuern/Transaktionskosten, beliebig teilbare Wertpapiere, keine Leerverkaufsbeschränkungen, Investoren sind mean-variance-optimal und risikoavers.</p>
+  <div class="section-title">🎯 Mean-Variance Optimisation</div>
+  <p style="font-size:14.5px;line-height:1.8;margin-bottom:10px;">Goal: find the portfolio with the highest expected return at a given level of risk (or the lowest risk at a given return). <strong>Assumptions:</strong> Frictionless markets, no taxes/transaction costs, perfectly divisible securities, no short-selling restrictions, investors are mean-variance optimal and risk-averse.</p>
   <div class="formula-box">
-    <span class="f-label">Korrelation</span>
+    <span class="f-label">Correlation</span>
     <div class="f-row">ρ<sub>XY</sub> = <span class="f-frac"><span class="f-num">Cov(X,Y)</span><span class="f-den">σ<sub>X</sub>·σ<sub>Y</sub></span></span> &nbsp;|&nbsp; ρ ∈ [−1, +1]</div>
-    <span class="f-label" style="margin-top:10px;">Varianz einer Linearkombination</span>
+    <span class="f-label" style="margin-top:10px;">Variance of a linear combination</span>
     <div class="f-row">Var(aX+bY) = a<sup>2</sup>σ<sup>2</sup><sub>X</sub> + b<sup>2</sup>σ<sup>2</sup><sub>Y</sub> + 2ab·Cov(X,Y)</div>
     <span class="f-label" style="margin-top:10px;">Sharpe Ratio</span>
-    <div class="f-row">SR = <span class="f-frac"><span class="f-num">E[r<sub>p</sub>] − r<sub>f</sub></span><span class="f-den">σ<sub>p</sub></span></span> &nbsp;<span style="font-size:11px;color:var(--muted);">→ Rendite pro Risikoeinheit</span></div>
+    <div class="f-row">SR = <span class="f-frac"><span class="f-num">E[r<sub>p</sub>] − r<sub>f</sub></span><span class="f-den">σ<sub>p</sub></span></span> &nbsp;<span style="font-size:11px;color:var(--muted);">→ return per unit of risk</span></div>
   </div>
 
-  <div class="section-title">📈 Die Effizienzlinie (Efficient Frontier)</div>
-  <p style="font-size:14.5px;line-height:1.8;">Die Menge aller mean-varianz-effizienten Portfolios (σ,E[r])-Raum. Kein anderes Portfolio bietet höhere Rendite bei gleichem Risiko, oder gleiches Risiko bei höherer Rendite.</p>
+  <div class="section-title">📈 The Efficient Frontier</div>
+  <p style="font-size:14.5px;line-height:1.8;">The set of all mean-variance efficient portfolios in (σ,E[r])-space. No other portfolio offers higher return at the same risk, or the same risk at higher return.</p>
   <div class="cf-two-col">
     <div class="cf-box">
       <strong>GMVP</strong> (Global Minimum Variance Portfolio)<br>
-      • Kleinstes σ auf der ganzen Frontier<br>
-      • Unterhalb des GMVP: ineffizient (gleiche σ, weniger μ)<br>
-      • Effizienter Teil: Kurve ab GMVP aufwärts
+      • Lowest σ on the entire frontier<br>
+      • Below GMVP: inefficient (same σ, less μ)<br>
+      • Efficient portion: curve from GMVP upward
     </div>
     <div class="cf-box green">
       <strong>Tangency Portfolio T</strong><br>
-      • Höchste Sharpe Ratio aller Portfolios<br>
-      • Punkt, wo CAL die Frontier berührt<br>
-      • Unter CAPM: T = Marktportfolio
+      • Highest Sharpe Ratio of all portfolios<br>
+      • Point where the CAL is tangent to the frontier<br>
+      • Under CAPM assumptions: T = market portfolio
     </div>
   </div>
 
@@ -773,49 +774,49 @@ E[r] = Σ p(s) · r(s)   (s = Szenario/Zustand)
   <div class="formula-box">
     <span class="f-label">Capital Allocation Line (CAL)</span>
     <div class="f-row">E[r<sub>p</sub>] = r<sub>f</sub> + <span class="f-frac"><span class="f-num">E[r<sub>T</sub>] − r<sub>f</sub></span><span class="f-den">σ<sub>T</sub></span></span> · σ<sub>p</sub></div>
-    <div style="font-size:12px;color:var(--muted);margin-top:4px;">Steigung = Sharpe Ratio des Tangency Portfolios</div>
-    <span class="f-label" style="margin-top:10px;">Investorenwahl: Anteil a in T, (1−a) risikolos</span>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px;">Slope = Sharpe Ratio of the Tangency Portfolio</div>
+    <span class="f-label" style="margin-top:10px;">Investor choice: fraction a in T, (1−a) in risk-free</span>
     <div class="f-row">E[r<sub>p</sub>] = (1−a)·r<sub>f</sub> + a·E[r<sub>T</sub>] &nbsp;|&nbsp; σ<sub>p</sub> = a·σ<sub>T</sub></div>
   </div>
-  <div class="cf-box green"><strong>Two-Fund Separation Theorem:</strong> Jeder optimale Investor (unabhängig von Risikoaversion) hält eine Kombination aus risikofreiem Asset und dem Tangency Portfolio. Unterschied ist nur der Anteil a: risikoscheuer → kleines a, risikofreudig → großes a (evtl. a&gt;1 = Hebel).</div>
+  <div class="cf-box green"><strong>Two-Fund Separation Theorem:</strong> Every optimal investor (regardless of risk aversion) holds a combination of the risk-free asset and the Tangency Portfolio. The only difference is the fraction a: more risk-averse → small a, more risk-tolerant → large a (possibly a&gt;1 = leverage).</div>
 
-  <div class="section-title">🔧 Lagrange-Optimierung (Prüfungsrelevant)</div>
-  <div class="formula-box">Minimierungsproblem:
+  <div class="section-title">🔧 Lagrange Optimisation (Exam-relevant)</div>
+  <div class="formula-box">Minimisation problem:
 min σ²_p = x'Σx
-s.t.  x'μ = μ̄  (Zielrendite)
-      x'1 = 1   (Budgetbeschränkung)
+s.t.  x'μ = μ̄  (target return)
+      x'1 = 1   (budget constraint)
 
-Lagrange-Funktion:
+Lagrangian:
 L = x'Σx − λ₁(x'μ − μ̄) − λ₂(x'1 − 1)
 
-Lösung über ∂L/∂x = 0 → effizienzliniendefinierendes Gleichungssystem</div>
-  <div class="cf-box yellow"><strong>⚠️ PRÜFUNGSHINWEIS:</strong> Aus den Folien: „MAXIMUM OF POINTS → INTERPRET RESULTS!!!" Immer nach der Berechnung erklären: Was bedeutet das Portfolio? Warum ist Sharpe Ratio hoch/niedrig? Welche Aktie dominiert und warum?</div>
+Solution via ∂L/∂x = 0 → system of equations defining the efficient frontier</div>
+  <div class="cf-box yellow"><strong>⚠️ EXAM TIP:</strong> From the lecture slides: "MAXIMUM OF POINTS → INTERPRET RESULTS!!!" Always explain after the calculation: What does this portfolio mean? Why is the Sharpe Ratio high/low? Which stock dominates and why?</div>
 
-  <div class="section-title">📊 Konstruktion der Effizienzlinie – Schritt für Schritt</div>
-  <p style="font-size:14px;line-height:1.8;">1. Berechne E[r] und σ für alle Einzelwertpapiere. 2. Berechne Kovarianzmatrix Σ (oder paarweise Cov für 2 Aktien). 3. Variiere Gewichte x₁ und x₂=(1−x₁) und berechne σ²_p für jede Kombination. 4. Zeichne die σ-E[r]-Kurve → Parabolform. 5. GMVP: minimaler σ-Punkt. 6. Effizienter Teil: ab GMVP aufwärts. 7. Tangency: maximale Sharpe Ratio (= Steigung CAL durch r_f).</p>
+  <div class="section-title">📊 Building the Efficient Frontier – Step by Step</div>
+  <p style="font-size:14px;line-height:1.8;">1. Compute E[r] and σ for all individual securities. 2. Compute covariance matrix Σ (or pairwise Cov for 2 stocks). 3. Vary weights x₁ and x₂=(1−x₁) and compute σ²_p for each combination. 4. Plot the σ-E[r] curve → parabola shape. 5. GMVP: point of minimum σ. 6. Efficient portion: from GMVP upward. 7. Tangency: maximum Sharpe Ratio (= slope of CAL through r_f).</p>
 
-  <div class="section-title">❓ Prüfungsfragen Modul 6</div>
+  <div class="section-title">❓ Exam Questions – Module 6</div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Was ist das Two-Fund Separation Theorem und was impliziert es?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">In einer Welt mit risikofreiem Asset kombinieren alle optimalen Investoren nur zwei „Fonds": das risikofreie Asset und das Tangency Portfolio. Unabhängig von der individuellen Risikoaversion ist die optimale Aktienallokation die gleiche (= Tangency Portfolio) – nur der Anteil variiert. Implikation: Es gibt keine Notwendigkeit maßgeschneiderter Aktienportfolios. Ein Indexfonds (≈ Marktportfolio) + risikofreies Asset ist für jeden Investor optimal. Grundlage für passive Investmentstrategien.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>What is the Two-Fund Separation Theorem and what does it imply?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">In a world with a risk-free asset, all optimal investors combine only two "funds": the risk-free asset and the Tangency Portfolio. Regardless of individual risk aversion, the optimal equity allocation is the same (= Tangency Portfolio) – only the fraction varies. Implication: there is no need for customised stock portfolios. An index fund (≈ market portfolio) + risk-free asset is optimal for every investor. Foundation of passive investment strategies.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Erklären Sie den Unterschied zwischen CAL und der Efficient Frontier.</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Efficient Frontier: Menge aller effizienten Portfolios aus riskanten Assets (ohne risikofreies Asset). Kurvenform (Parabel) im σ-E[r]-Raum. CAL (Capital Allocation Line): Gerade durch r_f und ein riskantes Portfolio. Steigung = Sharpe Ratio. Die optimale CAL ist die, die die Frontier tangiert (höchste Sharpe Ratio) – ihr Tangentialpunkt ist das Tangency Portfolio T. Mit risikofreiem Asset sind Portfolios auf der CAL erreichbar und immer besser (gleiche oder höhere Rendite) als Portfolios auf der Frontier (außer bei T).</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>Explain the difference between the CAL and the Efficient Frontier.</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Efficient Frontier: the set of all efficient portfolios from risky assets (without risk-free asset). Parabolic curve in σ-E[r]-space. CAL (Capital Allocation Line): straight line through r_f and a risky portfolio. Slope = Sharpe Ratio. The optimal CAL is the one tangent to the frontier (highest Sharpe Ratio) – its tangent point is the Tangency Portfolio T. With a risk-free asset, portfolios on the CAL are achievable and always better (same or higher return) than portfolios on the frontier (except at T).</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Gegeben: r_f=4%, E[r_T]=14%, σ_T=20%. Investor will σ=12%. Was ist E[r]?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Auf der CAL: a = σ_p/σ_T = 12/20 = 0,60. E[r_p] = r_f + a·(E[r_T]−r_f) = 4% + 0,60·(14%−4%) = 4% + 6% = 10%. Interpretation: 60% in Tangency Portfolio, 40% in risikofreies Asset. Sharpe Ratio = (14%−4%)/20% = 0,50. Überprüfung: SR = (10%−4%)/12% = 0,50 ✓.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>Given: r_f=4%, E[r_T]=14%, σ_T=20%. Investor targets σ=12%. What is E[r]?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">On the CAL: a = σ_p/σ_T = 12/20 = 0.60. E[r_p] = r_f + a·(E[r_T]−r_f) = 4% + 0.60·(14%−4%) = 4% + 6% = 10%. Interpretation: 60% in Tangency Portfolio, 40% in risk-free asset. Sharpe Ratio = (14%−4%)/20% = 0.50. Check: SR = (10%−4%)/12% = 0.50 ✓.</div>
   </div>
 
-  <button class="read-btn" id="readbtn-5" onclick="markRead(5)">✓ Modul als gelesen markieren</button>
+  <button class="read-btn" id="readbtn-5" onclick="markRead(5)">✓ Mark module as read</button>
 </div>
 
 <!-- ── MODULE 6 ── -->
 <div class="topic-panel" id="panel-6">
   <div class="module-header">
-    <div class="module-num-badge">Modul 7</div>
-    <h2>CAPM, WACC & Kapitalkosten</h2>
+    <div class="module-num-badge">Module 7</div>
+    <h2>CAPM, WACC & Cost of Capital</h2>
     <p>Security Market Line · COC · WACC · APT · Fama-French</p>
   </div>
 
@@ -824,24 +825,24 @@ Lösung über ∂L/∂x = 0 → effizienzliniendefinierendes Gleichungssystem</d
     <span class="f-label">CAPM – Capital Asset Pricing Model</span>
     <div class="f-row f-big">r<sub>i</sub> = r<sub>f</sub> + β<sub>i</sub> · (r<sub>m</sub> − r<sub>f</sub>)</div>
     <div style="margin-top:8px;font-size:12.5px;line-height:2;color:var(--muted);">
-      r<sub>f</sub> = risikofreier Zinssatz (Staatsanleihe) &nbsp;|&nbsp;
-      β<sub>i</sub> = systemat. Risiko &nbsp;|&nbsp;
-      (r<sub>m</sub>−r<sub>f</sub>) = Marktrisikoprimie ≈ 6–8% historisch
+      r<sub>f</sub> = risk-free rate (government bond) &nbsp;|&nbsp;
+      β<sub>i</sub> = systematic risk &nbsp;|&nbsp;
+      (r<sub>m</sub>−r<sub>f</sub>) = market risk premium ≈ 6–8% historically
     </div>
   </div>
   <div class="cf-two-col">
-    <div class="cf-box green"><strong>SML (Security Market Line):</strong><br>Gerade im (β, E[r])-Raum<br>• Über SML: unterbewertet → α &gt; 0 (kaufen!)<br>• Unter SML: überbewertet → α &lt; 0 (meiden!)<br>• Gilt für alle Assets (diversifizierbar)</div>
-    <div class="cf-box"><strong>CAL vs. SML – Unterschied:</strong><br>CAL: x-Achse = σ (Gesamtrisiko)<br>SML: x-Achse = β (systemat. Risiko)<br>CAL: für optimale Portfolios<br>SML: für fair bewertete Einzel-Assets</div>
+    <div class="cf-box green"><strong>SML (Security Market Line):</strong><br>Straight line in (β, E[r])-space<br>• Above SML: undervalued → α &gt; 0 (buy!)<br>• Below SML: overvalued → α &lt; 0 (avoid!)<br>• Applies to all assets</div>
+    <div class="cf-box"><strong>CAL vs. SML – Difference:</strong><br>CAL: x-axis = σ (total risk)<br>SML: x-axis = β (systematic risk)<br>CAL: for optimal portfolios<br>SML: for fair pricing of individual assets</div>
   </div>
 
-  <div class="cf-label">CAPM-Beispiel</div>
-  <p style="font-size:14px;line-height:1.75;">r_f=3%, ERP=7%, β=1,4 → r_CAPM = 3% + 1,4 × 7% = 3% + 9,8% = <strong>12,8%</strong>. Eine Aktie mit dieser Beta sollte 12,8% rentieren. Aktuelle Rendite aus Marktdaten 15% → Aktie über SML → <strong>unterbewertet</strong> (Alpha = +2,2%).</p>
+  <div class="cf-label">CAPM Example</div>
+  <p style="font-size:14px;line-height:1.75;">r_f=3%, ERP=7%, β=1.4 → r_CAPM = 3% + 1.4 × 7% = 3% + 9.8% = <strong>12.8%</strong>. A stock with this beta should return 12.8%. Current market return = 15% → stock above SML → <strong>undervalued</strong> (Alpha = +2.2%).</p>
 
-  <div class="section-title">💼 Unternehmenskapitalkosten (COC)</div>
+  <div class="section-title">💼 Cost of Capital (COC – unlevered)</div>
   <div class="formula-box">
-    <span class="f-label">COC – Cost of Capital (unlevered)</span>
+    <span class="f-label">COC – unlevered cost of capital</span>
     <div class="f-row">r<sub>assets</sub> = <span class="f-frac"><span class="f-num">D</span><span class="f-den">V</span></span>·r<sub>debt</sub> + <span class="f-frac"><span class="f-num">E</span><span class="f-den">V</span></span>·r<sub>equity</sub></div>
-    <div style="font-size:12px;color:var(--muted);margin-top:4px;">V = D + E (Marktwerte) &nbsp;|&nbsp; ohne Steuereffekt</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px;">V = D + E (market values) &nbsp;|&nbsp; without tax effect</div>
   </div>
 
   <div class="section-title">🏗️ WACC – Weighted Average Cost of Capital</div>
@@ -849,70 +850,70 @@ Lösung über ∂L/∂x = 0 → effizienzliniendefinierendes Gleichungssystem</d
     <span class="f-label">WACC – Weighted Average Cost of Capital</span>
     <div class="f-row f-big">WACC = <span class="f-frac"><span class="f-num">D</span><span class="f-den">V</span></span>·r<sub>d</sub>·(1−t<sub>c</sub>) + <span class="f-frac"><span class="f-num">E</span><span class="f-den">V</span></span>·r<sub>e</sub></div>
     <div style="margin-top:8px;font-size:12.5px;line-height:2;color:var(--muted);">
-      D/V = FK-Anteil (Marktwerte!) &nbsp;|&nbsp; E/V = EK-Anteil<br>
-      r<sub>d</sub> = FK-Kosten (vor Steuer) &nbsp;|&nbsp; t<sub>c</sub> = Steuersatz &nbsp;|&nbsp; r<sub>e</sub> = EK-Kosten (via CAPM)
+      D/V = debt weight (market values!) &nbsp;|&nbsp; E/V = equity weight<br>
+      r<sub>d</sub> = cost of debt (pre-tax) &nbsp;|&nbsp; t<sub>c</sub> = tax rate &nbsp;|&nbsp; r<sub>e</sub> = cost of equity (via CAPM)
     </div>
-    <div style="font-size:12px;color:#059669;margin-top:6px;font-weight:600;">WACC &lt; COC → Tax Shield senkt effektive FK-Kosten</div>
+    <div style="font-size:12px;color:#059669;margin-top:6px;font-weight:600;">WACC &lt; COC → Tax Shield reduces the effective cost of debt</div>
   </div>
-  <div class="cf-box yellow"><strong>Wichtig:</strong> WACC mit Marktwerten (nicht Buchwerten) berechnen! D/V und E/V sind Marktgewichte. WACC ändert sich bei Änderung der Kapitalstruktur.</div>
+  <div class="cf-box yellow"><strong>Important:</strong> Calculate WACC using market values (not book values)! D/V and E/V are market-value weights. WACC changes when the capital structure changes.</div>
 
-  <div class="cf-label">WACC-Beispiel</div>
-  <p style="font-size:14px;line-height:1.75;">Marktkapitalisierung: €600Mio. Schulden: €400Mio. r_d=5%, r_e=12%, t_c=30%. V=1.000Mio. D/V=0,4, E/V=0,6. WACC = 0,4 × 5% × 0,70 + 0,6 × 12% = 1,40% + 7,20% = <strong>8,60%</strong>.</p>
+  <div class="cf-label">WACC Example</div>
+  <p style="font-size:14px;line-height:1.75;">Market cap: €600m. Debt: €400m. r_d=5%, r_e=12%, t_c=30%. V=€1,000m. D/V=0.4, E/V=0.6. WACC = 0.4 × 5% × 0.70 + 0.6 × 12% = 1.40% + 7.20% = <strong>8.60%</strong>.</p>
 
-  <div class="section-title">📊 r_E schätzen – Beta-Methode</div>
-  <div class="formula-box"><strong>Schritte zur CAPM-basierten r_E Schätzung:</strong>
-1. Historische Aktienrenditen und Marktrenditen sammeln
-2. OLS-Regression: r_i = α + β·r_m + ε → schätzt β
-3. r_f bestimmen (aktuelle Staatsanleihe)
-4. ERP schätzen (historisch oder implizit)
+  <div class="section-title">📊 Estimating r_E – Beta Method</div>
+  <div class="formula-box"><strong>Steps for CAPM-based r_E estimation:</strong>
+1. Collect historical stock returns and market returns
+2. OLS regression: r_i = α + β·r_m + ε → estimates β
+3. Determine r_f (current government bond yield)
+4. Estimate ERP (historically or implied)
 5. r_e = r_f + β̂ · ERP</div>
 
   <div class="section-title">🔬 APT & Fama-French Faktormodelle</div>
   <div class="formula-box"><strong>APT (Arbitrage Pricing Theory):</strong>
 E[r_i] = r_f + Σ_k β_{i,k} · λ_k
-λ_k = Risikoprämie für Faktor k
-→ Ermöglicht mehrere Risikofaktoren (nicht nur Markt)</div>
-  <div class="formula-box"><strong>Fama-French 3-Faktor-Modell:</strong>
+λ_k = risk premium for factor k
+→ Allows multiple risk factors (not just the market)</div>
+  <div class="formula-box"><strong>Fama-French 3-Factor Model:</strong>
 E[r_i] = r_f + β_i · MKT + s_i · SMB + h_i · HML
 
-MKT = Marktüberschussrendite (r_m − r_f)
-SMB = Small minus Big (Größenprämie: kleine Firmen &gt; große)
-HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
+MKT = Market excess return (r_m − r_f)
+SMB = Small minus Big (size premium: small firms &gt; large)
+HML = High minus Low (value premium: high B/P &gt; low B/P)</div>
   <table class="cf-table">
-    <tr><th>Modell</th><th>Faktoren</th><th>Stärken</th><th>Schwächen</th></tr>
-    <tr><td>CAPM</td><td>1 (Markt β)</td><td>Einfach, weit verbreitet</td><td>Empirisch schwach, erklärt wenig</td></tr>
-    <tr><td>APT</td><td>Flexibel (k)</td><td>Allgemein, kein Marktportfolio nötig</td><td>Faktoren nicht spezifiziert</td></tr>
-    <tr><td>Fama-French</td><td>3 (Markt+Size+Value)</td><td>Hohe empirische Erklärungskraft</td><td>Keine Risikobegründung für Faktoren</td></tr>
+    <tr><th>Model</th><th>Factors</th><th>Strengths</th><th>Weaknesses</th></tr>
+    <tr><td>CAPM</td><td>1 (Market β)</td><td>Simple, widely used</td><td>Empirically weak, low explanatory power</td></tr>
+    <tr><td>APT</td><td>Flexible (k)</td><td>General, no market portfolio needed</td><td>Factors not specified</td></tr>
+    <tr><td>Fama-French</td><td>3 (Market+Size+Value)</td><td>High empirical explanatory power</td><td>No risk-based justification for factors</td></tr>
   </table>
 
-  <div class="section-title">❓ Prüfungsfragen Modul 7</div>
+  <div class="section-title">❓ Exam Questions – Module 7</div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Was ist der Unterschied zwischen COC und WACC?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">COC (unlevered) = r_assets = gewichtete Kosten aus EK und FK ohne Steuereffekt. WACC = gewichtete Kosten mit Steuereffekt auf FK (Zinsen steuerlich absetzbar → Tax Shield). WACC &lt; COC. COC verwendest du, wenn du das Projekt so bewertest als wäre es rein eigenkapitalfinanziert. WACC verwendest du wenn du den Wert inklusive Finanzierungseffekt (Steuervorteil von Schulden) in den Diskontierungssatz einbauest. WACC-Methode: NPV = FCF diskontiert mit WACC (enthält Tax Shield implizit).</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>What is the difference between COC and WACC?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">COC (unlevered) = r_assets = weighted cost of equity and debt without the tax effect. WACC = weighted cost with the tax benefit on debt (interest is tax-deductible → Tax Shield). WACC &lt; COC. Use COC when you value a project as if it were all-equity financed. Use WACC when you want to incorporate the financing effect (debt tax shield) into the discount rate. WACC method: NPV = FCF discounted at WACC (implicitly includes the tax shield).</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Aktie über der SML vs. unter der SML – was bedeutet das?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">SML zeigt die faire erwartete Rendite für ein gegebenes Beta. Aktie über SML: aktuelle erwartete Rendite &gt; CAPM-Rendite → Alpha positiv → Aktie ist unterbewertet (bietet zu viel für ihr Risiko) → kaufen bis Preis steigt und Rendite auf SML fällt. Aktie unter SML: aktuelle erwartete Rendite &lt; CAPM-Rendite → Alpha negativ → überbewertet → verkaufen/meiden. In effizienten Märkten gibt es keine persistenten Abweichungen von der SML (Arbitrage treibt Preise auf SML zurück).</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>Stock above the SML vs. below the SML – what does it mean?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">The SML shows the fair expected return for a given beta. Stock above SML: current expected return &gt; CAPM return → positive alpha → stock is undervalued (offers too much for its risk) → buy until price rises and return falls back to SML. Stock below SML: current expected return &lt; CAPM return → negative alpha → overvalued → sell/avoid. In efficient markets there are no persistent deviations from the SML (arbitrage drives prices back to SML).</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Wie berechnet man WACC praktisch für ein börsennotieres Unternehmen?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">1. E (EK-Marktwert) = Aktienkurs × Anzahl Aktien. 2. D (FK-Marktwert) = Marktwert aller Schulden (oft Buchwert ≈ Marktwert). 3. V = E + D, E/V und D/V berechnen. 4. r_e via CAPM: schätze β aus Regression, r_e = r_f + β·ERP. 5. r_d = Rendite auf aktuelle Unternehmensanleihen oder Fremdkapitalkosten. 6. t_c = Steuersatz. 7. WACC = (D/V)·r_d·(1−t_c) + (E/V)·r_e. Typische Werte: r_e 10–15%, r_d 3–7%, WACC 7–12%.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>How do you calculate WACC in practice for a listed company?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">1. E (equity market value) = stock price × shares outstanding. 2. D (debt market value) = market value of all debt (often book value ≈ market value). 3. V = E + D, compute E/V and D/V. 4. r_e via CAPM: estimate β from regression, r_e = r_f + β·ERP. 5. r_d = yield on current corporate bonds or cost of debt. 6. t_c = tax rate. 7. WACC = (D/V)·r_d·(1−t_c) + (E/V)·r_e. Typical values: r_e 10–15%, r_d 3–7%, WACC 7–12%.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Worin unterscheiden sich APT und CAPM?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">CAPM: Ein Faktor (Marktportfolio), theoretisch fundiert (Gleichgewichtsmodell), braucht das Marktportfolio. APT: Mehrere Faktoren (Makroökonomisch: BIP, Inflation, Zinsen…), basiert auf No-Arbitrage statt Gleichgewicht, Marktportfolio nicht benötigt. APT ist allgemeiner, aber die Faktoren müssen identifiziert werden (nicht theoretisch vorgegeben). Fama-French ist quasi ein empirisch motiviertes APT mit drei spezifischen Faktoren. In der Praxis: CAPM für einfache Anwendungen, FF3F für empirische Forschung.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>How do APT and CAPM differ?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">CAPM: one factor (market portfolio), theoretically grounded (equilibrium model), requires the market portfolio. APT: multiple factors (macroeconomic: GDP, inflation, interest rates…), based on no-arbitrage instead of equilibrium, market portfolio not required. APT is more general, but factors must be identified (not theoretically prescribed). Fama-French is essentially an empirically motivated APT with three specific factors. In practice: CAPM for simple applications, FF3F for empirical research.</div>
   </div>
 
   <div style="background:linear-gradient(135deg,#ecfdf5,#eff6ff);border:1px solid #a7f3d0;border-radius:14px;padding:20px 24px;margin:24px 0;">
-    <div style="font-size:15px;font-weight:800;margin-bottom:12px;">📋 Formelsammlung auf einen Blick</div>
+    <div style="font-size:15px;font-weight:800;margin-bottom:12px;">📋 Formula Reference</div>
     <table class="cf-table">
-      <tr><th>Thema</th><th>Formel</th></tr>
+      <tr><th>Topic</th><th>Formula</th></tr>
       <tr><td>NPV</td><td>Σ CF_t/(1+r)^t − I₀</td></tr>
       <tr><td>IRR</td><td>NPV=0 lösen nach r (iterativ)</td></tr>
       <tr><td>PI</td><td>NPV / Investitionsvolumen</td></tr>
       <tr><td>EAC</td><td>NPV(Kosten) × r / [1−(1+r)^{−T}]</td></tr>
-      <tr><td>Realzins</td><td>(1+r_nom)/(1+π) − 1</td></tr>
-      <tr><td>Anleihe PV</td><td>Σ cpn/(1+r)^t + par/(1+r)^T</td></tr>
+      <tr><td>Real rate</td><td>(1+r_nom)/(1+π) − 1</td></tr>
+      <tr><td>Bond PV</td><td>Σ cpn/(1+r)^t + par/(1+r)^T</td></tr>
       <tr><td>Macaulay Duration</td><td>Σ[t·PV(CF_t)] / P</td></tr>
       <tr><td>Modified Duration</td><td>D/(1+YTM)</td></tr>
       <tr><td>Gordon-Modell</td><td>P₀ = DIV₁/(r−g)</td></tr>
@@ -925,7 +926,7 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
     </table>
   </div>
 
-  <button class="read-btn" id="readbtn-6" onclick="markRead(6)">✓ Modul als gelesen markieren</button>
+  <button class="read-btn" id="readbtn-6" onclick="markRead(6)">✓ Mark module as read</button>
 </div>
 
 </div><!-- end themen-main -->
@@ -934,21 +935,21 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
 <div class="themen-sidebar">
   <div class="sb-overall">
     <div class="sb-overall-num" id="sb-pct">0%</div>
-    <div class="sb-overall-label">Module abgeschlossen</div>
+    <div class="sb-overall-label">Modules completed</div>
     <div style="width:100%;height:6px;background:#e5e7eb;border-radius:3px;margin-top:10px;overflow:hidden;"><div id="sb-total-bar" style="height:100%;background:var(--accent);border-radius:3px;width:0%;transition:width 0.4s;"></div></div>
   </div>
 
-  <div class="sb-title">Fortschritt je Modul</div>
-  <div class="sb-progress-row" onclick="selectModule(0)"><span>M1 Einführung</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-0" style="width:0%"></div></div></div>
-  <div class="sb-progress-row" onclick="selectModule(1)"><span>M2 NPV & Rendite</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-1" style="width:0%"></div></div></div>
-  <div class="sb-progress-row" onclick="selectModule(2)"><span>M3 Anleihen</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-2" style="width:0%"></div></div></div>
-  <div class="sb-progress-row" onclick="selectModule(3)"><span>M4 IRR & Regeln</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-3" style="width:0%"></div></div></div>
-  <div class="sb-progress-row" onclick="selectModule(4)"><span>M5 Risiko</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-4" style="width:0%"></div></div></div>
+  <div class="sb-title">Progress per module</div>
+  <div class="sb-progress-row" onclick="selectModule(0)"><span>M1 Introduction</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-0" style="width:0%"></div></div></div>
+  <div class="sb-progress-row" onclick="selectModule(1)"><span>M2 NPV & Returns</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-1" style="width:0%"></div></div></div>
+  <div class="sb-progress-row" onclick="selectModule(2)"><span>M3 Bonds</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-2" style="width:0%"></div></div></div>
+  <div class="sb-progress-row" onclick="selectModule(3)"><span>M4 IRR & Rules</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-3" style="width:0%"></div></div></div>
+  <div class="sb-progress-row" onclick="selectModule(4)"><span>M5 Risk</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-4" style="width:0%"></div></div></div>
   <div class="sb-progress-row" onclick="selectModule(5)"><span>M6 Portfolio</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-5" style="width:0%"></div></div></div>
   <div class="sb-progress-row" onclick="selectModule(6)"><span>M7 CAPM/WACC</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-6" style="width:0%"></div></div></div>
 
   <div class="sb-divider"></div>
-  <div class="sb-title">⚡ Schnell-Formeln</div>
+  <div class="sb-title">⚡ Quick Formulas</div>
   <div class="sb-formula-box">NPV = <span class="f-sum" style="font-size:1.1em">Σ</span> <span class="f-frac" style="font-size:0.9em"><span class="f-num">CF<sub>t</sub></span><span class="f-den">(1+r)<sup>t</sup></span></span> − I<sub>0</sub></div>
   <div class="sb-formula-box">WACC = <span class="f-frac" style="font-size:0.9em"><span class="f-num">D</span><span class="f-den">V</span></span>·r<sub>d</sub>·(1−t) + <span class="f-frac" style="font-size:0.9em"><span class="f-num">E</span><span class="f-den">V</span></span>·r<sub>e</sub></div>
   <div class="sb-formula-box">CAPM: r<sub>i</sub> = r<sub>f</sub> + β·(r<sub>m</sub>−r<sub>f</sub>)</div>
@@ -968,16 +969,16 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
 <div class="view" id="view-aufgaben">
   <div class="aufg-list">
 
-    <div class="aufg-section-label">📊 NPV &amp; Investitionsentscheidung</div>
+    <div class="aufg-section-label">📊 NPV &amp; Investment Decisions</div>
 
     <div class="aufg-item">
-      <div class="aufg-head"><h3>Aufgabe CF-1 – NPV-Berechnung (Grundaufgabe)</h3><span class="aufg-tag">NPV</span></div>
+      <div class="aufg-head"><h3>Exercise CF-1 – NPV Calculation (Basic)</h3><span class="aufg-tag">NPV</span></div>
       <div class="aufg-body">
-        <p>Ein Unternehmen prüft eine Investition von <strong>€50.000</strong>. Die erwarteten Cash Flows betragen: Jahr 1: €15.000, Jahr 2: €20.000, Jahr 3: €25.000. Kalkulationszinssatz: <strong>10%</strong>.</p>
-        <p>a) Berechnen Sie den NPV.<br>b) Soll investiert werden? Begründen Sie.<br>c) Bei welchem Zinssatz wäre das Unternehmen indifferent? (IRR)</p>
+        <p>Ein Unternehmen prüft eine Investition von <strong>€50.000</strong>. Die erwarteten Cash Flows betragen: Jahr 1: €15.000, Jahr 2: €20.000, Jahr 3: €25.000. Discount rate: <strong>10%</strong>.</p>
+        <p>a) Calculate the NPV.<br>b) Should the firm invest? Justify your answer.<br>c) At what discount rate would the firm be indifferent? (IRR)</p>
         <div class="canvas-wrap"><canvas id="canvas-cf1" height="320"></canvas>
           <div class="canvas-toolbar">
-            <button data-tool="pen" onclick="setTool('canvas-cf1','pen')">🖊 Stift</button>
+            <button data-tool="pen" onclick="setTool('canvas-cf1','pen')">🖊 Pen</button>
             <button onclick="setTool('canvas-cf1','highlight')">✏️ Marker</button>
             <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf1','#000000')"></div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf1','#dc2626')"></div>
@@ -985,26 +986,26 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf1','#059669')"></div>
             <span style="font-size:11px;color:var(--muted)">Größe</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf1',this.value)">
-            <button onclick="clearCanvas('canvas-cf1')">🗑 Löschen</button>
+            <button onclick="clearCanvas('canvas-cf1')">🗑 Clear</button>
           </div>
         </div>
-        <textarea class="aufg-text" id="txt-cf1" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <textarea class="aufg-text" id="txt-cf1" placeholder="Type here or solve with Apple Pencil …"></textarea>
         <div class="aufg-save-row">
-          <button class="aufg-save-btn" onclick="saveAufgabe('cf1')">💾 Speichern</button>
-          <span class="aufg-saved-note" id="saved-cf1">✓ Gespeichert</span>
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf1')">💾 Save</button>
+          <span class="aufg-saved-note" id="saved-cf1">✓ Saved</span>
         </div>
       </div>
     </div>
 
     <!-- CF-2 -->
     <div class="aufg-item">
-      <div class="aufg-head"><h3>Aufgabe CF-2 – IRR &amp; Skalenproblem (Fallstrick 3)</h3><span class="aufg-tag">IRR</span></div>
+      <div class="aufg-head"><h3>Exercise CF-2 – IRR &amp; Scale Problem (Pitfall 3)</h3><span class="aufg-tag">IRR</span></div>
       <div class="aufg-body">
-        <p>Projekt A: −€10.000 heute, +€20.000 in t=1. Projekt B: −€20.000 heute, +€35.000 in t=1. Opportunitätskosten = <strong>10%</strong>.</p>
-        <p>a) Berechnen Sie IRR für beide Projekte.<br>b) Welches Projekt wählen Sie nach der IRR-Regel?<br>c) Welches nach der NPV-Regel?<br>d) Welcher Fallstrick des IRR zeigt sich hier? Erklären Sie das Problem.</p>
+        <p>Projekt A: −€10.000 heute, +€20.000 in t=1. Projekt B: −€20.000 heute, +€35.000 in t=1. opportunity cost = <strong>10%</strong>.</p>
+        <p>a) Calculate the IRR for both projects.<br>b) Which project do you choose using the IRR rule?<br>c) Which using the NPV rule?<br>d) Which IRR pitfall does this illustrate? Explain the problem.</p>
         <div class="canvas-wrap"><canvas id="canvas-cf2" height="320"></canvas>
           <div class="canvas-toolbar">
-            <button data-tool="pen" onclick="setTool('canvas-cf2','pen')">🖊 Stift</button>
+            <button data-tool="pen" onclick="setTool('canvas-cf2','pen')">🖊 Pen</button>
             <button onclick="setTool('canvas-cf2','highlight')">✏️ Marker</button>
             <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf2','#000000')"></div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf2','#dc2626')"></div>
@@ -1012,27 +1013,27 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf2','#059669')"></div>
             <span style="font-size:11px;color:var(--muted)">Größe</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf2',this.value)">
-            <button onclick="clearCanvas('canvas-cf2')">🗑 Löschen</button>
+            <button onclick="clearCanvas('canvas-cf2')">🗑 Clear</button>
           </div>
         </div>
-        <textarea class="aufg-text" id="txt-cf2" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <textarea class="aufg-text" id="txt-cf2" placeholder="Type here or solve with Apple Pencil …"></textarea>
         <div class="aufg-save-row">
-          <button class="aufg-save-btn" onclick="saveAufgabe('cf2')">💾 Speichern</button>
-          <span class="aufg-saved-note" id="saved-cf2">✓ Gespeichert</span>
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf2')">💾 Save</button>
+          <span class="aufg-saved-note" id="saved-cf2">✓ Saved</span>
         </div>
       </div>
     </div>
 
     <!-- CF-3 -->
     <div class="aufg-item">
-      <div class="aufg-head"><h3>Aufgabe CF-3 – Kapitalrationierung &amp; Profitability Index</h3><span class="aufg-tag">PI</span></div>
+      <div class="aufg-head"><h3>Exercise CF-3 – Capital Rationing &amp; Profitability Index</h3><span class="aufg-tag">PI</span></div>
       <div class="aufg-body">
         <p>Budget: <strong>€300.000</strong>. Vier Projekte stehen zur Auswahl:</p>
         <p>P1: Invest €100.000 / NPV €30.000 &nbsp;|&nbsp; P2: Invest €200.000 / NPV €50.000<br>P3: Invest €100.000 / NPV €40.000 &nbsp;|&nbsp; P4: Invest €150.000 / NPV €35.000</p>
-        <p>a) Berechnen Sie den Profitability Index für jedes Projekt.<br>b) Welche Projektkombination maximiert den Gesamt-NPV innerhalb des Budgets?</p>
+        <p>a) Calculate the Profitability Index for each project.<br>b) Which combination of projects maximises total NPV within the budget?</p>
         <div class="canvas-wrap"><canvas id="canvas-cf3" height="300"></canvas>
           <div class="canvas-toolbar">
-            <button data-tool="pen" onclick="setTool('canvas-cf3','pen')">🖊 Stift</button>
+            <button data-tool="pen" onclick="setTool('canvas-cf3','pen')">🖊 Pen</button>
             <button onclick="setTool('canvas-cf3','highlight')">✏️ Marker</button>
             <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf3','#000000')"></div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf3','#dc2626')"></div>
@@ -1040,26 +1041,26 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf3','#059669')"></div>
             <span style="font-size:11px;color:var(--muted)">Größe</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf3',this.value)">
-            <button onclick="clearCanvas('canvas-cf3')">🗑 Löschen</button>
+            <button onclick="clearCanvas('canvas-cf3')">🗑 Clear</button>
           </div>
         </div>
-        <textarea class="aufg-text" id="txt-cf3" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <textarea class="aufg-text" id="txt-cf3" placeholder="Type here or solve with Apple Pencil …"></textarea>
         <div class="aufg-save-row">
-          <button class="aufg-save-btn" onclick="saveAufgabe('cf3')">💾 Speichern</button>
-          <span class="aufg-saved-note" id="saved-cf3">✓ Gespeichert</span>
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf3')">💾 Save</button>
+          <span class="aufg-saved-note" id="saved-cf3">✓ Saved</span>
         </div>
       </div>
     </div>
 
     <!-- CF-4 -->
     <div class="aufg-item">
-      <div class="aufg-head"><h3>Aufgabe CF-4 – Die 4 NPV-Regeln anwenden</h3><span class="aufg-tag">NPV-Regeln</span></div>
+      <div class="aufg-head"><h3>Exercise CF-4 – Applying the 4 NPV Rules</h3><span class="aufg-tag">NPV-Regeln</span></div>
       <div class="aufg-body">
-        <p>Ein Projekt: Umsatz €100.000/Jahr, Betriebskosten €40.000/Jahr, Abschreibung €10.000/Jahr, Investition €80.000 in t=0. Steuersatz <strong>30%</strong>, Inflation <strong>4%</strong>, nominaler Zinssatz <strong>14,4%</strong>. Laufzeit 5 Jahre.</p>
-        <p>a) Berechnen Sie den jährlichen Cash Flow (nicht Buchgewinn).<br>b) Berechnen Sie den realen Zinssatz.<br>c) Warum müssen Zinszahlungen aus dem Projekt-CF ausgeschlossen werden (NPV-Regel 4)?<br>d) Wie behandeln Sie Inflation konsistent (Regel 3)?</p>
+        <p>A project: Revenue €100,000/year, operating costs €40,000/year, depreciation €10,000/year, investment €80,000 at t=0. Tax rate <strong>30%</strong>, inflation <strong>4%</strong>, nominal interest rate <strong>14.4%</strong>. Lifespan 5 years.</p>
+        <p>a) Calculate the annual cash flow (not accounting profit).<br>b) Calculate the real interest rate.<br>c) Why must interest payments be excluded from project CFs (NPV Rule 4)?<br>d) How do you treat inflation consistently (Rule 3)?</p>
         <div class="canvas-wrap"><canvas id="canvas-cf4" height="340"></canvas>
           <div class="canvas-toolbar">
-            <button data-tool="pen" onclick="setTool('canvas-cf4','pen')">🖊 Stift</button>
+            <button data-tool="pen" onclick="setTool('canvas-cf4','pen')">🖊 Pen</button>
             <button onclick="setTool('canvas-cf4','highlight')">✏️ Marker</button>
             <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf4','#000000')"></div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf4','#dc2626')"></div>
@@ -1067,28 +1068,28 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf4','#059669')"></div>
             <span style="font-size:11px;color:var(--muted)">Größe</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf4',this.value)">
-            <button onclick="clearCanvas('canvas-cf4')">🗑 Löschen</button>
+            <button onclick="clearCanvas('canvas-cf4')">🗑 Clear</button>
           </div>
         </div>
-        <textarea class="aufg-text" id="txt-cf4" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <textarea class="aufg-text" id="txt-cf4" placeholder="Type here or solve with Apple Pencil …"></textarea>
         <div class="aufg-save-row">
-          <button class="aufg-save-btn" onclick="saveAufgabe('cf4')">💾 Speichern</button>
-          <span class="aufg-saved-note" id="saved-cf4">✓ Gespeichert</span>
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf4')">💾 Save</button>
+          <span class="aufg-saved-note" id="saved-cf4">✓ Saved</span>
         </div>
       </div>
     </div>
 
-    <div class="aufg-section-label">💰 Anleihen &amp; Aktien</div>
+    <div class="aufg-section-label">💰 Bonds &amp; Stocks</div>
 
     <!-- CF-5 -->
     <div class="aufg-item">
-      <div class="aufg-head"><h3>Aufgabe CF-5 – Anleihenbewertung &amp; YTM</h3><span class="aufg-tag">Bonds</span></div>
+      <div class="aufg-head"><h3>Exercise CF-5 – Bond Valuation &amp; YTM</h3><span class="aufg-tag">Bonds</span></div>
       <div class="aufg-body">
-        <p>Anleihe: Nennwert <strong>€1.000</strong>, Kupon <strong>6% p.a.</strong>, Laufzeit <strong>4 Jahre</strong>. Marktzinssatz: <strong>8%</strong>.</p>
-        <p>a) Berechnen Sie den aktuellen Kurs der Anleihe (PV aller Zahlungen).<br>b) Die Anleihe wird für <strong>€950</strong> gehandelt. Wie hoch ist die YTM näherungsweise?<br>c) Erklären Sie den Zusammenhang zwischen Kuponrate, Marktzins und Kurs (unter/über/at par).</p>
+        <p>Bond: face value <strong>€1,000</strong>, coupon <strong>6% p.a.</strong>, maturity <strong>4 years</strong>. Market rate: <strong>8%</strong>.</p>
+        <p>a) Calculate the current price of the bond (PV of all payments).<br>b) The bond trades at <strong>€950</strong>. What is the approximate YTM?<br>c) Explain the relationship between coupon rate, market rate and price (below/above/at par).</p>
         <div class="canvas-wrap"><canvas id="canvas-cf5" height="320"></canvas>
           <div class="canvas-toolbar">
-            <button data-tool="pen" onclick="setTool('canvas-cf5','pen')">🖊 Stift</button>
+            <button data-tool="pen" onclick="setTool('canvas-cf5','pen')">🖊 Pen</button>
             <button onclick="setTool('canvas-cf5','highlight')">✏️ Marker</button>
             <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf5','#000000')"></div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf5','#dc2626')"></div>
@@ -1096,26 +1097,26 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf5','#059669')"></div>
             <span style="font-size:11px;color:var(--muted)">Größe</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf5',this.value)">
-            <button onclick="clearCanvas('canvas-cf5')">🗑 Löschen</button>
+            <button onclick="clearCanvas('canvas-cf5')">🗑 Clear</button>
           </div>
         </div>
-        <textarea class="aufg-text" id="txt-cf5" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <textarea class="aufg-text" id="txt-cf5" placeholder="Type here or solve with Apple Pencil …"></textarea>
         <div class="aufg-save-row">
-          <button class="aufg-save-btn" onclick="saveAufgabe('cf5')">💾 Speichern</button>
-          <span class="aufg-saved-note" id="saved-cf5">✓ Gespeichert</span>
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf5')">💾 Save</button>
+          <span class="aufg-saved-note" id="saved-cf5">✓ Saved</span>
         </div>
       </div>
     </div>
 
     <!-- CF-6 -->
     <div class="aufg-item">
-      <div class="aufg-head"><h3>Aufgabe CF-6 – Duration &amp; Zinssensitivität</h3><span class="aufg-tag">Duration</span></div>
+      <div class="aufg-head"><h3>Exercise CF-6 – Duration &amp; Interest Rate Sensitivity</h3><span class="aufg-tag">Duration</span></div>
       <div class="aufg-body">
-        <p>3-jährige Anleihe: Kupon <strong>5%</strong>, Nennwert <strong>€100</strong>, YTM <strong>4%</strong>.</p>
-        <p>a) Berechnen Sie die Duration (gewichtetes Mittel der Zahlungszeitpunkte, 5 Schritte).<br>b) Berechnen Sie die Modified Duration.<br>c) Wie verändert sich der Kurs, wenn der Zinssatz um 1% steigt?<br>d) Welche Anleihe hat höhere Duration: kurze oder lange Laufzeit? Zero-Coupon oder Kuponanleihe? Warum?</p>
+        <p>3-year bond: coupon <strong>5%</strong>, face value <strong>€100</strong>, YTM <strong>4%</strong>.</p>
+        <p>a) Calculate the Duration (weighted average of payment dates, 5 steps).<br>b) Calculate the Modified Duration.<br>c) How does the price change if the interest rate rises by 1%?<br>d) Which bond has higher Duration: short or long maturity? Zero-coupon or coupon bond? Why?</p>
         <div class="canvas-wrap"><canvas id="canvas-cf6" height="360"></canvas>
           <div class="canvas-toolbar">
-            <button data-tool="pen" onclick="setTool('canvas-cf6','pen')">🖊 Stift</button>
+            <button data-tool="pen" onclick="setTool('canvas-cf6','pen')">🖊 Pen</button>
             <button onclick="setTool('canvas-cf6','highlight')">✏️ Marker</button>
             <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf6','#000000')"></div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf6','#dc2626')"></div>
@@ -1123,26 +1124,26 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf6','#059669')"></div>
             <span style="font-size:11px;color:var(--muted)">Größe</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf6',this.value)">
-            <button onclick="clearCanvas('canvas-cf6')">🗑 Löschen</button>
+            <button onclick="clearCanvas('canvas-cf6')">🗑 Clear</button>
           </div>
         </div>
-        <textarea class="aufg-text" id="txt-cf6" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <textarea class="aufg-text" id="txt-cf6" placeholder="Type here or solve with Apple Pencil …"></textarea>
         <div class="aufg-save-row">
-          <button class="aufg-save-btn" onclick="saveAufgabe('cf6')">💾 Speichern</button>
-          <span class="aufg-saved-note" id="saved-cf6">✓ Gespeichert</span>
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf6')">💾 Save</button>
+          <span class="aufg-saved-note" id="saved-cf6">✓ Saved</span>
         </div>
       </div>
     </div>
 
     <!-- CF-7 -->
     <div class="aufg-item">
-      <div class="aufg-head"><h3>Aufgabe CF-7 – Aktienbewertung: Gordon-Modell &amp; PVGO</h3><span class="aufg-tag">DDM / Gordon</span></div>
+      <div class="aufg-head"><h3>Exercise CF-7 – Stock Valuation: Gordon Model &amp; PVGO</h3><span class="aufg-tag">DDM / Gordon</span></div>
       <div class="aufg-body">
-        <p>Unternehmen X: nächste Dividende <strong>€3</strong>, Wachstumsrate <strong>g = 5%</strong>, geforderter Return <strong>r = 12%</strong>.</p>
-        <p>a) Berechnen Sie den fairen Aktienkurs (Gordon-Modell).<br>b) EPS = €5, Thesaurierungsquote = 40%, ROE = 20%.<br>&nbsp;&nbsp;&nbsp;i) Nachhaltige Wachstumsrate?<br>&nbsp;&nbsp;&nbsp;ii) Kurs ohne Wachstum (nur EPS/r)?<br>&nbsp;&nbsp;&nbsp;iii) PVGO?<br>c) Ab wann lohnt sich Thesaurierung? (ROE vs. r)</p>
+        <p>Company X: next dividend <strong>€3</strong>, growth rate <strong>g = 5%</strong>, required return <strong>r = 12%</strong>.</p>
+        <p>a) Calculate the fair stock price (Gordon Model).<br>b) EPS = €5, retention ratio = 40%, ROE = 20%.<br>&nbsp;&nbsp;&nbsp;i) Sustainable growth rate?<br>&nbsp;&nbsp;&nbsp;ii) Price without growth (only EPS/r)?<br>&nbsp;&nbsp;&nbsp;iii) PVGO?<br>c) When does retention pay off? (ROE vs. r)</p>
         <div class="canvas-wrap"><canvas id="canvas-cf7" height="360"></canvas>
           <div class="canvas-toolbar">
-            <button data-tool="pen" onclick="setTool('canvas-cf7','pen')">🖊 Stift</button>
+            <button data-tool="pen" onclick="setTool('canvas-cf7','pen')">🖊 Pen</button>
             <button onclick="setTool('canvas-cf7','highlight')">✏️ Marker</button>
             <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf7','#000000')"></div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf7','#dc2626')"></div>
@@ -1150,28 +1151,28 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf7','#059669')"></div>
             <span style="font-size:11px;color:var(--muted)">Größe</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf7',this.value)">
-            <button onclick="clearCanvas('canvas-cf7')">🗑 Löschen</button>
+            <button onclick="clearCanvas('canvas-cf7')">🗑 Clear</button>
           </div>
         </div>
-        <textarea class="aufg-text" id="txt-cf7" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <textarea class="aufg-text" id="txt-cf7" placeholder="Type here or solve with Apple Pencil …"></textarea>
         <div class="aufg-save-row">
-          <button class="aufg-save-btn" onclick="saveAufgabe('cf7')">💾 Speichern</button>
-          <span class="aufg-saved-note" id="saved-cf7">✓ Gespeichert</span>
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf7')">💾 Save</button>
+          <span class="aufg-saved-note" id="saved-cf7">✓ Saved</span>
         </div>
       </div>
     </div>
 
-    <div class="aufg-section-label">📉 Risiko &amp; Portfolio</div>
+    <div class="aufg-section-label">📉 Risk &amp; Portfolio</div>
 
     <!-- CF-8 -->
     <div class="aufg-item">
-      <div class="aufg-head"><h3>Aufgabe CF-8 – Erwartungsrendite &amp; Varianz</h3><span class="aufg-tag">Risiko</span></div>
+      <div class="aufg-head"><h3>Exercise CF-8 – Expected Return &amp; Variance</h3><span class="aufg-tag">Risiko</span></div>
       <div class="aufg-body">
-        <p>Aktie A: Boom (p=0,3): r=30% &nbsp;|&nbsp; Normal (p=0,5): r=10% &nbsp;|&nbsp; Rezession (p=0,2): r=−10%.</p>
-        <p>a) Berechnen Sie E[r] und σ² (ex-ante).<br>b) Wie hoch ist die Standardabweichung σ?<br>c) Aktie B hat E[r]=15%, σ=20%. Welche Aktie bevorzugen Sie als risikoaverser Investor? Begründen Sie.</p>
+        <p>Stock A: Boom (p=0.3): r=30% &nbsp;|&nbsp; Normal (p=0.5): r=10% &nbsp;|&nbsp; Recession (p=0.2): r=−10%.</p>
+        <p>a) Calculate E[r] and σ² (ex ante).<br>b) What is the standard deviation σ?<br>c) Stock B has E[r]=15%, σ=20%. Which stock do you prefer as a risk-averse investor? Justify your answer.</p>
         <div class="canvas-wrap"><canvas id="canvas-cf8" height="300"></canvas>
           <div class="canvas-toolbar">
-            <button data-tool="pen" onclick="setTool('canvas-cf8','pen')">🖊 Stift</button>
+            <button data-tool="pen" onclick="setTool('canvas-cf8','pen')">🖊 Pen</button>
             <button onclick="setTool('canvas-cf8','highlight')">✏️ Marker</button>
             <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf8','#000000')"></div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf8','#dc2626')"></div>
@@ -1179,13 +1180,13 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf8','#059669')"></div>
             <span style="font-size:11px;color:var(--muted)">Größe</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf8',this.value)">
-            <button onclick="clearCanvas('canvas-cf8')">🗑 Löschen</button>
+            <button onclick="clearCanvas('canvas-cf8')">🗑 Clear</button>
           </div>
         </div>
-        <textarea class="aufg-text" id="txt-cf8" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <textarea class="aufg-text" id="txt-cf8" placeholder="Type here or solve with Apple Pencil …"></textarea>
         <div class="aufg-save-row">
-          <button class="aufg-save-btn" onclick="saveAufgabe('cf8')">💾 Speichern</button>
-          <span class="aufg-saved-note" id="saved-cf8">✓ Gespeichert</span>
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf8')">💾 Save</button>
+          <span class="aufg-saved-note" id="saved-cf8">✓ Saved</span>
         </div>
       </div>
     </div>
@@ -1194,11 +1195,11 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
     <div class="aufg-item">
       <div class="aufg-head"><h3>Aufgabe CF-9 – Portfolio &amp; Diversifikation</h3><span class="aufg-tag">Portfolio</span></div>
       <div class="aufg-body">
-        <p>Portfolio: <strong>60%</strong> Aktie 1 (E[r]=12%, σ=20%) + <strong>40%</strong> Aktie 2 (E[r]=8%, σ=15%).</p>
-        <p>a) Berechnen Sie E[r<sub>p</sub>].<br>b) Berechnen Sie σ²<sub>p</sub> für ρ=+1, ρ=0 und ρ=−1.<br>c) Was zeigen die drei Ergebnisse über den Effekt der Diversifikation?<br>d) Zeichnen Sie qualitativ die drei Fälle in einem σ–E[r]-Diagramm.</p>
+        <p>Portfolio: <strong>60%</strong> Stock 1 (E[r]=12%, σ=20%) + <strong>40%</strong> Stock 2 (E[r]=8%, σ=15%).</p>
+        <p>a) Calculate E[r<sub>p</sub>].<br>b) Calculate σ²<sub>p</sub> for ρ=+1, ρ=0 and ρ=−1.<br>c) What do the three results reveal about the diversification effect?<br>d) Sketch qualitatively the three cases in a σ–E[r] diagram.</p>
         <div class="canvas-wrap"><canvas id="canvas-cf9" height="360"></canvas>
           <div class="canvas-toolbar">
-            <button data-tool="pen" onclick="setTool('canvas-cf9','pen')">🖊 Stift</button>
+            <button data-tool="pen" onclick="setTool('canvas-cf9','pen')">🖊 Pen</button>
             <button onclick="setTool('canvas-cf9','highlight')">✏️ Marker</button>
             <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf9','#000000')"></div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf9','#dc2626')"></div>
@@ -1206,13 +1207,13 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf9','#059669')"></div>
             <span style="font-size:11px;color:var(--muted)">Größe</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf9',this.value)">
-            <button onclick="clearCanvas('canvas-cf9')">🗑 Löschen</button>
+            <button onclick="clearCanvas('canvas-cf9')">🗑 Clear</button>
           </div>
         </div>
-        <textarea class="aufg-text" id="txt-cf9" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <textarea class="aufg-text" id="txt-cf9" placeholder="Type here or solve with Apple Pencil …"></textarea>
         <div class="aufg-save-row">
-          <button class="aufg-save-btn" onclick="saveAufgabe('cf9')">💾 Speichern</button>
-          <span class="aufg-saved-note" id="saved-cf9">✓ Gespeichert</span>
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf9')">💾 Save</button>
+          <span class="aufg-saved-note" id="saved-cf9">✓ Saved</span>
         </div>
       </div>
     </div>
@@ -1222,10 +1223,10 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
       <div class="aufg-head"><h3>Aufgabe CF-10 – CAPM &amp; Security Market Line</h3><span class="aufg-tag">CAPM</span></div>
       <div class="aufg-body">
         <p>Gegeben: r<sub>f</sub> = <strong>3%</strong>, E[r<sub>m</sub>] = <strong>10%</strong>, β<sub>A</sub> = <strong>0,8</strong>, β<sub>B</sub> = <strong>1,5</strong>.</p>
-        <p>a) Berechnen Sie die geforderte Rendite für Aktie A und B (CAPM).<br>b) Aktie A hat eine erwartete Rendite von 9,5%. Ist sie über- oder unterbewertet? Begründen Sie mit der SML.<br>c) Erklären Sie den Unterschied zwischen CAL und SML.<br>d) Warum hält unter CAPM-Annahmen jeder Investor das Tangency Portfolio?</p>
+        <p>a) Calculate the required return for Stock A and B (CAPM).<br>b) Stock A has an expected return of 9.5%. Is it over- or undervalued? Justify using the SML.<br>c) Explain the difference between the CAL and the SML.<br>d) Why does every investor hold the Tangency Portfolio under CAPM assumptions?</p>
         <div class="canvas-wrap"><canvas id="canvas-cf10" height="360"></canvas>
           <div class="canvas-toolbar">
-            <button data-tool="pen" onclick="setTool('canvas-cf10','pen')">🖊 Stift</button>
+            <button data-tool="pen" onclick="setTool('canvas-cf10','pen')">🖊 Pen</button>
             <button onclick="setTool('canvas-cf10','highlight')">✏️ Marker</button>
             <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf10','#000000')"></div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf10','#dc2626')"></div>
@@ -1233,13 +1234,13 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf10','#059669')"></div>
             <span style="font-size:11px;color:var(--muted)">Größe</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf10',this.value)">
-            <button onclick="clearCanvas('canvas-cf10')">🗑 Löschen</button>
+            <button onclick="clearCanvas('canvas-cf10')">🗑 Clear</button>
           </div>
         </div>
-        <textarea class="aufg-text" id="txt-cf10" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <textarea class="aufg-text" id="txt-cf10" placeholder="Type here or solve with Apple Pencil …"></textarea>
         <div class="aufg-save-row">
-          <button class="aufg-save-btn" onclick="saveAufgabe('cf10')">💾 Speichern</button>
-          <span class="aufg-saved-note" id="saved-cf10">✓ Gespeichert</span>
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf10')">💾 Save</button>
+          <span class="aufg-saved-note" id="saved-cf10">✓ Saved</span>
         </div>
       </div>
     </div>
@@ -1250,11 +1251,11 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
     <div class="aufg-item">
       <div class="aufg-head"><h3>Aufgabe CF-11 – WACC-Berechnung</h3><span class="aufg-tag">WACC</span></div>
       <div class="aufg-body">
-        <p>Unternehmen Y: Eigenkapital (Marktwert) <strong>€600 Mio.</strong>, Fremdkapital <strong>€400 Mio.</strong> Eigenkapitalkosten r<sub>E</sub> = <strong>12%</strong>, Fremdkapitalkosten r<sub>D</sub> = <strong>6%</strong>, Steuersatz <strong>25%</strong>.</p>
-        <p>a) Berechnen Sie den WACC.<br>b) Ein neues Projekt hat einen erwarteten Return von 9%. Soll investiert werden?<br>c) Warum ist WACC &lt; unlevered COC? Erklären Sie den Tax Shield.</p>
+        <p>Company Y: equity (market value) <strong>€600m</strong>, debt <strong>€400m</strong>. Cost of equity r<sub>E</sub> = <strong>12%</strong>, cost of debt r<sub>D</sub> = <strong>6%</strong>, tax rate <strong>25%</strong>.</p>
+        <p>a) Calculate the WACC.<br>b) A new project has an expected return of 9%. Should the firm invest?<br>c) Why is WACC &lt; unlevered COC? Explain the Tax Shield.</p>
         <div class="canvas-wrap"><canvas id="canvas-cf11" height="300"></canvas>
           <div class="canvas-toolbar">
-            <button data-tool="pen" onclick="setTool('canvas-cf11','pen')">🖊 Stift</button>
+            <button data-tool="pen" onclick="setTool('canvas-cf11','pen')">🖊 Pen</button>
             <button onclick="setTool('canvas-cf11','highlight')">✏️ Marker</button>
             <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf11','#000000')"></div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf11','#dc2626')"></div>
@@ -1262,13 +1263,13 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf11','#059669')"></div>
             <span style="font-size:11px;color:var(--muted)">Größe</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf11',this.value)">
-            <button onclick="clearCanvas('canvas-cf11')">🗑 Löschen</button>
+            <button onclick="clearCanvas('canvas-cf11')">🗑 Clear</button>
           </div>
         </div>
-        <textarea class="aufg-text" id="txt-cf11" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <textarea class="aufg-text" id="txt-cf11" placeholder="Type here or solve with Apple Pencil …"></textarea>
         <div class="aufg-save-row">
-          <button class="aufg-save-btn" onclick="saveAufgabe('cf11')">💾 Speichern</button>
-          <span class="aufg-saved-note" id="saved-cf11">✓ Gespeichert</span>
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf11')">💾 Save</button>
+          <span class="aufg-saved-note" id="saved-cf11">✓ Saved</span>
         </div>
       </div>
     </div>
@@ -1277,11 +1278,11 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
     <div class="aufg-item">
       <div class="aufg-head"><h3>Aufgabe CF-12 – DCF Unternehmensbewertung</h3><span class="aufg-tag">Bewertung</span></div>
       <div class="aufg-body">
-        <p>Unternehmen Z – Free Cash Flows: Jahr 1: <strong>€10 Mio.</strong>, Jahr 2: <strong>€12 Mio.</strong>, Jahr 3: <strong>€15 Mio.</strong> Ab Jahr 4 konstantes Wachstum <strong>g = 3%</strong>. WACC = <strong>9%</strong>.</p>
-        <p>a) Berechnen Sie den Terminal Value (TV) am Ende von Jahr 3.<br>b) Berechnen Sie den Enterprise Value (Unternehmenswert) heute.<br>c) Was passiert mit dem Unternehmenswert, wenn g steigt (bei g &lt; WACC)?<br>d) Was ist der Unterschied zwischen Enterprise Value und Equity Value?</p>
+        <p>Company Z – Free Cash Flows: Year 1: <strong>€10m</strong>, Year 2: <strong>€12m</strong>, Year 3: <strong>€15m</strong>. From Year 4 onwards: constant growth <strong>g = 3%</strong>. WACC = <strong>9%</strong>.</p>
+        <p>a) Calculate the Terminal Value (TV) at the end of Year 3.<br>b) Calculate the Enterprise Value today.<br>c) What happens to the Enterprise Value when g increases (with g &lt; WACC)?<br>d) What is the difference between Enterprise Value and Equity Value?</p>
         <div class="canvas-wrap"><canvas id="canvas-cf12" height="360"></canvas>
           <div class="canvas-toolbar">
-            <button data-tool="pen" onclick="setTool('canvas-cf12','pen')">🖊 Stift</button>
+            <button data-tool="pen" onclick="setTool('canvas-cf12','pen')">🖊 Pen</button>
             <button onclick="setTool('canvas-cf12','highlight')">✏️ Marker</button>
             <div class="color-swatch" style="background:#000" onclick="setColor('canvas-cf12','#000000')"></div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf12','#dc2626')"></div>
@@ -1289,13 +1290,13 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf12','#059669')"></div>
             <span style="font-size:11px;color:var(--muted)">Größe</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf12',this.value)">
-            <button onclick="clearCanvas('canvas-cf12')">🗑 Löschen</button>
+            <button onclick="clearCanvas('canvas-cf12')">🗑 Clear</button>
           </div>
         </div>
-        <textarea class="aufg-text" id="txt-cf12" placeholder="Hier tippen oder mit Apple Pencil lösen …"></textarea>
+        <textarea class="aufg-text" id="txt-cf12" placeholder="Type here or solve with Apple Pencil …"></textarea>
         <div class="aufg-save-row">
-          <button class="aufg-save-btn" onclick="saveAufgabe('cf12')">💾 Speichern</button>
-          <span class="aufg-saved-note" id="saved-cf12">✓ Gespeichert</span>
+          <button class="aufg-save-btn" onclick="saveAufgabe('cf12')">💾 Save</button>
+          <span class="aufg-saved-note" id="saved-cf12">✓ Saved</span>
         </div>
       </div>
     </div>
@@ -1311,12 +1312,12 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
   <div class="ak-list">
 
     <div class="ak-item">
-      <div class="ak-head"><h3>Klausur WS 2023/24</h3><span>3 Aufgaben</span></div>
+      <div class="ak-head"><h3>Exam WS 2023/24</h3><span>3 Aufgaben</span></div>
       <div class="ak-body">
 
         <div class="ak-question">
-          <p>Aufgabe 1 (20 Pkt): NPV &amp; IRR-Entscheidung<br>
-          Investition €80.000, CFs: Jahr 1–4 jeweils €25.000. r = 8%. Berechne NPV. Entscheide. Bestimme IRR näherungsweise. Vergleiche NPV- und IRR-Regel für zwei Alternativprojekte.</p>
+          <p>Question 1 (20 pts): NPV &amp; IRR Decision<br>
+          Investment €80,000, CFs: Years 1–4 each €25,000. r = 8%. Calculate NPV. Make decision. Approximate IRR. Compare NPV and IRR rule for two alternative projects.</p>
           <div class="ak-canvas-area"><canvas id="ak-cv-cf-2023-1" height="220"></canvas>
             <div class="ak-toolbar">
               <button data-tool="pen" onclick="setTool('ak-cv-cf-2023-1','pen')">✏️</button>
@@ -1326,16 +1327,16 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
               <button onclick="clearCanvas('ak-cv-cf-2023-1')">🗑</button>
             </div>
           </div>
-          <textarea class="ak-text" id="ak-txt-cf-2023-1" placeholder="Lösung eingeben …"></textarea>
+          <textarea class="ak-text" id="ak-txt-cf-2023-1" placeholder="Enter your solution …"></textarea>
           <div class="ak-save-row">
-            <button class="ak-save-btn" onclick="saveAK('cf-2023-1')">💾 Speichern</button>
-            <span class="ak-saved-note" id="ak-saved-cf-2023-1">✓ Gespeichert</span>
+            <button class="ak-save-btn" onclick="saveAK('cf-2023-1')">💾 Save</button>
+            <span class="ak-saved-note" id="ak-saved-cf-2023-1">✓ Saved</span>
           </div>
         </div>
 
         <div class="ak-question">
-          <p>Aufgabe 2 (20 Pkt): Anleihenbewertung &amp; Duration<br>
-          Anleihe: Nennwert €1.000, Kupon 5%, Laufzeit 3 Jahre, YTM 6%. Berechne Kurs. Berechne Duration und Modified Duration. Wie verändert sich der Kurs bei +1% Zinsanstieg?</p>
+          <p>Question 2 (20 pts): Bond Valuation &amp; Duration<br>
+          Bond: face value €1,000, coupon 5%, maturity 3 years, YTM 6%. Calculate price. Calculate Duration and Modified Duration. How does price change with a +1% rate increase?</p>
           <div class="ak-canvas-area"><canvas id="ak-cv-cf-2023-2" height="220"></canvas>
             <div class="ak-toolbar">
               <button data-tool="pen" onclick="setTool('ak-cv-cf-2023-2','pen')">✏️</button>
@@ -1345,10 +1346,10 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
               <button onclick="clearCanvas('ak-cv-cf-2023-2')">🗑</button>
             </div>
           </div>
-          <textarea class="ak-text" id="ak-txt-cf-2023-2" placeholder="Lösung eingeben …"></textarea>
+          <textarea class="ak-text" id="ak-txt-cf-2023-2" placeholder="Enter your solution …"></textarea>
           <div class="ak-save-row">
-            <button class="ak-save-btn" onclick="saveAK('cf-2023-2')">💾 Speichern</button>
-            <span class="ak-saved-note" id="ak-saved-cf-2023-2">✓ Gespeichert</span>
+            <button class="ak-save-btn" onclick="saveAK('cf-2023-2')">💾 Save</button>
+            <span class="ak-saved-note" id="ak-saved-cf-2023-2">✓ Saved</span>
           </div>
         </div>
 
@@ -1356,13 +1357,13 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
     </div>
 
     <div class="ak-item">
-      <div class="ak-head"><h3>Klausur WS 2022/23</h3><span>2 Aufgaben</span></div>
+      <div class="ak-head"><h3>Exam WS 2022/23</h3><span>2 Aufgaben</span></div>
       <div class="ak-body">
 
         <div class="ak-question">
-          <p>Aufgabe 1 (25 Pkt): Portfolio &amp; CAPM<br>
-          Aktie X: E[r]=14%, σ=25%. Aktie Y: E[r]=9%, σ=18%. ρ=0,2. Portfolio 50/50.<br>
-          a) E[r<sub>p</sub>] und σ<sub>p</sub>. b) r<sub>f</sub>=3%, r<sub>m</sub>=11%. Berechne Beta für X wenn X auf der SML liegt. c) Ist das 50/50-Portfolio mean-varianz-effizient? Begründung.</p>
+          <p>Question 1 (25 pts): Portfolio &amp; CAPM<br>
+          Stock X: E[r]=14%, σ=25%. Stock Y: E[r]=9%, σ=18%. ρ=0.2. 50/50 portfolio.<br>
+          a) Calculate E[r<sub>p</sub>] and σ<sub>p</sub>. b) r<sub>f</sub>=3%, r<sub>m</sub>=11%. Calculate Beta for X if X lies on the SML. c) Is the 50/50 portfolio mean-variance efficient? Justify.</p>
           <div class="ak-canvas-area"><canvas id="ak-cv-cf-2022-1" height="220"></canvas>
             <div class="ak-toolbar">
               <button data-tool="pen" onclick="setTool('ak-cv-cf-2022-1','pen')">✏️</button>
@@ -1372,17 +1373,17 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
               <button onclick="clearCanvas('ak-cv-cf-2022-1')">🗑</button>
             </div>
           </div>
-          <textarea class="ak-text" id="ak-txt-cf-2022-1" placeholder="Lösung eingeben …"></textarea>
+          <textarea class="ak-text" id="ak-txt-cf-2022-1" placeholder="Enter your solution …"></textarea>
           <div class="ak-save-row">
-            <button class="ak-save-btn" onclick="saveAK('cf-2022-1')">💾 Speichern</button>
-            <span class="ak-saved-note" id="ak-saved-cf-2022-1">✓ Gespeichert</span>
+            <button class="ak-save-btn" onclick="saveAK('cf-2022-1')">💾 Save</button>
+            <span class="ak-saved-note" id="ak-saved-cf-2022-1">✓ Saved</span>
           </div>
         </div>
 
         <div class="ak-question">
-          <p>Aufgabe 2 (25 Pkt): WACC &amp; DCF-Bewertung<br>
-          EK €500 Mio., FK €300 Mio. r<sub>E</sub>=13%, r<sub>D</sub>=5%, Steuersatz 30%.<br>
-          a) WACC berechnen. b) FCFs: Jahr 1: €40 Mio., Jahr 2: €50 Mio., ab Jahr 3 Wachstum g=2%. Unternehmenswert berechnen. c) Welchen Einfluss hat ein höherer Verschuldungsgrad auf den WACC?</p>
+          <p>Question 2 (25 pts): WACC &amp; DCF Valuation<br>
+          Equity €500m, debt €300m. r<sub>E</sub>=13%, r<sub>D</sub>=5%, tax rate 30%.<br>
+          a) Calculate WACC. b) FCFs: Year 1: €40m, Year 2: €50m, from Year 3 growth g=2%. Calculate enterprise value. c) How does increased leverage affect WACC?</p>
           <div class="ak-canvas-area"><canvas id="ak-cv-cf-2022-2" height="220"></canvas>
             <div class="ak-toolbar">
               <button data-tool="pen" onclick="setTool('ak-cv-cf-2022-2','pen')">✏️</button>
@@ -1392,10 +1393,10 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
               <button onclick="clearCanvas('ak-cv-cf-2022-2')">🗑</button>
             </div>
           </div>
-          <textarea class="ak-text" id="ak-txt-cf-2022-2" placeholder="Lösung eingeben …"></textarea>
+          <textarea class="ak-text" id="ak-txt-cf-2022-2" placeholder="Enter your solution …"></textarea>
           <div class="ak-save-row">
-            <button class="ak-save-btn" onclick="saveAK('cf-2022-2')">💾 Speichern</button>
-            <span class="ak-saved-note" id="ak-saved-cf-2022-2">✓ Gespeichert</span>
+            <button class="ak-save-btn" onclick="saveAK('cf-2022-2')">💾 Save</button>
+            <span class="ak-saved-note" id="ak-saved-cf-2022-2">✓ Saved</span>
           </div>
         </div>
 
@@ -1403,7 +1404,7 @@ HML = High minus Low (Wertprämie: hohes B/P &gt; niedriges B/P)</div>
     </div>
 
     <div style="text-align:center;color:var(--muted);font-size:13px;padding:20px;">
-      Weitere Altklausuren folgen.
+      More past exam questions coming soon.
     </div>
 
   </div>
@@ -1451,9 +1452,9 @@ function updateCountdown() {
   }).filter(function(e){return e.days>=0;}).sort(function(a,b){return a.days-b.days;});
   var el = document.getElementById('countdown-text');
   if (!el) return;
-  if (upcoming.length === 0) { el.innerHTML = 'Klausurdatum eingeben'; return; }
+  if (upcoming.length === 0) { el.innerHTML = 'Enter exam date'; return; }
   var n = upcoming[0];
-  el.innerHTML = (n.label||'Klausur') + ' in <strong>' + n.days + '</strong> Tag' + (n.days===1?'':'en');
+  el.innerHTML = (n.label||'Exam') + ' in <strong>' + n.days + '</strong> day' + (n.days===1?'':'s');
 }
 function openCdModal() { renderCdRows(); document.getElementById('cdModal').classList.add('open'); }
 function closeCdModal() { document.getElementById('cdModal').classList.remove('open'); }
@@ -1508,7 +1509,7 @@ function updateProgress() {
     var btn = document.getElementById('readbtn-'+i);
     if (bar) bar.style.width = read ? '100%' : '0%';
     if (ring) { ring.style.strokeDashoffset = read ? '0' : '56.5'; ring.style.stroke = read ? '#22c55e' : '#0ea5e9'; }
-    if (btn) { btn.classList.toggle('done', read); btn.textContent = read ? '✓ Gelesen!' : '✓ Modul als gelesen markieren'; }
+    if (btn) { btn.classList.toggle('done', read); btn.textContent = read ? '✓ Done!' : '✓ Modul als gelesen markieren'; }
     if (read) done++;
   }
   var pct = Math.round(done/total*100);
