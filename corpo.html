@@ -484,7 +484,7 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
   <table class="cf-table">
     <tr><th>t</th><th>CF</th><th>PV factor (8%)</th><th>PV</th></tr>
     <tr><td>1</td><td>60</td><td>0,9259</td><td>55,56</td></tr>
-    <tr><td>2</td><td>60</td><td>0,8573</td><td>51,44</td></tr>
+    <tr><td>2</td><td>60</td><td>0.8573</td><td>51,44</td></tr>
     <tr><td>3</td><td>60</td><td>0,7938</td><td>47,63</td></tr>
     <tr><td>4</td><td>1.060</td><td>0,7350</td><td>779,10</td></tr>
     <tr><td colspan="3"><strong>Price</strong></td><td><strong>€933.73</strong></td></tr>
@@ -506,7 +506,7 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
     <tr><th>t</th><th>CF</th><th>PV(CF) at 4%</th><th>Weight w_t</th><th>t × w_t</th></tr>
     <tr><td>1</td><td>5</td><td>4,808</td><td>0,0463</td><td>0,0463</td></tr>
     <tr><td>2</td><td>5</td><td>4,623</td><td>0,0445</td><td>0,0890</td></tr>
-    <tr><td>3</td><td>105</td><td>93,35</td><td>0,8992 (=Nennwert+Kupon)</td><td>2,6976</td></tr>
+    <tr><td>3</td><td>105</td><td>93,35</td><td>0.8992 (=Par+Coupon)</td><td>2.6976</td></tr>
     <tr><td colspan="3"><strong>Sum (= Price)</strong></td><td><strong>102.78</strong></td><td><strong>D = 2.833 years</strong></td></tr>
   </table>
   <p style="font-size:14px;margin:8px 0;">ModD = 2.833 / (1+0.04) = <strong>2.724</strong>. Rate rise of 1%: ΔP/P ≈ −2.724 × 0.01 = −2.72% → price falls from 102.78 to ~99.98.</p>
@@ -911,7 +911,7 @@ HML = High minus Low (value premium: high B/P &gt; low B/P)</div>
       <tr><td>NPV</td><td>Σ CF_t/(1+r)^t − I₀</td></tr>
       <tr><td>IRR</td><td>NPV=0 lösen nach r (iterativ)</td></tr>
       <tr><td>PI</td><td>NPV / Investitionsvolumen</td></tr>
-      <tr><td>EAC</td><td>NPV(Kosten) × r / [1−(1+r)^{−T}]</td></tr>
+      <tr><td>EAC</td><td>NPV(Costs) × r / [1−(1+r)^{−T}]</td></tr>
       <tr><td>Real rate</td><td>(1+r_nom)/(1+π) − 1</td></tr>
       <tr><td>Bond PV</td><td>Σ cpn/(1+r)^t + par/(1+r)^T</td></tr>
       <tr><td>Macaulay Duration</td><td>Σ[t·PV(CF_t)] / P</td></tr>
@@ -984,7 +984,7 @@ HML = High minus Low (value premium: high B/P &gt; low B/P)</div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf1','#dc2626')"></div>
             <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf1','#2563eb')"></div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf1','#059669')"></div>
-            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <span style="font-size:11px;color:var(--muted)">Size</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf1',this.value)">
             <button onclick="clearCanvas('canvas-cf1')">🗑 Clear</button>
           </div>
@@ -1011,7 +1011,7 @@ HML = High minus Low (value premium: high B/P &gt; low B/P)</div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf2','#dc2626')"></div>
             <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf2','#2563eb')"></div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf2','#059669')"></div>
-            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <span style="font-size:11px;color:var(--muted)">Size</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf2',this.value)">
             <button onclick="clearCanvas('canvas-cf2')">🗑 Clear</button>
           </div>
@@ -1039,7 +1039,7 @@ HML = High minus Low (value premium: high B/P &gt; low B/P)</div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf3','#dc2626')"></div>
             <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf3','#2563eb')"></div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf3','#059669')"></div>
-            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <span style="font-size:11px;color:var(--muted)">Size</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf3',this.value)">
             <button onclick="clearCanvas('canvas-cf3')">🗑 Clear</button>
           </div>
@@ -1066,7 +1066,7 @@ HML = High minus Low (value premium: high B/P &gt; low B/P)</div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf4','#dc2626')"></div>
             <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf4','#2563eb')"></div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf4','#059669')"></div>
-            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <span style="font-size:11px;color:var(--muted)">Size</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf4',this.value)">
             <button onclick="clearCanvas('canvas-cf4')">🗑 Clear</button>
           </div>
@@ -1095,7 +1095,7 @@ HML = High minus Low (value premium: high B/P &gt; low B/P)</div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf5','#dc2626')"></div>
             <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf5','#2563eb')"></div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf5','#059669')"></div>
-            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <span style="font-size:11px;color:var(--muted)">Size</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf5',this.value)">
             <button onclick="clearCanvas('canvas-cf5')">🗑 Clear</button>
           </div>
@@ -1122,7 +1122,7 @@ HML = High minus Low (value premium: high B/P &gt; low B/P)</div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf6','#dc2626')"></div>
             <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf6','#2563eb')"></div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf6','#059669')"></div>
-            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <span style="font-size:11px;color:var(--muted)">Size</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf6',this.value)">
             <button onclick="clearCanvas('canvas-cf6')">🗑 Clear</button>
           </div>
@@ -1149,7 +1149,7 @@ HML = High minus Low (value premium: high B/P &gt; low B/P)</div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf7','#dc2626')"></div>
             <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf7','#2563eb')"></div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf7','#059669')"></div>
-            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <span style="font-size:11px;color:var(--muted)">Size</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf7',this.value)">
             <button onclick="clearCanvas('canvas-cf7')">🗑 Clear</button>
           </div>
@@ -1178,7 +1178,7 @@ HML = High minus Low (value premium: high B/P &gt; low B/P)</div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf8','#dc2626')"></div>
             <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf8','#2563eb')"></div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf8','#059669')"></div>
-            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <span style="font-size:11px;color:var(--muted)">Size</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf8',this.value)">
             <button onclick="clearCanvas('canvas-cf8')">🗑 Clear</button>
           </div>
@@ -1193,7 +1193,7 @@ HML = High minus Low (value premium: high B/P &gt; low B/P)</div>
 
     <!-- CF-9 -->
     <div class="aufg-item">
-      <div class="aufg-head"><h3>Aufgabe CF-9 – Portfolio &amp; Diversifikation</h3><span class="aufg-tag">Portfolio</span></div>
+      <div class="aufg-head"><h3>Exercise CF-9 – Portfolio &amp; Diversification</h3><span class="aufg-tag">Portfolio</span></div>
       <div class="aufg-body">
         <p>Portfolio: <strong>60%</strong> Stock 1 (E[r]=12%, σ=20%) + <strong>40%</strong> Stock 2 (E[r]=8%, σ=15%).</p>
         <p>a) Calculate E[r<sub>p</sub>].<br>b) Calculate σ²<sub>p</sub> for ρ=+1, ρ=0 and ρ=−1.<br>c) What do the three results reveal about the diversification effect?<br>d) Sketch qualitatively the three cases in a σ–E[r] diagram.</p>
@@ -1205,7 +1205,7 @@ HML = High minus Low (value premium: high B/P &gt; low B/P)</div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf9','#dc2626')"></div>
             <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf9','#2563eb')"></div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf9','#059669')"></div>
-            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <span style="font-size:11px;color:var(--muted)">Size</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf9',this.value)">
             <button onclick="clearCanvas('canvas-cf9')">🗑 Clear</button>
           </div>
@@ -1220,9 +1220,9 @@ HML = High minus Low (value premium: high B/P &gt; low B/P)</div>
 
     <!-- CF-10 -->
     <div class="aufg-item">
-      <div class="aufg-head"><h3>Aufgabe CF-10 – CAPM &amp; Security Market Line</h3><span class="aufg-tag">CAPM</span></div>
+      <div class="aufg-head"><h3>Exercise CF-10 – CAPM &amp; Security Market Line</h3><span class="aufg-tag">CAPM</span></div>
       <div class="aufg-body">
-        <p>Gegeben: r<sub>f</sub> = <strong>3%</strong>, E[r<sub>m</sub>] = <strong>10%</strong>, β<sub>A</sub> = <strong>0,8</strong>, β<sub>B</sub> = <strong>1,5</strong>.</p>
+        <p>Given: r<sub>f</sub> = <strong>3%</strong>, E[r<sub>m</sub>] = <strong>10%</strong>, β<sub>A</sub> = <strong>0.8</strong>, β<sub>B</sub> = <strong>1.5</strong>.</p>
         <p>a) Calculate the required return for Stock A and B (CAPM).<br>b) Stock A has an expected return of 9.5%. Is it over- or undervalued? Justify using the SML.<br>c) Explain the difference between the CAL and the SML.<br>d) Why does every investor hold the Tangency Portfolio under CAPM assumptions?</p>
         <div class="canvas-wrap"><canvas id="canvas-cf10" height="360"></canvas>
           <div class="canvas-toolbar">
@@ -1232,7 +1232,7 @@ HML = High minus Low (value premium: high B/P &gt; low B/P)</div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf10','#dc2626')"></div>
             <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf10','#2563eb')"></div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf10','#059669')"></div>
-            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <span style="font-size:11px;color:var(--muted)">Size</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf10',this.value)">
             <button onclick="clearCanvas('canvas-cf10')">🗑 Clear</button>
           </div>
@@ -1245,11 +1245,11 @@ HML = High minus Low (value premium: high B/P &gt; low B/P)</div>
       </div>
     </div>
 
-    <div class="aufg-section-label">🏢 WACC &amp; Unternehmensbewertung</div>
+    <div class="aufg-section-label">🏢 WACC &amp; Company Valuation</div>
 
     <!-- CF-11 -->
     <div class="aufg-item">
-      <div class="aufg-head"><h3>Aufgabe CF-11 – WACC-Berechnung</h3><span class="aufg-tag">WACC</span></div>
+      <div class="aufg-head"><h3>Exercise CF-11 – WACC Calculation</h3><span class="aufg-tag">WACC</span></div>
       <div class="aufg-body">
         <p>Company Y: equity (market value) <strong>€600m</strong>, debt <strong>€400m</strong>. Cost of equity r<sub>E</sub> = <strong>12%</strong>, cost of debt r<sub>D</sub> = <strong>6%</strong>, tax rate <strong>25%</strong>.</p>
         <p>a) Calculate the WACC.<br>b) A new project has an expected return of 9%. Should the firm invest?<br>c) Why is WACC &lt; unlevered COC? Explain the Tax Shield.</p>
@@ -1261,7 +1261,7 @@ HML = High minus Low (value premium: high B/P &gt; low B/P)</div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf11','#dc2626')"></div>
             <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf11','#2563eb')"></div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf11','#059669')"></div>
-            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <span style="font-size:11px;color:var(--muted)">Size</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf11',this.value)">
             <button onclick="clearCanvas('canvas-cf11')">🗑 Clear</button>
           </div>
@@ -1276,7 +1276,7 @@ HML = High minus Low (value premium: high B/P &gt; low B/P)</div>
 
     <!-- CF-12 -->
     <div class="aufg-item">
-      <div class="aufg-head"><h3>Aufgabe CF-12 – DCF Unternehmensbewertung</h3><span class="aufg-tag">Bewertung</span></div>
+      <div class="aufg-head"><h3>Exercise CF-12 – DCF Company Valuation</h3><span class="aufg-tag">Valuation</span></div>
       <div class="aufg-body">
         <p>Company Z – Free Cash Flows: Year 1: <strong>€10m</strong>, Year 2: <strong>€12m</strong>, Year 3: <strong>€15m</strong>. From Year 4 onwards: constant growth <strong>g = 3%</strong>. WACC = <strong>9%</strong>.</p>
         <p>a) Calculate the Terminal Value (TV) at the end of Year 3.<br>b) Calculate the Enterprise Value today.<br>c) What happens to the Enterprise Value when g increases (with g &lt; WACC)?<br>d) What is the difference between Enterprise Value and Equity Value?</p>
@@ -1288,7 +1288,7 @@ HML = High minus Low (value premium: high B/P &gt; low B/P)</div>
             <div class="color-swatch" style="background:#dc2626" onclick="setColor('canvas-cf12','#dc2626')"></div>
             <div class="color-swatch" style="background:#2563eb" onclick="setColor('canvas-cf12','#2563eb')"></div>
             <div class="color-swatch" style="background:#059669" onclick="setColor('canvas-cf12','#059669')"></div>
-            <span style="font-size:11px;color:var(--muted)">Größe</span>
+            <span style="font-size:11px;color:var(--muted)">Size</span>
             <input type="range" class="pen-size" min="1" max="12" value="4" oninput="setSize('canvas-cf12',this.value)">
             <button onclick="clearCanvas('canvas-cf12')">🗑 Clear</button>
           </div>
@@ -1312,7 +1312,7 @@ HML = High minus Low (value premium: high B/P &gt; low B/P)</div>
   <div class="ak-list">
 
     <div class="ak-item">
-      <div class="ak-head"><h3>Exam WS 2023/24</h3><span>3 Aufgaben</span></div>
+      <div class="ak-head"><h3>Exam WS 2023/24</h3><span>3 Exercises</span></div>
       <div class="ak-body">
 
         <div class="ak-question">
@@ -1357,7 +1357,7 @@ HML = High minus Low (value premium: high B/P &gt; low B/P)</div>
     </div>
 
     <div class="ak-item">
-      <div class="ak-head"><h3>Exam WS 2022/23</h3><span>2 Aufgaben</span></div>
+      <div class="ak-head"><h3>Exam WS 2022/23</h3><span>2 Exercises</span></div>
       <div class="ak-body">
 
         <div class="ak-question">
