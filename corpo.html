@@ -206,6 +206,86 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
 .ak-save-row { display: flex; align-items: center; gap: 10px; margin-top: 6px; }
 .ak-save-btn { background: var(--accent); color: white; border: none; border-radius: 8px; padding: 7px 16px; font-size: 13px; font-weight: 600; cursor: pointer; }
 .ak-saved-note { font-size: 12px; color: #059669; display: none; }
+
+/* ═══════════════════════════════════════════
+   FLASHCARD TAB
+═══════════════════════════════════════════ */
+.fc-layout { max-width: 820px; margin: 0 auto; padding: 24px 16px 80px; }
+.fc-topbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+.fc-filter-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-right: 2px; }
+.fc-chip { background: var(--card); border: 1.5px solid var(--border); border-radius: 20px; padding: 4px 12px; font-size: 12px; font-weight: 600; cursor: pointer; color: var(--ink); transition: all .15s; white-space: nowrap; }
+.fc-chip:hover { border-color: var(--accent); color: var(--accent); }
+.fc-chip.active { background: var(--accent); border-color: var(--accent); color: white; }
+.fc-spacer { flex: 1; }
+.fc-actions { display: flex; gap: 8px; }
+.fc-btn-sm { background: var(--card); border: 1.5px solid var(--border); border-radius: 8px; padding: 5px 13px; font-size: 12px; font-weight: 600; cursor: pointer; color: var(--ink); transition: background .15s; }
+.fc-btn-sm:hover { background: var(--accent-soft); }
+
+/* boxes overview */
+.fc-boxes { display: flex; gap: 8px; margin-bottom: 22px; flex-wrap: wrap; }
+.fc-box { flex: 1; min-width: 80px; background: var(--card); border-radius: 10px; padding: 10px 12px; border: 1.5px solid var(--border); text-align: center; cursor: pointer; transition: border-color .15s; }
+.fc-box:hover { border-color: var(--accent); }
+.fc-box-dot { width: 10px; height: 10px; border-radius: 50%; margin: 0 auto 5px; }
+.fc-box-count { font-size: 22px; font-weight: 800; line-height: 1; }
+.fc-box-label { font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-top: 2px; }
+.fc-box.active-box { border-color: var(--accent); background: var(--accent-soft); }
+
+/* progress bar */
+.fc-progress-wrap { background: var(--border); border-radius: 4px; height: 6px; margin-bottom: 22px; overflow: hidden; }
+.fc-progress-fill { height: 100%; background: linear-gradient(90deg,#22c55e,#16a34a); border-radius: 4px; transition: width .5s; }
+
+/* card area */
+.fc-card-area { perspective: 1200px; margin-bottom: 20px; }
+.fc-card { width: 100%; min-height: 260px; position: relative; transform-style: preserve-3d; transition: transform 0.5s cubic-bezier(.4,0,.2,1); cursor: pointer; }
+.fc-card.flipped { transform: rotateY(180deg); }
+.fc-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 16px; padding: 32px 36px; display: flex; flex-direction: column; justify-content: center; border: 1.5px solid var(--border); }
+.fc-face-front { background: var(--card); box-shadow: 0 4px 20px rgba(0,0,0,.08); }
+.fc-face-back { background: linear-gradient(145deg, var(--card) 0%, rgba(14,165,233,0.04) 100%); box-shadow: 0 4px 24px rgba(14,165,233,.12); transform: rotateY(180deg); border-color: rgba(14,165,233,.25); }
+.fc-tag-row { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.fc-mod-tag { font-size: 10px; font-weight: 700; background: var(--accent-soft); color: var(--accent); border-radius: 5px; padding: 2px 8px; text-transform: uppercase; letter-spacing: .06em; }
+.fc-level-tag { font-size: 10px; font-weight: 700; border-radius: 5px; padding: 2px 8px; text-transform: uppercase; letter-spacing: .06em; }
+.fc-side-label { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-left: auto; }
+.fc-q { font-size: 18px; font-weight: 700; line-height: 1.4; color: var(--ink); }
+.fc-a { font-size: 14px; line-height: 1.65; color: var(--ink); }
+.fc-a .hi { background: rgba(14,165,233,.15); border-radius: 3px; padding: 0 3px; font-weight: 600; }
+.fc-a .formula { font-family: "Courier New", monospace; background: var(--code-bg); border-radius: 6px; padding: 8px 14px; margin: 8px 0; font-size: 13px; display: block; }
+.fc-a ul { padding-left: 18px; margin: 6px 0; }
+.fc-a li { margin-bottom: 4px; }
+.fc-hint { font-size: 12px; color: var(--muted); margin-top: 12px; }
+.fc-flip-hint { font-size: 12px; color: var(--muted); text-align: center; margin-top: -6px; margin-bottom: 16px; }
+
+/* navigation & rating */
+.fc-nav-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 8px; }
+.fc-nav-btn { background: var(--card); border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 20px; font-size: 18px; cursor: pointer; transition: all .15s; color: var(--ink); flex-shrink: 0; }
+.fc-nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+.fc-nav-btn:disabled { opacity: .3; cursor: default; }
+.fc-counter { font-size: 13px; font-weight: 700; color: var(--muted); text-align: center; flex: 1; }
+.fc-rating-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.fc-rate-btn { border: none; border-radius: 10px; padding: 11px 10px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all .15s; }
+.fc-rate-hard { background: #fee2e2; color: #b91c1c; }
+.fc-rate-hard:hover { background: #fecaca; }
+.fc-rate-ok { background: #fef3c7; color: #92400e; }
+.fc-rate-ok:hover { background: #fde68a; }
+.fc-rate-easy { background: #dcfce7; color: #15803d; }
+.fc-rate-easy:hover { background: #bbf7d0; }
+.fc-done-screen { text-align: center; padding: 60px 20px; }
+.fc-done-screen h3 { font-size: 28px; margin-bottom: 8px; }
+.fc-done-screen p { color: var(--muted); margin-bottom: 24px; }
+
+/* level colours */
+.lvl0 { background: #fee2e2; color: #b91c1c; } .dot0 { background: #ef4444; }
+.lvl1 { background: #ffedd5; color: #c2410c; } .dot1 { background: #f97316; }
+.lvl2 { background: #fef9c3; color: #854d0e; } .dot2 { background: #eab308; }
+.lvl3 { background: #dcfce7; color: #166534; } .dot3 { background: #22c55e; }
+.lvl4 { background: #ede9fe; color: #5b21b6; } .dot4 { background: #a855f7; }
+
+@media (max-width: 600px) {
+  .fc-face { padding: 22px 20px; }
+  .fc-q { font-size: 16px; }
+  .fc-boxes { gap: 5px; }
+  .fc-box { padding: 8px 6px; min-width: 60px; }
+  .fc-box-count { font-size: 18px; }
+}
 </style>
 </head>
 <body>
@@ -243,6 +323,7 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
   <button class="active" onclick="showTab('intro')">📖 Study</button>
   <button onclick="showTab('aufgaben')">✏️ Practice</button>
   <button onclick="showTab('altklausuren')">📋 Past Exams</button>
+  <button onclick="showTab('flashcards')">🃏 Flashcards</button>
 </nav>
 
 <!-- ══════════════════════════════════════════
@@ -1419,7 +1500,7 @@ function showTab(id) {
   var el = document.getElementById('view-' + id);
   if (el) el.classList.add('active');
   var btns = document.querySelectorAll('nav button');
-  var map = {intro:0, aufgaben:1, altklausuren:2};
+  var map = {intro:0, aufgaben:1, altklausuren:2, flashcards:3};
   if (map[id] !== undefined) btns[map[id]].classList.add('active');
   history.replaceState(null, '', '#' + id);
   setTimeout(function(){ initAllVisible(); enhanceToolbars(); }, 50);
@@ -1427,7 +1508,7 @@ function showTab(id) {
 
 (function() {
   var hash = location.hash.replace('#','');
-  var valid = {intro:1, aufgaben:1, altklausuren:1};
+  var valid = {intro:1, aufgaben:1, altklausuren:1, flashcards:1};
   if (hash && valid[hash]) showTab(hash);
 })();
 
@@ -1761,5 +1842,376 @@ function initAllVisible() {
 window.addEventListener('resize', initAllVisible);
 setTimeout(function(){ initAllVisible(); enhanceToolbars(); }, 100);
 </script>
+
+<!-- ══════════════════════════════════════════
+     TAB 4 – FLASHCARDS
+══════════════════════════════════════════ -->
+<div class="view" id="view-flashcards">
+<div class="fc-layout">
+
+  <!-- TOP BAR: module filters -->
+  <div class="fc-topbar">
+    <span class="fc-filter-label">Module:</span>
+    <button class="fc-chip active" onclick="fcSetMod(0)">All</button>
+    <button class="fc-chip" onclick="fcSetMod(1)">M1</button>
+    <button class="fc-chip" onclick="fcSetMod(2)">M2</button>
+    <button class="fc-chip" onclick="fcSetMod(3)">M3</button>
+    <button class="fc-chip" onclick="fcSetMod(4)">M4</button>
+    <button class="fc-chip" onclick="fcSetMod(5)">M5</button>
+    <button class="fc-chip" onclick="fcSetMod(6)">M6</button>
+    <button class="fc-chip" onclick="fcSetMod(7)">M7</button>
+    <span class="fc-spacer"></span>
+    <div class="fc-actions">
+      <button class="fc-btn-sm" onclick="fcShuffle()">🔀 Shuffle</button>
+      <button class="fc-btn-sm" onclick="fcReset()">↺ Reset</button>
+    </div>
+  </div>
+
+  <!-- LEVEL BOXES -->
+  <div class="fc-boxes">
+    <div class="fc-box" onclick="fcSetLevel(0)" id="fcbox-0"><div class="fc-box-dot dot0"></div><div class="fc-box-count" id="fcc-0">0</div><div class="fc-box-label">New</div></div>
+    <div class="fc-box" onclick="fcSetLevel(1)" id="fcbox-1"><div class="fc-box-dot dot1"></div><div class="fc-box-count" id="fcc-1">0</div><div class="fc-box-label">Learning</div></div>
+    <div class="fc-box" onclick="fcSetLevel(2)" id="fcbox-2"><div class="fc-box-dot dot2"></div><div class="fc-box-count" id="fcc-2">0</div><div class="fc-box-label">Familiar</div></div>
+    <div class="fc-box" onclick="fcSetLevel(3)" id="fcbox-3"><div class="fc-box-dot dot3"></div><div class="fc-box-count" id="fcc-3">0</div><div class="fc-box-label">Confident</div></div>
+    <div class="fc-box" onclick="fcSetLevel(4)" id="fcbox-4"><div class="fc-box-dot dot4"></div><div class="fc-box-count" id="fcc-4">0</div><div class="fc-box-label">Mastered</div></div>
+  </div>
+
+  <!-- MASTERY PROGRESS BAR -->
+  <div class="fc-progress-wrap"><div class="fc-progress-fill" id="fc-prog" style="width:0%"></div></div>
+
+  <!-- CARD -->
+  <div class="fc-card-area">
+    <div class="fc-card" id="fc-card" onclick="fcFlip()">
+      <div class="fc-face fc-face-front" id="fc-front">
+        <div class="fc-tag-row">
+          <span class="fc-mod-tag" id="fc-mod-tag">M1</span>
+          <span class="fc-level-tag lvl0" id="fc-lvl-tag">New</span>
+          <span class="fc-side-label">Question ▸</span>
+        </div>
+        <div class="fc-q" id="fc-question">Loading...</div>
+        <div class="fc-hint" id="fc-hint"></div>
+      </div>
+      <div class="fc-face fc-face-back" id="fc-back">
+        <div class="fc-tag-row">
+          <span class="fc-mod-tag" id="fc-mod-tag-b">M1</span>
+          <span class="fc-level-tag lvl0" id="fc-lvl-tag-b">New</span>
+          <span class="fc-side-label">Answer ◂</span>
+        </div>
+        <div class="fc-a" id="fc-answer">Answer goes here.</div>
+      </div>
+    </div>
+  </div>
+  <div class="fc-flip-hint">Click card or press <kbd style="background:var(--code-bg);border-radius:4px;padding:1px 5px;font-size:11px;">Space</kbd> to flip &nbsp;|&nbsp; <kbd style="background:var(--code-bg);border-radius:4px;padding:1px 5px;font-size:11px;">←</kbd> <kbd style="background:var(--code-bg);border-radius:4px;padding:1px 5px;font-size:11px;">→</kbd> to navigate</div>
+
+  <!-- NAV ROW -->
+  <div class="fc-nav-row">
+    <button class="fc-nav-btn" id="fc-prev" onclick="fcGo(-1)">←</button>
+    <div class="fc-counter" id="fc-counter">1 / 80</div>
+    <button class="fc-nav-btn" id="fc-next" onclick="fcGo(1)">→</button>
+  </div>
+
+  <!-- RATING BUTTONS -->
+  <div class="fc-rating-row">
+    <button class="fc-rate-btn fc-rate-hard" onclick="fcRate(0)">😓 Hard<br><small style="font-weight:400;font-size:11px">Back to New</small></button>
+    <button class="fc-rate-btn fc-rate-ok" onclick="fcRate(1)">🤔 OK<br><small style="font-weight:400;font-size:11px">Keep level</small></button>
+    <button class="fc-rate-btn fc-rate-easy" onclick="fcRate(2)">✨ Easy<br><small style="font-weight:400;font-size:11px">Advance level</small></button>
+  </div>
+
+</div>
+</div>
+<!-- END TAB 4 -->
+
+<script>
+// ══════════════════════════════════════════════════════════════
+//  FLASHCARD ENGINE
+// ══════════════════════════════════════════════════════════════
+var FC_CARDS = [
+  // ── Module 1: Introduction to Corporate Finance ──────────────
+  {id:1,m:1,q:"What is a corporation?",h:"Think: legal status, liability",a:"A <span class='hi'>legal entity</span> owned by shareholders but independent of them. It can enter contracts, borrow/lend money, and be sued. Shareholders have <span class='hi'>limited liability</span> — not personally responsible for corporate debts."},
+  {id:2,m:1,q:"Name the 3 types of corporations.",h:"Public / Private / ...",a:"<ul><li><b>Public companies</b> – traded on stock markets, many shareholders</li><li><b>Private corporations</b> – owned by a few investors, not publicly traded</li><li><b>LLCs</b> – hybrid: liability protection of corporation + flexibility of partnership</li></ul>"},
+  {id:3,m:1,q:"What is the primary goal of a corporation?",h:"Hint: shareholder wealth",a:"<span class='hi'>Maximize shareholder wealth</span> while managing risk and ensuring financial stability.<br><br>Shareholders want to: maximize current wealth, use it wisely over time, and manage risk."},
+  {id:4,m:1,q:"What is the agency problem?",h:"Managers vs. owners",a:"The conflict that arises when <span class='hi'>managers prioritize their own interests</span> (job security, power) over shareholders' interests (maximizing returns).<br><br>E.g. Lazy managers avoid risky projects to protect themselves."},
+  {id:5,m:1,q:"What are agency costs?",h:"Two types",a:"Costs arising when:<ul><li>Managers <b>don't maximize firm value</b></li><li>Shareholders must <b>spend money monitoring</b> managers</li></ul>Solutions: monitoring tools (auditors, board) and <span class='hi'>financial incentives</span> (stock options)."},
+  {id:6,m:1,q:"What is CAPEX and how does it relate to investment decisions?",h:"Capital ...",a:"<span class='hi'>CAPEX = Capital Expenditures</span> — investments in tangible assets (machines, buildings) or intangible assets (patents, R&amp;D).<br><br>Investment decision = what real assets to acquire (also called capital budgeting)."},
+  {id:7,m:1,q:"What is the Hurdle Rate (Cost of Capital)?",h:"Also called: opportunity cost of capital",a:"The <span class='hi'>minimum return</span> an investment must generate to be worthwhile.<br><br>Example: If investors can earn 5% elsewhere at similar risk, the project must earn ≥ 5% — otherwise investors allocate capital elsewhere."},
+  {id:8,m:1,q:"Name 4 monitoring tools used to prevent agency problems.",h:"Board, Auditors...",a:"<ul><li><b>Board of Directors</b> – oversees management</li><li><b>Auditors</b> – ensure GAAP compliance</li><li><b>Lenders</b> – monitor financial health</li><li><b>Shareholders</b> – can sell shares (Wall Street Walk)</li><li><b>Rival companies</b> – may acquire poorly managed firms</li></ul>"},
+  {id:9,m:1,q:"What is the difference between investment decisions and financing decisions?",h:"What to buy vs. how to pay",a:"<ul><li><b>Investment decision</b>: Which real assets to acquire (CAPEX)</li><li><b>Financing decision</b>: How to fund those investments — debt (loans, bonds) or equity (shares)</li></ul>"},
+  {id:10,m:1,q:"What are the 4 key cash flows managed by the Financial Manager?",h:"Raise → Invest → Earn → Return",a:"<ol><li>Cash <b>raised</b> from investors (equity or debt)</li><li>Cash <b>invested</b> in operations/assets</li><li>Operations <b>generate cash</b> (revenue)</li><li>Cash is <b>reinvested</b> (4a) or <b>returned</b> to shareholders as dividends (4b)</li></ol>"},
+
+  // ── Module 2: Returns & Valuation ────────────────────────────
+  {id:11,m:2,q:"Write the simple return formula for one period.",h:"Price change + dividends",a:"<span class='formula'>r_t = (P_t − P_{t−1} + D_t) / P_{t−1}</span>Example: Opening $100, Closing $120, Dividend $10 → r = (120−100+10)/100 = <span class='hi'>30%</span>"},
+  {id:12,m:2,q:"What is the Holding Period Return (HPR) and how is it calculated?",h:"Geometric product of returns",a:"HPR measures total return over multiple periods:<span class='formula'>H = (1+r₁)·(1+r₂)·...·(1+rₙ) − 1</span>For annualized HPR: <span class='formula'>r' = H^(1/N) − 1</span>More reliable for <span class='hi'>long-term past performance</span>."},
+  {id:13,m:2,q:"Arithmetic vs. Geometric return — what's the difference?",h:"Which is higher? Which for future?",a:"<ul><li><b>Arithmetic</b>: simple average of period returns; <span class='hi'>higher</span> than geometric; used for <b>future predictions</b></li><li><b>Geometric</b>: compounded product; more <span class='hi'>accurate for long-term past analysis</span></li></ul>"},
+  {id:14,m:2,q:"What are log returns (continuously compounded) and why use them?",h:"Natural logarithm...",a:"<span class='formula'>r_log = ln(P_t / P_{t−1})</span>Advantage: log returns are <span class='hi'>additively across time periods</span>.<br>E.g. add daily log returns to get weekly return."},
+  {id:15,m:2,q:"What is semi-annual compounding? Give the formula.",h:"10% p.a. → 5% twice per year",a:"Instead of 10% once/year, apply 5% every 6 months:<span class='formula'>FV = P · (1 + r/2)²</span>Example: $100 → $100·(1.05)² = <span class='hi'>$110.25</span> vs. $110 with annual compounding."},
+  {id:16,m:2,q:"Write the continuous compounding formula.",h:"Euler's number e",a:"<span class='formula'>A = P · e^(r·t)</span>P = principal, r = interest rate, t = years<br>Example: P=1, r=10%, t=1 → A = e^0.10 = <span class='hi'>1.1052</span> (10.52% return)"},
+  {id:17,m:2,q:"What is Net Present Value (NPV)?",h:"Sum of discounted CFs minus investment",a:"NPV = sum of all <span class='hi'>discounted future cash flows</span> minus initial investment.<span class='formula'>NPV = −I₀ + CF₁/(1+r)¹ + CF₂/(1+r)² + ... + CFₙ/(1+r)ⁿ</span><b>Decision rule</b>: Accept if <span class='hi'>NPV &gt; 0</span>."},
+  {id:18,m:2,q:"What is the discount factor and how does it behave?",h:"How time and rate affect PV",a:"<span class='formula'>DF_t = 1 / (1+r_t)^t</span>The larger the <b>time horizon t</b> or the <b>discount rate r</b>, the <span class='hi'>smaller the present value</span>.<br>Risk-free CF → lower discount rate; Risky CF → higher discount rate."},
+  {id:19,m:2,q:"Why are risky cash flows discounted more than risk-free cash flows?",h:"Think: uncertainty → risk premium",a:"Risky cash flows have <span class='hi'>uncertain receipt</span>. Investors demand a <b>risk premium</b> — a higher required return — to compensate for uncertainty.<br><br>Higher discount rate → lower present value → reflects the risk."},
+  {id:20,m:2,q:"What are the two main types of financial assets?",h:"Fixed income and ...",a:"<ul><li><b>Fixed Income (Bonds)</b>: fixed interest payments; debt instrument</li><li><b>Equity (Shares)</b>: ownership claims; profit participation; no fixed return</li><li>Also: <b>Derivatives</b> (options, futures)</li></ul>Financial assets = claims on real assets, traded as securities."},
+
+  // ── Module 3: Bonds & Stocks ──────────────────────────────────
+  {id:21,m:3,q:"Write the bond valuation formula.",h:"Discount coupons + face value",a:"<span class='formula'>PV = Σ cpn/(1+r)^t + par/(1+r)^T</span>cpn = coupon payment, par = face value, r = discount rate (YTM), T = maturity<br><br>Bond price = PV of all future cash flows."},
+  {id:22,m:3,q:"What is Yield to Maturity (YTM)?",h:"= IRR of bond",a:"YTM is the <span class='hi'>internal rate of return (IRR)</span> of a bond — the discount rate that sets NPV = 0.<br><br>= Total annual return if bond is <b>held to maturity</b> and all payments reinvested at YTM.<br><br>If price &lt; par → YTM &gt; coupon rate."},
+  {id:23,m:3,q:"What is the relationship between bond prices and interest rates?",h:"Inverse!",a:"<span class='hi'>Inverse relationship</span>:<ul><li>Interest rates ↑ → bond prices ↓</li><li>Interest rates ↓ → bond prices ↑</li></ul>Long-term bonds are <b>more sensitive</b> to rate changes than short-term bonds."},
+  {id:24,m:3,q:"If the coupon rate > market rate, does the bond sell at premium or discount?",h:"Think: what does the market prefer?",a:"The bond sells at a <span class='hi'>premium</span> (price &gt; par value).<br><br>Rule:<ul><li>Coupon &gt; market rate → <b>premium</b></li><li>Coupon &lt; market rate → <b>discount</b></li><li>Coupon = market rate → <b>par</b></li></ul>The price adjusts so buyers always earn the market rate."},
+  {id:25,m:3,q:"What is Duration and what does it measure?",h:"Weighted average time → price sensitivity",a:"Duration = <span class='hi'>weighted average time</span> to receive a bond's cash flows.<br><br>It measures <b>price sensitivity</b> to interest rate changes:<span class='formula'>D = Σ [t · PV(C_t) / PV]</span>Longer duration → more sensitive to rate changes → higher interest rate risk."},
+  {id:26,m:3,q:"What is Modified Duration?",h:"From Duration → % price change",a:"<span class='formula'>D_mod = D / (1 + r)</span>Interpretation: <span class='hi'>% change in bond price</span> for a 1% change in interest rates.<br><br>Example: D_mod = 4 → if rates rise by 1%, price falls ~4%."},
+  {id:27,m:3,q:"What is the yield curve (term structure of interest rates)?",h:"Graph: yield vs. maturity",a:"Graphical representation of bond yields across different maturities.<br><br>Normally <span class='hi'>upward sloping</span> (long-term bonds have higher yields) because:<ul><li>Higher risk for longer maturities</li><li>Inflation expectations</li><li>Expectations about future short rates</li></ul>"},
+  {id:28,m:3,q:"Write the general stock pricing formula (one period).",h:"Dividend + future price discounted",a:"<span class='formula'>P₀ = (DIV₁ + P₁) / (1 + r)</span>P₀ = today's price, DIV₁ = dividend in year 1, P₁ = expected price in year 1, r = required return (cost of equity)."},
+  {id:29,m:3,q:"What is the Dividend Discount Model (DDM)?",h:"Multi-period extension",a:"Extension of the stock price formula to many periods:<span class='formula'>P₀ = DIV₁/(1+r) + DIV₂/(1+r)² + ... + (DIVₙ+Pₙ)/(1+r)ⁿ</span>With constant growth g (Gordon Growth Model):<span class='formula'>P₀ = DIV₁ / (r − g)</span>"},
+  {id:30,m:3,q:"What is PVGO (Present Value of Growth Opportunities)?",h:"Value from reinvestment",a:"<span class='formula'>PVGO = P (with reinvestment) − P (no reinvestment)</span>PVGO measures the <span class='hi'>net value created by reinvesting earnings</span>.<br><br>High PVGO → strong future growth potential. If ROE &gt; r: plowback creates value."},
+  {id:31,m:3,q:"What is the Sustainable Growth Rate (SGR)?",h:"Max growth without external funding",a:"<span class='formula'>g = ROE × plowback ratio</span>= maximum growth rate a company can sustain <span class='hi'>without external financing</span>.<br><br>Higher plowback (less dividends, more retained earnings) → higher g."},
+  {id:32,m:3,q:"What is the cost of equity formula using dividend yield?",h:"r = ?",a:"<span class='formula'>r = DIV₁/P₀ + g</span>= <span class='hi'>dividend yield + expected growth rate</span><br><br>Example: DIV₁=$2, P₀=$49.43, g=7.7% → r = 4.05% + 7.7% = <b>11.75%</b>"},
+
+  // ── Module 4: NPV & Investment Decisions ──────────────────────
+  {id:33,m:4,q:"State the NPV additivity principle.",h:"Can you add NPVs?",a:"<span class='formula'>NPV(A+B) = NPV(A) + NPV(B)</span>NPV is <span class='hi'>additive</span> — you can combine project values.<br><br>NPV is measured in today's dollars, making projects directly comparable."},
+  {id:34,m:4,q:"What is the Payback Period method and what is its key flaw?",h:"Simple rule, big problem",a:"Payback rule: accept projects that recover the investment within the target timeframe.<br><br><span class='hi'>Key flaw</span>: ignores (1) time value of money and (2) cash flows <b>after</b> the payback period → may reject profitable long-term investments."},
+  {id:35,m:4,q:"What is the Internal Rate of Return (IRR)?",h:"IRR = discount rate where NPV = 0",a:"IRR = the <span class='hi'>discount rate</span> at which NPV = 0.<br><br>Represents the average annual return of the project.<span class='formula'>0 = −I₀ + CF₁/(1+IRR) + CF₂/(1+IRR)² + ...</span><b>Rule</b>: Accept if <span class='hi'>IRR &gt; opportunity cost of capital</span>."},
+  {id:36,m:4,q:"IRR Pitfall 1: What is the lending vs. borrowing problem?",h:"When does NPV rise with discount rate?",a:"For <span class='hi'>borrowing-type projects</span> (negative initial cash flow → positive outflows later), NPV <b>increases</b> as discount rate rises — opposite of normal.<br><br>Standard IRR rule breaks down here."},
+  {id:37,m:4,q:"IRR Pitfall 2: Multiple IRRs",h:"Unconventional cash flows",a:"Certain cash flow patterns (sign changes &gt;1) result in <span class='hi'>multiple discount rates</span> where NPV = 0.<br><br>Example: A project with IRRs of 3.5% AND 19.54% — which one to use?"},
+  {id:38,m:4,q:"IRR Pitfall 3: Scale problem",h:"High % ≠ high value",a:"IRR <span class='hi'>ignores the absolute scale</span> of a project.<br><br>Example: Project D has IRR 100% but NPV $8k; Project E has IRR 75% but NPV $12k.<br>→ IRR alone picks D, but E creates <b>more total value</b>."},
+  {id:39,m:4,q:"What is Capital Rationing? Name the two types.",h:"Limited funds for investment",a:"Capital Rationing = restriction on total funds available for investment.<ul><li><b>Soft rationing</b>: limits imposed by management (strategic budget caps)</li><li><b>Hard rationing</b>: external market constraints (no access to external funding)</li></ul>"},
+  {id:40,m:4,q:"What is the Profitability Index (PI) and when is it used?",h:"NPV per dollar invested",a:"<span class='formula'>PI = NPV / Investment</span>Used under <span class='hi'>capital rationing</span> to rank projects by value created per dollar invested.<br><br>PI &gt; 1 → creates value. Select combination of projects with highest PI to maximize total NPV within budget."},
+  {id:41,m:4,q:"State NPV Rule 1: What counts as cash flow?",h:"Not accounting profit",a:"Only <span class='hi'>actual cash flows</span> matter — not accounting profits.<span class='formula'>Cash Flow = Net Income + Depreciation − CAPEX</span>Record capital expenditures when they occur; add back non-cash depreciation."},
+  {id:42,m:4,q:"State NPV Rules 2, 3 and 4.",h:"Incremental, inflation, financing",a:"<ul><li><b>Rule 2</b>: Use <span class='hi'>incremental</span> CFs — include taxes, opportunity costs, side effects; exclude sunk costs</li><li><b>Rule 3</b>: <span class='hi'>Nominal rates</span> for nominal CFs; <span class='hi'>real rates</span> for real CFs — consistent either way</li><li><b>Rule 4</b>: <span class='hi'>Separate</span> investment from financing — don't subtract debt proceeds or count interest as CF</li></ul>"},
+
+  // ── Module 5: Risk & Return ───────────────────────────────────
+  {id:43,m:5,q:"What is the difference between risk and uncertainty?",h:"Two related but distinct concepts",a:"<ul><li><b>Risk</b>: chance that <span class='hi'>actual return differs from expected</span> — includes partial or total loss</li><li><b>Uncertainty</b>: difficulty predicting future outcomes due to limited knowledge and uncontrollable events</li></ul>"},
+  {id:44,m:5,q:"Write the expected return formula (discrete scenarios).",h:"Probability-weighted average",a:"<span class='formula'>E[r] = Σ p(s) · r(s)</span>p(s) = probability of scenario s, r(s) = return in that scenario.<br><br>Example: 50% chance of 20% and 50% chance of −4% → E[r] = 0.5·0.20 + 0.5·(−0.04) = <span class='hi'>8%</span>"},
+  {id:45,m:5,q:"Write the ex-ante variance formula and interpret it.",h:"Squared deviations, probability-weighted",a:"<span class='formula'>σ² = Σ p(s) · [r(s) − E[r]]²</span>= probability-weighted sum of squared deviations from the mean.<br><br>Standard deviation σ = √σ² = <span class='hi'>volatility</span> of returns."},
+  {id:46,m:5,q:"Write the portfolio return formula for 2 assets.",h:"Weighted average",a:"<span class='formula'>r_p = x₁·r₁ + x₂·r₂</span>x₁, x₂ = portfolio weights (sum to 1), r₁, r₂ = individual asset returns.<br><br>Expected return: E[r_p] = x₁·E[r₁] + x₂·E[r₂]"},
+  {id:47,m:5,q:"Write the portfolio variance formula for 2 assets.",h:"Individual risks + covariance term",a:"<span class='formula'>σ²_p = x₁²σ₁² + x₂²σ₂² + 2x₁x₂ρ₁₂σ₁σ₂</span>ρ₁₂ = correlation coefficient.<br>If <span class='hi'>ρ &lt; 1</span> → diversification reduces risk vs. individual assets."},
+  {id:48,m:5,q:"What is the role of correlation in diversification?",h:"ρ = -1 is the ideal",a:"<ul><li>ρ = +1: no diversification benefit (risks add up fully)</li><li>ρ = 0: some benefit</li><li>ρ = −1: <span class='hi'>maximum diversification</span> — risks can theoretically cancel out completely</li></ul>Most real assets: ρ ≈ 0.019 → significant diversification possible."},
+  {id:49,m:5,q:"What is the difference between systematic and unsystematic risk?",h:"Diversifiable vs. not",a:"<ul><li><b>Systematic risk</b> (market risk): economy-wide factors; <span class='hi'>cannot be diversified away</span></li><li><b>Unsystematic risk</b> (firm-specific): affects only one firm; <span class='hi'>diversifiable</span></li></ul>Adding more assets to a portfolio eliminates unsystematic risk. Systematic risk always remains."},
+  {id:50,m:5,q:"Define Beta (β) and write its formula.",h:"Sensitivity to market",a:"Beta measures the <span class='hi'>sensitivity of a stock's return to the market return</span>.<span class='formula'>β_i = Cov(r_i, r_m) / Var(r_m) = σ_im / σ²_m</span><ul><li>β = 1: moves with market</li><li>β &gt; 1: more volatile</li><li>β &lt; 1: less volatile</li><li>β &lt; 0: moves opposite to market</li></ul>"},
+
+  // ── Module 6: Portfolio Theory ────────────────────────────────
+  {id:51,m:6,q:"What is the goal of Mean-Variance Portfolio Theory?",h:"Optimal risk-return tradeoff",a:"Find an optimal portfolio that either:<ul><li><span class='hi'>Maximizes return</span> for a given level of risk, OR</li><li><span class='hi'>Minimizes risk</span> for a given level of return</li></ul>Core idea: there is a trade-off between risk (variance) and return (mean)."},
+  {id:52,m:6,q:"Name 4 key assumptions of Mean-Variance Theory.",h:"Frictionless markets...",a:"<ul><li><b>Frictionless markets</b>: no transaction costs, no taxes</li><li><b>Perfectly divisible securities</b></li><li><b>Perfect competition</b>: all investors are price takers</li><li><b>Mean-variance preferences</b>: investors decide based only on return and risk</li><li>No short-sale restrictions</li></ul>"},
+  {id:53,m:6,q:"Write the variance of a linear combination of 2 assets.",h:"The key portfolio risk formula — learn by heart!",a:"<span class='formula'>Var(aX + bY) = a²·Var(X) + b²·Var(Y) + 2ab·Cov(X,Y)</span>Portfolio risk = individual risks + their <span class='hi'>co-movement (covariance)</span>.<br>Cov &gt; 0: same direction, less diversification. Cov &lt; 0: opposite, more diversification."},
+  {id:54,m:6,q:"What is covariance and how does it relate to correlation?",h:"Cov = raw; ρ = standardized",a:"<b>Covariance</b>: measures whether two variables move together.<span class='formula'>ρ₁₂ = Cov(r₁,r₂) / (σ₁ · σ₂)</span>Correlation = <span class='hi'>standardized covariance</span>, values between −1 and +1.<br>ρ = 0: no linear relationship."},
+  {id:55,m:6,q:"What happens to portfolio variance as you add more assets (naive diversification)?",h:"Variance → average covariance",a:"As N → ∞ with equal weights:<span class='formula'>σ²_p → average covariance (systematic risk)</span>Unsystematic (firm-specific) variance <span class='hi'>gets diversified away</span>. Only <b>systematic risk</b> (market covariance) remains — it cannot be eliminated."},
+  {id:56,m:6,q:"What is the Efficient Frontier?",h:"Set of optimal portfolios",a:"The set of all <span class='hi'>mean-variance efficient portfolios</span> — those with the lowest variance for a given expected return.<br><br>Graphically: a parabola in risk-return space. Only portfolios <b>on or above</b> the Global Minimum Variance Portfolio (GMVP) are efficient."},
+  {id:57,m:6,q:"What is the Global Minimum Variance Portfolio (GMVP)?",h:"Lowest risk point on frontier",a:"The portfolio on the efficient frontier with the <span class='hi'>absolute lowest variance</span> across all possible portfolios.<br><br>Portfolios below the GMVP (same risk, lower return) are <b>inefficient</b> — they should be avoided."},
+  {id:58,m:6,q:"What is the Capital Allocation Line (CAL)?",h:"Risk-free asset + risky portfolio",a:"The CAL shows all possible combinations of:<ul><li>A <span class='hi'>risk-free asset</span> (e.g. government bond, return = r_f)</li><li>A <span class='hi'>risky portfolio</span></li></ul>Slope of CAL = <b>Sharpe Ratio</b>: (E[r_p] − r_f) / σ_p<br>Best CAL = tangent line from r_f to the efficient frontier."},
+  {id:59,m:6,q:"What is the Tangency Portfolio and why is it special?",h:"Best risky portfolio",a:"The Tangency Portfolio T is the risky portfolio where the CAL is <span class='hi'>tangent to the efficient frontier</span>.<br><br>It maximizes the <b>Sharpe Ratio</b> (return per unit of risk).<br>→ Under CAPM: T = Market Portfolio M.<br>All rational investors hold T combined with the risk-free asset."},
+  {id:60,m:6,q:"What is the Sharpe Ratio?",h:"Return per unit of risk",a:"<span class='formula'>Sharpe Ratio = (E[r_p] − r_f) / σ_p</span>= slope of the Capital Allocation Line (CAL).<br><br>Higher Sharpe ratio = better <span class='hi'>risk-adjusted return</span>. The tangency portfolio maximizes the Sharpe ratio."},
+
+  // ── Module 7: CAPM & Cost of Capital ─────────────────────────
+  {id:61,m:7,q:"Write the CAPM formula and explain each component.",h:"Risk-free + risk premium",a:"<span class='formula'>E[r_i] = r_f + β_i · (r_m − r_f)</span><ul><li>r_f = risk-free rate (e.g. Treasury bills)</li><li>β_i = systematic risk of asset i</li><li>r_m = expected market return</li><li>(r_m − r_f) = <span class='hi'>market risk premium</span></li><li>β·(r_m − r_f) = <span class='hi'>risk premium of asset i</span></li></ul>"},
+  {id:62,m:7,q:"What does the Security Market Line (SML) show?",h:"β on x-axis, return on y-axis",a:"The SML shows the <span class='hi'>fair relationship between systematic risk (β) and expected return</span>.<br><br>All fairly-priced assets lie <b>on</b> the SML.<br>Assets <b>above</b> SML: underpriced (too high return for risk) → <span class='hi'>buy</span>.<br>Assets <b>below</b> SML: overpriced → <span class='hi'>avoid</span>."},
+  {id:63,m:7,q:"What does it mean if a stock lies above vs. below the SML?",h:"Over- or underpriced?",a:"<ul><li><b>Above SML</b>: stock offers <span class='hi'>more return than fair</span> for its risk → <b>underpriced</b> → investors buy it → price rises until on SML</li><li><b>Below SML</b>: stock offers <span class='hi'>less return than fair</span> → <b>overpriced</b> → investors avoid/sell → price falls until on SML</li></ul>"},
+  {id:64,m:7,q:"What is the key difference between the CAL and the SML?",h:"Total risk vs. systematic risk",a:"<table style='font-size:13px;border-collapse:collapse;width:100%'><tr><td style='padding:4px;font-weight:700'>CAL</td><td style='padding:4px'>x-axis = σ (total risk)</td><td style='padding:4px'>Shows portfolio combinations</td></tr><tr><td style='padding:4px;font-weight:700'>SML</td><td style='padding:4px'>x-axis = β (systematic risk)</td><td style='padding:4px'>Shows individual asset pricing</td></tr></table>CAL: how to split money between risk-free and risky portfolio.<br>SML: what return a single asset <span class='hi'>should</span> offer."},
+  {id:65,m:7,q:"Under CAPM: why does Tangency Portfolio = Market Portfolio?",h:"All rational investors...",a:"Under CAPM assumptions, all rational investors have the <span class='hi'>same information and mean-variance preferences</span>.<br><br>→ All choose the same tangency portfolio T.<br>→ In equilibrium, T must be the <b>market portfolio</b> (portfolio of all assets, weighted by market cap)."},
+  {id:66,m:7,q:"What is the Company Cost of Capital (COC)?",h:"Average return firm must earn",a:"<span class='formula'>r_assets = (D/V)·r_debt + (E/V)·r_equity</span>= <span class='hi'>average return a firm must earn</span> on its investments to satisfy all investors.<br><br>V = D + E (total firm value). Based on <b>market values</b>, not book values."},
+  {id:67,m:7,q:"Write the WACC formula and explain the tax shield.",h:"Debt is tax-deductible",a:"<span class='formula'>WACC = (D/V)·r_d·(1−t_c) + (E/V)·r_e</span>t_c = corporate tax rate. Interest on debt is <span class='hi'>tax-deductible</span> (tax shield).<br>→ After-tax cost of debt = r_d·(1−t_c) &lt; r_d.<br>→ WACC &lt; unlevered cost of capital."},
+  {id:68,m:7,q:"What is WACC used for in project evaluation?",h:"Minimum acceptable return",a:"WACC = <span class='hi'>minimum required rate of return</span> for projects with <b>comparable risk</b> to the existing firm.<br><br>Accept project if: Project's expected return ≥ WACC.<br>Reject if: Expected return &lt; WACC."},
+  {id:69,m:7,q:"What is Arbitrage Pricing Theory (APT)?",h:"Alternative to CAPM",a:"APT = alternative to CAPM that uses <span class='hi'>multiple risk factors</span> instead of just market risk (β).<br><br>Factors: inflation, GDP growth, interest rates, etc.<span class='formula'>E[r_i] = r_f + b₁·RP₁ + b₂·RP₂ + ... + bₙ·RPₙ</span>More realistic than CAPM but harder to apply."},
+  {id:70,m:7,q:"How do you estimate Beta for a firm?",h:"Regression + weighted average",a:"<ol><li>Run <b>linear regression</b>: stock return vs. market return → slope = β_i</li><li>Compute <b>weighted average beta</b> of all assets: β_firm = Σ (w_i · β_i)</li><li>Insert β_firm into <b>CAPM formula</b> to get r_E</li></ol>Problem: past returns ≠ expected returns; <span class='hi'>standard error</span> of estimate can be large."}
+];
+
+var FC_LVL_NAMES = ["New","Learning","Familiar","Confident","Mastered"];
+var FC_LVL_COLORS = ["lvl0","lvl1","lvl2","lvl3","lvl4"];
+var FC_MOD_LABELS = ["","Intro","Returns","Bonds","NPV","Risk","Portfolio","CAPM"];
+
+var fcState = {
+  mod: 0,        // 0 = all modules
+  levelFilter: -1, // -1 = all levels
+  deck: [],      // current deck (array of card indices)
+  idx: 0,        // current position in deck
+  levels: {},    // {cardId: level 0-4}
+  flipped: false
+};
+
+function fcInit() {
+  fcState.levels = JSON.parse(localStorage.getItem('cf_fc_v1') || '{}');
+  fcBuildDeck();
+  fcRenderBoxes();
+  fcShowCard();
+}
+
+function fcSave() {
+  localStorage.setItem('cf_fc_v1', JSON.stringify(fcState.levels));
+}
+
+function fcBuildDeck() {
+  fcState.deck = [];
+  for (var i = 0; i < FC_CARDS.length; i++) {
+    var card = FC_CARDS[i];
+    var mod = fcState.mod;
+    var lf = fcState.levelFilter;
+    var lvl = fcState.levels[card.id] || 0;
+    if (mod !== 0 && card.m !== mod) continue;
+    if (lf !== -1 && lvl !== lf) continue;
+    fcState.deck.push(i);
+  }
+  if (fcState.idx >= fcState.deck.length) fcState.idx = 0;
+}
+
+function fcRenderBoxes() {
+  var counts = [0,0,0,0,0];
+  for (var i = 0; i < FC_CARDS.length; i++) {
+    var card = FC_CARDS[i];
+    var mod = fcState.mod;
+    if (mod !== 0 && card.m !== mod) continue;
+    var lvl = fcState.levels[card.id] || 0;
+    counts[lvl]++;
+  }
+  var total = 0;
+  for (var i=0;i<FC_CARDS.length;i++){
+    var card=FC_CARDS[i]; var mod=fcState.mod;
+    if(mod!==0 && card.m!==mod) continue; total++;
+  }
+  for (var i = 0; i < 5; i++) {
+    var el = document.getElementById('fcc-'+i);
+    if (el) el.textContent = counts[i];
+    var box = document.getElementById('fcbox-'+i);
+    if (box) { box.classList.toggle('active-box', fcState.levelFilter === i); }
+  }
+  var mastered = counts[4];
+  var pct = total > 0 ? Math.round(mastered/total*100) : 0;
+  var prog = document.getElementById('fc-prog');
+  if (prog) prog.style.width = pct + '%';
+}
+
+function fcShowCard() {
+  var card = document.getElementById('fc-card');
+  if (card) card.classList.remove('flipped');
+  fcState.flipped = false;
+
+  var deck = fcState.deck;
+  var ctr = document.getElementById('fc-counter');
+  if (!deck.length) {
+    ctr.textContent = '0 cards';
+    document.getElementById('fc-question').textContent = 'No cards match this filter.';
+    document.getElementById('fc-answer').innerHTML = 'Try selecting a different module or level.';
+    document.getElementById('fc-hint').textContent = '';
+    return;
+  }
+
+  var ci = deck[fcState.idx];
+  var data = FC_CARDS[ci];
+  var lvl = fcState.levels[data.id] || 0;
+
+  ctr.textContent = (fcState.idx + 1) + ' / ' + deck.length;
+  document.getElementById('fc-question').textContent = data.q;
+  document.getElementById('fc-answer').innerHTML = data.a;
+  document.getElementById('fc-hint').textContent = data.h ? '💡 Hint: ' + data.h : '';
+
+  var modLabel = 'M' + data.m + ' · ' + FC_MOD_LABELS[data.m];
+  document.getElementById('fc-mod-tag').textContent = modLabel;
+  document.getElementById('fc-mod-tag-b').textContent = modLabel;
+
+  var lvlLabel = FC_LVL_NAMES[lvl];
+  var lvlClass = FC_LVL_COLORS[lvl];
+  ['fc-lvl-tag','fc-lvl-tag-b'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el){ el.textContent = lvlLabel; el.className = 'fc-level-tag ' + lvlClass; }
+  });
+
+  document.getElementById('fc-prev').disabled = fcState.idx === 0;
+  document.getElementById('fc-next').disabled = fcState.idx === deck.length - 1;
+}
+
+function fcFlip() {
+  var card = document.getElementById('fc-card');
+  if (!card) return;
+  fcState.flipped = !fcState.flipped;
+  card.classList.toggle('flipped', fcState.flipped);
+}
+
+function fcGo(dir) {
+  fcState.flipped = false;
+  var card = document.getElementById('fc-card');
+  if (card) card.classList.remove('flipped');
+  fcState.idx = Math.max(0, Math.min(fcState.deck.length - 1, fcState.idx + dir));
+  fcShowCard();
+}
+
+function fcRate(difficulty) {
+  // difficulty: 0=Hard, 1=OK, 2=Easy
+  var deck = fcState.deck;
+  if (!deck.length) return;
+  var ci = deck[fcState.idx];
+  var data = FC_CARDS[ci];
+  var lvl = fcState.levels[data.id] || 0;
+  if (difficulty === 0) { lvl = 0; }
+  else if (difficulty === 2) { lvl = Math.min(4, lvl + 1); }
+  // OK: stay
+  fcState.levels[data.id] = lvl;
+  fcSave();
+  fcBuildDeck();
+  fcRenderBoxes();
+  // advance to next card
+  if (fcState.idx >= fcState.deck.length) fcState.idx = Math.max(0, fcState.deck.length - 1);
+  // small flip back then show
+  var card = document.getElementById('fc-card');
+  if (card) card.classList.remove('flipped');
+  fcState.flipped = false;
+  setTimeout(fcShowCard, 80);
+}
+
+function fcSetMod(mod) {
+  fcState.mod = mod;
+  fcState.idx = 0;
+  document.querySelectorAll('.fc-topbar .fc-chip').forEach(function(b, i) {
+    b.classList.toggle('active', i === mod);
+  });
+  fcBuildDeck();
+  fcRenderBoxes();
+  fcShowCard();
+}
+
+function fcSetLevel(lvl) {
+  if (fcState.levelFilter === lvl) { fcState.levelFilter = -1; }
+  else { fcState.levelFilter = lvl; }
+  fcState.idx = 0;
+  fcBuildDeck();
+  fcRenderBoxes();
+  fcShowCard();
+}
+
+function fcShuffle() {
+  // Fisher-Yates shuffle
+  var d = fcState.deck;
+  for (var i = d.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = d[i]; d[i] = d[j]; d[j] = tmp;
+  }
+  fcState.idx = 0;
+  fcShowCard();
+}
+
+function fcReset() {
+  if (!confirm('Reset all learning progress? This cannot be undone.')) return;
+  fcState.levels = {};
+  fcSave();
+  fcBuildDeck();
+  fcRenderBoxes();
+  fcShowCard();
+}
+
+// ── Keyboard navigation (only when flashcard tab is active) ───
+document.addEventListener('keydown', function(e) {
+  var fc = document.getElementById('view-flashcards');
+  if (!fc || !fc.classList.contains('active')) return;
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); fcGo(1); }
+  else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); fcGo(-1); }
+  else if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); fcFlip(); }
+  else if (e.key === '1') fcRate(0);
+  else if (e.key === '2') fcRate(1);
+  else if (e.key === '3') fcRate(2);
+});
+
+// auto-init when tab becomes visible
+var _origShowTab = showTab;
+function showTab(id) {
+  _origShowTab(id);
+  if (id === 'flashcards') { setTimeout(fcInit, 60); }
+}
+</script>
+
 </body>
 </html>
