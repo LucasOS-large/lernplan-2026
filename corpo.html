@@ -286,6 +286,20 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
   .fc-box { padding: 8px 6px; min-width: 60px; }
   .fc-box-count { font-size: 18px; }
 }
+
+/* ── STEP-BY-STEP CALC BOXES ─────────────────────────── */
+.why-box { background: linear-gradient(135deg,rgba(14,165,233,0.09),rgba(14,165,233,0.03)); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 11px 15px; margin: 4px 0 14px; font-size: 14px; line-height: 1.75; }
+.why-box strong { color: var(--accent); }
+.calc-box { background: var(--card); border: 1.5px solid var(--border); border-radius: 10px; padding: 14px 16px; margin: 10px 0 14px; }
+.calc-box-title { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .09em; color: var(--accent); margin-bottom: 10px; }
+.calc-step { display: flex; gap: 11px; align-items: flex-start; margin-bottom: 9px; font-size: 13.5px; line-height: 1.65; }
+.calc-step:last-child { margin-bottom: 0; }
+.step-num { background: var(--accent); color: white; border-radius: 50%; min-width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex-shrink: 0; margin-top: 2px; }
+.step-text { flex: 1; }
+.step-text b { color: var(--accent); }
+.step-res { display: inline-block; background: var(--code-bg); border-radius: 4px; padding: 1px 7px; font-family: "Courier New", monospace; font-size: 12.5px; }
+.note-inline { font-size: 12px; color: var(--muted); }
+.section-intro { font-size: 14.5px; line-height: 1.8; margin-bottom: 14px; color: var(--ink); }
 </style>
 </head>
 <body>
@@ -373,74 +387,89 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
   <div class="module-header">
     <div class="module-num-badge">Module 1</div>
     <h2>Introduction to Corporate Finance</h2>
-    <p>Core questions of corporate finance · Goals · Agency Problem</p>
+    <p>What is a firm · Investment &amp; Financing decisions · Agency Problem · Hurdle Rate</p>
   </div>
 
   <div class="section-title">🏢 What is Corporate Finance?</div>
-  <p style="font-size:14.5px;line-height:1.8;margin-bottom:12px;">Corporate Finance deals with two core decisions: <strong>What should the firm invest in?</strong> (Investment decision) and <strong>How should it be financed?</strong> (Financing decision). The goal is always to maximise firm value for the owners.</p>
-
+  <div class="why-box"><strong>Why this matters:</strong> Every financial decision a firm makes boils down to two questions — <em>where to invest?</em> and <em>how to pay for it?</em> Corporate Finance gives us the tools to answer both rigorously, always with the goal of maximising the value of the firm for its owners.</div>
   <div class="cf-two-col">
     <div class="cf-box">
       <div style="font-size:11px;font-weight:800;color:var(--accent);margin-bottom:6px;">INVESTMENT DECISION (CAPEX)</div>
-      Purchase of real assets (tangible/intangible) → Capital Budgeting.<br>
-      <em>Example: New factory, patent, IT system.</em><br>
-      Decision criterion: NPV &gt; 0 or return &gt; Hurdle Rate.
+      Which real assets should the firm acquire? — factories, patents, software, R&amp;D.<br><br>
+      <strong>Criterion:</strong> Accept if the project's return &gt; Hurdle Rate, i.e. NPV &gt; 0.
     </div>
     <div class="cf-box">
       <div style="font-size:11px;font-weight:800;color:var(--accent);margin-bottom:6px;">FINANCING DECISION</div>
-      Issuance of financial assets → optimise capital structure.<br>
-      <em>Example: Stock issuance, bonds, bank loan.</em><br>
-      Question: How much equity vs. debt? What terms?
+      How should those assets be paid for? — equity (shares), debt (bonds, loans), or a mix.<br><br>
+      <strong>Question:</strong> What capital structure minimises the cost of capital?
     </div>
   </div>
 
-  <div class="section-title">📊 Corporate Forms Compared</div>
+  <div class="section-title">💰 The Cash-Flow Cycle — How Money Moves</div>
+  <div class="why-box"><strong>Why this matters:</strong> The financial manager's job is to keep this cycle healthy. Investors put in money; the firm invests it; operations generate cash; that cash is either reinvested (if good projects exist) or returned to investors. Understanding this cycle is the foundation of everything else.</div>
+  <div class="formula-box">
+    <span class="f-label">The Cycle (4 steps)</span>
+    <div style="font-size:13.5px;line-height:2;margin-top:4px;">
+      <strong>Step 1</strong> — Raise capital: investors provide funds (equity or debt)<br>
+      <strong>Step 2</strong> — Invest: firm buys real assets (machines, R&amp;D, acquisitions)<br>
+      <strong>Step 3</strong> — Operate: assets generate revenue → operating cash flow<br>
+      <strong>Step 4a</strong> — Reinvest: if ROI &gt; hurdle rate, keep cash in the firm<br>
+      <strong>Step 4b</strong> — Return: pay dividends or buy back shares
+    </div>
+  </div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 How to determine the Hurdle Rate (step by step)</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Identify project risk:</b> Is this riskier than the firm's average project? Riskier → higher rate.</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Find the risk-free rate r<sub>f</sub>:</b> Use the current government bond yield (e.g. 10-yr Bund = 3%).</div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Add a risk premium:</b> Hurdle Rate = r<sub>f</sub> + risk premium. For an average-risk project, use WACC (see Module 7). <span class="step-res">e.g. 3% + 7% = 10%</span></div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Decision rule:</b> If expected project return ≥ hurdle rate → invest. If &lt; hurdle rate → reject.</div></div>
+  </div>
+
+  <div class="section-title">📊 Corporate Forms at a Glance</div>
   <table class="cf-table">
     <tr><th>Feature</th><th>Sole Proprietorship</th><th>LLC (GmbH)</th><th>Corporation (AG)</th></tr>
     <tr><td>Liability</td><td>Unlimited personal</td><td>Limited to contribution</td><td>Limited to contribution</td></tr>
-    <tr><td>Capital raising</td><td>Very limited</td><td>Limited</td><td>Capital markets (stock exchange)</td></tr>
-    <tr><td>Ownership/Control</td><td>Identical</td><td>Often identical</td><td>Separated (shareholders/mgmt.)</td></tr>
-    <tr><td>Lifespan</td><td>Tied to owner</td><td>Unlimited</td><td>Unlimited</td></tr>
-    <tr><td>Agency problem</td><td>None</td><td>Minor</td><td>Significant</td></tr>
+    <tr><td>Capital raising</td><td>Very limited</td><td>Limited</td><td>Full capital markets access</td></tr>
+    <tr><td>Ownership/Control</td><td>Same person</td><td>Often same</td><td><strong>Separated</strong> (owners ≠ managers)</td></tr>
+    <tr><td>Agency problem</td><td>None</td><td>Minor</td><td><strong>Significant</strong></td></tr>
   </table>
 
-  <div class="section-title">💰 Cash Flow Cycle</div>
-  <div class="formula-box">Investors provide capital → Firm invests in real assets → Operating cash flow is generated → Return to investors (dividends, interest) or reinvestment</div>
-  <p style="font-size:14px;line-height:1.75;margin-top:10px;">The capital market is an efficient mechanism for allocating capital. <strong>Hurdle Rate</strong> = minimum required return on an investment = opportunity cost of capital. The hurdle rate reflects project risk – higher risk → higher hurdle rate.</p>
-
   <div class="section-title">⚠️ The Agency Problem</div>
-  <p style="font-size:14.5px;line-height:1.8;margin-bottom:10px;">In large corporations, owners (shareholders = principals) and managers (agents) are separated. Managers may pursue their own interests: prestige, job security, empire-building for higher pay – instead of maximising shareholder value. These <strong>Agency Costs</strong> arise from conflicts of interest.</p>
-  <div class="cf-box red" style="margin-bottom:12px;"><strong>Example:</strong> CEO invests in a prestigious project with NPV &lt; 0 (boosts CEO profile but harms shareholders) → Agency Cost.</div>
-
-  <div class="cf-label">6 Mechanisms to Control Managers</div>
+  <div class="why-box"><strong>Why this matters:</strong> When ownership and management are separated (as in corporations), managers may act in their own interests rather than shareholders'. This creates costs — both direct (monitoring expenses) and indirect (missed opportunities). Understanding how to control this conflict is central to Corporate Governance.</div>
+  <p class="section-intro">The agency problem is the conflict that arises because <strong>principals (shareholders)</strong> delegate decisions to <strong>agents (managers)</strong>, who have different incentives and more information.</p>
+  <div class="formula-box">
+    <span class="f-label">Agency Cost = Monitoring Costs + Bonding Costs + Residual Loss</span>
+    <div style="font-size:13px;line-height:1.9;margin-top:6px;">
+      <strong>Monitoring costs:</strong> board of directors, auditors, lender covenants — costs paid to watch managers<br>
+      <strong>Bonding costs:</strong> management contracts, incentive schemes — costs to align interests<br>
+      <strong>Residual loss:</strong> value destroyed despite monitoring — unavoidable remainder
+    </div>
+  </div>
+  <div class="cf-box red" style="margin-bottom:12px;"><strong>Concrete example:</strong> CEO invests €50m in a prestige acquisition with NPV = −€20m (bad for shareholders, good for CEO's profile). Shareholders lose €20m → that is the agency cost.</div>
+  <div class="cf-label">6 Mechanisms to Control the Agency Problem</div>
   <table class="cf-table">
-    <tr><th>#</th><th>Mechanism</th><th>How it works</th></tr>
-    <tr><td>1</td><td><strong>Board of Directors</strong></td><td>Direct oversight, can remove CEO</td></tr>
-    <tr><td>2</td><td><strong>Auditors</strong></td><td>Ensure GAAP compliance, detect manipulation</td></tr>
-    <tr><td>3</td><td><strong>Lenders (Banks)</strong></td><td>Covenants, monitoring of assets and cash flows</td></tr>
-    <tr><td>4</td><td><strong>Shareholders</strong></td><td>"Wall Street Walk": selling shares → price drop → pressure</td></tr>
-    <tr><td>5</td><td><strong>Takeover threat</strong></td><td>Poorly run firms become takeover targets → disciplines management</td></tr>
-    <tr><td>6</td><td><strong>Incentive pay</strong></td><td>Stock options, bonuses → align interests</td></tr>
+    <tr><th>#</th><th>Mechanism</th><th>How it reduces the problem</th></tr>
+    <tr><td>1</td><td><strong>Board of Directors</strong></td><td>Directly oversees management, can fire the CEO</td></tr>
+    <tr><td>2</td><td><strong>Auditors</strong></td><td>Enforce GAAP, detect accounting manipulation</td></tr>
+    <tr><td>3</td><td><strong>Lenders / Covenants</strong></td><td>Monitor cash flows; covenants restrict risky behaviour</td></tr>
+    <tr><td>4</td><td><strong>Shareholders (Wall Street Walk)</strong></td><td>Sell shares if dissatisfied → stock price falls → pressure on CEO</td></tr>
+    <tr><td>5</td><td><strong>Hostile Takeover Threat</strong></td><td>Poorly managed firms are acquired; bad managers replaced</td></tr>
+    <tr><td>6</td><td><strong>Stock Options / Incentive Pay</strong></td><td>Tie manager wealth to share price → align interests</td></tr>
   </table>
 
   <div class="section-title">❓ Exam Questions – Module 1</div>
   <div class="qa-block">
     <div class="qa-q" onclick="toggleQA(this)"><span>What is the difference between profit maximisation and shareholder value maximisation?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Profit maximisation ignores the time value of money (€1 today ≠ €1 in 5 years) and risk. Shareholder value = present value of all future cash flows → accounts for time value and risk. A project can generate short-term profit but destroy long-term value (NPV &lt; 0) – e.g. by depleting resources. Correct goal: maximise the present value of future cash flows, not accounting profit.</div>
+    <div class="qa-a">Profit maximisation ignores the time value of money (€1 today ≠ €1 in 5 years) and risk. Shareholder value = present value of all future cash flows → accounts for time value and risk. A project can generate short-term accounting profit but destroy long-term value (NPV &lt; 0). Correct goal: maximise the <em>present value</em> of future cash flows.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Why do agency costs arise specifically in corporations?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">In corporations, ownership (shareholders) and control (management) are separated. Shareholders are often anonymous and lack time/expertise for direct monitoring. Managers have an information advantage (asymmetric information). In a sole proprietorship, owner = manager → no conflict of interest. Agency costs include: monitoring costs (board, auditors), bonding costs (management contracts), residual loss (remaining efficiency loss).</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>Why do agency costs arise specifically in large corporations?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">In corporations, ownership (shareholders) and control (management) are separated. Shareholders are often anonymous and lack time/expertise for direct oversight. Managers have an information advantage (asymmetric information). In a sole proprietorship, owner = manager → no conflict. Agency costs include: monitoring costs, bonding costs, and residual loss.</div>
   </div>
   <div class="qa-block">
     <div class="qa-q" onclick="toggleQA(this)"><span>What is the hurdle rate and how is it determined?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">The hurdle rate is the minimum return an investment must earn to be attractive to investors. It equals the opportunity cost of capital – what investors could alternatively earn in the capital market at the same risk level. Determined via CAPM (r = rf + β(rm−rf)) or WACC. Projects with return &gt; hurdle rate create value (NPV &gt; 0).</div>
+    <div class="qa-a">The hurdle rate is the minimum return a project must generate to be worthwhile. It equals the opportunity cost of capital — what investors could earn elsewhere at the same risk level. Determined via CAPM: r = r<sub>f</sub> + β(r<sub>m</sub>−r<sub>f</sub>), or via WACC for the whole firm. Projects with return &gt; hurdle rate create value (NPV &gt; 0).</div>
   </div>
-  <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>What is the difference between real assets and financial assets?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Real assets (tangible: buildings, machinery; intangible: patents, brands) are the actually productive assets that generate cash flows. Financial assets (stocks, bonds, derivatives) are claims on the cash flows of real assets – they redistribute value but do not create it. Corporate Finance asks: which real assets are worth it (NPV &gt; 0) and how to finance their purchase?</div>
-  </div>
-
   <button class="read-btn" id="readbtn-0" onclick="markRead(0)">✓ Mark module as read</button>
 </div>
 
@@ -448,100 +477,138 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
 <div class="topic-panel" id="panel-1">
   <div class="module-header">
     <div class="module-num-badge">Module 2</div>
-    <h2>Valuation Principles & NPV</h2>
-    <p>Return measures · Compounding · Net Present Value</p>
+    <h2>Valuation Principles &amp; NPV</h2>
+    <p>Returns · Compounding · Net Present Value · Perpetuity · Annuity</p>
   </div>
 
-  <div class="section-title">📈 Return Measures</div>
+  <div class="section-title">📈 Returns — How We Measure Investment Performance</div>
+  <div class="why-box"><strong>Why we need this:</strong> Before we can evaluate any investment, we need a standardised way to measure what it earns. Returns let us compare a stock, bond, or project on equal footing — regardless of how much money was invested.</div>
+
   <div class="formula-box">
-    <span class="f-label">Simple Return (Holding Period Return)</span>
-    <div class="f-row">
-      r<sub>t</sub> = <span class="f-frac"><span class="f-num">P<sub>t</sub> − P<sub>t−1</sub> + DIV<sub>t</sub></span><span class="f-den">P<sub>t−1</sub></span></span>
-    </div>
+    <span class="f-label">Simple Return (one period)</span>
+    <div class="f-row">r<sub>t</sub> = <span class="f-frac"><span class="f-num">P<sub>t</sub> − P<sub>t−1</sub> + DIV<sub>t</sub></span><span class="f-den">P<sub>t−1</sub></span></span></div>
+    <div style="font-size:12px;color:var(--muted);margin-top:5px;">P<sub>t</sub> = price today &nbsp;|&nbsp; P<sub>t−1</sub> = price yesterday &nbsp;|&nbsp; DIV<sub>t</sub> = dividend received</div>
   </div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Simple Return</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Identify what you received:</b> You bought a stock for €100, it is now worth €120, and paid a €10 dividend.</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Capital gain:</b> P<sub>t</sub> − P<sub>t−1</sub> = 120 − 100 = <span class="step-res">€20</span></div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Total gain:</b> 20 + 10 (dividend) = <span class="step-res">€30</span></div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Divide by what you paid:</b> 30 / 100 = <span class="step-res">0.30 = 30%</span> ← your return</div></div>
+  </div>
+
   <div class="formula-box">
-    <span class="f-label">Geometric Return (Compounded Holding Period)</span>
+    <span class="f-label">Geometric (Holding Period) Return — multiple periods</span>
     <div class="f-row">(1+H) = (1+r<sub>1</sub>)·(1+r<sub>2</sub>)·····(1+r<sub>N</sub>)</div>
-    <div class="f-row">Annualisiert: (1+r') = (1+H)<sup>1/N</sup> − 1</div>
+    <div class="f-row" style="margin-top:4px;">Annualised: r' = (1+H)<sup>1/N</sup> − 1</div>
   </div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Geometric Return (3 years)</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Year-by-year returns:</b> Year 1: +20%, Year 2: −10%, Year 3: +15%</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Convert to growth factors:</b> (1.20) × (0.90) × (1.15)</div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Multiply:</b> 1.20 × 0.90 = 1.08 &nbsp;→&nbsp; 1.08 × 1.15 = <span class="step-res">1.242</span> → total growth = +24.2%</div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Annualise (÷ 3 years):</b> r' = 1.242<sup>1/3</sup> − 1 = <span class="step-res">7.52% per year</span></div></div>
+    <div class="calc-step"><div class="step-num">5</div><div class="step-text"><b>Why not just average?</b> Arithmetic average = (20−10+15)/3 = 8.33% — this overstates true performance because losses hurt more than gains help.</div></div>
+  </div>
+  <div class="cf-two-col" style="margin-top:4px;">
+    <div class="cf-box green"><strong>Use Arithmetic Mean when:</strong><br>Forecasting the expected return for a <em>single future period</em>. It represents the average outcome you'd expect if you repeated the investment many times independently.</div>
+    <div class="cf-box"><strong>Use Geometric Mean when:</strong><br>Evaluating how an investment <em>actually performed over time</em>. It is the true compounded annual growth rate (CAGR) earned.</div>
+  </div>
+
+  <div class="section-title">⏱ Compounding — How Frequency Affects Growth</div>
+  <div class="why-box"><strong>Why we need this:</strong> Interest can be paid once a year or every second (continuously). The more often it compounds, the more you earn. This matters hugely for bonds, loans, and any multi-period investment calculation.</div>
   <div class="formula-box">
-    <span class="f-label">Log Return (continuously compounded, time-additive)</span>
-    <div class="f-row">r<sup>log</sup> = ln<span class="f-frac"><span class="f-num">P<sub>t</sub> + DIV<sub>t</sub></span><span class="f-den">P<sub>t−1</sub></span></span></div>
-    <div style="font-size:12px;color:var(--muted);margin-top:4px;">→ log returns are additive over time: r<sub>1</sub> + r<sub>2</sub> + ··· + r<sub>N</sub></div>
+    <span class="f-label">General Compounding Formula</span>
+    <div class="f-row">FV = PV · <span class="f-frac"><span class="f-num">&nbsp;(1 + r/m)<sup>m·t</sup>&nbsp;</span><span class="f-den">&nbsp;</span></span></div>
+    <div style="font-size:12px;color:var(--muted);margin-top:5px;">m = number of compounding periods per year &nbsp;|&nbsp; t = years &nbsp;|&nbsp; r = annual rate</div>
   </div>
-  <div class="cf-two-col" style="margin-top:12px;">
-    <div class="cf-box green"><strong>Arithmetic Mean:</strong><br>Use for forecasting future returns (expected return in one period). Overestimates long-run performance when volatility is high.</div>
-    <div class="cf-box"><strong>Geometric Mean:</strong><br>Use for evaluating past performance. Shows the actual compounded return achieved.</div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: €100 at r = 10% after 1 year, different frequencies</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Annual (m=1):</b> 100 × (1 + 0.10/1)¹ = 100 × 1.10 = <span class="step-res">€110.00</span> → EAR = 10.00%</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Semi-annual (m=2):</b> 100 × (1 + 0.05)² = 100 × 1.1025 = <span class="step-res">€110.25</span> → EAR = 10.25%</div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Monthly (m=12):</b> 100 × (1 + 0.10/12)¹² ≈ <span class="step-res">€110.47</span> → EAR = 10.47%</div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Continuous (m→∞):</b> 100 × e<sup>0.10×1</sup> = 100 × 1.10517 = <span class="step-res">€110.52</span> → EAR = 10.52%</div></div>
+    <div class="calc-step"><div class="step-num">5</div><div class="step-text"><b>Rule:</b> More frequent compounding → higher effective rate. Continuous compounding gives the theoretical maximum.</div></div>
   </div>
 
-  <div class="section-title">⏱ Compounding</div>
-  <table class="cf-table">
-    <tr><th>Method</th><th>Formula</th><th>Example at r=10%</th></tr>
-    <tr><td>Annual</td><td>(1+r)<sup>t</sup></td><td>1.10 → eff. 10.00%</td></tr>
-    <tr><td>Semi-annual</td><td>(1+r/2)<sup>2</sup> − 1</td><td>1.1025 → eff. 10.25%</td></tr>
-    <tr><td>Monthly</td><td>(1+r/12)<sup>12</sup> − 1</td><td>1.1047 → eff. 10.47%</td></tr>
-    <tr><td>Continuous</td><td>e<sup>r·t</sup> − 1</td><td>e<sup>0.1</sup> = 1.1052 → eff. 10.52%</td></tr>
-  </table>
-  <div class="cf-box yellow"><strong>Key rule:</strong> The more frequently compounding occurs, the higher the effective annual rate (EAR). Continuous compounding yields the maximum EAR.</div>
-
-  <div class="section-title">💰 Net Present Value (NPV)</div>
-
+  <div class="section-title">💰 Net Present Value (NPV) — The Core Tool of Corporate Finance</div>
+  <div class="why-box"><strong>Why we need this:</strong> A euro today is worth more than a euro next year — because you can invest it and earn a return. NPV converts all future cash flows of a project back to today's value, then subtracts what the project costs. A positive NPV means the project creates wealth; a negative NPV destroys it.</div>
   <div class="formula-box">
     <span class="f-label">Net Present Value</span>
-    <div class="f-row">
-      NPV = −I<sub>0</sub> + <span class="f-frac"><span class="f-num">CF<sub>1</sub></span><span class="f-den">(1+r)<sup>1</sup></span></span> + <span class="f-frac"><span class="f-num">CF<sub>2</sub></span><span class="f-den">(1+r)<sup>2</sup></span></span> + ··· + <span class="f-frac"><span class="f-num">CF<sub>n</sub></span><span class="f-den">(1+r)<sup>n</sup></span></span>
-    </div>
-    <div class="f-row">= <span class="f-sum">Σ</span> <span class="f-frac"><span class="f-num">CF<sub>t</sub></span><span class="f-den">(1+r)<sup>t</sup></span></span> − I<sub>0</sub></div>
+    <div class="f-row">NPV = −I<sub>0</sub> + <span class="f-frac"><span class="f-num">CF<sub>1</sub></span><span class="f-den">(1+r)<sup>1</sup></span></span> + <span class="f-frac"><span class="f-num">CF<sub>2</sub></span><span class="f-den">(1+r)<sup>2</sup></span></span> + ··· + <span class="f-frac"><span class="f-num">CF<sub>n</sub></span><span class="f-den">(1+r)<sup>n</sup></span></span></div>
+    <div style="font-size:12px;color:var(--muted);margin-top:5px;">−I<sub>0</sub> = initial investment (negative, cash goes out) &nbsp;|&nbsp; CF<sub>t</sub> = cash flow in year t &nbsp;|&nbsp; r = discount rate (risk-adjusted)</div>
   </div>
-  <div class="cf-box green"><strong>NPV Decision Rule:</strong> NPV &gt; 0 → investment creates value → accept. NPV = 0 → indifferent. NPV &lt; 0 → reject.</div>
-
-  <div class="cf-label">Full Worked Example (r = 10%)</div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Full NPV Calculation (r = 10%)</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>List all cash flows:</b> Year 0: −€1,000 (investment) · Year 1: +€300 · Year 2: +€400 · Year 3: +€500 · Year 4: +€600</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Calculate the discount factor for each year:</b> DF<sub>t</sub> = 1/(1+0.10)<sup>t</sup><br>Year 1: 1/1.10 = 0.9091 &nbsp;|&nbsp; Year 2: 1/1.21 = 0.8264 &nbsp;|&nbsp; Year 3: 1/1.331 = 0.7513 &nbsp;|&nbsp; Year 4: 1/1.464 = 0.6830</div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Multiply each CF by its discount factor (= Present Value):</b><br>PV₁ = 300 × 0.9091 = €272.73 &nbsp;|&nbsp; PV₂ = 400 × 0.8264 = €330.58<br>PV₃ = 500 × 0.7513 = €375.66 &nbsp;|&nbsp; PV₄ = 600 × 0.6830 = €409.81</div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Sum all present values:</b> 272.73 + 330.58 + 375.66 + 409.81 = <span class="step-res">€1,388.78</span></div></div>
+    <div class="calc-step"><div class="step-num">5</div><div class="step-text"><b>Subtract the initial investment:</b> NPV = 1,388.78 − 1,000 = <span class="step-res">+€388.78</span></div></div>
+    <div class="calc-step"><div class="step-num">6</div><div class="step-text"><b>Decision:</b> NPV &gt; 0 → project creates €389 of value → <strong>Accept!</strong></div></div>
+  </div>
   <table class="cf-table">
-    <tr><th>t</th><th>CF</th><th>Discount factor (r=10%)</th><th>PV(CF)</th></tr>
-    <tr><td>0</td><td>−1,000</td><td>1.0000</td><td>−1,000.00</td></tr>
-    <tr><td>1</td><td>+300</td><td>0.9091</td><td>+272.73</td></tr>
-    <tr><td>2</td><td>+400</td><td>0.8264</td><td>+330.58</td></tr>
-    <tr><td>3</td><td>+500</td><td>0.7513</td><td>+375.66</td></tr>
-    <tr><td>4</td><td>+600</td><td>0.6830</td><td>+409.81</td></tr>
-    <tr><td colspan="3"><strong>NPV</strong></td><td><strong>+388.78 ≈ +390 €</strong></td></tr>
+    <tr><th>Year t</th><th>Cash Flow</th><th>× Discount Factor (10%)</th><th>= Present Value</th></tr>
+    <tr><td>0</td><td>−€1,000</td><td>1.0000</td><td>−€1,000.00</td></tr>
+    <tr><td>1</td><td>+€300</td><td>0.9091</td><td>+€272.73</td></tr>
+    <tr><td>2</td><td>+€400</td><td>0.8264</td><td>+€330.58</td></tr>
+    <tr><td>3</td><td>+€500</td><td>0.7513</td><td>+€375.66</td></tr>
+    <tr><td>4</td><td>+€600</td><td>0.6830</td><td>+€409.81</td></tr>
+    <tr><td colspan="3"><strong>NPV</strong></td><td><strong>+€388.78 ✓</strong></td></tr>
   </table>
-  <div class="cf-box green">NPV = +390 € &gt; 0 → Investment is worthwhile. The firm creates €390 of value for its shareholders.</div>
+  <div class="cf-box green"><strong>NPV Decision Rule:</strong> NPV &gt; 0 → creates value → Accept. &nbsp; NPV = 0 → breaks even → Indifferent. &nbsp; NPV &lt; 0 → destroys value → Reject.</div>
 
-  <div class="section-title">📐 Key Present Value Formulas</div>
+  <div class="section-title">📐 Special Cash-Flow Patterns: Perpetuity &amp; Annuity</div>
+  <div class="why-box"><strong>Why we need this:</strong> Many real-world cash flows follow predictable patterns — a bond pays the same coupon every year, a stock may grow dividends at a constant rate. These shortcuts let us value them without discounting each payment individually.</div>
+
   <div class="formula-box">
-    <span class="f-label">Perpetuity (constant, infinite cash flows)</span>
+    <span class="f-label">Perpetuity — same CF forever</span>
     <div class="f-row">PV = <span class="f-frac"><span class="f-num">CF</span><span class="f-den">r</span></span></div>
-    <div style="font-size:12px;color:var(--muted);margin-top:2px;">Bsp.: CF=100, r=8% → PV = 1.250</div>
   </div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Perpetuity</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>A government bond pays €80 per year forever. Discount rate r = 4%.</b></div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Apply formula:</b> PV = 80 / 0.04 = <span class="step-res">€2,000</span></div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Intuition:</b> If you invest €2,000 at 4%, you earn €80/year → the perpetuity is worth exactly that.</div></div>
+  </div>
+
   <div class="formula-box">
-    <span class="f-label">Growing Perpetuity</span>
-    <div class="f-row">PV = <span class="f-frac"><span class="f-num">CF<sub>1</sub></span><span class="f-den">r − g</span></span> &nbsp;<span style="font-size:11px;color:var(--muted)">(requires: r &gt; g)</span></div>
+    <span class="f-label">Growing Perpetuity — CF grows at rate g forever</span>
+    <div class="f-row">PV = <span class="f-frac"><span class="f-num">CF<sub>1</sub></span><span class="f-den">r − g</span></span> &nbsp;<span class="note-inline">(requires r &gt; g)</span></div>
   </div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Growing Perpetuity (Gordon Growth Model for stocks)</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>A stock pays DIV₁ = €3 next year, dividends grow at g = 5% per year, r = 10%.</b></div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Denominator:</b> r − g = 10% − 5% = <span class="step-res">5%</span></div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Apply formula:</b> PV = 3 / 0.05 = <span class="step-res">€60</span> ← fair price of the stock today</div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Warning:</b> If g ≥ r, the formula breaks (negative or infinite value) → only valid when growth is below the discount rate.</div></div>
+  </div>
+
   <div class="formula-box">
-    <span class="f-label">Annuity (fixed payments for T periods)</span>
-    <div class="f-row">PV = CF · <span class="f-frac"><span class="f-num">1 − <span class="f-frac" style="font-size:0.85em;"><span class="f-num">1</span><span class="f-den">(1+r)<sup>T</sup></span></span></span><span class="f-den">r</span></span></div>
-    <div style="font-size:12px;color:var(--muted);margin-top:2px;">Ex.: CF=100, r=8%, T=5 → PV = 399.27</div>
+    <span class="f-label">Annuity — fixed CF for exactly T periods</span>
+    <div class="f-row">PV = CF · <span class="f-frac"><span class="f-num">1 − (1+r)<sup>−T</sup></span><span class="f-den">r</span></span></div>
   </div>
-  <div class="cf-box"><strong>NPV Additivity:</strong> NPV(A+B) = NPV(A) + NPV(B). This property holds only for NPV, not for IRR. Projects can be valued independently and aggregated.</div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Annuity (e.g. loan repayment)</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>A project generates €30,000/year for 5 years. Discount rate r = 8%.</b></div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Calculate the annuity factor:</b> [1 − (1.08)<sup>−5</sup>] / 0.08 = [1 − 0.6806] / 0.08 = 0.3194 / 0.08 = <span class="step-res">3.9927</span></div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Multiply:</b> 30,000 × 3.9927 = <span class="step-res">€119,782</span> ← present value of all 5 payments</div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>If the project costs €100,000:</b> NPV = 119,782 − 100,000 = <span class="step-res">+€19,782</span> → Accept!</div></div>
+  </div>
 
   <div class="section-title">❓ Exam Questions – Module 2</div>
   <div class="qa-block">
     <div class="qa-q" onclick="toggleQA(this)"><span>When do you use arithmetic vs. geometric mean?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a"><strong>Arithmetic mean</strong> = sum of returns / N. Use for forecasting future returns (expected return in one period). <strong>Geometric mean</strong> = (end value/start value)^(1/N) − 1. Use for measuring historical performance (actual compounded return earned). Rule of thumb: Geo ≈ Arith. − σ²/2. The higher the volatility, the larger the difference.</div>
+    <div class="qa-a"><strong>Arithmetic mean:</strong> sum of returns / N. Use for <em>forecasting</em> one-period expected return. <strong>Geometric mean:</strong> (end value/start value)^(1/N) − 1. Use for measuring historical compounded performance. Rule of thumb: Geo ≈ Arith − σ²/2. Higher volatility → bigger gap. Example: Arith = 10%, σ = 20% → Geo ≈ 10% − 0.02 = 8%.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Why does the NPV discount rate reflect project risk – not the cost of debt?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">The discount rate represents the opportunity cost of capital – what investors could alternatively earn at the same risk level. The debt rate is the return for lenders (low risk, senior claim). The project bears the full operating risk of the business. Using the debt rate would make risky projects look too attractive. Correct: use WACC or un-levered cost of capital (for all-equity financing).</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>A project costs €100,000 and generates €30,000/year for 5 years at r = 8%. Is it worthwhile?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">PV = 30,000 × [1−1/(1.08)⁵]/0.08 = 30,000 × 3.9927 = €119,782. NPV = 119,782 − 100,000 = <strong>+€19,782 &gt; 0 → Accept.</strong> IRR ≈ 15.2% &gt; 8% confirms the result.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>A project costs €100,000 and generates €30,000/year for 5 years, r=8%. Is it worthwhile?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">PV of annuity = 30,000 · [1−1/(1.08)⁵]/0.08 = 30,000 · 3.9927 = 119,782. NPV = 119,782 − 100,000 = +19,782 &gt; 0 → investment is worthwhile. IRR approximation: at r≈18.6%, NPV=0. Since IRR &gt; 8%, this confirms the NPV result.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>Why does NPV use the opportunity cost of capital as the discount rate?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">The discount rate represents what investors could earn elsewhere at the same risk level. If the project earns less than that, investors are better off investing in the market. The NPV rule says: only invest if the project beats the best available alternative of equal risk. The debt rate is wrong because it ignores the operating risk borne by equity holders.</div>
   </div>
-  <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>What is the difference between continuous and discrete compounding?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Discrete compounding: interest is credited at specific points in time (annually, semi-annually, etc.), EAR = (1+r/m)^m − 1. Continuous compounding: interest grows instantaneously, A = P·e^(rt). At r=10%: annual discrete → 10.00%, semi-annual → 10.25%, continuous → 10.52%. Continuous compounding is the theoretical maximum EAR. Log returns are the discrete equivalents of continuously compounded returns.</div>
-  </div>
-
   <button class="read-btn" id="readbtn-1" onclick="markRead(1)">✓ Mark module as read</button>
 </div>
 
@@ -549,88 +616,111 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
 <div class="topic-panel" id="panel-2">
   <div class="module-header">
     <div class="module-num-badge">Module 3</div>
-    <h2>Bonds & Stocks</h2>
-    <p>Bond valuation · Duration · Yield Curve · DDM · Gordon · PVGO</p>
+    <h2>Bonds &amp; Stocks</h2>
+    <p>Bond valuation · YTM · Duration · Yield Curve · DDM · PVGO</p>
   </div>
 
-  <div class="section-title">📋 Bond Valuation</div>
+  <div class="section-title">📋 Bond Valuation — What is a Bond Worth Today?</div>
+  <div class="why-box"><strong>Why we need this:</strong> A bond is a promise to pay fixed cash flows in the future. To know its fair price today, we discount those cash flows back using the market's required return. This is the same NPV logic — but applied to a fixed-income security.</div>
   <div class="formula-box">
-    <span class="f-label">Preis einer Kuponanleihe</span>
-    <div class="f-row">P = <span class="f-sum">Σ</span><sub style="font-size:10px">t=1</sub><sup style="font-size:10px">T</sup> <span class="f-frac"><span class="f-num">Kupon</span><span class="f-den">(1+r)<sup>t</sup></span></span> + <span class="f-frac"><span class="f-num">Nennwert</span><span class="f-den">(1+r)<sup>T</sup></span></span></div>
-    <div class="f-row">= Kupon · <span class="f-frac"><span class="f-num">1 − (1+r)<sup>−T</sup></span><span class="f-den">r</span></span> + <span class="f-frac"><span class="f-num">Nennwert</span><span class="f-den">(1+r)<sup>T</sup></span></span></div>
+    <span class="f-label">Bond Price Formula</span>
+    <div class="f-row">P = <span class="f-sum">Σ</span> <span class="f-frac"><span class="f-num">Coupon</span><span class="f-den">(1+r)<sup>t</sup></span></span> + <span class="f-frac"><span class="f-num">Face Value</span><span class="f-den">(1+r)<sup>T</sup></span></span></div>
+    <div style="font-size:12px;color:var(--muted);margin-top:5px;">Coupon = annual interest payment &nbsp;|&nbsp; r = market (discount) rate = YTM &nbsp;|&nbsp; T = years to maturity</div>
   </div>
-  <div class="cf-box red"><strong>Golden Rule:</strong> Rising market rates → falling bond prices (inverse relationship). Falling rates → rising prices. Coupon &lt; market rate → below par. Coupon &gt; market rate → above par. Coupon = market rate → at par (price = face value).</div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Price a bond (6% coupon, €1,000 face value, 4 years, r = 8%)</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Annual coupon payment:</b> 6% × €1,000 = <span class="step-res">€60 per year</span></div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Discount factor for each year:</b> 1/(1.08)<sup>t</sup><br>Year 1: 0.9259 &nbsp;|&nbsp; Year 2: 0.8573 &nbsp;|&nbsp; Year 3: 0.7938 &nbsp;|&nbsp; Year 4: 0.7350</div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>PV of each coupon:</b> 60 × 0.9259 = 55.56 &nbsp;|&nbsp; 60 × 0.8573 = 51.44 &nbsp;|&nbsp; 60 × 0.7938 = 47.63</div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>PV of final coupon + face value:</b> 1,060 × 0.7350 = <span class="step-res">€779.10</span></div></div>
+    <div class="calc-step"><div class="step-num">5</div><div class="step-text"><b>Sum all PVs:</b> 55.56 + 51.44 + 47.63 + 779.10 = <span class="step-res">€933.73</span></div></div>
+    <div class="calc-step"><div class="step-num">6</div><div class="step-text"><b>Why below €1,000?</b> Market rate (8%) &gt; coupon (6%) → new bonds offer more → this bond is less attractive → price falls until buyers earn 8%.</div></div>
+  </div>
+  <div class="cf-box red"><strong>Golden Rule (always exam-relevant):</strong> Interest rates ↑ → bond prices ↓. &nbsp;Interest rates ↓ → bond prices ↑. &nbsp;Coupon &gt; r → price above par. &nbsp;Coupon &lt; r → price below par. &nbsp;Coupon = r → price = par (€1,000).</div>
 
-  <div class="cf-label">Example: Bond with 6% coupon, face value €1,000, 4 years, market rate 8%</div>
-  <table class="cf-table">
-    <tr><th>t</th><th>CF</th><th>PV factor (8%)</th><th>PV</th></tr>
-    <tr><td>1</td><td>60</td><td>0,9259</td><td>55,56</td></tr>
-    <tr><td>2</td><td>60</td><td>0.8573</td><td>51,44</td></tr>
-    <tr><td>3</td><td>60</td><td>0,7938</td><td>47,63</td></tr>
-    <tr><td>4</td><td>1.060</td><td>0,7350</td><td>779,10</td></tr>
-    <tr><td colspan="3"><strong>Price</strong></td><td><strong>€933.73</strong></td></tr>
-  </table>
-  <p style="font-size:14px;line-height:1.75;">Price &lt; face value (below par) because market rate (8%) &gt; coupon (6%).</p>
+  <div class="section-title">📏 Yield to Maturity (YTM) — The Bond's True Annual Return</div>
+  <div class="why-box"><strong>Why we need this:</strong> A bond's coupon rate is fixed, but the market price changes daily. YTM tells you the actual annual return you'll earn if you buy the bond now and hold it to maturity. It is the IRR of the bond's cash flows.</div>
+  <div class="formula-box">
+    <span class="f-label">YTM: solve for r so that NPV = 0</span>
+    <div class="f-row">P = <span class="f-frac"><span class="f-num">Coupon</span><span class="f-den">(1+YTM)<sup>1</sup></span></span> + <span class="f-frac"><span class="f-num">Coupon</span><span class="f-den">(1+YTM)<sup>2</sup></span></span> + ··· + <span class="f-frac"><span class="f-num">Coupon + Face Value</span><span class="f-den">(1+YTM)<sup>T</sup></span></span></div>
+  </div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Find YTM (buy bond for €107.50, coupon €5/year, 5 years, face value €100)</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Set up the equation:</b> 107.50 = 5/(1+r)¹ + 5/(1+r)² + 5/(1+r)³ + 5/(1+r)⁴ + 105/(1+r)⁵</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>This cannot be solved analytically</b> — you need trial &amp; error or Excel's RATE/IRR function.</div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Try r = 3.34%:</b> Discounting gives PV ≈ €107.50 ✓ → YTM = <span class="step-res">3.34% per year</span></div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Why is YTM (3.34%) &lt; coupon rate (5%)?</b> Because we paid above par (€107.50 &gt; €100). We overpaid, so our actual return is lower than the coupon rate.</div></div>
+    <div class="calc-step"><div class="step-num">5</div><div class="step-text"><b>Rule:</b> Price &gt; par → YTM &lt; coupon. &nbsp; Price &lt; par → YTM &gt; coupon. &nbsp; Price = par → YTM = coupon.</div></div>
+  </div>
 
-  <div class="section-title">📏 Duration & Modified Duration</div>
+  <div class="section-title">📏 Duration — How Sensitive is a Bond to Rate Changes?</div>
+  <div class="why-box"><strong>Why we need this:</strong> Two bonds can have the same maturity but react differently to interest rate changes. Duration tells us how long it takes, on average, to receive the bond's cash flows — and more importantly, by how much the price changes when rates move. Portfolio managers use it to control interest rate risk.</div>
   <div class="formula-box">
     <span class="f-label">Macaulay Duration (weighted average time of cash flows)</span>
     <div class="f-row">D = <span class="f-frac"><span class="f-num"><span class="f-sum">Σ</span> t · PV(CF<sub>t</sub>)</span><span class="f-den">P</span></span></div>
-    <span class="f-label" style="margin-top:10px;">Modified Duration</span>
-    <div class="f-row">ModD = <span class="f-frac"><span class="f-num">D</span><span class="f-den">1 + YTM</span></span></div>
-    <span class="f-label" style="margin-top:10px;">Price change for a given yield change</span>
-    <div class="f-row"><span class="f-frac"><span class="f-num">ΔP</span><span class="f-den">P</span></span> ≈ −ModD × ΔYield</div>
+    <span class="f-label" style="margin-top:10px;">Modified Duration → % price change per 1% rate move</span>
+    <div class="f-row">D<sub>mod</sub> = <span class="f-frac"><span class="f-num">D</span><span class="f-den">1 + YTM</span></span> &nbsp;&nbsp; then: &nbsp;&nbsp; <span class="f-frac"><span class="f-num">ΔP</span><span class="f-den">P</span></span> ≈ −D<sub>mod</sub> × ΔYield</div>
   </div>
-
-  <div class="cf-label">Full Duration Example (3-year bond, 5% coupon, YTM 4%)</div>
-  <table class="cf-table">
-    <tr><th>t</th><th>CF</th><th>PV(CF) at 4%</th><th>Weight w_t</th><th>t × w_t</th></tr>
-    <tr><td>1</td><td>5</td><td>4,808</td><td>0,0463</td><td>0,0463</td></tr>
-    <tr><td>2</td><td>5</td><td>4,623</td><td>0,0445</td><td>0,0890</td></tr>
-    <tr><td>3</td><td>105</td><td>93,35</td><td>0.8992 (=Par+Coupon)</td><td>2.6976</td></tr>
-    <tr><td colspan="3"><strong>Sum (= Price)</strong></td><td><strong>102.78</strong></td><td><strong>D = 2.833 years</strong></td></tr>
-  </table>
-  <p style="font-size:14px;margin:8px 0;">ModD = 2.833 / (1+0.04) = <strong>2.724</strong>. Rate rise of 1%: ΔP/P ≈ −2.724 × 0.01 = −2.72% → price falls from 102.78 to ~99.98.</p>
-
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Duration for a 3-year bond (5% coupon, YTM = 4%)</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>List cash flows and discount them at 4%:</b><br>Year 1: CF = €5 → PV = 5/1.04 = €4.808<br>Year 2: CF = €5 → PV = 5/1.04² = €4.623<br>Year 3: CF = €105 → PV = 105/1.04³ = €93.35</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Total price (sum of PVs):</b> 4.808 + 4.623 + 93.35 = <span class="step-res">P = €102.78</span></div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Weight each PV by its share of total price:</b><br>w₁ = 4.808/102.78 = 0.0468 &nbsp;|&nbsp; w₂ = 4.623/102.78 = 0.0450 &nbsp;|&nbsp; w₃ = 93.35/102.78 = 0.9082</div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Multiply each weight by its year:</b> D = 1×0.0468 + 2×0.0450 + 3×0.9082 = 0.047 + 0.090 + 2.725 = <span class="step-res">D = 2.86 years</span></div></div>
+    <div class="calc-step"><div class="step-num">5</div><div class="step-text"><b>Modified Duration:</b> D<sub>mod</sub> = 2.86 / (1 + 0.04) = <span class="step-res">2.75</span></div></div>
+    <div class="calc-step"><div class="step-num">6</div><div class="step-text"><b>What happens if rates rise by 1%?</b> ΔP/P ≈ −2.75 × 0.01 = <span class="step-res">−2.75%</span> → price falls from €102.78 to ~€99.95</div></div>
+  </div>
   <div class="cf-two-col">
-    <div class="cf-box green"><strong>Higher duration when:</strong><br>• Longer maturity<br>• Lower coupon<br>• Zero-coupon bond (D = maturity)<br>• Lower YTM</div>
-    <div class="cf-box red"><strong>Duration as a risk measure:</strong><br>Bond portfolio managers control interest rate risk via duration-matching (immunisation): Portfolio duration = investment horizon.</div>
+    <div class="cf-box green"><strong>Duration is higher when:</strong><br>→ Longer maturity (more payments in the future)<br>→ Lower coupon (face value carries more weight)<br>→ Zero-coupon bond: D = maturity exactly<br>→ Lower YTM (future CFs discounted less)</div>
+    <div class="cf-box red"><strong>Duration as a risk shield:</strong><br>Match portfolio duration to your investment horizon → losses from price drops are exactly offset by higher reinvestment income → "immunisation"</div>
   </div>
 
-  <div class="section-title">📈 Yield Curve (Term Structure of Interest Rates)</div>
-  <p style="font-size:14.5px;line-height:1.8;">Shows YTM vs. remaining maturity for similar bonds (e.g. government bonds). <strong>Normal (upward sloping):</strong> Long-term rates &gt; short-term → growth expectations, liquidity premium. <strong>Inverted (downward sloping):</strong> Short-term &gt; long-term → recession expectations, tight central bank. <strong>Flat:</strong> Uncertainty, turning point.</p>
-  <div class="cf-box yellow"><strong>Exam-relevant theories:</strong> Expectations theory: forward rates = expected future spot rates. Liquidity preference theory: investors demand a premium for longer commitments. Market segmentation theory: different investors operate in different maturity segments.</div>
+  <div class="section-title">📈 Yield Curve — Why Long-Term Rates Differ from Short-Term</div>
+  <div class="why-box"><strong>Why we need this:</strong> The yield curve plots interest rates vs. maturity for similar bonds (e.g. government bonds). Its shape tells us what markets expect about future growth and inflation. It also determines the correct discount rate for each year of a multi-year project.</div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Pricing with different spot rates (term structure)</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Bond pays €1 in Year 1 and €1 in Year 2.</b> Spot rates: r₁ = 3%, r₂ = 4% (different rates for different maturities).</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Discount each payment at its own rate:</b> PV₁ = 1/1.03 = 0.9709 &nbsp;|&nbsp; PV₂ = 1/(1.04)² = 0.9246</div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Total price:</b> 0.9709 + 0.9246 = <span class="step-res">€1.8955</span></div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>YTM (single equivalent rate):</b> Solve 1.8955 = 1/(1+y) + 1/(1+y)² → y ≈ <span class="step-res">3.66%</span> (average of the two spot rates)</div></div>
+  </div>
+  <p class="section-intro"><strong>Normal yield curve (upward sloping):</strong> long-term rates &gt; short-term → growth expected, liquidity premium. &nbsp;<strong>Inverted:</strong> short-term &gt; long-term → recession signal. &nbsp;<strong>Flat:</strong> uncertainty, transition.</p>
 
-  <div class="section-title">📊 Stocks – Dividend Discount Model (DDM)</div>
-  <div class="formula-box"><strong>Grundform:</strong>  P₀ = (DIV₁ + P₁) / (1+r)
-<strong>Allgemein:</strong>   P₀ = Σ_{t=1}^∞ DIV_t / (1+r)^t</div>
+  <div class="section-title">📊 Stock Valuation — Dividend Discount Model (DDM)</div>
+  <div class="why-box"><strong>Why we need this:</strong> A stock has no maturity date and no fixed payments. Its value comes entirely from future dividends (and the eventual sale price). The DDM applies the NPV logic: discount all expected future cash flows to find the fair price today.</div>
   <div class="formula-box">
-    <span class="f-label">Gordon Growth Model (constant g)</span>
-    <div class="f-row">P<sub>0</sub> = <span class="f-frac"><span class="f-num">DIV<sub>1</sub></span><span class="f-den">r − g</span></span></div>
-    <div class="f-row" style="margin-top:4px;">r = <span class="f-frac"><span class="f-num">DIV<sub>1</sub></span><span class="f-den">P<sub>0</sub></span></span> + g &nbsp;<span style="font-size:11px;color:var(--muted)">(dividend yield + capital growth)</span></div>
+    <span class="f-label">One-period model</span>
+    <div class="f-row">P<sub>0</sub> = <span class="f-frac"><span class="f-num">DIV<sub>1</sub> + P<sub>1</sub></span><span class="f-den">1 + r</span></span></div>
+    <span class="f-label" style="margin-top:10px;">Gordon Growth Model (constant dividend growth g forever)</span>
+    <div class="f-row">P<sub>0</sub> = <span class="f-frac"><span class="f-num">DIV<sub>1</sub></span><span class="f-den">r − g</span></span> &nbsp;&nbsp;&nbsp; and rearranged: &nbsp;&nbsp;&nbsp; r = <span class="f-frac"><span class="f-num">DIV<sub>1</sub></span><span class="f-den">P<sub>0</sub></span></span> + g</div>
     <span class="f-label" style="margin-top:10px;">Sustainable Growth Rate</span>
-    <div class="f-row">g = Plowback Ratio × ROE</div>
-    <div style="font-size:12px;color:var(--muted);">Plowback = retention ratio = 1 − payout ratio</div>
+    <div class="f-row">g = Plowback Ratio × ROE &nbsp;&nbsp; where Plowback = 1 − Payout Ratio</div>
   </div>
-
-  <div class="cf-label">PVGO Example (Present Value of Growth Opportunities)</div>
-  <p style="font-size:14px;line-height:1.75;">Given: EPS=€5, r=12%, plowback=40%, ROE=25%. <br>g = 0.40 × 25% = 10%. DIV₁ = EPS × (1−0.40) = €3. Price with growth: P₀ = 3/(0.12−0.10) = <strong>€150</strong>. Price without growth: EPS/r = 5/0.12 = <strong>€41.67</strong>. PVGO = 150 − 41.67 = <strong>€108.33</strong> → 72% of the stock value comes from growth opportunities!</p>
-  <div class="cf-box green"><strong>When does retention pay off?</strong> Only when ROE &gt; r (here 25% &gt; 12%) → PVGO &gt; 0. When ROE = r → retention is indifferent. When ROE &lt; r → pay dividends (capital is more efficiently deployed by shareholders).</div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Gordon Growth Model</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Given:</b> EPS = €8.33, payout ratio = 60%, ROE = 25%, r = 15%.</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Plowback ratio:</b> 1 − 0.60 = <span class="step-res">0.40</span> (40% of earnings reinvested)</div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Growth rate g:</b> 0.40 × 25% = <span class="step-res">10%</span> per year</div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Next dividend:</b> DIV₁ = EPS × payout = 8.33 × 0.60 = <span class="step-res">€5.00</span></div></div>
+    <div class="calc-step"><div class="step-num">5</div><div class="step-text"><b>Stock price:</b> P₀ = 5.00 / (0.15 − 0.10) = 5.00 / 0.05 = <span class="step-res">€100</span></div></div>
+    <div class="calc-step"><div class="step-num">6</div><div class="step-text"><b>Compare: no reinvestment (g=0):</b> P₀ = EPS/r = 8.33/0.15 = <span class="step-res">€55.56</span></div></div>
+    <div class="calc-step"><div class="step-num">7</div><div class="step-text"><b>PVGO = 100 − 55.56 = <span class="step-res">€44.44</span></b> — the value created purely by reinvesting earnings at ROE &gt; r.</div></div>
+  </div>
+  <div class="cf-box green"><strong>When does reinvesting pay off?</strong> Only when ROE &gt; r (the firm earns more on reinvested capital than shareholders demand). If ROE = r → PVGO = 0 (indifferent). If ROE &lt; r → pay out as dividends (shareholders can invest better elsewhere).</div>
 
   <div class="section-title">❓ Exam Questions – Module 3</div>
   <div class="qa-block">
     <div class="qa-q" onclick="toggleQA(this)"><span>Explain the inverse relationship between interest rates and bond prices.</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">A bond pays fixed coupons (e.g. €60 p.a.). When market rates rise, new investors demand higher coupons. The old bond with €60 coupon becomes less attractive → its price falls until YTM equals the market rate. Mathematically: P = Σ CF/(1+r)^t → higher r → smaller denominators → smaller present value. The longer the maturity, the more payments are affected → greater price sensitivity (higher duration).</div>
+    <div class="qa-a">A bond pays fixed coupons (e.g. €60/year). When market rates rise, newly issued bonds offer higher coupons. The old bond becomes less attractive → investors only buy it at a lower price, until its YTM matches the market rate. Mathematically: P = Σ CF/(1+r)^t → higher r → larger denominator → smaller present value. Long-duration bonds are more sensitive because more payments are far in the future.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>How is Macaulay Duration calculated and what does it measure?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">D = Σ[t × PV(CF_t)] / P. It is the weighted average time to receive cash flows, where the weights are the PV-share of each cash flow in the total price. As a risk measure: ΔP/P ≈ −ModD × ΔY. Duration-matching (portfolio duration = investment horizon) immunises against interest rate risk – capital losses are offset by reinvestment gains.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>What is Modified Duration and how do you use it?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">D<sub>mod</sub> = Macaulay Duration / (1 + YTM). It gives the percentage change in bond price for a 1% change in yield: ΔP/P ≈ −D<sub>mod</sub> × ΔYield. Example: D<sub>mod</sub> = 4.5, yield rises 0.5% → price falls ≈ 4.5 × 0.5% = 2.25%. Used by portfolio managers to hedge interest rate risk — match portfolio duration to investment horizon.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>When is it beneficial to retain earnings rather than pay dividends?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Retention pays off precisely when the firm can reinvest retained earnings at a return (ROE) above the required return r of shareholders. Then PVGO &gt; 0 → stock price &gt; EPS/r. Example: ROE=25%, r=12% → reinvestment is advantageous. When ROE = r → retention is indifferent. When ROE &lt; r (e.g. mature firm with no good projects) → pay dividends.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>When should a firm retain earnings rather than pay dividends?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Retention adds value only when the firm can reinvest at ROE &gt; r (shareholders' required return). Then PVGO &gt; 0 → stock price &gt; EPS/r. If ROE = r → indifferent. If ROE &lt; r (e.g. a mature firm with no good projects) → pay dividends so shareholders can redeploy the capital more efficiently elsewhere.</div>
   </div>
-
   <button class="read-btn" id="readbtn-2" onclick="markRead(2)">✓ Mark module as read</button>
 </div>
 
@@ -638,97 +728,138 @@ nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
 <div class="topic-panel" id="panel-3">
   <div class="module-header">
     <div class="module-num-badge">Module 4</div>
-    <h2>Investment Decisions: NPV, IRR, PI</h2>
-    <p>The 4 IRR pitfalls · The 4 NPV rules · Capital rationing · EAC</p>
+    <h2>Investment Decisions: NPV, IRR &amp; PI</h2>
+    <p>IRR definition · 4 Pitfalls · 4 NPV Rules · Capital Rationing · EAC</p>
   </div>
 
-  <div class="section-title">⚔️ NPV vs. IRR – Comparison</div>
+  <div class="section-title">⚔️ NPV vs. IRR — Two Ways to Evaluate a Project</div>
+  <div class="why-box"><strong>Why we need this:</strong> NPV tells you the absolute value a project creates (in euros). IRR tells you its percentage return. They usually agree — but in several important cases, IRR gives the wrong answer. Knowing when IRR fails could save you from picking the wrong project.</div>
   <div class="cf-two-col">
-    <div class="cf-box green">
-      <strong>NPV – always correct</strong><br>
-      Absolute value contribution in €<br>
-      Additive: NPV(A+B) = NPV(A)+NPV(B)<br>
-      Unique, consistent with market value<br>
-      Accounts for investment scale
-    </div>
-    <div class="cf-box yellow">
-      <strong>IRR – Caution!</strong><br>
-      Rate at which NPV = 0<br>
-      Relative measure (%), not absolute<br>
-      For normal CFs: IRR &gt; r → invest<br>
-      Can be misleading (4 pitfalls!)
-    </div>
+    <div class="cf-box green"><strong>NPV — always use this</strong><br>• Gives the value added in € today<br>• Additive: NPV(A+B) = NPV(A)+NPV(B)<br>• Always one unique answer<br>• Accounts for the scale of the investment</div>
+    <div class="cf-box yellow"><strong>IRR — use with caution</strong><br>• Discount rate where NPV = 0<br>• Expressed as a % (relative)<br>• 4 situations where it gives wrong answers<br>• Assumes reinvestment at the IRR</div>
   </div>
+
   <div class="formula-box">
-    <span class="f-label">IRR-Definition (NPV = 0 setzen, nach r auflösen)</span>
-    <div class="f-row">0 = −I<sub>0</sub> + <span class="f-frac"><span class="f-num">CF<sub>1</sub></span><span class="f-den">(1+IRR)<sup>1</sup></span></span> + <span class="f-frac"><span class="f-num">CF<sub>2</sub></span><span class="f-den">(1+IRR)<sup>2</sup></span></span> + ··· + <span class="f-frac"><span class="f-num">CF<sub>n</sub></span><span class="f-den">(1+IRR)<sup>n</sup></span></span></div>
-    <div style="font-size:12px;color:var(--muted);margin-top:4px;">→ Iterativ lösen (kein analytischer Weg bei T &gt; 2)</div>
+    <span class="f-label">IRR Definition — solve for r such that NPV = 0</span>
+    <div class="f-row">0 = −I<sub>0</sub> + <span class="f-frac"><span class="f-num">CF<sub>1</sub></span><span class="f-den">(1+IRR)</span></span> + <span class="f-frac"><span class="f-num">CF<sub>2</sub></span><span class="f-den">(1+IRR)<sup>2</sup></span></span> + ··· + <span class="f-frac"><span class="f-num">CF<sub>n</sub></span><span class="f-den">(1+IRR)<sup>n</sup></span></span></div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px;">→ Cannot be solved analytically when T &gt; 2. Use Excel IRR() or trial &amp; error.</div>
+  </div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Find IRR (invest −€1,000, receive +€1,200 in Year 1)</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Set NPV = 0:</b> 0 = −1,000 + 1,200/(1+IRR)</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Rearrange:</b> 1+IRR = 1,200/1,000 = 1.20</div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>IRR = 0.20 = <span class="step-res">20%</span></b> — this project returns 20% per year</div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Decision rule:</b> If IRR (20%) &gt; cost of capital (e.g. 10%) → Accept. Equivalent to NPV &gt; 0 for normal projects.</div></div>
   </div>
 
-  <div class="section-title">🚨 The 4 Pitfalls of IRR</div>
+  <div class="section-title">🚨 The 4 Pitfalls of IRR — When Not to Use It</div>
+
   <div class="cf-box red" style="margin-bottom:10px;">
-    <strong>Pitfall 1 – Lending vs. Borrowing (non-conventional CFs):</strong><br>
-    When CFs are first positive then negative (borrowing pattern), NPV rises with higher discount rates. The IRR rule must be reversed: IRR &lt; r → invest. Recognisable by: first CF positive, then negative.
+    <strong>Pitfall 1 — Lending vs. Borrowing (non-conventional cash flows)</strong><br>
+    <em>When does this happen?</em> When the first cash flow is positive (you receive money first, then pay it back — like a loan you take out).<br>
+    <em>Problem:</em> For these cash flows, NPV rises as the discount rate rises — the opposite of normal. The IRR rule is reversed: Accept if IRR &lt; r (not &gt; r).<br>
+    <em>Example:</em> CF = +1,000 (now), −1,200 (Year 1). IRR = 20%. If r = 15%: NPV = +1,000 − 1,200/1.15 = −€43 &lt; 0. IRR &gt; r would say "Accept" but NPV says "Reject". NPV is correct.
   </div>
+
   <div class="cf-box red" style="margin-bottom:10px;">
-    <strong>Pitfall 2 – Multiple IRRs:</strong><br>
-    When there is more than one sign change in the CF stream, the NPV function can have multiple roots. Example: −100, +300, −250 → two IRRs. NPV rule is unique; IRR is not applicable.
+    <strong>Pitfall 2 — Multiple IRRs</strong><br>
+    <em>When does this happen?</em> When the cash flow stream changes sign more than once (e.g. −, +, −, + or +, −, +).<br>
+    <em>Problem:</em> Multiple values of r make NPV = 0 — which IRR do you compare to the hurdle rate?<br>
+    <em>Example:</em> CF = −100, +300, −250: there are two IRRs (≈3.5% and ≈19.5%). NPV rule has no such ambiguity → always use NPV.
   </div>
+
   <div class="cf-box red" style="margin-bottom:10px;">
-    <strong>Pitfall 3 – Scale Problem (most important pitfall!):</strong>
+    <strong>Pitfall 3 — Scale Problem (most important for exams!)</strong>
     <table class="cf-table" style="margin-top:8px;">
-      <tr><th>Project</th><th>Investment</th><th>CF at t=1</th><th>IRR</th><th>NPV (r=10%)</th></tr>
-      <tr><td>A</td><td>−10.000</td><td>+20.000</td><td>100%</td><td>+8.182 €</td></tr>
-      <tr><td>B</td><td>−20.000</td><td>+35.000</td><td>75%</td><td>+11.818 €</td></tr>
+      <tr><th>Project</th><th>Investment</th><th>CF Year 1</th><th>IRR</th><th>NPV (r=10%)</th></tr>
+      <tr><td>A (small)</td><td>−€10,000</td><td>+€20,000</td><td>100%</td><td>+€8,182</td></tr>
+      <tr><td>B (large)</td><td>−€20,000</td><td>+€35,000</td><td>75%</td><td>+€11,818</td></tr>
     </table>
-    IRR rule: choose A (100% &gt; 75%). NPV rule: choose B (+11,818 &gt; +8,182). <strong>B is better!</strong> IRR ignores scale – a large project with a moderate IRR can create more value.
+    IRR picks A (100% &gt; 75%). But B creates <strong>more total wealth</strong> (+€11,818 vs +€8,182). If you can only pick one → always choose by NPV.
   </div>
+
   <div class="cf-box red" style="margin-bottom:10px;">
-    <strong>Pitfall 4 – Term Structure:</strong><br>
-    IRR is compared against a single discount rate. With a term structure (different rates for different maturities) there is no unique benchmark rate. NPV discounts each CF at the maturity-matched rate.
+    <strong>Pitfall 4 — Changing Discount Rates (Term Structure)</strong><br>
+    <em>When does this happen?</em> When the correct discount rate changes over time (different rates for Year 1, Year 2, etc.).<br>
+    <em>Problem:</em> IRR produces a single rate and compares it to a single hurdle rate — but which year's rate do you use?<br>
+    <em>Solution:</em> NPV discounts each cash flow at the maturity-matched spot rate → no ambiguity.
   </div>
 
-  <div class="section-title">📜 The 4 NPV Rules</div>
-  <div class="formula-box"><strong>Rule 1 – Only cash flows count (not accounting profit):</strong>
-CF = Net income + Depreciation − CAPEX − ΔNWC
-→ Ignore sunk costs! | Include opportunity costs | Account for taxes &amp; salvage value</div>
-  <div class="formula-box"><strong>Rule 2 – Incremental basis:</strong>
-Only changes caused by the project count.
-Ignore overhead costs that arise independently of the project.</div>
-  <div class="formula-box"><strong>Rule 3 – Treat inflation consistently:</strong>
-Nominal rate for nominal CFs | Real rate for real CFs
-Real rate = (1+r_nominal) / (1+π) − 1</div>
-  <div class="formula-box"><strong>Rule 4 – Separate investment from financing:</strong>
-No debt proceeds in CF | No interest payments as project CF
-Financing effects are captured in the discount rate (WACC).</div>
+  <div class="section-title">📜 The 4 NPV Rules — Getting the Cash Flows Right</div>
+  <div class="why-box"><strong>Why we need this:</strong> The NPV formula is simple, but only gives the right answer if you plug in the right cash flows. These four rules tell you exactly what to include and what to leave out. Violating any one of them gives a wrong investment decision.</div>
 
-  <div class="section-title">📊 Capital Rationing & PI</div>
-  <div class="formula-box"><strong>Profitability Index (PI):</strong>  PI = NPV / Investment amount
-→ With a limited budget: rank by PI until budget is exhausted
-→ Choose the combination that maximises total NPV</div>
-  <div class="cf-box yellow"><strong>PI caveat:</strong> PI applies only under a binding capital budget constraint. With unlimited capital, always accept all projects with NPV &gt; 0.</div>
+  <div class="calc-box">
+    <div class="calc-box-title">Rule 1 — Only actual cash flows count (not accounting profit)</div>
+    <div class="calc-step"><div class="step-num">!</div><div class="step-text"><b>Formula:</b> Free Cash Flow = Net Income + Depreciation − CAPEX − Δ Net Working Capital</div></div>
+    <div class="calc-step"><div class="step-num">✓</div><div class="step-text"><b>Include:</b> taxes, salvage value, opportunity costs (what you forgo by doing this project)</div></div>
+    <div class="calc-step"><div class="step-num">✗</div><div class="step-text"><b>Exclude sunk costs:</b> money already spent that you cannot recover — e.g. €100k market study done last year. It's gone whether you do the project or not.</div></div>
+    <div class="calc-step"><div class="step-num">✗</div><div class="step-text"><b>Exclude non-cash items:</b> Depreciation reduces accounting profit but is NOT a cash outflow. Add it back.</div></div>
+  </div>
 
-  <div class="section-title">⚖️ EAC – Equivalent Annual Cost</div>
-  <div class="formula-box"><strong>Equivalent Annual Cost (EAC):</strong>
-EAC = NPV(costs) × r / [1 − 1/(1+r)^T]
-= NPV(costs) / Annuity factor
+  <div class="calc-box">
+    <div class="calc-box-title">Rule 2 — Use incremental cash flows (changes caused by the project)</div>
+    <div class="calc-step"><div class="step-num">!</div><div class="step-text">Only count cash flows that are <em>different because of the project</em>. Ask: "What changes if we do this project vs. not doing it?"</div></div>
+    <div class="calc-step"><div class="step-num">✓</div><div class="step-text">Include: side effects on other products, cannibalization effects, changes in working capital</div></div>
+    <div class="calc-step"><div class="step-num">✗</div><div class="step-text">Exclude: allocated overhead costs that would exist anyway regardless of the project</div></div>
+  </div>
 
-Use: compare machines with different useful lives (Machine A: 3 years vs. Machine B: 5 years). Choose the lower EAC.</div>
+  <div class="calc-box">
+    <div class="calc-box-title">Rule 3 — Be consistent with inflation</div>
+    <div class="calc-step"><div class="step-num">!</div><div class="step-text"><b>Two valid approaches — but never mix them:</b></div></div>
+    <div class="calc-step"><div class="step-num">A</div><div class="step-text"><b>Nominal approach:</b> Use nominal cash flows (including inflation) discounted at the nominal rate. <span class="step-res">r_nominal ≈ r_real + π</span></div></div>
+    <div class="calc-step"><div class="step-num">B</div><div class="step-text"><b>Real approach:</b> Use real cash flows (inflation stripped out) discounted at the real rate. <span class="step-res">r_real = (1+r_nom)/(1+π) − 1</span></div></div>
+    <div class="calc-step"><div class="step-num">✓</div><div class="step-text">Both give the same NPV. Mixing them (real CFs with nominal rate, or vice versa) gives a wrong answer.</div></div>
+  </div>
+
+  <div class="calc-box">
+    <div class="calc-box-title">Rule 4 — Separate investment and financing decisions</div>
+    <div class="calc-step"><div class="step-num">!</div><div class="step-text">Evaluate the project as if it were 100% equity-financed. Financing effects (interest tax shields) are captured separately in the discount rate (WACC).</div></div>
+    <div class="calc-step"><div class="step-num">✗</div><div class="step-text">Do NOT subtract loan proceeds from the initial investment.</div></div>
+    <div class="calc-step"><div class="step-num">✗</div><div class="step-text">Do NOT count interest or debt repayments as project cash outflows.</div></div>
+  </div>
+
+  <div class="section-title">📊 Capital Rationing &amp; Profitability Index (PI)</div>
+  <div class="why-box"><strong>Why we need this:</strong> With unlimited capital, accept every project with NPV &gt; 0. But when the budget is limited, we need to rank projects by bang-per-buck. The Profitability Index does exactly that.</div>
+  <div class="formula-box">
+    <span class="f-label">Profitability Index</span>
+    <div class="f-row">PI = <span class="f-frac"><span class="f-num">NPV</span><span class="f-den">Required Investment</span></span></div>
+  </div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Capital Rationing with budget = €300,000</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Available projects:</b> A (invest €200k, NPV €70k, PI=0.35) &nbsp;|&nbsp; B (invest €150k, NPV €45k, PI=0.30) &nbsp;|&nbsp; C (invest €100k, NPV €40k, PI=0.40)</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Rank by PI:</b> C (0.40) &gt; A (0.35) &gt; B (0.30)</div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Fill budget greedily:</b> Take C (€100k left: €300k−€100k=€200k) → Take A (€200k left: €200k−€200k=€0k). Total NPV = €70k + €40k = <span class="step-res">€110k</span></div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Compare: if we took A+B:</b> €200k + €150k = €350k &gt; budget → infeasible. C+B = €100k+€150k = €250k ≤ budget, NPV = €85k &lt; €110k.</div></div>
+  </div>
+
+  <div class="section-title">⚖️ EAC — Comparing Machines with Different Lifespans</div>
+  <div class="why-box"><strong>Why we need this:</strong> Should you buy Machine A (lasts 3 years) or Machine B (lasts 5 years)? Direct NPV comparison is unfair — A covers fewer years. EAC converts the total cost into an equal annual payment, making them comparable.</div>
+  <div class="formula-box">
+    <span class="f-label">Equivalent Annual Cost</span>
+    <div class="f-row">EAC = <span class="f-frac"><span class="f-num">NPV(costs)</span><span class="f-den">Annuity Factor</span></span> &nbsp; where Annuity Factor = <span class="f-frac"><span class="f-num">1 − (1+r)<sup>−T</sup></span><span class="f-den">r</span></span></div>
+  </div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: EAC comparison (r = 10%)</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Machine A:</b> NPV of costs = €50,000 over 3 years. Annuity factor = [1−1/(1.10)³]/0.10 = 2.487</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>EAC(A):</b> 50,000 / 2.487 = <span class="step-res">€20,104 per year</span></div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Machine B:</b> NPV of costs = €75,000 over 5 years. Annuity factor = [1−1/(1.10)⁵]/0.10 = 3.791</div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>EAC(B):</b> 75,000 / 3.791 = <span class="step-res">€19,785 per year</span></div></div>
+    <div class="calc-step"><div class="step-num">5</div><div class="step-text"><b>Decision:</b> EAC(B) &lt; EAC(A) → Machine B is cheaper per year → <strong>Choose B.</strong></div></div>
+  </div>
 
   <div class="section-title">❓ Exam Questions – Module 4</div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Why is NPV generally superior to IRR?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">NPV measures the absolute value contribution in €, is additive (portfolio view possible), unique (always one solution), and accounts for investment scale. IRR: relative measure (%) ignores scale, can have multiple solutions, assumes a flat yield curve, and implies reinvestment at the IRR (unrealistic when IRR is high). The only situation where IRR is unproblematic: normal CF pattern (− then +), no scale comparison, flat yield curve.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>Why is NPV always superior to IRR?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">NPV measures absolute value in €, is additive (can combine projects), always has one unique answer, accounts for investment scale, and handles term structures of interest rates correctly. IRR: relative %, can have multiple values, ignores scale, assumes flat yield curve, assumes reinvestment at the IRR. The only case IRR gives the same answer as NPV: normal CF pattern (invest first, then receive), no mutual exclusion, flat yield curve.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>What is a sunk cost and why is it ignored?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Sunk cost = an expenditure already made that cannot be recovered (e.g. market research €100,000 before the project). It is irreversible and occurs regardless of whether the project is undertaken. NPV decisions are based on incremental cash flows – what changes because of the project? Since sunk costs do not change, they do not belong in the NPV calculation. Opposite: opportunity costs must be included, as they represent the forgone benefit of the next best alternative.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>What is a sunk cost and why does it NOT belong in the NPV calculation?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">A sunk cost is money already spent that cannot be recovered — e.g. €100k spent on market research last year. NPV is about incremental cash flows: "what changes if we do the project?" The sunk cost is gone whether we proceed or not → it doesn't change → don't include it. The opposite: opportunity costs MUST be included — if using a factory space for Project A means you can't rent it out for €50k/year, that €50k is a real cost of Project A.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>When do you use EAC instead of a direct NPV comparison?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Use EAC when projects have different useful lives and are replicable (machine is replaced by an identical one at end of life). Machine A (3y, NPV costs=€50,000) vs. B (5y, NPV costs=€75,000). Direct NPV comparison is unfair (A covers 3, B covers 5 years). EAC(A) = 50,000 × r/[1−1/(1+r)³]; EAC(B) = 75,000 × r/[1−1/(1+r)⁵] → lower EAC is cheaper. For non-replicable projects (one-off): use direct NPV comparison.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>When do you use EAC instead of direct NPV comparison?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Use EAC when machines have different useful lives and are <em>replicable</em> (replaced by identical machines at end of life). Direct NPV comparison is misleading because Machine A (3 years) provides 3 years of service while Machine B (5 years) provides 5 years. EAC converts both to cost-per-year → fair comparison. For one-off, non-replicable projects → use direct NPV.</div>
   </div>
-
   <button class="read-btn" id="readbtn-3" onclick="markRead(3)">✓ Mark module as read</button>
 </div>
 
@@ -736,82 +867,109 @@ Use: compare machines with different useful lives (Machine A: 3 years vs. Machin
 <div class="topic-panel" id="panel-4">
   <div class="module-header">
     <div class="module-num-badge">Module 5</div>
-    <h2>Risk & Return</h2>
-    <p>Expected value · Variance · Beta · Systematic vs. Unsystematic Risk</p>
+    <h2>Risk &amp; Return</h2>
+    <p>Expected Return · Variance · Portfolio Risk · Beta · Systematic vs. Unsystematic</p>
   </div>
 
-  <div class="section-title">📊 Measuring Return and Risk</div>
-  <div class="formula-box"><strong>Expected Return (ex ante):</strong>
-E[r] = Σ p(s) · r(s)   (s = Szenario/Zustand)
+  <div class="section-title">📊 Expected Return — What Do We Expect on Average?</div>
+  <div class="why-box"><strong>Why we need this:</strong> Investments don't have guaranteed outcomes. The expected return is our best estimate of the average outcome, weighted by how likely each scenario is. It is the foundation for every risk-return calculation.</div>
+  <div class="formula-box">
+    <span class="f-label">Expected Return (probability-weighted average)</span>
+    <div class="f-row">E[r] = <span class="f-sum">Σ</span> p(s) · r(s)</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px;">p(s) = probability of scenario s &nbsp;|&nbsp; r(s) = return in scenario s &nbsp;|&nbsp; Σp(s) = 1</div>
+  </div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Expected Return</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Three scenarios:</b> Boom (prob 30%, return +30%), Normal (50%, +10%), Recession (20%, −10%)</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Multiply probability × return for each scenario:</b><br>Boom: 0.30 × 30% = 9% &nbsp;|&nbsp; Normal: 0.50 × 10% = 5% &nbsp;|&nbsp; Recession: 0.20 × (−10%) = −2%</div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Sum them up:</b> 9% + 5% + (−2%) = <span class="step-res">E[r] = 12%</span></div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Interpretation:</b> On average, if this scenario plays out many times, you'd earn 12% per period.</div></div>
+  </div>
 
-<strong>Variance (ex ante):</strong>
-σ² = Σ p(s) · (r(s) − E[r])²
-
-<strong>Variance (ex post, historical):</strong>
-σ² = Σ(r_t − r̄)² / (T−1)   (Bessel correction: T−1 instead of T)
-
-<strong>Standard Deviation (Volatility):</strong>  σ = √σ²</div>
-
-  <div class="cf-label">Worked Example</div>
-  <table class="cf-table">
+  <div class="section-title">📐 Variance &amp; Standard Deviation — How Risky is the Investment?</div>
+  <div class="why-box"><strong>Why we need this:</strong> A high expected return is worthless if the actual outcome could be wildly different. Variance measures the spread of possible outcomes around the expected return. Standard deviation (= √variance) is the most common risk measure — it is in the same units as the return (%).</div>
+  <div class="formula-box">
+    <span class="f-label">Variance (ex-ante — using probabilities)</span>
+    <div class="f-row">σ² = <span class="f-sum">Σ</span> p(s) · [r(s) − E[r]]²</div>
+    <span class="f-label" style="margin-top:10px;">Variance (ex-post — using historical data)</span>
+    <div class="f-row">σ² = <span class="f-frac"><span class="f-num"><span class="f-sum">Σ</span>(r<sub>t</sub> − r̄)²</span><span class="f-den">T − 1</span></span> &nbsp;<span class="note-inline">(T−1 = Bessel correction for sample)</span></div>
+    <span class="f-label" style="margin-top:10px;">Standard Deviation (Volatility)</span>
+    <div class="f-row">σ = √σ²</div>
+  </div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Variance (continuing the example, E[r] = 12%)</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Deviation from mean for each scenario:</b><br>Boom: 30% − 12% = +18% &nbsp;|&nbsp; Normal: 10% − 12% = −2% &nbsp;|&nbsp; Recession: −10% − 12% = −22%</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Square each deviation:</b> (0.18)² = 0.0324 &nbsp;|&nbsp; (−0.02)² = 0.0004 &nbsp;|&nbsp; (−0.22)² = 0.0484</div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Multiply by probability and sum:</b><br>0.30×0.0324 + 0.50×0.0004 + 0.20×0.0484 = 0.00972 + 0.00020 + 0.00968 = <span class="step-res">σ² = 0.0196</span></div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Standard deviation:</b> σ = √0.0196 = <span class="step-res">14%</span> — the return typically deviates ±14% from the 12% expected return.</div></div>
+  </div>
+  <table class="cf-table" style="margin-top:4px;">
     <tr><th>Scenario</th><th>p(s)</th><th>r(s)</th><th>p·r</th><th>r−E[r]</th><th>p·(r−E[r])²</th></tr>
-    <tr><td>Boom</td><td>0.30</td><td>+30%</td><td>+9%</td><td>+20%</td><td>0.30·0.04 = 0.0120</td></tr>
-    <tr><td>Normal</td><td>0.50</td><td>+10%</td><td>+5%</td><td>0%</td><td>0</td></tr>
-    <tr><td>Recession</td><td>0.20</td><td>−10%</td><td>−2%</td><td>−20%</td><td>0.20·0.04 = 0.0080</td></tr>
-    <tr><td colspan="3"><strong>E[r] = 12%</strong></td><td></td><td></td><td><strong>σ² = 0.02 → σ = 14.14%</strong></td></tr>
+    <tr><td>Boom</td><td>0.30</td><td>+30%</td><td>+9%</td><td>+18%</td><td>0.00972</td></tr>
+    <tr><td>Normal</td><td>0.50</td><td>+10%</td><td>+5%</td><td>−2%</td><td>0.00020</td></tr>
+    <tr><td>Recession</td><td>0.20</td><td>−10%</td><td>−2%</td><td>−22%</td><td>0.00968</td></tr>
+    <tr><td colspan="3"><strong>E[r] = 12%</strong></td><td></td><td></td><td><strong>σ² = 1.96% → σ = 14%</strong></td></tr>
   </table>
 
-  <div class="section-title">📐 Portfolio Return and Variance</div>
+  <div class="section-title">📐 Portfolio Return &amp; Variance — How Two Stocks Combine</div>
+  <div class="why-box"><strong>Why we need this:</strong> Combining two stocks often creates a portfolio with lower risk than either stock alone. This is diversification. The portfolio variance formula tells us exactly how much risk reduction we get, depending on how the stocks move together (correlation).</div>
   <div class="formula-box">
-    <span class="f-label">Portfolio Return (N assets)</span>
-    <div class="f-row">r<sub>p</sub> = <span class="f-sum">Σ</span> x<sub>i</sub> · r<sub>i</sub> &nbsp;<span style="font-size:11px;color:var(--muted)">(x<sub>i</sub> = Gewicht, Σx<sub>i</sub> = 1)</span></div>
-    <span class="f-label" style="margin-top:10px;">Portfolio Variance (2 assets)</span>
-    <div class="f-row">σ<sup>2</sup><sub>p</sub> = x<sub>1</sub><sup>2</sup>σ<sub>1</sub><sup>2</sup> + x<sub>2</sub><sup>2</sup>σ<sub>2</sub><sup>2</sup> + 2·x<sub>1</sub>·x<sub>2</sub>·ρ<sub>12</sub>·σ<sub>1</sub>·σ<sub>2</sub></div>
-    <span class="f-label" style="margin-top:10px;">Kovarianz & Korrelation</span>
-    <div class="f-row">Cov(r<sub>1</sub>,r<sub>2</sub>) = ρ<sub>12</sub>·σ<sub>1</sub>·σ<sub>2</sub> &nbsp;|&nbsp; ρ ∈ [−1, +1]</div>
+    <span class="f-label">Portfolio Return (weighted average)</span>
+    <div class="f-row">r<sub>p</sub> = x<sub>1</sub>·r<sub>1</sub> + x<sub>2</sub>·r<sub>2</sub> &nbsp;<span class="note-inline">(x₁ + x₂ = 1)</span></div>
+    <span class="f-label" style="margin-top:10px;">Portfolio Variance — the key formula</span>
+    <div class="f-row">σ²<sub>p</sub> = x<sub>1</sub>²σ<sub>1</sub>² + x<sub>2</sub>²σ<sub>2</sub>² + 2·x<sub>1</sub>·x<sub>2</sub>·ρ<sub>12</sub>·σ<sub>1</sub>·σ<sub>2</sub></div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px;">ρ<sub>12</sub> = correlation coefficient (−1 to +1) &nbsp;|&nbsp; Cov(1,2) = ρ<sub>12</sub>·σ<sub>1</sub>·σ<sub>2</sub></div>
   </div>
-  <div class="cf-box"><strong>Diversification effect:</strong> σ_p &lt; Σ x_i·σ_i when ρ &lt; 1. At ρ = −1: perfect diversification possible (σ_p = 0 with correct weights). At ρ = +1: no diversification. The lower ρ, the greater the diversification benefit.</div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Portfolio variance (60% Stock 1, 40% Stock 2)</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Given:</b> x₁=0.60, x₂=0.40, σ₁=20%, σ₂=15%, ρ = 0.3</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Term 1 (Stock 1 alone):</b> x₁²·σ₁² = (0.60)²·(0.20)² = 0.36 × 0.04 = <span class="step-res">0.0144</span></div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Term 2 (Stock 2 alone):</b> x₂²·σ₂² = (0.40)²·(0.15)² = 0.16 × 0.0225 = <span class="step-res">0.0036</span></div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Term 3 (interaction):</b> 2·x₁·x₂·ρ·σ₁·σ₂ = 2·0.60·0.40·0.30·0.20·0.15 = <span class="step-res">0.00432</span></div></div>
+    <div class="calc-step"><div class="step-num">5</div><div class="step-text"><b>σ²<sub>p</sub> = 0.0144 + 0.0036 + 0.00432 = 0.02232 → σ<sub>p</sub> = √0.02232 = <span class="step-res">14.94%</span></b></div></div>
+    <div class="calc-step"><div class="step-num">6</div><div class="step-text"><b>If ρ = −1:</b> Term 3 = 2·0.60·0.40·(−1)·0.20·0.15 = −0.0144. σ²<sub>p</sub> = 0.0144+0.0036−0.0144 = 0.0036 → σ<sub>p</sub> = <span class="step-res">6%</span> — massive risk reduction!</div></div>
+  </div>
+  <div class="cf-box"><strong>Diversification key fact:</strong> Lower ρ → more risk reduction. At ρ = +1: no diversification (risks add linearly). At ρ = 0: moderate benefit. At ρ = −1: maximum diversification (can get σ<sub>p</sub> = 0 with the right weights).</div>
 
   <div class="section-title">🎯 Systematic vs. Unsystematic Risk</div>
+  <div class="why-box"><strong>Why we need this:</strong> Not all risk is equal. Risk that is specific to one company (e.g. a bad CEO, a factory fire) can be eliminated by holding many stocks. Risk that affects the whole market (recession, interest rate changes) cannot. Only market risk deserves a risk premium — you are not rewarded for taking avoidable risk.</div>
   <table class="cf-table">
-    <tr><th>Feature</th><th>Systematic Risk</th><th>Unsystematic Risk</th></tr>
-    <tr><td>Also called</td><td>Market risk, non-diversifiable</td><td>Idiosyncratic, diversifiable</td></tr>
-    <tr><td>Source</td><td>GDP, interest rates, inflation, oil price</td><td>Management errors, product recall, patent dispute</td></tr>
-    <tr><td>Measure</td><td>Beta (β)</td><td>Residual variance</td></tr>
-    <tr><td>Compensated?</td><td>Yes (risk premium)</td><td>No (can be diversified away)</td></tr>
-    <tr><td>Elimination</td><td>Cannot be eliminated</td><td>With N→∞ stocks → disappears</td></tr>
+    <tr><th>Feature</th><th>Systematic (Market) Risk</th><th>Unsystematic (Firm-Specific) Risk</th></tr>
+    <tr><td>Also called</td><td>Non-diversifiable, market risk</td><td>Diversifiable, idiosyncratic</td></tr>
+    <tr><td>Examples</td><td>GDP shock, inflation, oil price</td><td>CEO scandal, product recall, patent loss</td></tr>
+    <tr><td>Measure</td><td><strong>Beta (β)</strong></td><td>Residual variance (εᵢ)</td></tr>
+    <tr><td>Risk premium?</td><td><strong>Yes</strong> — compensated in expected return</td><td><strong>No</strong> — diversify it away for free</td></tr>
+    <tr><td>Goes to 0 as N→∞?</td><td>No — always remains</td><td>Yes — disappears with enough stocks</td></tr>
   </table>
 
-  <div class="section-title">📏 Beta (β) – Measure of Systematic Risk</div>
+  <div class="section-title">📏 Beta (β) — Measure of Systematic Risk</div>
+  <div class="why-box"><strong>Why we need this:</strong> Beta tells us how much a stock moves relative to the overall market. A stock with β = 2 rises (and falls) twice as much as the market. This determines how much risk premium the stock should earn — and feeds directly into the CAPM (Module 7).</div>
   <div class="formula-box">
-    <span class="f-label">Beta (β) – measure of systematic risk</span>
-    <div class="f-row">β<sub>i</sub> = <span class="f-frac"><span class="f-num">Cov(r<sub>i</sub>, r<sub>m</sub>)</span><span class="f-den">σ<sup>2</sup><sub>m</sub></span></span></div>
-    <div style="margin-top:8px;font-size:12.5px;line-height:2;">
-      β &gt; 1 &nbsp;→ more volatile than market (e.g. tech)<br>
-      β = 1 &nbsp;→ moves with the market<br>
-      β &lt; 1 &nbsp;→ more defensive than market (e.g. utilities)<br>
-      β &lt; 0 &nbsp;→ moves opposite to market (e.g. gold)
-    </div>
+    <span class="f-label">Beta</span>
+    <div class="f-row">β<sub>i</sub> = <span class="f-frac"><span class="f-num">Cov(r<sub>i</sub>, r<sub>m</sub>)</span><span class="f-den">σ²<sub>m</sub></span></span> = <span class="f-frac"><span class="f-num">ρ<sub>im</sub> · σ<sub>i</sub> · σ<sub>m</sub></span><span class="f-den">σ²<sub>m</sub></span></span> = ρ<sub>im</sub> · <span class="f-frac"><span class="f-num">σ<sub>i</sub></span><span class="f-den">σ<sub>m</sub></span></span></div>
   </div>
-  <div class="cf-box"><strong>Portfolio Beta:</strong> β_p = Σ x_i · β_i (weighted average of individual betas). Unlike variance, beta is additive!</div>
-
-  <div class="section-title">📚 Historical Evidence: Risk Premia</div>
-  <p style="font-size:14.5px;line-height:1.8;">Over long horizons (US data 1926–present): stocks ≈ 10–12% p.a., government bonds ≈ 5–6%, money market ≈ 3–4%. <strong>Equity Risk Premium (ERP)</strong> = stock return − risk-free rate ≈ 6–8% historically. Stocks are compensated for bearing higher risk. In the short run unsystematic risk dominates – only in the long run does the market trend dominate.</p>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Calculate Beta</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Given:</b> Cov(stock, market) = 0.018, σ²<sub>market</sub> = 0.04 (i.e. σ<sub>m</sub> = 20%)</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>β = Cov/σ²<sub>m</sub> = 0.018 / 0.04 = <span class="step-res">0.45</span></b></div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Interpretation:</b> When the market moves +10%, this stock moves +4.5% on average. It is less volatile than the market → defensive stock (e.g. utility company).</div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Portfolio Beta:</b> β<sub>p</sub> = x₁·β₁ + x₂·β₂ + … (weighted average — Beta is additive!)</div></div>
+  </div>
+  <div class="cf-box" style="margin-top:4px;">β &gt; 1: more volatile than market (tech stocks) &nbsp;|&nbsp; β = 1: moves with market &nbsp;|&nbsp; β &lt; 1: defensive (utilities, staples) &nbsp;|&nbsp; β &lt; 0: moves opposite (rare — e.g. gold)</div>
 
   <div class="section-title">❓ Exam Questions – Module 5</div>
   <div class="qa-block">
     <div class="qa-q" onclick="toggleQA(this)"><span>Why is unsystematic risk not compensated with a risk premium?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Unsystematic risk can be eliminated through diversification – simply hold many different stocks. Since rational investors do this (for free!), they will not pay a premium for risk they can eliminate themselves. Market prices only reflect non-diversifiable systematic risk. A poorly diversified investor bears more risk but receives no higher return – they are simply making a mistake. Conclusion: always hold a well-diversified portfolio.</div>
+    <div class="qa-a">Unsystematic risk can be eliminated for free through diversification — just hold many different stocks. Since rational investors do this, the market will not pay a premium for risk you chose to keep. Market prices reflect only non-diversifiable systematic risk. A poorly diversified investor bears extra risk but earns no extra return — they are simply making a mistake.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Stock A: E[r]=15%, σ=25%. Stock B: E[r]=12%, σ=18%. Which do you choose?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">No clear answer without the Sharpe Ratio! A offers more return (+3%), B less risk (−7%). Sharpe(A) = (15−rf)/25, Sharpe(B) = (12−rf)/18. At rf=4%: Sharpe(A)=(15−4)/25=0.44, Sharpe(B)=(12−4)/18=0.44 → identical! A risk-averse investor prefers B (same return-per-risk ratio). In a portfolio context what matters is the correlation with the rest of the portfolio – not σ alone.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>What happens to portfolio variance as you add more and more stocks?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">With N stocks equally weighted: σ²<sub>p</sub> = (1/N)·σ̄²<sub>i</sub> + (1−1/N)·Cov̄. As N→∞: the individual variance term (1/N)→0. σ²<sub>p</sub> → Cov̄ (average covariance) = systematic risk. Unsystematic risk fully disappears. In practice: with ~20–30 carefully chosen stocks, ~90% of diversifiable risk is already eliminated.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>What happens to portfolio variance as N → ∞?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">With equal weights in N stocks: σ²_p = (1/N)·σ̄²_i + (1−1/N)·Cov̄. As N→∞: (1/N)→0, variances disappear, σ²_p → Cov̄ (average covariance). Unsystematic risk is fully diversified away. Only systematic market risk remains = covariance of all stocks with the market. In practice: with ~20–30 well-chosen stocks, ~90% of diversification is already achieved.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>Stock A: E[r]=15%, σ=25%. Stock B: E[r]=12%, σ=18%. Which is better?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Cannot answer without the Sharpe Ratio. At r<sub>f</sub>=4%: Sharpe(A) = (15−4)/25 = 0.44. Sharpe(B) = (12−4)/18 = 0.44. Identical risk-adjusted performance! A risk-averse investor prefers B (same ratio, lower volatility). In a portfolio context, what matters is each stock's correlation with the rest — not σ alone.</div>
   </div>
-
   <button class="read-btn" id="readbtn-4" onclick="markRead(4)">✓ Mark module as read</button>
 </div>
 
@@ -819,77 +977,103 @@ E[r] = Σ p(s) · r(s)   (s = Szenario/Zustand)
 <div class="topic-panel" id="panel-5">
   <div class="module-header">
     <div class="module-num-badge">Module 6</div>
-    <h2>Portfolio Theory & Efficient Frontier</h2>
-    <p>Efficient Frontier · GMVP · CAL · Tangency Portfolio · Sharpe Ratio</p>
+    <h2>Portfolio Theory &amp; Efficient Frontier</h2>
+    <p>Mean-Variance Optimisation · Efficient Frontier · CAL · Tangency Portfolio · Sharpe Ratio</p>
   </div>
 
-  <div class="section-title">🎯 Mean-Variance Optimisation</div>
-  <p style="font-size:14.5px;line-height:1.8;margin-bottom:10px;">Goal: find the portfolio with the highest expected return at a given level of risk (or the lowest risk at a given return). <strong>Assumptions:</strong> Frictionless markets, no taxes/transaction costs, perfectly divisible securities, no short-selling restrictions, investors are mean-variance optimal and risk-averse.</p>
+  <div class="section-title">🎯 Mean-Variance Optimisation — Finding the Best Portfolio</div>
+  <div class="why-box"><strong>Why we need this:</strong> With many stocks to choose from, we need a systematic way to build the best possible portfolio. Mean-variance theory finds the portfolios that give the highest expected return for any given level of risk — or the lowest risk for any target return. Every rational investor should hold one of these efficient portfolios.</div>
+  <p class="section-intro"><strong>Core idea:</strong> There is a trade-off between risk (variance) and return (mean). The goal is to be on the efficient frontier — the set of portfolios where no better risk-return combination exists.</p>
+
+  <div class="section-title">🔑 Key Building Blocks: Covariance &amp; Correlation</div>
+  <div class="why-box"><strong>Why we need this:</strong> Two stocks can have the same individual risks, but their combination may be much less risky — if they don't move together. Covariance and correlation measure exactly how much they move together.</div>
   <div class="formula-box">
-    <span class="f-label">Correlation</span>
-    <div class="f-row">ρ<sub>XY</sub> = <span class="f-frac"><span class="f-num">Cov(X,Y)</span><span class="f-den">σ<sub>X</sub>·σ<sub>Y</sub></span></span> &nbsp;|&nbsp; ρ ∈ [−1, +1]</div>
-    <span class="f-label" style="margin-top:10px;">Variance of a linear combination</span>
-    <div class="f-row">Var(aX+bY) = a<sup>2</sup>σ<sup>2</sup><sub>X</sub> + b<sup>2</sup>σ<sup>2</sup><sub>Y</sub> + 2ab·Cov(X,Y)</div>
-    <span class="f-label" style="margin-top:10px;">Sharpe Ratio</span>
-    <div class="f-row">SR = <span class="f-frac"><span class="f-num">E[r<sub>p</sub>] − r<sub>f</sub></span><span class="f-den">σ<sub>p</sub></span></span> &nbsp;<span style="font-size:11px;color:var(--muted);">→ return per unit of risk</span></div>
+    <span class="f-label">Covariance — measures joint movement</span>
+    <div class="f-row">Cov(r<sub>1</sub>, r<sub>2</sub>) = <span class="f-sum">Σ</span> p(s) · [r<sub>1</sub>(s) − E[r<sub>1</sub>]] · [r<sub>2</sub>(s) − E[r<sub>2</sub>]]</div>
+    <span class="f-label" style="margin-top:10px;">Correlation — standardised covariance, ranges −1 to +1</span>
+    <div class="f-row">ρ<sub>12</sub> = <span class="f-frac"><span class="f-num">Cov(r<sub>1</sub>, r<sub>2</sub>)</span><span class="f-den">σ<sub>1</sub> · σ<sub>2</sub></span></span></div>
+  </div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Calculate Covariance &amp; Correlation</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Two assets, two scenarios (50/50):</b> Scenario A: r₁=+10%, r₂=+8%. Scenario B: r₁=−2%, r₂=+4%.</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Expected returns:</b> E[r₁] = 0.5×10% + 0.5×(−2%) = 4% &nbsp;|&nbsp; E[r₂] = 0.5×8% + 0.5×4% = 6%</div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Deviations:</b> Scenario A: (10%−4%)=+6%, (8%−6%)=+2%. Scenario B: (−2%−4%)=−6%, (4%−6%)=−2%</div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Cov:</b> 0.5×(+6%×+2%) + 0.5×(−6%×−2%) = 0.5×0.12% + 0.5×0.12% = <span class="step-res">0.12%</span> (positive → move together)</div></div>
+    <div class="calc-step"><div class="step-num">5</div><div class="step-text"><b>σ₁:</b> √[0.5×(6%)²+0.5×(6%)²] = 6% &nbsp;|&nbsp; <b>σ₂:</b> √[0.5×(2%)²+0.5×(2%)²] = 2%</div></div>
+    <div class="calc-step"><div class="step-num">6</div><div class="step-text"><b>ρ = Cov/(σ₁×σ₂) = 0.12%/(6%×2%) = 0.12%/0.12% = <span class="step-res">+1.0</span></b> → perfectly positively correlated (no diversification benefit here)</div></div>
   </div>
 
-  <div class="section-title">📈 The Efficient Frontier</div>
-  <p style="font-size:14.5px;line-height:1.8;">The set of all mean-variance efficient portfolios in (σ,E[r])-space. No other portfolio offers higher return at the same risk, or the same risk at higher return.</p>
+  <div class="section-title">📈 The Efficient Frontier — Map of All Good Portfolios</div>
+  <div class="why-box"><strong>Why we need this:</strong> By combining two stocks in different proportions, we get a curve of portfolio outcomes. The efficient frontier is the upper part of this curve — the portfolios with the best return for their level of risk. Any portfolio below it is suboptimal.</div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Building the efficient frontier (2 assets)</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Asset A:</b> E[r]=10%, σ=20%. <b>Asset B:</b> E[r]=6%, σ=10%. Correlation ρ = 0.2</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Choose a weight:</b> x<sub>A</sub> = 50%, x<sub>B</sub> = 50%</div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Portfolio return:</b> E[r<sub>p</sub>] = 0.5×10% + 0.5×6% = <span class="step-res">8%</span></div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Portfolio variance:</b> σ²<sub>p</sub> = (0.5)²(0.20)² + (0.5)²(0.10)² + 2(0.5)(0.5)(0.2)(0.20)(0.10)<br>= 0.01 + 0.0025 + 0.002 = 0.0145 → σ<sub>p</sub> = <span class="step-res">12.04%</span></div></div>
+    <div class="calc-step"><div class="step-num">5</div><div class="step-text"><b>Repeat for all weights</b> from x<sub>A</sub>=0% to 100% in steps. The resulting curve is the <strong>portfolio frontier</strong>.</div></div>
+    <div class="calc-step"><div class="step-num">6</div><div class="step-text"><b>Efficient part:</b> Only the upper half of the curve (from GMVP upward) — lower half has same σ but less return.</div></div>
+  </div>
   <div class="cf-two-col">
     <div class="cf-box">
-      <strong>GMVP</strong> (Global Minimum Variance Portfolio)<br>
-      • Lowest σ on the entire frontier<br>
-      • Below GMVP: inefficient (same σ, less μ)<br>
-      • Efficient portion: curve from GMVP upward
+      <strong>GMVP — Global Minimum Variance Portfolio</strong><br>
+      The single point on the frontier with the lowest possible σ.<br>
+      Portfolios below GMVP: inefficient (same risk, lower return → never choose these).
     </div>
     <div class="cf-box green">
       <strong>Tangency Portfolio T</strong><br>
-      • Highest Sharpe Ratio of all portfolios<br>
-      • Point where the CAL is tangent to the frontier<br>
-      • Under CAPM assumptions: T = market portfolio
+      The portfolio on the efficient frontier with the <em>highest Sharpe Ratio</em>.<br>
+      Found by drawing a straight line from r<sub>f</sub> tangent to the frontier.<br>
+      Under CAPM: T = the Market Portfolio.
     </div>
   </div>
 
-  <div class="section-title">📐 Capital Allocation Line (CAL)</div>
+  <div class="section-title">📐 Sharpe Ratio — Return per Unit of Risk</div>
+  <div class="why-box"><strong>Why we need this:</strong> The Sharpe Ratio lets us rank portfolios on a risk-adjusted basis. The portfolio with the highest Sharpe Ratio is the one that gives the most return for every unit of risk taken. The Tangency Portfolio maximises the Sharpe Ratio.</div>
   <div class="formula-box">
-    <span class="f-label">Capital Allocation Line (CAL)</span>
-    <div class="f-row">E[r<sub>p</sub>] = r<sub>f</sub> + <span class="f-frac"><span class="f-num">E[r<sub>T</sub>] − r<sub>f</sub></span><span class="f-den">σ<sub>T</sub></span></span> · σ<sub>p</sub></div>
-    <div style="font-size:12px;color:var(--muted);margin-top:4px;">Slope = Sharpe Ratio of the Tangency Portfolio</div>
-    <span class="f-label" style="margin-top:10px;">Investor choice: fraction a in T, (1−a) in risk-free</span>
-    <div class="f-row">E[r<sub>p</sub>] = (1−a)·r<sub>f</sub> + a·E[r<sub>T</sub>] &nbsp;|&nbsp; σ<sub>p</sub> = a·σ<sub>T</sub></div>
+    <span class="f-label">Sharpe Ratio = slope of the Capital Allocation Line</span>
+    <div class="f-row f-big">SR = <span class="f-frac"><span class="f-num">E[r<sub>p</sub>] − r<sub>f</sub></span><span class="f-den">σ<sub>p</sub></span></span></div>
   </div>
-  <div class="cf-box green"><strong>Two-Fund Separation Theorem:</strong> Every optimal investor (regardless of risk aversion) holds a combination of the risk-free asset and the Tangency Portfolio. The only difference is the fraction a: more risk-averse → small a, more risk-tolerant → large a (possibly a&gt;1 = leverage).</div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Sharpe Ratio</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Portfolio A:</b> E[r]=14%, σ=20%, r<sub>f</sub>=4%</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>SR(A) = (14% − 4%) / 20% = 10%/20% = <span class="step-res">0.50</span></b></div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Portfolio B:</b> E[r]=11%, σ=14%, r<sub>f</sub>=4% → SR(B) = 7%/14% = <span class="step-res">0.50</span> — same Sharpe, B has less risk!</div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Which to prefer?</b> Same SR → same risk-adjusted performance. A risk-averse investor prefers B (lower σ). A risk-tolerant investor can <em>leverage</em> B to match A's return.</div></div>
+  </div>
 
-  <div class="section-title">🔧 Lagrange Optimisation (Exam-relevant)</div>
-  <div class="formula-box">Minimisation problem:
-min σ²_p = x'Σx
-s.t.  x'μ = μ̄  (target return)
-      x'1 = 1   (budget constraint)
-
-Lagrangian:
-L = x'Σx − λ₁(x'μ − μ̄) − λ₂(x'1 − 1)
-
-Solution via ∂L/∂x = 0 → system of equations defining the efficient frontier</div>
-  <div class="cf-box yellow"><strong>⚠️ EXAM TIP:</strong> From the lecture slides: "MAXIMUM OF POINTS → INTERPRET RESULTS!!!" Always explain after the calculation: What does this portfolio mean? Why is the Sharpe Ratio high/low? Which stock dominates and why?</div>
-
-  <div class="section-title">📊 Building the Efficient Frontier – Step by Step</div>
-  <p style="font-size:14px;line-height:1.8;">1. Compute E[r] and σ for all individual securities. 2. Compute covariance matrix Σ (or pairwise Cov for 2 stocks). 3. Vary weights x₁ and x₂=(1−x₁) and compute σ²_p for each combination. 4. Plot the σ-E[r] curve → parabola shape. 5. GMVP: point of minimum σ. 6. Efficient portion: from GMVP upward. 7. Tangency: maximum Sharpe Ratio (= slope of CAL through r_f).</p>
+  <div class="section-title">📐 Capital Allocation Line (CAL)</div>
+  <div class="why-box"><strong>Why we need this:</strong> Once we have the Tangency Portfolio, we can mix it with a risk-free asset to achieve any desired risk level. The CAL is the set of all such mixtures — it is a straight line in risk-return space. Any point on the CAL is achievable and optimal for some level of risk aversion.</div>
+  <div class="formula-box">
+    <span class="f-label">Capital Allocation Line</span>
+    <div class="f-row">E[r<sub>p</sub>] = r<sub>f</sub> + <span class="f-frac"><span class="f-num">E[r<sub>T</sub>] − r<sub>f</sub></span><span class="f-den">σ<sub>T</sub></span></span> · σ<sub>p</sub></div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px;">Slope = Sharpe Ratio of the Tangency Portfolio &nbsp;|&nbsp; r<sub>f</sub> = y-intercept</div>
+    <span class="f-label" style="margin-top:10px;">Portfolio split: fraction a in T, (1−a) in risk-free</span>
+    <div class="f-row">E[r<sub>p</sub>] = (1−a)·r<sub>f</sub> + a·E[r<sub>T</sub>] &nbsp;&nbsp; σ<sub>p</sub> = a·σ<sub>T</sub></div>
+  </div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Use the CAL to reach a target risk level</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Given:</b> r<sub>f</sub>=4%, Tangency Portfolio: E[r<sub>T</sub>]=14%, σ<sub>T</sub>=20%. Investor wants σ<sub>p</sub>=12%.</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Find fraction a:</b> σ<sub>p</sub> = a·σ<sub>T</sub> → a = 12%/20% = <span class="step-res">0.60</span> → invest 60% in T, 40% in risk-free</div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Expected return:</b> E[r<sub>p</sub>] = 4% + 0.60×(14%−4%) = 4% + 6% = <span class="step-res">10%</span></div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Check via CAL formula:</b> E[r<sub>p</sub>] = 4% + (10%/20%)×12% = 4% + 6% = 10% ✓</div></div>
+    <div class="calc-step"><div class="step-num">5</div><div class="step-text"><b>If investor wants higher return (a &gt; 1):</b> Borrow money at r<sub>f</sub> and invest more than 100% in T (leverage).</div></div>
+  </div>
+  <div class="cf-box green"><strong>Two-Fund Separation Theorem:</strong> Every rational investor holds the <em>same</em> risky portfolio (the Tangency Portfolio) — only the split between T and the risk-free asset differs based on individual risk tolerance. This is why index funds are theoretically optimal.</div>
 
   <div class="section-title">❓ Exam Questions – Module 6</div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>What is the Two-Fund Separation Theorem and what does it imply?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">In a world with a risk-free asset, all optimal investors combine only two "funds": the risk-free asset and the Tangency Portfolio. Regardless of individual risk aversion, the optimal equity allocation is the same (= Tangency Portfolio) – only the fraction varies. Implication: there is no need for customised stock portfolios. An index fund (≈ market portfolio) + risk-free asset is optimal for every investor. Foundation of passive investment strategies.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>What is the efficient frontier and why does the GMVP matter?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">The efficient frontier is the set of all portfolios with the minimum variance for a given expected return. It is shaped like a parabola in (σ, E[r])-space. The GMVP (Global Minimum Variance Portfolio) is the leftmost point — the portfolio with the absolute lowest risk. Portfolios below GMVP on the same curve are inefficient: same risk, lower return. The efficient portion runs from GMVP upward.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Explain the difference between the CAL and the Efficient Frontier.</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">Efficient Frontier: the set of all efficient portfolios from risky assets (without risk-free asset). Parabolic curve in σ-E[r]-space. CAL (Capital Allocation Line): straight line through r_f and a risky portfolio. Slope = Sharpe Ratio. The optimal CAL is the one tangent to the frontier (highest Sharpe Ratio) – its tangent point is the Tangency Portfolio T. With a risk-free asset, portfolios on the CAL are achievable and always better (same or higher return) than portfolios on the frontier (except at T).</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>How do you find the Tangency Portfolio?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">The Tangency Portfolio T is found by drawing a straight line (the CAL) from the risk-free rate r<sub>f</sub> that is tangent to the efficient frontier. The tangent point is T — the portfolio with the maximum Sharpe Ratio (E[r]−r<sub>f</sub>)/σ. Under CAPM, all investors agree on T, so T must be the market portfolio.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Given: r_f=4%, E[r_T]=14%, σ_T=20%. Investor targets σ=12%. What is E[r]?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">On the CAL: a = σ_p/σ_T = 12/20 = 0.60. E[r_p] = r_f + a·(E[r_T]−r_f) = 4% + 0.60·(14%−4%) = 4% + 6% = 10%. Interpretation: 60% in Tangency Portfolio, 40% in risk-free asset. Sharpe Ratio = (14%−4%)/20% = 0.50. Check: SR = (10%−4%)/12% = 0.50 ✓.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>Given r<sub>f</sub>=4%, E[r<sub>T</sub>]=14%, σ<sub>T</sub>=20%. Investor targets E[r]=10%. What is σ<sub>p</sub>?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">From CAL: E[r<sub>p</sub>] = r<sub>f</sub> + SR × σ<sub>p</sub> → 10% = 4% + (10/20) × σ<sub>p</sub> → 6% = 0.5 × σ<sub>p</sub> → σ<sub>p</sub> = 12%. Or: a = (10%−4%)/(14%−4%) = 0.6 → σ<sub>p</sub> = 0.6×20% = 12%. Portfolio: 60% in T, 40% in risk-free.</div>
   </div>
-
   <button class="read-btn" id="readbtn-5" onclick="markRead(5)">✓ Mark module as read</button>
 </div>
 
@@ -897,151 +1081,145 @@ Solution via ∂L/∂x = 0 → system of equations defining the efficient fronti
 <div class="topic-panel" id="panel-6">
   <div class="module-header">
     <div class="module-num-badge">Module 7</div>
-    <h2>CAPM, WACC & Cost of Capital</h2>
+    <h2>CAPM, WACC &amp; Cost of Capital</h2>
     <p>Security Market Line · COC · WACC · APT · Fama-French</p>
   </div>
 
-  <div class="section-title">📐 CAPM – Capital Asset Pricing Model</div>
+  <div class="section-title">📐 CAPM — How Much Should a Risky Asset Return?</div>
+  <div class="why-box"><strong>Why we need this:</strong> CAPM answers the single most important question in finance: given a stock's systematic risk (Beta), what return should it offer? This is the fair required return. If a stock offers more → it is undervalued (buy). If less → overvalued (avoid). CAPM is also used to calculate the cost of equity for WACC.</div>
   <div class="formula-box">
-    <span class="f-label">CAPM – Capital Asset Pricing Model</span>
+    <span class="f-label">CAPM — Capital Asset Pricing Model</span>
     <div class="f-row f-big">r<sub>i</sub> = r<sub>f</sub> + β<sub>i</sub> · (r<sub>m</sub> − r<sub>f</sub>)</div>
-    <div style="margin-top:8px;font-size:12.5px;line-height:2;color:var(--muted);">
-      r<sub>f</sub> = risk-free rate (government bond) &nbsp;|&nbsp;
-      β<sub>i</sub> = systematic risk &nbsp;|&nbsp;
-      (r<sub>m</sub>−r<sub>f</sub>) = market risk premium ≈ 6–8% historically
+    <div style="margin-top:8px;font-size:13px;line-height:2;color:var(--muted);">
+      r<sub>f</sub> = risk-free rate (e.g. 10-yr government bond) &nbsp;|&nbsp;
+      β<sub>i</sub> = stock's systematic risk &nbsp;|&nbsp;
+      (r<sub>m</sub>−r<sub>f</sub>) = market risk premium (≈ 6–8% historically)
     </div>
   </div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: CAPM calculation</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Inputs:</b> r<sub>f</sub> = 3%, market risk premium (r<sub>m</sub>−r<sub>f</sub>) = 7%, β = 1.4</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Risk premium of this stock:</b> β × (r<sub>m</sub>−r<sub>f</sub>) = 1.4 × 7% = <span class="step-res">9.8%</span></div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Required return:</b> r = r<sub>f</sub> + risk premium = 3% + 9.8% = <span class="step-res">12.8%</span></div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Compare to actual expected return:</b> If the stock actually offers E[r] = 15% → it is above the SML → <strong>undervalued</strong> (Alpha = 15%−12.8% = +2.2%)</div></div>
+    <div class="calc-step"><div class="step-num">5</div><div class="step-text"><b>If E[r] = 11% (below SML):</b> Stock is <strong>overvalued</strong> (Alpha = −1.8%). Investors avoid it → price falls → yield rises back to 12.8%.</div></div>
+  </div>
+
+  <div class="section-title">📈 Security Market Line (SML) — The Fair Pricing Map</div>
+  <div class="why-box"><strong>Why we need this:</strong> The SML is a graph with Beta on the x-axis and expected return on the y-axis. Every fairly priced asset lies exactly on this line. Above the SML = cheap (buy). Below = expensive (avoid). This is how analysts identify mispriced stocks.</div>
   <div class="cf-two-col">
-    <div class="cf-box green"><strong>SML (Security Market Line):</strong><br>Straight line in (β, E[r])-space<br>• Above SML: undervalued → α &gt; 0 (buy!)<br>• Below SML: overvalued → α &lt; 0 (avoid!)<br>• Applies to all assets</div>
-    <div class="cf-box"><strong>CAL vs. SML – Difference:</strong><br>CAL: x-axis = σ (total risk)<br>SML: x-axis = β (systematic risk)<br>CAL: for optimal portfolios<br>SML: for fair pricing of individual assets</div>
+    <div class="cf-box green">
+      <strong>Above SML → Undervalued</strong><br>
+      Too high return for the risk → investors buy it → price rises → yield falls → back to SML<br>
+      <em>Alpha (α) &gt; 0</em>
+    </div>
+    <div class="cf-box red">
+      <strong>Below SML → Overvalued</strong><br>
+      Too low return for the risk → investors sell → price falls → yield rises → back to SML<br>
+      <em>Alpha (α) &lt; 0</em>
+    </div>
+  </div>
+  <div class="cf-box" style="margin-top:8px;">
+    <strong>CAL vs. SML — Key Difference:</strong><br>
+    <table class="cf-table" style="margin-top:6px;">
+      <tr><th>Feature</th><th>CAL (Capital Allocation Line)</th><th>SML (Security Market Line)</th></tr>
+      <tr><td>X-axis</td><td>σ (total risk)</td><td>β (systematic risk only)</td></tr>
+      <tr><td>Shows</td><td>Optimal portfolio combinations</td><td>Fair return for any asset</td></tr>
+      <tr><td>Used for</td><td>How to split money between T and r<sub>f</sub></td><td>Is a stock over- or underpriced?</td></tr>
+    </table>
   </div>
 
-  <div class="cf-label">CAPM Example</div>
-  <p style="font-size:14px;line-height:1.75;">r_f=3%, ERP=7%, β=1.4 → r_CAPM = 3% + 1.4 × 7% = 3% + 9.8% = <strong>12.8%</strong>. A stock with this beta should return 12.8%. Current market return = 15% → stock above SML → <strong>undervalued</strong> (Alpha = +2.2%).</p>
-
-  <div class="section-title">💼 Cost of Capital (COC – unlevered)</div>
+  <div class="section-title">💼 Company Cost of Capital (COC)</div>
+  <div class="why-box"><strong>Why we need this:</strong> A company is financed by both equity and debt. Each has a different cost. The Company Cost of Capital (COC) is the weighted average of these costs — it tells us the minimum return the firm's assets must earn to satisfy all investors.</div>
   <div class="formula-box">
-    <span class="f-label">COC – unlevered cost of capital</span>
-    <div class="f-row">r<sub>assets</sub> = <span class="f-frac"><span class="f-num">D</span><span class="f-den">V</span></span>·r<sub>debt</sub> + <span class="f-frac"><span class="f-num">E</span><span class="f-den">V</span></span>·r<sub>equity</sub></div>
-    <div style="font-size:12px;color:var(--muted);margin-top:4px;">V = D + E (market values) &nbsp;|&nbsp; without tax effect</div>
+    <span class="f-label">COC — unlevered (no tax adjustment)</span>
+    <div class="f-row">r<sub>assets</sub> = <span class="f-frac"><span class="f-num">D</span><span class="f-den">V</span></span> · r<sub>debt</sub> + <span class="f-frac"><span class="f-num">E</span><span class="f-den">V</span></span> · r<sub>equity</sub></div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px;">V = D + E (total firm value, <strong>market values</strong>) &nbsp;|&nbsp; D = market value of debt &nbsp;|&nbsp; E = market value of equity</div>
+  </div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: COC calculation</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Market cap (E) = €600m, Debt (D) = €400m → V = €1,000m</b></div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Weights:</b> D/V = 400/1,000 = 0.40 &nbsp;|&nbsp; E/V = 600/1,000 = 0.60</div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>COC (no tax):</b> 0.40 × 5% + 0.60 × 12% = 2.0% + 7.2% = <span class="step-res">9.2%</span></div></div>
   </div>
 
-  <div class="section-title">🏗️ WACC – Weighted Average Cost of Capital</div>
+  <div class="section-title">🏗️ WACC — The Most Important Formula in Corporate Finance</div>
+  <div class="why-box"><strong>Why we need this:</strong> WACC is the discount rate used to evaluate any project with the same risk as the existing firm. The key difference from COC: interest payments on debt are tax-deductible (the "tax shield"), which makes debt cheaper than it appears. WACC accounts for this benefit and is therefore lower than the unlevered COC.</div>
   <div class="formula-box">
-    <span class="f-label">WACC – Weighted Average Cost of Capital</span>
+    <span class="f-label">WACC — Weighted Average Cost of Capital</span>
     <div class="f-row f-big">WACC = <span class="f-frac"><span class="f-num">D</span><span class="f-den">V</span></span>·r<sub>d</sub>·(1−t<sub>c</sub>) + <span class="f-frac"><span class="f-num">E</span><span class="f-den">V</span></span>·r<sub>e</sub></div>
     <div style="margin-top:8px;font-size:12.5px;line-height:2;color:var(--muted);">
-      D/V = debt weight (market values!) &nbsp;|&nbsp; E/V = equity weight<br>
-      r<sub>d</sub> = cost of debt (pre-tax) &nbsp;|&nbsp; t<sub>c</sub> = tax rate &nbsp;|&nbsp; r<sub>e</sub> = cost of equity (via CAPM)
+      r<sub>d</sub> = pre-tax cost of debt &nbsp;|&nbsp; t<sub>c</sub> = corporate tax rate &nbsp;|&nbsp; r<sub>e</sub> = cost of equity (via CAPM) &nbsp;|&nbsp; (1−t<sub>c</sub>) = tax shield factor
     </div>
-    <div style="font-size:12px;color:#059669;margin-top:6px;font-weight:600;">WACC &lt; COC → Tax Shield reduces the effective cost of debt</div>
   </div>
-  <div class="cf-box yellow"><strong>Important:</strong> Calculate WACC using market values (not book values)! D/V and E/V are market-value weights. WACC changes when the capital structure changes.</div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Full WACC calculation</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Inputs:</b> E = €600m, D = €400m, r<sub>d</sub> = 5%, r<sub>e</sub> = 12%, t<sub>c</sub> = 30%</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Weights:</b> D/V = 0.40, E/V = 0.60</div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>After-tax cost of debt:</b> r<sub>d</sub>×(1−t<sub>c</sub>) = 5%×(1−0.30) = 5%×0.70 = <span class="step-res">3.5%</span></div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Debt contribution:</b> D/V × after-tax r<sub>d</sub> = 0.40 × 3.5% = <span class="step-res">1.4%</span></div></div>
+    <div class="calc-step"><div class="step-num">5</div><div class="step-text"><b>Equity contribution:</b> E/V × r<sub>e</sub> = 0.60 × 12% = <span class="step-res">7.2%</span></div></div>
+    <div class="calc-step"><div class="step-num">6</div><div class="step-text"><b>WACC = 1.4% + 7.2% = <span class="step-res">8.6%</span></b></div></div>
+    <div class="calc-step"><div class="step-num">7</div><div class="step-text"><b>Use:</b> For any project with similar risk, accept if expected return ≥ 8.6%. This is the firm's hurdle rate.</div></div>
+  </div>
+  <div class="cf-box yellow"><strong>⚠️ Always use market values</strong> (not book values) for D and E. Book values are historical costs; market values reflect what investors actually think the firm is worth. Also: WACC changes when the capital structure changes — more debt → different WACC.</div>
 
-  <div class="cf-label">WACC Example</div>
-  <p style="font-size:14px;line-height:1.75;">Market cap: €600m. Debt: €400m. r_d=5%, r_e=12%, t_c=30%. V=€1,000m. D/V=0.4, E/V=0.6. WACC = 0.4 × 5% × 0.70 + 0.6 × 12% = 1.40% + 7.20% = <strong>8.60%</strong>.</p>
+  <div class="section-title">📊 Estimating r<sub>e</sub> — Cost of Equity via CAPM</div>
+  <div class="why-box"><strong>Why we need this:</strong> To calculate WACC, we need r<sub>e</sub> — what return equity investors demand. CAPM gives us this from the firm's Beta. The challenge: Beta must be estimated from historical data, which is imprecise.</div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 Step-by-step: Estimate r<sub>e</sub> using CAPM</div>
+    <div class="calc-step"><div class="step-num">1</div><div class="step-text"><b>Collect historical data:</b> Monthly stock returns and market returns for the past 5 years.</div></div>
+    <div class="calc-step"><div class="step-num">2</div><div class="step-text"><b>Run OLS regression:</b> r<sub>stock</sub> = α + β·r<sub>market</sub> + ε → the slope coefficient β̂ is the estimated Beta.</div></div>
+    <div class="calc-step"><div class="step-num">3</div><div class="step-text"><b>Get current r<sub>f</sub>:</b> Use the 10-year government bond yield (e.g. 3%)</div></div>
+    <div class="calc-step"><div class="step-num">4</div><div class="step-text"><b>Estimate the market risk premium (ERP):</b> Typically use historical average ≈ 6–8%, or an implied ERP from current market prices.</div></div>
+    <div class="calc-step"><div class="step-num">5</div><div class="step-text"><b>Apply CAPM:</b> r<sub>e</sub> = r<sub>f</sub> + β̂ × ERP. Example: 3% + 1.2 × 7% = <span class="step-res">11.4%</span></div></div>
+    <div class="calc-step"><div class="step-num">6</div><div class="step-text"><b>Caveat:</b> Past Beta ≠ future Beta. The standard error of β̂ can be large → estimate is uncertain. Always sanity-check against industry betas.</div></div>
+  </div>
 
-  <div class="section-title">📊 Estimating r_E – Beta Method</div>
-  <div class="formula-box"><strong>Steps for CAPM-based r_E estimation:</strong>
-1. Collect historical stock returns and market returns
-2. OLS regression: r_i = α + β·r_m + ε → estimates β
-3. Determine r_f (current government bond yield)
-4. Estimate ERP (historically or implied)
-5. r_e = r_f + β̂ · ERP</div>
-
-  <div class="section-title">🔬 APT & Fama-French Faktormodelle</div>
-  <div class="formula-box"><strong>APT (Arbitrage Pricing Theory):</strong>
-E[r_i] = r_f + Σ_k β_{i,k} · λ_k
-λ_k = risk premium for factor k
-→ Allows multiple risk factors (not just the market)</div>
-  <div class="formula-box"><strong>Fama-French 3-Factor Model:</strong>
-E[r_i] = r_f + β_i · MKT + s_i · SMB + h_i · HML
-
-MKT = Market excess return (r_m − r_f)
-SMB = Small minus Big (size premium: small firms &gt; large)
-HML = High minus Low (value premium: high B/P &gt; low B/P)</div>
+  <div class="section-title">🔬 APT &amp; Fama-French — Beyond CAPM</div>
+  <div class="why-box"><strong>Why we need this:</strong> CAPM uses only one risk factor (market Beta). In reality, stock returns are driven by multiple factors. APT and Fama-French extend CAPM to capture more of the variation in returns.</div>
+  <div class="formula-box">
+    <span class="f-label">APT — Arbitrage Pricing Theory (multiple factors)</span>
+    <div class="f-row">E[r<sub>i</sub>] = r<sub>f</sub> + β<sub>1</sub>·λ<sub>1</sub> + β<sub>2</sub>·λ<sub>2</sub> + ··· + β<sub>k</sub>·λ<sub>k</sub></div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px;">λ<sub>k</sub> = risk premium for factor k &nbsp;|&nbsp; β<sub>k</sub> = sensitivity of asset to factor k</div>
+    <span class="f-label" style="margin-top:10px;">Fama-French 3-Factor Model</span>
+    <div class="f-row">E[r<sub>i</sub>] = r<sub>f</sub> + β<sub>i</sub>·MKT + s<sub>i</sub>·SMB + h<sub>i</sub>·HML</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px;">MKT = market excess return &nbsp;|&nbsp; SMB = small minus big (size) &nbsp;|&nbsp; HML = high minus low book-to-market (value)</div>
+  </div>
+  <div class="calc-box">
+    <div class="calc-box-title">🔢 How to read Fama-French factors</div>
+    <div class="calc-step"><div class="step-num">MKT</div><div class="step-text"><b>Market factor:</b> same as CAPM. If β=1.2 and MKT=7%: contribution = 1.2×7% = 8.4%</div></div>
+    <div class="calc-step"><div class="step-num">SMB</div><div class="step-text"><b>Size factor (Small Minus Big):</b> Small firms historically outperform large firms. If s=0.5 and SMB=3%: contribution = 0.5×3% = 1.5%. Positive s → more like a small-cap stock.</div></div>
+    <div class="calc-step"><div class="step-num">HML</div><div class="step-text"><b>Value factor (High Minus Low):</b> High book-to-market (value stocks) outperform growth stocks historically. If h=0.4 and HML=4%: contribution = 0.4×4% = 1.6%.</div></div>
+    <div class="calc-step"><div class="step-num">Σ</div><div class="step-text"><b>Total r<sub>e</sub>:</b> r<sub>f</sub> (3%) + 8.4% + 1.5% + 1.6% = <span class="step-res">14.5%</span> — higher than CAPM's 3%+8.4% = 11.4% because small-cap and value exposure adds risk premium.</div></div>
+  </div>
   <table class="cf-table">
     <tr><th>Model</th><th>Factors</th><th>Strengths</th><th>Weaknesses</th></tr>
-    <tr><td>CAPM</td><td>1 (Market β)</td><td>Simple, widely used</td><td>Empirically weak, low explanatory power</td></tr>
-    <tr><td>APT</td><td>Flexible (k)</td><td>General, no market portfolio needed</td><td>Factors not specified</td></tr>
-    <tr><td>Fama-French</td><td>3 (Market+Size+Value)</td><td>High empirical explanatory power</td><td>No risk-based justification for factors</td></tr>
+    <tr><td>CAPM</td><td>1 (Market β)</td><td>Simple, widely used, theoretically clean</td><td>Empirically weak — one factor not enough</td></tr>
+    <tr><td>APT</td><td>Flexible (k factors)</td><td>General; factors can be anything</td><td>Doesn't specify which factors to use</td></tr>
+    <tr><td>Fama-French</td><td>3 (Market+Size+Value)</td><td>High explanatory power empirically</td><td>No clear theoretical reason why factors exist</td></tr>
   </table>
 
   <div class="section-title">❓ Exam Questions – Module 7</div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>What is the difference between COC and WACC?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">COC (unlevered) = r_assets = weighted cost of equity and debt without the tax effect. WACC = weighted cost with the tax benefit on debt (interest is tax-deductible → Tax Shield). WACC &lt; COC. Use COC when you value a project as if it were all-equity financed. Use WACC when you want to incorporate the financing effect (debt tax shield) into the discount rate. WACC method: NPV = FCF discounted at WACC (implicitly includes the tax shield).</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>Walk through a full WACC calculation from scratch.</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Step 1: Get market values of equity E and debt D. V = D + E. Compute D/V and E/V. Step 2: Cost of debt r<sub>d</sub> = YTM on the firm's bonds. Step 3: Cost of equity r<sub>e</sub> = r<sub>f</sub> + β × ERP (from CAPM). Step 4: Get tax rate t<sub>c</sub>. Step 5: WACC = (D/V)×r<sub>d</sub>×(1−t<sub>c</sub>) + (E/V)×r<sub>e</sub>. Example: D/V=0.4, r<sub>d</sub>=5%, t<sub>c</sub>=30%, E/V=0.6, r<sub>e</sub>=12% → WACC = 0.4×3.5% + 0.6×12% = 1.4%+7.2% = 8.6%.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>Stock above the SML vs. below the SML – what does it mean?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">The SML shows the fair expected return for a given beta. Stock above SML: current expected return &gt; CAPM return → positive alpha → stock is undervalued (offers too much for its risk) → buy until price rises and return falls back to SML. Stock below SML: current expected return &lt; CAPM return → negative alpha → overvalued → sell/avoid. In efficient markets there are no persistent deviations from the SML (arbitrage drives prices back to SML).</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>Why is WACC lower than the unlevered COC?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Interest on debt is tax-deductible — the government effectively subsidises part of the borrowing cost. After-tax cost of debt = r<sub>d</sub>×(1−t<sub>c</sub>) &lt; r<sub>d</sub>. This "tax shield" reduces the effective cost of debt. Since WACC uses after-tax debt cost while COC uses pre-tax, WACC &lt; COC when t<sub>c</sub> &gt; 0 and D &gt; 0. The benefit increases with leverage.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>How do you calculate WACC in practice for a listed company?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">1. E (equity market value) = stock price × shares outstanding. 2. D (debt market value) = market value of all debt (often book value ≈ market value). 3. V = E + D, compute E/V and D/V. 4. r_e via CAPM: estimate β from regression, r_e = r_f + β·ERP. 5. r_d = yield on current corporate bonds or cost of debt. 6. t_c = tax rate. 7. WACC = (D/V)·r_d·(1−t_c) + (E/V)·r_e. Typical values: r_e 10–15%, r_d 3–7%, WACC 7–12%.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>What does it mean if a stock lies above vs. below the Security Market Line?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Above SML: the stock offers more expected return than CAPM says it should for its Beta → it is underpriced. Investors buy → price rises → yield falls back to SML. Below SML: stock offers less return than its Beta warrants → overpriced. Investors sell → price falls → yield rises. In equilibrium all stocks lie on the SML — deviations (Alpha) are arbitraged away.</div>
   </div>
   <div class="qa-block">
-    <div class="qa-q" onclick="toggleQA(this)"><span>How do APT and CAPM differ?</span><span class="qa-arrow">▼</span></div>
-    <div class="qa-a">CAPM: one factor (market portfolio), theoretically grounded (equilibrium model), requires the market portfolio. APT: multiple factors (macroeconomic: GDP, inflation, interest rates…), based on no-arbitrage instead of equilibrium, market portfolio not required. APT is more general, but factors must be identified (not theoretically prescribed). Fama-French is essentially an empirically motivated APT with three specific factors. In practice: CAPM for simple applications, FF3F for empirical research.</div>
+    <div class="qa-q" onclick="toggleQA(this)"><span>Under what conditions does Tangency Portfolio = Market Portfolio?</span><span class="qa-arrow">▼</span></div>
+    <div class="qa-a">Under CAPM assumptions: all investors have the same information, same mean-variance preferences, access to the same risk-free asset, and frictionless markets. Under these conditions, all rational investors demand the same Tangency Portfolio. In equilibrium, demand must equal supply → the Tangency Portfolio must be the Market Portfolio (all assets, weighted by market cap). This is why passive index investing is theoretically optimal.</div>
   </div>
-
-  <div style="background:linear-gradient(135deg,#ecfdf5,#eff6ff);border:1px solid #a7f3d0;border-radius:14px;padding:20px 24px;margin:24px 0;">
-    <div style="font-size:15px;font-weight:800;margin-bottom:12px;">📋 Formula Reference</div>
-    <table class="cf-table">
-      <tr><th>Topic</th><th>Formula</th></tr>
-      <tr><td>NPV</td><td>Σ CF_t/(1+r)^t − I₀</td></tr>
-      <tr><td>IRR</td><td>NPV=0 lösen nach r (iterativ)</td></tr>
-      <tr><td>PI</td><td>NPV / Investitionsvolumen</td></tr>
-      <tr><td>EAC</td><td>NPV(Costs) × r / [1−(1+r)^{−T}]</td></tr>
-      <tr><td>Real rate</td><td>(1+r_nom)/(1+π) − 1</td></tr>
-      <tr><td>Bond PV</td><td>Σ cpn/(1+r)^t + par/(1+r)^T</td></tr>
-      <tr><td>Macaulay Duration</td><td>Σ[t·PV(CF_t)] / P</td></tr>
-      <tr><td>Modified Duration</td><td>D/(1+YTM)</td></tr>
-      <tr><td>Gordon-Modell</td><td>P₀ = DIV₁/(r−g)</td></tr>
-      <tr><td>PVGO</td><td>P₀(mit g) − EPS/r</td></tr>
-      <tr><td>Portfolio-Varianz</td><td>x₁²σ₁²+x₂²σ₂²+2x₁x₂ρσ₁σ₂</td></tr>
-      <tr><td>Beta</td><td>Cov(r_i,r_m)/σ²_m</td></tr>
-      <tr><td>Sharpe Ratio</td><td>(E[r_p]−r_f)/σ_p</td></tr>
-      <tr><td>CAPM</td><td>r_f + β·(r_m−r_f)</td></tr>
-      <tr><td>WACC</td><td>(D/V)·r_d·(1−t) + (E/V)·r_e</td></tr>
-    </table>
-  </div>
-
   <button class="read-btn" id="readbtn-6" onclick="markRead(6)">✓ Mark module as read</button>
 </div>
 
-</div><!-- end themen-main -->
-
-<!-- RIGHT SIDEBAR -->
-<div class="themen-sidebar">
-  <div class="sb-overall">
-    <div class="sb-overall-num" id="sb-pct">0%</div>
-    <div class="sb-overall-label">Modules completed</div>
-    <div style="width:100%;height:6px;background:#e5e7eb;border-radius:3px;margin-top:10px;overflow:hidden;"><div id="sb-total-bar" style="height:100%;background:var(--accent);border-radius:3px;width:0%;transition:width 0.4s;"></div></div>
-  </div>
-
-  <div class="sb-title">Progress per module</div>
-  <div class="sb-progress-row" onclick="selectModule(0)"><span>M1 Introduction</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-0" style="width:0%"></div></div></div>
-  <div class="sb-progress-row" onclick="selectModule(1)"><span>M2 NPV & Returns</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-1" style="width:0%"></div></div></div>
-  <div class="sb-progress-row" onclick="selectModule(2)"><span>M3 Bonds</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-2" style="width:0%"></div></div></div>
-  <div class="sb-progress-row" onclick="selectModule(3)"><span>M4 IRR & Rules</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-3" style="width:0%"></div></div></div>
-  <div class="sb-progress-row" onclick="selectModule(4)"><span>M5 Risk</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-4" style="width:0%"></div></div></div>
-  <div class="sb-progress-row" onclick="selectModule(5)"><span>M6 Portfolio</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-5" style="width:0%"></div></div></div>
-  <div class="sb-progress-row" onclick="selectModule(6)"><span>M7 CAPM/WACC</span><div class="sb-bar-wrap"><div class="sb-bar" id="sbbar-6" style="width:0%"></div></div></div>
-
-  <div class="sb-divider"></div>
-  <div class="sb-title">⚡ Quick Formulas</div>
-  <div class="sb-formula-box">NPV = <span class="f-sum" style="font-size:1.1em">Σ</span> <span class="f-frac" style="font-size:0.9em"><span class="f-num">CF<sub>t</sub></span><span class="f-den">(1+r)<sup>t</sup></span></span> − I<sub>0</sub></div>
-  <div class="sb-formula-box">WACC = <span class="f-frac" style="font-size:0.9em"><span class="f-num">D</span><span class="f-den">V</span></span>·r<sub>d</sub>·(1−t) + <span class="f-frac" style="font-size:0.9em"><span class="f-num">E</span><span class="f-den">V</span></span>·r<sub>e</sub></div>
-  <div class="sb-formula-box">CAPM: r<sub>i</sub> = r<sub>f</sub> + β·(r<sub>m</sub>−r<sub>f</sub>)</div>
-  <div class="sb-formula-box"><span class="f-frac" style="font-size:0.9em"><span class="f-num">ΔP</span><span class="f-den">P</span></span> ≈ −ModD·Δr</div>
-  <div class="sb-formula-box">Gordon: P<sub>0</sub> = <span class="f-frac" style="font-size:0.9em"><span class="f-num">DIV<sub>1</sub></span><span class="f-den">r−g</span></span></div>
-  <div class="sb-formula-box">Sharpe = <span class="f-frac" style="font-size:0.9em"><span class="f-num">E[r]−r<sub>f</sub></span><span class="f-den">σ</span></span></div>
-  <div class="sb-formula-box">σ<sup>2</sup><sub>p</sub> = x<sub>1</sub><sup>2</sup>σ<sub>1</sub><sup>2</sup>+x<sub>2</sub><sup>2</sup>σ<sub>2</sub><sup>2</sup>+2x<sub>1</sub>x<sub>2</sub>ρσ<sub>1</sub>σ<sub>2</sub></div>
-</div><!-- end sidebar -->
-
-</div><!-- end themen-layout -->
-</div>
 <!-- END TAB 1 -->
 
 <!-- ══════════════════════════════════════════
