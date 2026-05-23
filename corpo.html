@@ -1682,6 +1682,7 @@ function showTab(id) {
   if (map[id] !== undefined) btns[map[id]].classList.add('active');
   history.replaceState(null, '', '#' + id);
   setTimeout(function(){ initAllVisible(); enhanceToolbars(); }, 50);
+  if (id === 'flashcards') { setTimeout(fcInit, 60); }
 }
 
 (function() {
@@ -2384,11 +2385,6 @@ document.addEventListener('keydown', function(e) {
 });
 
 // auto-init when tab becomes visible
-var _origShowTab = showTab;
-function showTab(id) {
-  _origShowTab(id);
-  if (id === 'flashcards') { setTimeout(fcInit, 60); }
-}
 </script>
 
 </body>
