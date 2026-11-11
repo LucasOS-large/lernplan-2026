@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+</head>
+<body>
+<title>Corporate Finance Study Cockpit</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sticky tab bar that doubles as progress display; every view shows one unit at a time (one chunk, one card, one exam task). */
+:root{
+  --bg:#f2f4f7; --surface:#ffffff; --surface-2:#e9edf2; --line:#d5dbe3;
+  --ink:#152033; --muted:#5a6679; --accent:#0d5f8a; --accent-soft:#dcebf3; --on-accent:#ffffff;
+  --good:#1c7a4c; --good-soft:#dcf0e5; --bad:#b3372f; --bad-soft:#f7e0dd; --warn:#8a5a00; --warn-soft:#f6ead0;
+  --f-display:"Space Grotesk","Inter",system-ui,sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#10161f; --surface:#19212d; --surface-2:#222c3a; --line:#313d4e;
+  --ink:#e6ebf2; --muted:#9aa6b8; --accent:#6bb8e0; --accent-soft:#1d3546; --on-accent:#0b1620;
+  --good:#63c794; --good-soft:#183526; --bad:#f08b82; --bad-soft:#40201d; --warn:#e3b455; --warn-soft:#3a2e14;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10161f; --surface:#19212d; --surface-2:#222c3a; --line:#313d4e;
+  --ink:#e6ebf2; --muted:#9aa6b8; --accent:#6bb8e0; --accent-soft:#1d3546; --on-accent:#0b1620;
+  --good:#63c794; --good-soft:#183526; --bad:#f08b82; --bad-soft:#40201d; --warn:#e3b455; --warn-soft:#3a2e14;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--f-body)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+h1,h2,h3,h4{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.2}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top{padding-block:22px 12px;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;justify-content:space-between}
+.top h1{font-size:24px;letter-spacing:-.01em}
+.facts{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--muted);font-size:13px}
+.facts b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.navband{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);border-bottom:1px solid var(--line)}
+.tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding-block:8px}
+.tab{background:none;border:1px solid transparent;border-radius:var(--r);padding:8px 10px;text-align:left;display:flex;flex-direction:column;gap:5px;min-width:0}
+.tab:hover{background:var(--surface-2)}
+.tab[aria-selected="true"]{background:var(--surface);border-color:var(--line)}
+.tab .t{font-family:var(--f-display);font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tab .s{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar{height:4px;border-radius:2px;background:var(--surface-2);overflow:hidden;position:relative}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:2px;transition:width .25s}
+.tab[aria-selected="true"] .bar{background:var(--surface-2)}
+main{padding-block:20px 56px}
+.view-head{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;justify-content:space-between;margin-bottom:14px}
+.view-head h2{font-size:19px}
+.view-head p{color:var(--muted);font-size:13.5px;max-width:62ch}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 14px;font-weight:500}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:600}
+.btn.good{background:var(--good-soft);border-color:var(--good);color:var(--good);font-weight:600}
+.btn.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad);font-weight:600}
+.btn.ghost{background:none;border-color:transparent;color:var(--muted)}
+.btn.ghost:hover{color:var(--ink);border-color:var(--line)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.eyebrow{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 11px;font-size:13px}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 3px;line-height:1.25}
+.fr>span:first-child{border-bottom:1px solid currentColor;padding:0 4px 1px}
+.fr>span:last-child{padding:1px 4px 0}
+.fx{font-family:var(--f-mono);font-size:13.5px;background:var(--surface-2);border-radius:8px;padding:10px 12px;overflow-x:auto;white-space:nowrap;margin-block:8px}
+code,.num{font-family:var(--f-mono);font-size:.93em}
+
+/* Lernpfad */
+.path{display:grid;grid-template-columns:300px minmax(0,1fr);gap:16px;align-items:start}
+.mods{display:flex;flex-direction:column;gap:4px;padding:6px}
+.mod{display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:2px 10px;align-items:center;background:none;border:0;border-radius:8px;padding:9px 10px;text-align:left}
+.mod:hover{background:var(--surface-2)}
+.mod[aria-current="true"]{background:var(--accent-soft)}
+.mod .n{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.mod .nm{font-weight:600;font-size:14px;min-width:0;overflow-wrap:anywhere;hyphens:auto}
+.mod .ct{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.mod .bar{grid-column:2/4}
+.mod.done .ct{color:var(--good);font-weight:600}
+.chunk{padding:22px 24px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.chunk h3{font-size:21px}
+.steps{display:flex;gap:5px;flex-wrap:wrap}
+.step{width:26px;height:6px;border-radius:3px;border:0;background:var(--surface-2);padding:0}
+.step.ok{background:var(--good)}
+.step[aria-current="true"]{outline:2px solid var(--accent);outline-offset:2px}
+.chunk ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:7px;max-width:68ch}
+.merk{background:var(--accent-soft);border-radius:8px;padding:10px 14px;max-width:68ch}
+.merk b{color:var(--accent)}
+.chunk .row{justify-content:space-between;margin-top:4px}
+
+/* Karten */
+.filters{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.stage{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.flip{perspective:1400px;background:none;border:0;padding:0;text-align:left;width:100%}
+.flip-in{display:grid;transition:transform .45s;transform-style:preserve-3d}
+.flip.on .flip-in{transform:rotateY(180deg)}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px 26px 22px;min-height:250px;display:flex;flex-direction:column;gap:12px}
+.face.back{transform:rotateY(180deg);border-color:var(--accent)}
+.face .q{font-family:var(--f-display);font-size:21px;font-weight:600;line-height:1.3;margin-block:auto}
+.face .a{line-height:1.6}
+.face .hint{font-size:12.5px;color:var(--muted);margin-top:auto}
+.meta{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.state-k{color:var(--good);font-weight:600}.state-n{color:var(--bad);font-weight:600}
+.rate{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.rate .btn{padding:11px}
+.nav2{display:flex;justify-content:space-between;align-items:center}
+.empty{padding:36px 24px;text-align:center;color:var(--muted)}
+@media (prefers-reduced-motion: reduce){.flip-in,.bar i{transition:none}}
+
+/* Klausur */
+.score{padding:14px 18px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:6px 18px;align-items:center;margin-bottom:14px}
+.score .big{font-family:var(--f-display);font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+.score .big small{font-size:14px;color:var(--muted);font-weight:500}
+.passbar{position:relative;height:8px;border-radius:4px;background:var(--surface-2)}
+.passbar i{position:absolute;inset:0 auto 0 0;background:var(--accent);border-radius:4px}
+.passbar u{position:absolute;left:50%;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+.passnote{font-size:12px;color:var(--muted);grid-column:2}
+.tasknav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;align-items:center}
+.tn{min-width:38px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 8px;font-family:var(--f-mono);font-size:13px;text-align:center}
+.tn.part{border-color:var(--warn);background:var(--warn-soft);color:var(--warn)}
+.tn.done{border-color:var(--good);background:var(--good-soft);color:var(--good)}
+.tn[aria-current="true"]{outline:2px solid var(--accent);outline-offset:1px}
+.tnsep{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 4px 0 2px}
+.task{padding:22px 24px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.task>header{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;align-items:baseline}
+.task h3{font-size:19px;max-width:60ch}
+.pts{font-family:var(--f-mono);font-size:13px;color:var(--muted);white-space:nowrap}
+.stem{max-width:70ch}
+.part{border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.part .pq{font-weight:500;max-width:70ch}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:8px;padding:8px 12px;cursor:pointer}
+.opt:hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt input{margin-top:4px;accent-color:var(--accent)}
+textarea{width:100%;min-height:92px;font:inherit;color:inherit;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;resize:vertical}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.field{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted)}
+.field .in{display:flex;align-items:center;gap:6px}
+.field input{width:100%;min-width:0;font:15px var(--f-mono);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.field input.right{border-color:var(--good);background:var(--good-soft)}
+.field input.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.field .sol{font-family:var(--f-mono);font-size:12.5px;color:var(--good)}
+.tg{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 14px;align-items:center}
+.tg .seg{display:flex;gap:4px}
+.tg .seg button{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:4px 12px;font-size:13px}
+.tg .seg button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+.tg .seg button.right{background:var(--good-soft);border-color:var(--good);color:var(--good)}
+.tg .seg button.wrong{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.sol-box{background:var(--surface-2);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;max-width:76ch;min-width:0}
+.sol-box .en{font-style:italic}
+.keys{display:flex;flex-direction:column;gap:5px}
+.keys label{display:flex;gap:9px;align-items:flex-start;cursor:pointer}
+.keys input{margin-top:4px;accent-color:var(--good)}
+.verdict{font-weight:600}.verdict.ok{color:var(--good)}.verdict.no{color:var(--bad)}.verdict.mid{color:var(--warn)}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:13.5px}
+th,td{border:1px solid var(--line);padding:5px 10px;text-align:right}
+th:first-child,td:first-child{text-align:left}
+th{background:var(--surface-2);font-weight:600}
+.fig{overflow-x:auto}
+.fig svg{display:block;max-width:100%;height:auto}
+svg text{font-family:var(--f-body);font-size:12px;fill:var(--ink)}
+svg .mut{fill:var(--muted)}
+svg .ax{stroke:var(--ink);stroke-width:1.3;fill:none}
+svg .grid{stroke:var(--line);stroke-width:1;fill:none}
+svg .fr-line{stroke:var(--ink);stroke-width:2.2;fill:none}
+svg .cal{stroke:var(--muted);stroke-width:1.3;fill:none}
+svg .cal.best{stroke:var(--accent);stroke-width:2}
+svg .dash{stroke:var(--muted);stroke-dasharray:4 4;fill:none}
+svg .dot{fill:var(--ink)}svg .dot.acc{fill:var(--accent)}svg .dot.badd{fill:var(--bad)}svg .dot.goodd{fill:var(--good)}
+
+/* Formeln */
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.fcard{padding:16px 18px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.fcard h3{font-size:16px;margin-bottom:4px}
+.fcard dt{font-size:13px;color:var(--muted);margin-top:8px}
+.fcard dd{margin:0}
+.fcard dl{margin:0}
+
+@media (max-width:820px){
+  .path{grid-template-columns:minmax(0,1fr)}
+  .mods{flex-direction:row;overflow-x:auto;padding:6px}
+  .mod{grid-template-columns:auto;min-width:150px;flex:none}
+  .mod .n{display:none}.mod .bar{grid-column:1}
+  .chunk,.task{padding:18px 16px}
+  .face{padding:20px 18px}
+  .score{grid-template-columns:minmax(0,1fr) auto}
+  .score .passbar{grid-column:1/3;grid-row:2}.passnote{grid-column:1/3}
+}
+@media (max-width:520px){
+  .tab{padding:7px 6px}.tab .t{font-size:12.5px}.tab .s{font-size:11px}
+  .top h1{font-size:20px}
+}
+</style>
+
+<div class="wrap top">
+  <h1>Corporate Finance Study Cockpit</h1>
+  <div class="facts"><span>Exam: <b>90 min</b></span><span><b>90</b> points</span><span>Theory <b>50</b> · Calculation <b>40</b></span><span>Target: about <b>1 point per minute</b></span></div>
+</div>
+<div class="navband"><div class="wrap"><nav class="tabs" role="tablist" id="tabs"></nav></div></div>
+<main class="wrap">
+  <section id="v-lernpfad" hidden></section>
+  <section id="v-karten" hidden></section>
+  <section id="v-klausur" hidden></section>
+  <section id="v-formeln" hidden></section>
+</main>
+
+<script>
+const F=(a,b)=>`<span class="fr"><span>${a}</span><span>${b}</span></span>`;
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- Content ---------- */
+const MODS=[
+{t:"Foundations of corporate finance",c:[
+ {t:"What is a corporation?",b:["A separate legal entity owned by its shareholders: it can make contracts, borrow, lend, sue and be sued.","<b>Limited liability</b>: shareholders are not personally responsible for the corporation's debts.","Types: public companies (listed), private corporations, LLCs."],m:"Ownership (shareholders) and management (managers) are separate. Almost everything else in this module follows from that."},
+ {t:"The two core decisions",b:["<b>Investment decision</b> (capital budgeting, CAPEX): purchase of real assets, tangible or intangible (e.g. a pipeline, R&amp;D).","<b>Financing decision</b>: sale of financial assets, i.e. raising money. The choice between debt and equity is the <b>capital structure</b>.","<b>Hurdle rate / cost of capital</b>: the minimum acceptable return on a project = the opportunity cost of capital (what investors could earn elsewhere at the same risk)."],m:"Intel develops a chip → investment. VW borrows €350 million → financing."},
+ {t:"The goal of the corporation",b:["The goal is to <b>maximise shareholder wealth</b> (the market value of the shares).","Shareholders want to maximise current wealth, choose their own time pattern of consumption, and manage their own risk. They can do the last two themselves through the capital market.","So managers need a single rule: accept projects with a positive NPV."],m:"The financial manager stands between the firm and the financial markets: raise cash, invest it, generate cash flows, then reinvest or return them."},
+ {t:"Separation of ownership and control",b:["Shareholders own the firm but do not run it. The board of directors appoints and monitors management.","Advantages: shares can be traded, professionals manage, the firm survives changes in ownership.","Drawback: the <b>agency problem</b>. Managers (agents) may pursue their own interests rather than those of the owners (principals). <b>Agency costs</b> = the value lost this way plus the cost of monitoring."],m:"Remedies: monitoring (board, auditors, lenders, the “Wall Street Walk”, takeover threat) and incentives (e.g. stock options). Together this is corporate governance."},
+ {t:"Raising equity and paying it back",b:["Equity is raised in two ways: <b>issuing new shares</b> (IPO, seasoned offering / rights issue, private placement, venture capital) or <b>retaining earnings</b> and reinvesting them.","Primary market: the firm sells new securities. Secondary market: investors trade among themselves.","Returning cash to shareholders: <b>dividend</b> or <b>share buyback</b>. In a buyback, cash goes to the selling shareholders and the remaining ones own a larger fraction."],m:"A buyback is an indirect payout and therefore an alternative to a dividend."}]},
+{t:"Valuation: time value and NPV",c:[
+ {t:"Discount factor and present value",b:[`PV = DF × cash flow, with DF = ${F("1","(1+r)<sup>t</sup>")}.`,"The numerator is one euro received in t years. The denominator compounds the opportunity cost r over t periods.","So DF is today's price of one euro in the future. It is below 1 because money today is worth more."],m:"Certain cash flows → discount at the risk-free rate. Risky cash flows → higher rate, smaller DF, smaller present value."},
+ {t:"NPV as a decision rule",b:[`NPV = C<sub>0</sub> + Σ ${F("C<sub>t</sub>","(1+r)<sup>t</sup>")}, where C<sub>0</sub> is the (negative) initial investment.`,"Rule: invest if NPV &gt; 0.","Example from the slides: −1,000, then 300/400/500/600 at 10 % gives NPV = +390 → accept.","NPVs add up: NPV(A+B) = NPV(A) + NPV(B)."],m:"NPV depends only on the forecast cash flows and the opportunity cost of capital."},
+ {t:"Measuring returns",b:[`One-period return: r = ${F("P<sub>t</sub> − P<sub>t−1</sub> + DIV","P<sub>t−1</sub>")}.`,"Holding period return: (1+H) = (1+r<sub>1</sub>)(1+r<sub>2</sub>)…(1+r<sub>N</sub>). Annualised (geometric): (1+H)<sup>1/N</sup> − 1.","Geometric mean ≤ arithmetic mean."],m:"Evaluating past performance → geometric. Estimating future returns → arithmetic."},
+ {t:"Compounding frequency",b:[`n compounding dates per year: growth factor (1 + ${F("r","n")})<sup>n</sup>.`,"10 % compounded semi-annually is an effective 10.25 % per year.","Continuous compounding: e<sup>r</sup>. At 10 % that is e<sup>0.10</sup> = 1.1052.","Log returns ln(P<sub>t</sub>/P<sub>t−1</sub>) can be added up over time."],m:"The more often interest is compounded, the higher the effective rate. Continuous compounding is the upper limit."}]},
+{t:"Bonds and duration",c:[
+ {t:"The price of a bond",b:[`Price = present value of all coupons plus present value of the face value: PV = ${F("C","r")}·(1 − ${F("1","(1+r)<sup>n</sup>")}) + ${F("FV","(1+r)<sup>n</sup>")}.`,"Zero-coupon bond: only the second term. Perpetuity: PV = C / r.","Coupon &gt; market rate → price above face value. Coupon = market rate → price = face value."],m:"Example: 5 years, 5 % coupon, face value 100, market rate 3 % → price 112.11."},
+ {t:"Yield to maturity",b:["The YTM is the single rate at which the present value of all payments equals the market price. It is the bond's internal rate of return (IRR) if held to maturity.","It can only be found by trial and error or interpolation.","Better credit quality (AAA) → lower yield. Longer maturity → usually higher yield."],m:"Price and yield always move in opposite directions."},
+ {t:"Interest rate changes and bond prices",b:["When interest rates rise, bond prices <b>fall</b>, because all future payments are discounted more heavily.","Long-term bonds react <b>more strongly</b> than short-term bonds: their payments lie further in the future.","Interest rates follow inflation with a lag, because central banks raise rates to fight inflation."],m:"A 30-year bond loses far more than a 3-year bond when rates rise by 1 %."},
+ {t:"Duration: the risk measure",b:[`Duration = weighted average of the times of the payments: D = Σ t · ${F("PV(C<sub>t</sub>)","PV")}. Unit: years.`,"Zero-coupon bond: duration = maturity.",`Perpetuity: duration = ${F("1+r","r")}, independent of the coupon.`,"Coupon bond: duration &lt; maturity. A higher coupon or a higher yield → shorter duration."],m:"The longer the duration, the more sensitive the price is to interest rate changes."},
+ {t:"Modified duration and the term structure",b:[`Modified duration = ${F("duration","1 + yield")} = percentage price change for a 1 percentage point change in the yield.`,"Example: duration 6, yield 4 % → modified duration 5.77. Rates +1 % → price about −5.77 %.","Term structure / yield curve: yields as a function of time to maturity. Spot rate = today's rate for a given maturity.","The shape of the curve is explained by expected future short rates, risk and inflation."],m:"Bond vs. stock: debt with a maturity, defined payments and priority in liquidation, against equity with no maturity, undefined payments and a residual claim."}]},
+{t:"Valuing stocks",c:[
+ {t:"Dividend discount model",b:[`Share price = present value of all expected dividends: P<sub>0</sub> = Σ ${F("DIV<sub>t</sub>","(1+r)<sup>t</sup>")} + ${F("P<sub>H</sub>","(1+r)<sup>H</sup>")}.`,`For one year: P<sub>0</sub> = ${F("DIV<sub>1</sub> + P<sub>1</sub>","1 + r")}.`,"Example: dividends 3 / 3.24 / 3.50, sale at 94.48 in year 3, r = 12 % → P<sub>0</sub> = 75."],m:"The sale price is itself just the present value of the dividends that follow."},
+ {t:"Constant growth and the cost of equity",b:[`Gordon growth: P<sub>0</sub> = ${F("DIV<sub>1</sub>","r − g")}.`,`Rearranged: r = ${F("DIV<sub>1</sub>","P<sub>0</sub>")} + g = dividend yield + growth.`,"Example: price 49.43, dividend 2.00, g = 7.7 % → r = 4.1 % + 7.7 % = 11.8 %."],m:"This is how the cost of equity is estimated from market data."},
+ {t:"Payout, plowback and growth",b:["Payout ratio = fraction of earnings paid out as dividends.","Plowback ratio = 1 − payout ratio = fraction retained.","ROE = EPS / book equity per share. Growth g = plowback ratio × ROE."],m:"A lower dividend today can raise the share price if the retained funds earn more than the cost of capital."}]},
+{t:"Investment decisions",c:[
+ {t:"The four NPV rules for cash flows",b:["<b>Only cash flow is relevant</b>, not accounting income (add back depreciation, subtract capital expenditure).","<b>Think incrementally</b>: include taxes, incidental effects, opportunity costs and salvage value. Forget sunk costs, beware of allocated overheads.","<b>Treat inflation consistently</b>: nominal cash flows at the nominal rate, real cash flows at the real rate.","<b>Separate investment and financing</b>: debt proceeds, interest and repayments do not belong in the project cash flows."],m:`Real rate = ${F("1 + nominal","1 + inflation")} − 1. At 15 % nominal and 10 % inflation: 4.5 %.`},
+ {t:"Payback and book rate of return",b:["Payback period: the number of years until cumulative cash flows cover the initial outlay.","Flaws: it ignores all later cash flows and the time value of money.","Book rate of return = book income / book assets. It rests on accounting figures, not on cash flows and market values."],m:"Both methods can lead to wrong decisions. NPV remains the benchmark."},
+ {t:"Internal rate of return",b:["IRR = the discount rate at which NPV is zero.","Rule: invest if IRR &gt; opportunity cost of capital.","Example: −4,000, +2,000, +4,000 → IRR = 28.08 %.","Found by trial and error: take two rates with a positive and a negative NPV and interpolate."],m:"For normal projects (outflow first, inflows later) IRR and NPV give the same decision."},
+ {t:"The four IRR pitfalls",b:["<b>Lending or borrowing?</b> With +1,000 today and −1,500 later, NPV rises with the discount rate. The rule reverses.","<b>Multiple rates of return</b>: if the cash flows change sign more than once, there can be several IRRs or none.","<b>Mutually exclusive projects</b>: IRR ignores scale. A small project at 100 % can be worse than a large one at 75 %.","<b>More than one opportunity cost of capital</b>: with a non-flat term structure it is unclear what to compare the IRR with. It implicitly assumes reinvestment at the IRR."],m:"When in doubt, always calculate the NPV."},
+ {t:"Limited capital and comparing projects",b:["Capital rationing: a limit on funds. Soft = imposed by management, hard = the capital market will not provide.",`Profitability index = ${F("NPV","investment")}. Rank projects by PI until the budget is used up.`,`Different lifetimes: equivalent annual cost = ${F("PV of costs","annuity factor")}. Choose the machine with the lower annual cost.`,"Investment timing: discount the NPV for each possible start date back to today and pick the highest."],m:`Annuity factor = ${F("1","r")} − ${F("1","r(1+r)<sup>t</sup>")}.`}]},
+{t:"Risk and portfolio theory",c:[
+ {t:"Risk, return and diversification",b:["Risk-return trade-off: a higher expected return is only available for higher risk.","Risk is measured as the variance or standard deviation (volatility) of returns.","<b>Unique risk</b> (unsystematic): affects only the individual firm and can be diversified away.","<b>Market risk</b> (systematic): affects the whole economy and remains even in a broad portfolio."],m:"Diversification works because stocks are not perfectly correlated with each other."},
+ {t:"Covariance and correlation",b:["Covariance σ<sub>12</sub> = Σ p<sub>s</sub>·(r<sub>1s</sub> − μ<sub>1</sub>)·(r<sub>2s</sub> − μ<sub>2</sub>): measures whether two returns move together.",`Correlation ρ<sub>12</sub> = ${F("σ<sub>12</sub>","σ<sub>1</sub>·σ<sub>2</sub>")}, between −1 and +1.`,"ρ = +1: no diversification benefit. ρ &lt; 1: portfolio risk is below the weighted average. ρ = −1: risk can be eliminated completely."],m:"The lower the correlation, the larger the gain from diversification."},
+ {t:"A portfolio of two securities",b:["Expected return: E(r<sub>p</sub>) = x<sub>1</sub>μ<sub>1</sub> + x<sub>2</sub>μ<sub>2</sub> (a simple weighted average).","Variance: σ<sub>p</sub>² = x<sub>1</sub>²σ<sub>1</sub>² + x<sub>2</sub>²σ<sub>2</sub>² + 2·x<sub>1</sub>x<sub>2</sub>·ρ<sub>12</sub>σ<sub>1</sub>σ<sub>2</sub>.",`Minimum-variance portfolio: x<sub>1</sub> = ${F("σ<sub>2</sub>² − ρσ<sub>1</sub>σ<sub>2</sub>","σ<sub>1</sub>² + σ<sub>2</sub>² − 2ρσ<sub>1</sub>σ<sub>2</sub>")}.`],m:"Return averages linearly, risk does not. That is exactly the diversification effect."},
+ {t:"Efficient frontier (Markowitz)",b:["A portfolio is efficient if it offers the highest return for a given risk (or the lowest risk for a given return).","In the σ-μ diagram, the upper edge of all feasible portfolios is the efficient frontier. It starts at the minimum-variance portfolio.","Dominance: one portfolio dominates another if it lies to the “north-west”, i.e. more return for no more risk."],m:"A portfolio is inefficient if another one offers more return at the same or lower risk."},
+ {t:"Capital allocation line and Sharpe ratio",b:[`CAL = all mixes of the risk-free asset and one risky portfolio P: E(r) = r<sub>f</sub> + ${F("E(r<sub>P</sub>) − r<sub>f</sub>","σ<sub>P</sub>")}·σ.`,"The slope is the <b>Sharpe ratio</b>: excess return per unit of risk.","The steepest CAL touches the efficient frontier at the <b>tangency portfolio T</b>. T has the highest Sharpe ratio of all risky portfolios.","Two-fund separation: every investor holds T plus the risk-free asset. Only the mix depends on risk appetite."],m:"Below T: lend at r_f. Above T: borrow at r_f and invest more than 100 % in T."}]},
+{t:"CAPM and extensions",c:[
+ {t:"Market portfolio and beta",b:["If all investors hold the tangency portfolio, it is the <b>market portfolio M</b>: all risky assets, weighted by market value. In practice a broad index.",`Beta β<sub>i</sub> = ${F("Cov(r<sub>i</sub>, r<sub>m</sub>)","Var(r<sub>m</sub>)")}: the sensitivity of a stock to the market.`,"β = 1: moves with the market. β &gt; 1: aggressive / cyclical. β &lt; 1: defensive. Portfolio beta = weighted average."],m:"Beta measures only systematic risk. That is the only risk the market pays a premium for."},
+ {t:"CAPM and the security market line",b:["CAPM: E(r<sub>i</sub>) = r<sub>f</sub> + β<sub>i</sub>·(r<sub>m</sub> − r<sub>f</sub>).","The <b>SML</b> is its graph: expected return against beta. It starts at r<sub>f</sub> (β = 0), passes through the market (β = 1), slope = market risk premium.","In equilibrium all securities lie on the SML. Above = undervalued, below = overvalued.","The SML gives the cost of capital (required return) of a project with a given beta."],m:"CAL/CML: x-axis is σ (total risk), holds for efficient portfolios. SML: x-axis is β (systematic risk), holds for every security."},
+ {t:"Which sectors have a high beta?",b:["Beta is high when cash flows depend strongly on the business cycle (cyclical).","<b>High</b>: luxury goods, advertising, cars, airlines. Customers and firms cut these first in a recession.","<b>Low</b>: utilities, supermarkets, food producers. People always need electricity and food.","High fixed costs (operating leverage) raise beta further."],m:"Ask yourself: do people still buy this in a crisis? Yes → low beta."},
+ {t:"Limits of the CAPM and multi-factor models",b:["Empirically the return line is flatter than the SML: low-beta stocks earn more and high-beta stocks earn less than predicted.","<b>Size effect</b> (small minus big): small firms earn higher returns than large ones.","<b>Book-to-market effect</b> (high minus low): value stocks with a high book-to-market ratio beat growth stocks.","Fama-French three-factor model: market + size + book-to-market. <b>APT</b>: returns depend on several macroeconomic factors."],m:"The CAPM is a good starting point but does not explain all differences in returns. Beta alone is not enough."}]}
+];
+
+const CARDS=[
+[1,"What is a corporation and what does limited liability mean?","A separate legal entity owned by its shareholders. Limited liability: shareholders can lose at most their investment and are not personally liable for the firm's debts."],
+[1,"Investment decision vs. financing decision","Investment decision (capital budgeting): which real assets to invest in. Financing decision: how to raise the money, through debt or equity (capital structure)."],
+[1,"What is the goal of a corporation?","To maximise the market value of shareholders' wealth. In practice: take all projects with a positive NPV."],
+[1,"Separation of ownership and control","Shareholders own the firm, managers run it. The board represents the shareholders. Advantage: tradable shares, professional management. Drawback: the agency problem."],
+[1,"Agency problem and agency costs","A conflict of interest between managers (agents) and shareholders (principals). Agency costs = value lost when managers do not maximise firm value, plus the cost of monitoring them."],
+[1,"How are agency conflicts limited?","1. Monitoring by the board, auditors, lenders, shareholders (selling = “Wall Street Walk”) and the threat of takeover. 2. Financial incentives such as stock options."],
+[1,"How can a company raise equity financing?","Issue new shares (IPO, seasoned offering / rights issue, private placement, venture capital) or retain earnings and reinvest them."],
+[1,"Share buyback: how does it relate to dividends?","The firm buys its own shares and so pays cash to shareholders. It is an indirect payout and an alternative to a dividend. The remaining shareholders own a larger fraction."],
+[1,"Hurdle rate / cost of capital","The minimum return a project must earn. It equals the opportunity cost: the return investors could earn in the capital market at the same risk."],
+[1,"Primary market vs. secondary market","Primary market: the firm sells newly issued securities and receives the money. Secondary market: investors trade existing securities among themselves; the firm receives nothing."],
+[2,"What is the discount factor?",`DF = ${F("1","(1+r)<sup>t</sup>")}. Today's value of one euro received in t years. Numerator: the future payment. Denominator: compounding at the opportunity cost over t periods.`],
+[2,"NPV: formula and rule",`NPV = C<sub>0</sub> + Σ ${F("C<sub>t</sub>","(1+r)<sup>t</sup>")}. Invest if NPV &gt; 0. The project then creates more value than it costs.`],
+[2,"Why are risky cash flows discounted more heavily?","Investors demand a higher return for bearing risk. A higher discount rate gives a smaller discount factor and so a smaller present value."],
+[2,"Arithmetic or geometric average?","Geometric for evaluating past performance. Arithmetic for predicting future returns. The geometric mean is never larger than the arithmetic mean."],
+[2,"Effective rate with compounding within the year",`(1 + ${F("r","n")})<sup>n</sup> − 1. At 10 % semi-annually: 10.25 %. Continuous: e<sup>r</sup> − 1, so 10.52 % at 10 %.`],
+[2,"Holding period return","(1+H) = (1+r<sub>1</sub>)(1+r<sub>2</sub>)…(1+r<sub>N</sub>). For one period: (income + price change) / investment."],
+[3,"How do you price a coupon bond?",`Present value of the coupons plus present value of the face value: ${F("C","r")}(1 − ${F("1","(1+r)<sup>n</sup>")}) + ${F("FV","(1+r)<sup>n</sup>")}.`],
+[3,"What is the yield to maturity?","The rate at which the present value of all the bond's payments equals its market price. It is the bond's IRR if held to maturity."],
+[3,"Interest rates rise by 1 %. What happens to bond prices?","They fall. The future payments are discounted at a higher rate, so their present value drops."],
+[3,"What is duration?","The average of the payment dates, weighted by present values, in years. It measures how sensitive the price is to interest rate changes."],
+[3,"Duration of a zero-coupon bond and of a perpetuity",`Zero-coupon: duration = maturity. Perpetuity: ${F("1+r","r")}, independent of the coupon. At 4 % that is 26 years.`],
+[3,"Modified duration",`${F("duration","1 + yield")}. The percentage price change for a 1 percentage point change in the interest rate.`],
+[3,"30-year vs. 3-year bond when rates rise","The 30-year bond loses much more. Its payments lie further in the future, its duration is longer, so its price reacts more strongly."],
+[3,"Term structure and spot rate","Term structure (yield curve): the relation between yield and time to maturity. Spot rate: today's rate for a single payment at a given date."],
+[3,"Bond vs. stock: four differences","Debt vs. equity. Fixed maturity vs. none. Defined payments vs. uncertain dividends. Priority in liquidation vs. residual claim."],
+[4,"Dividend discount model",`The share price is the present value of all expected dividends: P<sub>0</sub> = Σ ${F("DIV<sub>t</sub>","(1+r)<sup>t</sup>")}.`],
+[4,"Gordon growth formula and the cost of equity",`P<sub>0</sub> = ${F("DIV<sub>1</sub>","r − g")}. Rearranged: r = dividend yield + g.`],
+[4,"Payout ratio, plowback ratio and growth","Payout = dividend / earnings. Plowback = 1 − payout. Growth g = plowback × ROE."],
+[5,"IRR: definition and rule","The discount rate at which NPV = 0. Invest if the IRR is above the opportunity cost of capital."],
+[5,"The four problems with the IRR","1. Lending vs. borrowing (the rule reverses). 2. Several or no IRRs when cash flows change sign. 3. Mutually exclusive projects: scale is ignored. 4. More than one cost of capital when the term structure is not flat."],
+[5,"The payback rule and its flaws","Accept a project if the investment is recovered within the target period. Flaws: later cash flows and the time value of money are ignored."],
+[5,"Profitability index",`${F("NPV","investment")}. With a limited budget, pick the projects with the highest PI first.`],
+[5,"Which cash flows belong in an NPV calculation?","Only incremental after-tax cash flows, including opportunity costs, side effects and salvage value. No sunk costs, no financing costs (interest, repayments)."],
+[5,"Real vs. nominal rate",`1 + real = ${F("1 + nominal","1 + inflation")}. Discount nominal cash flows at the nominal rate, real ones at the real rate.`],
+[5,"Equivalent annual cost",`${F("PV of costs","annuity factor")}. Makes machines with different lifetimes comparable.`],
+[6,"Unique risk vs. market risk","Unique (unsystematic): firm-specific, disappears with diversification. Market (systematic): economy-wide, stays in the portfolio and is measured by beta."],
+[6,"Covariance and correlation coefficient",`Covariance measures how two returns move together. ρ = ${F("σ<sub>12</sub>","σ<sub>1</sub>σ<sub>2</sub>")} scales it to between −1 and +1.`],
+[6,"Variance of a two-asset portfolio","σ<sub>p</sub>² = x<sub>1</sub>²σ<sub>1</sub>² + x<sub>2</sub>²σ<sub>2</sub>² + 2x<sub>1</sub>x<sub>2</sub>ρσ<sub>1</sub>σ<sub>2</sub>"],
+[6,"When does diversification reduce risk?","Whenever ρ &lt; +1. The lower the correlation, the stronger the effect. At ρ = −1 risk can be eliminated completely."],
+[6,"Weight in the minimum-variance portfolio (2 assets)",`x<sub>1</sub> = ${F("σ<sub>2</sub>² − ρσ<sub>1</sub>σ<sub>2</sub>","σ<sub>1</sub>² + σ<sub>2</sub>² − 2ρσ<sub>1</sub>σ<sub>2</sub>")}, x<sub>2</sub> = 1 − x<sub>1</sub>.`],
+[6,"What is the efficient frontier?","The set of portfolios with the highest expected return for each level of risk. It is the upper branch of the curve, starting at the minimum-variance portfolio."],
+[6,"Capital allocation line and Sharpe ratio",`Mixes of the risk-free asset and one risky portfolio. Slope = Sharpe ratio = ${F("r<sub>p</sub> − r<sub>f</sub>","σ<sub>p</sub>")}.`],
+[6,"Tangency portfolio","The point where the steepest CAL touches the efficient frontier. It has the highest Sharpe ratio and is the optimal risky portfolio for all investors."],
+[6,"How do you reach a point on the CAL above T?","Borrow at the risk-free rate and invest more than 100 % of your wealth in T (leverage). The weight of the risk-free asset is negative."],
+[7,"What does beta measure?",`The sensitivity of a stock's return to the market return: β = ${F("Cov(r<sub>i</sub>, r<sub>m</sub>)","Var(r<sub>m</sub>)")}. It measures systematic risk.`],
+[7,"CAPM equation","E(r<sub>i</sub>) = r<sub>f</sub> + β<sub>i</sub>(r<sub>m</sub> − r<sub>f</sub>). The expected risk premium is proportional to beta."],
+[7,"Security market line","The graph of the CAPM: expected return against beta. Intercept r<sub>f</sub>, slope = market risk premium. In equilibrium all securities lie on it."],
+[7,"Market portfolio in Markowitz theory / CAPM","The tangency portfolio of all risky assets, weighted by market value. It has the highest Sharpe ratio, β = 1, and contains only systematic risk."],
+[7,"A stock lies above or below the SML","Above the SML: return too high for its beta, so undervalued. Below the SML: overvalued."],
+[7,"SML vs. CAL/CML","CAL/CML: risk = σ (total risk), holds for efficient portfolios. SML: risk = β (systematic), holds for every individual security."],
+[7,"High or low beta: luxury goods, advertisers, utilities, supermarkets, food producers","High: luxury goods, advertisers (cyclical). Low: utilities, supermarkets, food producers (basic needs)."],
+[7,"Is the CAPM sufficient? Which factors extend it?","No. Size (small firms beat large ones) and book-to-market (value beats growth) explain further differences in returns: the Fama-French three-factor model. Alternative: APT with macro factors."]
+].map((c,i)=>({id:"k"+i,m:c[0],q:c[1],a:c[2]}));
+
+/* Exam: structure and questions follow the original exam sheet */
+const PORT=[["A",10,23],["B",12.5,21],["C",15,25],["D",16,29],["E",17,29],["F",18,32],["G",18,35],["H",20,45]];
+const TASKS=[
+{id:"t1",n:"1",g:"I",h:"How can a company raise equity financing?",parts:[{id:"a",kind:"free",pts:5,
+ model:"A company raises equity in two ways: it can issue new shares to investors (through an IPO, a seasoned offering such as a rights issue, or a private placement to venture capital / private equity investors), or it can retain and reinvest the cash flow generated by its existing assets instead of paying it out.",
+ keys:["Issuing new shares (external equity)","At least one form named: IPO, seasoned offering / rights issue, private placement, venture capital","Retaining and reinvesting earnings (internal equity)","Contrast with debt: shareholders are co-owners with a residual claim, no fixed repayment"]}]},
+{id:"t2",n:"2",g:"I",h:"Explain the separation between ownership and control in a corporation.",parts:[{id:"a",kind:"free",pts:5,
+ model:"Shareholders own the corporation but do not manage it; they elect a board of directors, which appoints managers to run the firm. This allows ownership to change without disrupting operations and lets professionals manage, but it creates an agency problem: managers may pursue their own interests instead of maximising shareholder value. Monitoring and incentive compensation (corporate governance) are used to align interests.",
+ keys:["Shareholders = owners, managers = control; the board in between","Advantage: tradable shares, professional management","Problem: agency problem / agency costs","Remedy: monitoring and incentives (corporate governance)"]}]},
+{id:"t3",n:"3",g:"I",h:"True or false?",stem:"“By buying stocks from existing shareholders the company repays them indirectly; it can be an alternative to dividend pay.” Interpret shortly your answer.",parts:[
+ {id:"a",kind:"mc",pts:2,q:"Is the sentence true?",opts:["True","False"],correct:0,expl:"True. It describes a share repurchase (buyback)."},
+ {id:"b",kind:"free",pts:3,q:"Interpret your answer briefly.",
+ model:"True. In a share repurchase the firm uses cash to buy back its own shares, so cash flows to the selling shareholders just as with a dividend. The remaining shareholders own a larger fraction of the firm. Buybacks are therefore an alternative, more flexible way of paying out cash.",
+ keys:["Cash flows to shareholders, as with a dividend","Fewer shares outstanding, the remaining shareholders own a larger fraction","More flexible than a dividend: no ongoing commitment"]}]},
+{id:"t4",n:"4",g:"I",h:"Capital allocation lines",stem:"Answer the following points based on the graph.",fig:"cal",parts:[
+ {id:"a",kind:"free",pts:1,q:"a) Write the formula for CAL3 and interpret it.",
+ model:`E(r<sub>p</sub>) = r<sub>f</sub> + ${F("E(r<sub>T</sub>) − r<sub>f</sub>","σ<sub>T</sub>")} · σ<sub>p</sub>. The expected return of a mix of the risk-free asset and portfolio T equals the risk-free rate plus the Sharpe ratio of T (slope) times the risk taken.`,
+ keys:["Formula with r_f as the intercept","Slope = Sharpe ratio of T = excess return per unit of risk"]},
+ {id:"b",kind:"free",pts:1,q:"b) What is the main difference between CAL1, CAL2 and CAL3?",
+ model:"They combine the risk-free asset with different risky portfolios (A, B, T) and therefore have different slopes, i.e. different Sharpe ratios. CAL3 is tangent to the efficient frontier and has the highest Sharpe ratio.",
+ keys:["A different risky portfolio (A, B, T)","A different slope = Sharpe ratio; CAL3 is the steepest (the tangent)"]},
+ {id:"c",kind:"mc",pts:1,q:"c) Which investment strategy would you choose between the points A, B and T? Justify your answer.",opts:["A","B","T"],correct:2,expl:"T. The CAL through T lies above the other two at every level of risk. T offers the highest return per unit of risk (maximum Sharpe ratio). Write that sentence as your justification in the exam."},
+ {id:"d",kind:"mc",pts:1,q:"d) Is the minimum variance portfolio shown on this graph? (YES/NO)",opts:["YES","NO"],correct:0,expl:"YES. The minimum-variance portfolio is the leftmost point of the curve, where the efficient frontier begins. It is visible on the curve but not labelled. A, B and T are not it. Note: if you answer “NO” because no point is marked as the MVP, give exactly that reasoning. The explanation matters more than the word here."},
+ {id:"e",kind:"free",pts:1,q:"e) How is your investment strategy to reach a point on the CAL3 above T? Explain your answer.",
+ model:"Borrow at the risk-free rate and invest more than 100 % of your own wealth in portfolio T (leverage). The weight of the risk-free asset is negative; risk and expected return both rise along CAL3.",
+ keys:["Borrow at the risk-free rate","Invest more than 100 % in T; higher return at higher risk"]}]},
+{id:"t5",n:"5",g:"I",h:"What is the definition of Security Market Line? Explain the meaning of Market Portfolio in Markowitz theory.",parts:[{id:"a",kind:"free",pts:5,
+ model:"The SML is the graphical representation of the CAPM: it plots the expected return of any asset against its beta, E(r<sub>i</sub>) = r<sub>f</sub> + β<sub>i</sub>(r<sub>m</sub> − r<sub>f</sub>). It starts at the risk-free rate and its slope is the market risk premium. The market portfolio is the tangency portfolio of the efficient frontier: the value-weighted portfolio of all risky assets with the highest Sharpe ratio, which every investor combines with the risk-free asset. It has a beta of 1 and contains only systematic risk.",
+ keys:["SML: expected return against beta, equation given","Intercept r_f, slope = market risk premium","Market portfolio = tangency portfolio with the highest Sharpe ratio","Contains all risky assets, fully diversified, β = 1"]}]},
+{id:"t6",n:"6",g:"I",h:"Interest rates rise by 1 %",stem:"Assuming the government announces there will be a 1 % increase in the interest rates, what is expected to happen with the prices of bonds? Will a 30-year bond react faster or slower than a 3-year bond? Explain your answer.",parts:[
+ {id:"a",kind:"mc",pts:1,q:"What happens to bond prices?",opts:["They rise","They fall","They stay the same"],correct:1,expl:"They fall. Price and yield move in opposite directions, because the fixed payments are discounted more heavily."},
+ {id:"b",kind:"mc",pts:1,q:"Which bond reacts more strongly?",opts:["The 30-year bond","The 3-year bond","Both the same"],correct:0,expl:"The 30-year bond. It has the longer duration."},
+ {id:"c",kind:"free",pts:3,q:"Explain why.",
+ model:"Bond prices fall because the fixed future cash flows are discounted at a higher rate. The 30-year bond reacts more strongly: its cash flows lie further in the future, so its duration is longer, and duration measures the sensitivity of the bond price to interest rate changes.",
+ keys:["The present value of fixed payments falls at a higher discount rate","The 30-year bond's payments lie further in the future","Duration named as the measure of interest rate sensitivity"]}]},
+{id:"t7",n:"7",g:"I",h:"Efficient portfolios and Sharpe ratio",stem:"a) Plot the following risky portfolios on a graph.",fig:"table7",parts:[
+ {id:"b",kind:"multi",pts:3,q:"b) Five of these portfolios are efficient, and three are not. Which are the inefficient ones?",opts:PORT.map(p=>p[0]),correct:[0,3,6],fig:"plot7",expl:"A is dominated by B (more return at less risk). D is dominated by E (17 % instead of 16 % at the same σ = 29 %). G is dominated by F (same 18 % return, less risk)."},
+ {id:"c",kind:"mc",pts:2,q:"c) Suppose you can also borrow and lend at an interest rate of 12 %. Which of the portfolios has the highest Sharpe ratio?",opts:["C","E","F","H"],correct:2,expl:`Sharpe ratio = ${F("r − 12","σ")}: B 0.02 · C 0.12 · E 0.17 · <b>F 0.19</b> · H 0.18. F is the tangency portfolio.`}]},
+{id:"t8",n:"8",g:"I",h:"Interpret the economical meaning of the Discount Factor",stem:"…in calculating present values of investments with certain cash-flows. Please make sure you describe the meaning of numerators and denominators in the formula of the present value.",parts:[{id:"a",kind:"free",pts:5,
+ model:`The discount factor DF = ${F("1","(1+r)<sup>t</sup>")} is today's value of one unit of money received with certainty in t years. In PV = ${F("C<sub>t</sub>","(1+r)<sup>t</sup>")} the numerator is the future cash flow; the denominator compounds the opportunity cost of capital (for certain cash flows the risk-free rate) over t periods. It reflects the time value of money: a euro today is worth more than a euro tomorrow because it can be invested.`,
+ keys:["DF = today's value of one euro in t years, below 1","Numerator: the future cash flow","Denominator: (1+r)^t, r = opportunity cost; for certain cash flows the risk-free rate","Time value of money; the later the payment or the higher r, the smaller the DF"]}]},
+{id:"t9",n:"9",g:"I",h:"Sensitivity to systematic risk",stem:"Taken that the exposure to systematic risk will depend, among other factors, on the sensitivity of a firm's cash-flows to the general level of economic activity, specify whether the following sectors have a high or low sensitivity to systematic risk.",parts:[{id:"a",kind:"toggle",pts:5,rows:["a) Luxury goods retailers","b) Advertisers","c) Utilities","d) Supermarkets","e) Food producers"],labels:["High","Low"],correct:[0,0,1,1,1],
+ expl:"Luxury goods and advertising are cyclical: households and firms cut them first in a recession, so beta is high. Electricity, food and the weekly shop are always needed, so beta is low."}]},
+{id:"t10",n:"10",g:"I",h:"Do you consider the Capital Asset Pricing Model sufficient to price assets nowadays?",stem:"Can you think of expanding the original CAPM? If yes, by which factors?",parts:[{id:"a",kind:"free",pts:5,
+ model:"No. The CAPM explains returns with a single factor (market beta), but empirically the relation between beta and return is flatter than predicted. Returns are also related to firm size (small firms outperform large ones) and to the book-to-market ratio (value stocks outperform growth stocks). The Fama-French three-factor model adds these two factors; the APT allows several macroeconomic factors.",
+ keys:["No, beta alone does not explain all differences in returns","Size factor (small minus big)","Book-to-market factor (high minus low)","A multi-factor model named: Fama-French or APT"]}]},
+{id:"r1",n:"C1",g:"II",h:"Question 1: Three bonds at a yield of 4 %",stem:"I: a 7-year 6 % coupon bond with a face value of $750. II: a zero-coupon bond with face value of $1,000 with maturity in 15 years. III: a perpetual 10 % coupon bond. You can type a decimal point or a decimal comma.",parts:[
+ {id:"a",kind:"num",pts:5,q:"a) Calculate the price of all three bonds.",fields:[{l:"Price of bond I",u:"$",v:840.03,tol:.6},{l:"Price of bond II",u:"$",v:555.26,tol:.6},{l:"Price of bond III (face value 1,000)",u:"$",v:2500,tol:1}],
+ expl:`<div class="fx">I: coupon = 6 % × 750 = 45 → ${F("45","0.04")}·(1 − ${F("1","1.04<sup>7</sup>")}) + ${F("750","1.04<sup>7</sup>")} = 270.09 + 569.94 = 840.03</div><div class="fx">II: ${F("1,000","1.04<sup>15</sup>")} = 555.26</div><div class="fx">III: ${F("C","r")} = ${F("100","0.04")} = 2,500</div><p>The question gives no face value for bond III. With 1,000 the coupon is 100. In general: price = 2.5 × face value. State your assumption in the exam.</p>`},
+ {id:"b",kind:"num",pts:5,q:"b) Calculate the duration of each bond. Which bond has the longest duration?",fields:[{l:"Duration of bond I",u:"years",v:5.99,tol:.04},{l:"Duration of bond II",u:"years",v:15,tol:.01},{l:"Duration of bond III",u:"years",v:26,tol:.01}],
+ expl:`<div class="tbl"><table><tr><th>Year t</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th></tr><tr><td>Payment</td><td>45</td><td>45</td><td>45</td><td>45</td><td>45</td><td>45</td><td>795</td></tr><tr><td>PV</td><td>43.27</td><td>41.61</td><td>40.00</td><td>38.47</td><td>36.99</td><td>35.56</td><td>604.13</td></tr><tr><td>t × PV</td><td>43.27</td><td>83.21</td><td>120.01</td><td>153.86</td><td>184.94</td><td>213.39</td><td>4,228.92</td></tr></table></div><div class="fx">I: ${F("5,027.60","840.03")} = 5.99 years &nbsp;·&nbsp; II: zero-coupon = maturity = 15 years &nbsp;·&nbsp; III: ${F("1 + r","r")} = ${F("1.04","0.04")} = 26 years</div><p><b>Bond III</b> has the longest duration and therefore reacts most strongly to interest rate changes.</p>`},
+ {id:"c",kind:"num",pts:5,q:"c) Assuming bond II matures in two years, for what yield do bond I and bond II have the same price?",fields:[{l:"Yield",u:"%",v:1.55,tol:.12}],
+ expl:`<div class="fx">${F("45","y")}·(1 − ${F("1","(1+y)<sup>7</sup>")}) + ${F("750","(1+y)<sup>7</sup>")} = ${F("1,000","(1+y)<sup>2</sup>")}</div><p>This cannot be solved for y directly, so use trial and error: at y = 1 % bond I is 22.01 more expensive than bond II, at y = 2 % it is 17.01 cheaper. Interpolation: 1 % + ${F("22.01","22.01 + 17.01")} × 1 % ≈ 1.56 %. Exact: <b>y ≈ 1.55 %</b>, where both bonds cost about 969.70.</p>`},
+ {id:"d",kind:"num",pts:5,q:"d) What is the duration of bond III if it has a 5 % coupon rate instead?",fields:[{l:"Duration",u:"years",v:26,tol:.01}],
+ expl:`<p>Still <b>26 years</b>. The duration of a perpetuity is ${F("1 + r","r")} and depends only on the yield, not on the coupon. Halving the coupon halves the price but leaves the weights of the payments unchanged.</p>`}]},
+{id:"r2",n:"C2",g:"II",h:"Question 2: Minimum-variance portfolio and complete portfolio",stem:"A pension-fund manager is evaluating two risky mutual funds and a money-market fund that yields a risk-free rate r<sub>f</sub> = 6 %. Stock fund S: E[R] = 18 %, σ = 28 %. Bond fund B: E[R] = 11 %, σ = 14 %. Correlation ρ<sub>SB</sub> = 0.05.",parts:[
+ {id:"a",kind:"num",pts:10,q:"a) Find the investment proportions in the minimum-variance portfolio (MVP) composed of S and B only. Give its expected return and standard deviation.",fields:[{l:"Weight of S",u:"%",v:18.75,tol:.1},{l:"Weight of B",u:"%",v:81.25,tol:.1},{l:"E[R] of the MVP",u:"%",v:12.31,tol:.05},{l:"σ of the MVP",u:"%",v:12.76,tol:.05}],
+ expl:`<div class="fx">Covariance: ρσ<sub>S</sub>σ<sub>B</sub> = 0.05 × 0.28 × 0.14 = 0.00196</div><div class="fx">w<sub>S</sub> = ${F("0.14² − 0.00196","0.28² + 0.14² − 2 × 0.00196")} = ${F("0.01764","0.09408")} = 0.1875 → w<sub>B</sub> = 0.8125</div><div class="fx">E[R] = 0.1875 × 18 % + 0.8125 × 11 % = 12.31 %</div><div class="fx">σ² = 0.1875² × 0.0784 + 0.8125² × 0.0196 + 2 × 0.1875 × 0.8125 × 0.00196 = 0.016293 → σ = 12.76 %</div><p>The MVP has less risk than the bond fund alone (14 %). That is the diversification effect at a low correlation.</p>`},
+ {id:"b",kind:"num",pts:10,q:"b) The manager wants a complete portfolio whose total standard deviation is 10 % by combining the MVP from (a) with the risk-free fund. Determine the fraction of the total budget that goes into each of the three funds (S, B, T-bill) and compute the portfolio's expected return.",fields:[{l:"Fraction in S",u:"%",v:14.69,tol:.15},{l:"Fraction in B",u:"%",v:63.65,tol:.15},{l:"Fraction in T-bill",u:"%",v:21.66,tol:.15},{l:"E[R] overall",u:"%",v:10.95,tol:.06}],
+ expl:`<div class="fx">Fraction in the MVP: y = ${F("10 %","12.76 %")} = 0.7834 → T-bill = 1 − y = 21.66 %</div><div class="fx">S = 0.7834 × 0.1875 = 14.69 % &nbsp;·&nbsp; B = 0.7834 × 0.8125 = 63.65 %</div><div class="fx">E[R] = 6 % + 0.7834 × (12.31 % − 6 %) = 10.95 %</div><p>The risk-free asset has σ = 0, so the σ of the complete portfolio is simply y × σ<sub>MVP</sub>.</p>`}]}
+];
+const MAXPTS=TASKS.reduce((s,t)=>s+t.parts.reduce((a,p)=>a+p.pts,0),0);
+
+/* ---------- State ---------- */
+const KEY="cf-cockpit-v1";
+let S={chunks:{},cards:{},exam:{}};
+try{const r=JSON.parse(localStorage.getItem(KEY)||"null");if(r&&typeof r==="object")S=Object.assign(S,r)}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const ui={mod:0,chunk:0,fMod:"all",fStat:"all",idx:0,flipped:false,task:0,confirmReset:false};
+const cid=(m,c)=>`m${m}c${c}`;
+const totalChunks=MODS.reduce((s,m)=>s+m.c.length,0);
+const doneChunks=()=>Object.values(S.chunks).filter(Boolean).length;
+const modDone=i=>MODS[i].c.filter((_,j)=>S.chunks[cid(i,j)]).length;
+const examPts=()=>Object.values(S.exam).reduce((s,p)=>s+(p.done?p.pts||0:0),0);
+const fmt=n=>(Math.round(n*10)/10).toString();
+
+/* ---------- Tabs ---------- */
+const TABS=[["lernpfad","Learning path"],["karten","Flashcards"],["klausur","Exam room"],["formeln","Formulas"]];
+let tab="lernpfad";
+function renderTabs(){
+  const k=Object.values(S.cards).filter(v=>v==="k").length;
+  const info={lernpfad:[`${doneChunks()} / ${totalChunks} steps`,doneChunks()/totalChunks],karten:[`${k} / ${CARDS.length} known`,k/CARDS.length],klausur:[`${fmt(examPts())} / ${MAXPTS} points`,examPts()/MAXPTS],formeln:["The exam's formula sheet",null]};
+  $("#tabs").innerHTML=TABS.map(([id,t])=>`<button class="tab" role="tab" id="tab-${id}" aria-selected="${tab===id}" data-tab="${id}"><span class="t">${t}</span><span class="s">${info[id][0]}</span>${info[id][1]===null?"":`<span class="bar"><i style="width:${Math.round(info[id][1]*100)}%"></i></span>`}</button>`).join("");
+}
+function show(t,push){
+  if(!TABS.some(x=>x[0]===t))t="lernpfad";
+  tab=t;TABS.forEach(([id])=>$("#v-"+id).hidden=id!==t);
+  if(push)try{history.replaceState(null,"","#"+t)}catch(e){location.hash=t}
+  renderTabs();({lernpfad:renderPath,karten:renderCards,klausur:renderExam,formeln:renderFormulas})[t]();
+}
+$("#tabs").addEventListener("click",e=>{const b=e.target.closest("[data-tab]");if(b){show(b.dataset.tab,true);window.scrollTo(0,0)}});
+window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
+
+/* ---------- Learning path ---------- */
+function firstOpen(){for(let i=0;i<MODS.length;i++)for(let j=0;j<MODS[i].c.length;j++)if(!S.chunks[cid(i,j)])return[i,j];return[0,0]}
+function renderPath(){
+  const m=MODS[ui.mod],c=m.c[ui.chunk],done=!!S.chunks[cid(ui.mod,ui.chunk)];
+  const last=ui.mod===MODS.length-1&&ui.chunk===m.c.length-1,first=ui.mod===0&&ui.chunk===0;
+  $("#v-lernpfad").innerHTML=`
+  <div class="view-head"><h2>Learning path</h2><p>Seven modules, each in small steps. Read one step, tick it off, move to the next.</p></div>
+  <div class="path">
+    <div class="panel mods">${MODS.map((x,i)=>{const d=modDone(i);return`<button class="mod${d===x.c.length?" done":""}" data-mod="${i}" aria-current="${i===ui.mod}"><span class="n">${i+1}</span><span class="nm">${x.t}</span><span class="ct">${d}/${x.c.length}</span><span class="bar"><i style="width:${d/x.c.length*100}%"></i></span></button>`}).join("")}</div>
+    <article class="panel chunk">
+      <div class="row" style="justify-content:space-between"><span class="eyebrow">Module ${ui.mod+1} · Step ${ui.chunk+1} of ${m.c.length}</span>
+      <div class="steps">${m.c.map((_,j)=>`<button class="step${S.chunks[cid(ui.mod,j)]?" ok":""}" data-chunk="${j}" aria-current="${j===ui.chunk}" aria-label="Step ${j+1}"></button>`).join("")}</div></div>
+      <h3>${c.t}</h3>
+      <ul>${c.b.map(b=>`<li>${b}</li>`).join("")}</ul>
+      <p class="merk"><b>Remember:</b> ${c.m}</p>
+      <div class="row"><div class="row"><button class="btn" data-act="prev" ${first?"disabled":""}>Back</button><button class="btn ghost" data-act="cards">Practise module ${ui.mod+1} cards</button></div>
+      <div class="row">${done?`<button class="btn ghost" data-act="undo">Mark as open</button>`:""}<button class="btn primary" data-act="next">${done?(last?"Done":"Next"):(last?"Got it":"Got it, next")}</button></div></div>
+    </article>
+  </div>`;
+}
+$("#v-lernpfad").addEventListener("click",e=>{
+  const mb=e.target.closest("[data-mod]"),cb=e.target.closest("[data-chunk]"),ab=e.target.closest("[data-act]");
+  if(mb){ui.mod=+mb.dataset.mod;const j=MODS[ui.mod].c.findIndex((_,k)=>!S.chunks[cid(ui.mod,k)]);ui.chunk=j<0?0:j}
+  else if(cb)ui.chunk=+cb.dataset.chunk;
+  else if(ab){const a=ab.dataset.act,m=MODS[ui.mod];
+    if(a==="next"){S.chunks[cid(ui.mod,ui.chunk)]=true;save();if(ui.chunk<m.c.length-1)ui.chunk++;else if(ui.mod<MODS.length-1){ui.mod++;ui.chunk=0}}
+    if(a==="prev"){if(ui.chunk>0)ui.chunk--;else if(ui.mod>0){ui.mod--;ui.chunk=MODS[ui.mod].c.length-1}}
+    if(a==="undo"){delete S.chunks[cid(ui.mod,ui.chunk)];save()}
+    if(a==="cards"){ui.fMod=String(ui.mod+1);ui.fStat="all";ui.idx=0;ui.flipped=false;show("karten",true);window.scrollTo(0,0);return}
+  }else return;
+  renderPath();renderTabs();
+});
+
+/* ---------- Flashcards ---------- */
+function deck(){return CARDS.filter(c=>(ui.fMod==="all"||c.m===+ui.fMod)&&(ui.fStat==="all"||(ui.fStat==="open"?!S.cards[c.id]:S.cards[c.id]===ui.fStat)))}
+function renderCards(){
+  const d=deck();if(ui.idx>=d.length)ui.idx=0;const c=d[ui.idx];
+  const cnt=s=>CARDS.filter(x=>(ui.fMod==="all"||x.m===+ui.fMod)&&(s==="all"||(s==="open"?!S.cards[x.id]:S.cards[x.id]===s))).length;
+  const st=c&&S.cards[c.id];
+  $("#v-karten").innerHTML=`
+  <div class="view-head"><h2>Flashcards</h2><p>Click a card to flip it, then rate yourself honestly. Use the “Didn't know” filter to repeat the ones you missed.</p></div>
+  <div class="filters">
+    <div class="row">${[["all","All"],["open","Open"],["n","Didn't know"],["k","Knew it"]].map(([v,l])=>`<button class="chip" data-stat="${v}" aria-pressed="${ui.fStat===v}">${l} <span class="num">${cnt(v)}</span></button>`).join("")}</div>
+    <div class="row"><button class="chip" data-fmod="all" aria-pressed="${ui.fMod==="all"}">All modules</button>${MODS.map((m,i)=>`<button class="chip" data-fmod="${i+1}" aria-pressed="${ui.fMod===String(i+1)}" title="${esc(m.t)}">Module ${i+1}</button>`).join("")}</div>
+  </div>
+  <div class="stage">${!c?`<div class="panel empty">No card matches this selection. Choose a different filter.</div>`:`
+    <div class="meta"><span>Card ${ui.idx+1} of ${d.length} · Module ${c.m}: ${MODS[c.m-1].t}</span><span class="${st?"state-"+st:""}">${st==="k"?"Knew it":st==="n"?"Didn't know":"Still open"}</span></div>
+    <button class="flip${ui.flipped?" on":""}" id="flip" aria-label="Flip card"><div class="flip-in">
+      <div class="face"><span class="eyebrow">Question</span><p class="q">${c.q}</p><span class="hint">Click or press space to flip</span></div>
+      <div class="face back"><span class="eyebrow">Answer</span><p class="a">${c.a}</p><span class="hint">${c.q}</span></div>
+    </div></button>
+    <div class="rate"><button class="btn bad" data-rate="n">Didn't know</button><button class="btn good" data-rate="k">Knew it</button></div>
+    <div class="nav2"><button class="btn" data-go="-1">Back</button><button class="btn ghost" data-go="0">Shuffle</button><button class="btn" data-go="1">Next</button></div>`}
+  </div>`;
+}
+$("#v-karten").addEventListener("click",e=>{
+  const t=e.target;let b;
+  if(b=t.closest("[data-stat]")){ui.fStat=b.dataset.stat;ui.idx=0;ui.flipped=false}
+  else if(b=t.closest("[data-fmod]")){ui.fMod=b.dataset.fmod;ui.idx=0;ui.flipped=false}
+  else if(t.closest("#flip")){ui.flipped=!ui.flipped;$("#flip").classList.toggle("on",ui.flipped);return}
+  else if(b=t.closest("[data-rate]")){const d=deck(),c=d[ui.idx];if(!c)return;S.cards[c.id]=b.dataset.rate;save();
+    const still=deck().some(x=>x.id===c.id);if(still)ui.idx=(ui.idx+1)%d.length;ui.flipped=false;renderTabs()}
+  else if(b=t.closest("[data-go]")){const d=deck(),g=+b.dataset.go;if(!d.length)return;
+    if(g===0){for(let i=CARDS.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[CARDS[i],CARDS[j]]=[CARDS[j],CARDS[i]]}ui.idx=0}
+    else ui.idx=(ui.idx+g+d.length)%d.length;ui.flipped=false}
+  else return;
+  renderCards();
+});
+document.addEventListener("keydown",e=>{
+  if(tab!=="karten"||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;
+  if(e.code==="Space"&&e.target.tagName!=="BUTTON"){e.preventDefault();$("#flip")?.click()}
+  if(e.key==="ArrowRight")$('[data-go="1"]')?.click();
+  if(e.key==="ArrowLeft")$('[data-go="-1"]')?.click();
+});
+
+/* ---------- Figures ---------- */
+function figCAL(){
+  const W=520,H=330,x0=56,y0=290,sx=11.5,sy=11.5,X=s=>x0+s*sx,Y=m=>y0-m*sy;
+  const rf=3,m0=6,s0=10,h=.5,sig=m=>Math.sqrt(s0*s0+((m-m0)/h)**2);
+  const mT=m0+s0*s0*h*h/(m0-rf),sT=sig(mT),A=[sig(7.4),7.4],B=[sig(8.8),8.8];
+  let d="";for(let m=4.6;m<=20.6;m+=.2)d+=(d?"L":"M")+X(sig(m)).toFixed(1)+" "+Y(m).toFixed(1);
+  const line=(p,xe,cls,lab)=>{const sl=(p[1]-rf)/p[0],ye=rf+sl*xe;return`<path class="cal ${cls}" d="M${X(0)} ${Y(rf)}L${X(xe)} ${Y(ye)}"/><text x="${X(xe)+4}" y="${Y(ye)+4}">${lab}</text>`};
+  return`<div class="fig"><svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Efficient frontier with three capital allocation lines through A, B and T">
+  <path class="ax" d="M${x0} 20V${y0}H${W-30}"/><text x="${W-28}" y="${y0+4}">σ<tspan baseline-shift="sub" font-size="9">p</tspan></text><text x="${x0-34}" y="24">E(r<tspan baseline-shift="sub" font-size="9">p</tspan>)</text>
+  <path class="dash" d="M${x0} ${Y(mT)}H${X(sT)}V${y0}"/><text x="${x0-40}" y="${Y(mT)+4}">E(r<tspan baseline-shift="sub" font-size="9">T</tspan>)</text><text x="${X(sT)-6}" y="${y0+16}">σ<tspan baseline-shift="sub" font-size="9">T</tspan></text><text x="${x0-18}" y="${Y(rf)+4}">r<tspan baseline-shift="sub" font-size="9">f</tspan></text>
+  ${line(A,31,"","CAL₁")}${line(B,31,"","CAL₂")}${line([sT,mT],31,"best","CAL₃")}
+  <path class="fr-line" d="${d}"/>
+  <circle class="dot" cx="${X(A[0])}" cy="${Y(A[1])}" r="4"/><text x="${X(A[0])+7}" y="${Y(A[1])+13}">A</text>
+  <circle class="dot" cx="${X(B[0])}" cy="${Y(B[1])}" r="4"/><text x="${X(B[0])+8}" y="${Y(B[1])+14}">B</text>
+  <circle class="dot acc" cx="${X(sT)}" cy="${Y(mT)}" r="4.5"/><text x="${X(sT)-6}" y="${Y(mT)-10}" font-weight="600">T</text>
+  <circle class="dot" cx="${X(0)}" cy="${Y(rf)}" r="3.5"/></svg></div>`;
+}
+function figTable7(){return`<div class="tbl"><table><tr><th></th>${PORT.map(p=>`<th>${p[0]}</th>`).join("")}</tr><tr><td>Expected return (r), %</td>${PORT.map(p=>`<td>${p[1]}</td>`).join("")}</tr><tr><td>Standard deviation (σ), %</td>${PORT.map(p=>`<td>${p[2]}</td>`).join("")}</tr></table></div>`}
+function figPlot7(){
+  const W=520,H=300,x0=48,y0=262,X=s=>x0+(s-15)*13.2,Y=r=>y0-(r-8)*17,bad="ADG";
+  let g="";for(let s=20;s<=45;s+=5)g+=`<path class="grid" d="M${X(s)} ${y0}V24"/><text class="mut" x="${X(s)-7}" y="${y0+16}">${s}</text>`;
+  for(let r=10;r<=20;r+=2)g+=`<path class="grid" d="M${x0} ${Y(r)}H${W-16}"/><text class="mut" x="${x0-22}" y="${Y(r)+4}">${r}</text>`;
+  const eff=PORT.filter(p=>!bad.includes(p[0])).map(p=>X(p[2])+" "+Y(p[1])).join("L"),Fp=PORT[5];
+  return`<div class="fig"><svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="The eight portfolios in a risk-return diagram">${g}
+  <path class="ax" d="M${x0} 24V${y0}H${W-16}"/><text class="mut" x="${W-150}" y="${H-6}">Standard deviation σ, %</text><text class="mut" x="6" y="16">Expected return, %</text>
+  <path class="cal" d="M${eff}"/><path class="cal best" d="M${x0} ${Y(12+(Fp[1]-12)/Fp[2]*15)}L${X(45)} ${Y(12+(Fp[1]-12)/Fp[2]*45)}"/>
+  ${PORT.map(p=>`<circle class="dot ${bad.includes(p[0])?"badd":p[0]==="F"?"acc":"goodd"}" cx="${X(p[2])}" cy="${Y(p[1])}" r="4.5"/><text x="${X(p[2])+(bad.includes(p[0])?7:-4)}" y="${Y(p[1])+(bad.includes(p[0])?16:-9)}" font-weight="600">${p[0]}</text>`).join("")}
+  </svg><p style="font-size:12.5px;color:var(--muted)">Green: efficient. Red: inefficient. Blue line: the steepest line from the 12 % rate; it touches the frontier at F.</p></div>`;
+}
+const FIG={cal:figCAL,table7:figTable7,plot7:figPlot7};
+
+/* ---------- Exam ---------- */
+const pk=(t,p)=>t.id+"."+p.id;
+const half=n=>Math.round(n*2)/2;
+function taskState(t){const d=t.parts.filter(p=>S.exam[pk(t,p)]?.done).length;return d===0?"":d===t.parts.length?"done":"part"}
+function partHTML(t,p){
+  const st=S.exam[pk(t,p)]||{},done=!!st.done,a=st.ans;
+  let h=`<div class="part" data-part="${p.id}"><div class="row" style="justify-content:space-between">${p.q?`<p class="pq">${p.q}</p>`:"<span></span>"}<span class="pts">${done?fmt(st.pts)+" / ":""}${p.pts} pts</span></div>`;
+  if(p.kind==="mc"||p.kind==="multi"){
+    const multi=p.kind==="multi",corr=multi?p.correct:[p.correct],sel=done?(multi?a:[a]):[];
+    h+=`<div class="opts"${multi?' style="flex-direction:row;flex-wrap:wrap"':""}>${p.opts.map((o,i)=>`<label class="opt${done?(corr.includes(i)?" right":sel.includes(i)?" wrong":""):""}"><input type="${multi?"checkbox":"radio"}" name="${pk(t,p)}" id="${pk(t,p)}-${i}" value="${i}" ${sel.includes(i)?"checked":""} ${done?"disabled":""}><span>${o}</span></label>`).join("")}</div>`;
+    if(!done)h+=`<div><button class="btn primary" data-check>Check</button></div>`;
+    else h+=`<div class="sol-box"><span class="verdict ${st.pts===p.pts?"ok":st.pts>0?"mid":"no"}">${st.pts===p.pts?"Correct":st.pts>0?"Partly correct":"Not correct"}</span><p>${p.expl}</p>${p.fig?FIG[p.fig]():""}</div>`;
+  }
+  if(p.kind==="toggle"){
+    h+=`<div class="tg">${p.rows.map((r,i)=>`<span>${r}</span><div class="seg" data-row="${i}">${p.labels.map((l,j)=>{const on=done&&a[i]===j;return`<button type="button" data-val="${j}" aria-pressed="${on}" class="${done?(p.correct[i]===j?"right":on?"wrong":""):""}" ${done?"disabled":""}>${l}</button>`}).join("")}</div>`).join("")}</div>`;
+    if(!done)h+=`<div><button class="btn primary" data-check>Check</button></div>`;
+    else h+=`<div class="sol-box"><span class="verdict ${st.pts===p.pts?"ok":st.pts>0?"mid":"no"}">${a.filter((v,i)=>v===p.correct[i]).length} of ${p.rows.length} correct</span><p>${p.expl}</p></div>`;
+  }
+  if(p.kind==="num"){
+    h+=`<div class="fields">${p.fields.map((f,i)=>{const v=done?a[i]:"",ok=done&&numOk(v,f);return`<label class="field">${f.l}<span class="in"><input inputmode="decimal" autocomplete="off" id="${pk(t,p)}-${i}" value="${esc(v)}" class="${done?(ok?"right":"wrong"):""}" ${done?"readonly":""}><span>${f.u}</span></span>${done&&!ok?`<span class="sol">Answer: ${f.v.toLocaleString("en-US")} ${f.u}</span>`:""}</label>`}).join("")}</div>`;
+    if(!done)h+=`<div class="row"><button class="btn primary" data-check>Check</button><button class="btn ghost" data-giveup>Show worked solution</button></div>`;
+    else h+=`<div class="sol-box"><span class="eyebrow">Worked solution</span>${p.expl}</div>`;
+  }
+  if(p.kind==="free"){
+    if(!done)h+=`<textarea id="${pk(t,p)}-txt" placeholder="Answer in two or three sentences, as in the exam."></textarea><div><button class="btn primary" data-check>Show model answer</button></div>`;
+    else h+=`${a?`<p style="white-space:pre-wrap;color:var(--muted)">${esc(a)}</p>`:""}<div class="sol-box"><span class="eyebrow">Model answer</span><p class="en">${p.model}</p><span class="eyebrow" style="margin-top:6px">Which points did your answer cover?</span><div class="keys">${p.keys.map((k,i)=>`<label><input type="checkbox" id="${pk(t,p)}-k${i}" data-key="${i}" ${st.ticks?.[i]?"checked":""}><span>${k}</span></label>`).join("")}</div></div>`;
+  }
+  return h+"</div>";
+}
+/* Accepts 1.55, 1,55, 2,500 and 2.500: both readings of the separator are tried. */
+const numCands=s=>{const c=String(s).replace(/[%$€\s]/g,"");return[parseFloat(c.replace(/,/g,"")),parseFloat(c.replace(/\./g,"").replace(",",".")),parseFloat(c.replace(",","."))]};
+const numOk=(v,f)=>numCands(v).some(n=>!isNaN(n)&&Math.abs(n-f.v)<=f.tol+1e-9);
+function renderExam(){
+  const t=TASKS[ui.task],pts=examPts(),tp=t.parts.reduce((s,p)=>s+p.pts,0);
+  const nav=g=>TASKS.map((x,i)=>x.g===g?`<button class="tn ${taskState(x)}" data-task="${i}" aria-current="${i===ui.task}" aria-label="Question ${x.n}">${x.n}</button>`:"").join("");
+  $("#v-klausur").innerHTML=`
+  <div class="view-head"><h2>Exam room</h2><p>Built like the original exam: ten theory questions worth 5 points each, two numerical exercises worth 20 each. Answer first, then reveal.</p></div>
+  <div class="panel score"><div class="big">${fmt(pts)} <small>/ ${MAXPTS} points</small></div><div class="passbar"><i style="width:${pts/MAXPTS*100}%"></i><u></u></div>
+    <button class="btn ${ui.confirmReset?"bad":"ghost"}" data-reset>${ui.confirmReset?"Really delete everything?":"Start over"}</button><span class="passnote">Marker = 45 points, the usual pass mark</span></div>
+  <div class="tasknav"><span class="tnsep">Part I</span>${nav("I")}<span class="tnsep" style="margin-left:10px">Part II</span>${nav("II")}</div>
+  <article class="panel task" data-tid="${t.id}">
+    <header><div><span class="eyebrow">${t.g==="I"?"Part I · Theory · Question "+t.n:"Part II · Numerical exercises"}</span><h3>${t.h}</h3></div><span class="pts">${tp} points</span></header>
+    ${t.stem?`<p class="stem">${t.stem}</p>`:""}${t.fig?FIG[t.fig]():""}
+    ${t.parts.map(p=>partHTML(t,p)).join("")}
+    <div class="row" style="justify-content:space-between;border-top:1px solid var(--line);padding-top:14px"><button class="btn" data-step="-1" ${ui.task===0?"disabled":""}>Previous</button><button class="btn primary" data-step="1" ${ui.task===TASKS.length-1?"disabled":""}>Next question</button></div>
+  </article>`;
+}
+$("#v-klausur").addEventListener("click",e=>{
+  const el=e.target;let b;
+  if(b=el.closest("[data-task]")){ui.task=+b.dataset.task;ui.confirmReset=false;renderExam();return}
+  if(b=el.closest("[data-step]")){ui.task+=+b.dataset.step;ui.confirmReset=false;renderExam();window.scrollTo(0,0);return}
+  if(el.closest("[data-reset]")){if(ui.confirmReset){S.exam={};save();ui.task=0;ui.confirmReset=false}else ui.confirmReset=true;renderExam();renderTabs();return}
+  if(b=el.closest(".seg button")){[...b.parentNode.children].forEach(x=>x.setAttribute("aria-pressed",x===b));return}
+  const chk=el.closest("[data-check]"),give=el.closest("[data-giveup]");
+  if(!chk&&!give)return;
+  const pe=el.closest("[data-part]"),t=TASKS[ui.task],p=t.parts.find(x=>x.id===pe.dataset.part),k=pk(t,p);let st;
+  if(p.kind==="mc"){const s=$("input:checked",pe);if(!s)return;const a=+s.value;st={done:true,ans:a,pts:a===p.correct?p.pts:0}}
+  if(p.kind==="multi"){const a=[...pe.querySelectorAll("input:checked")].map(i=>+i.value);if(!a.length)return;
+    const hit=a.filter(i=>p.correct.includes(i)).length,miss=a.length-hit;st={done:true,ans:a,pts:half(Math.max(0,hit-miss)/p.correct.length*p.pts)}}
+  if(p.kind==="toggle"){const a=[...pe.querySelectorAll(".seg")].map(s=>{const x=$('[aria-pressed="true"]',s);return x?+x.dataset.val:-1});
+    if(a.includes(-1))return;st={done:true,ans:a,pts:half(a.filter((v,i)=>v===p.correct[i]).length/a.length*p.pts)}}
+  if(p.kind==="num"){const a=[...pe.querySelectorAll("input")].map(i=>i.value.trim());if(chk&&a.every(v=>v===""))return;
+    st={done:true,ans:a,pts:half(a.filter((v,i)=>numOk(v,p.fields[i])).length/a.length*p.pts)}}
+  if(p.kind==="free")st={done:true,ans:$("textarea",pe).value.trim(),ticks:p.keys.map(()=>false),pts:0};
+  S.exam[k]=st;save();renderExam();renderTabs();
+});
+$("#v-klausur").addEventListener("change",e=>{
+  const c=e.target.closest("[data-key]");if(!c)return;
+  const pe=c.closest("[data-part]"),t=TASKS[ui.task],p=t.parts.find(x=>x.id===pe.dataset.part),st=S.exam[pk(t,p)];
+  st.ticks[+c.dataset.key]=c.checked;st.pts=half(st.ticks.filter(Boolean).length/p.keys.length*p.pts);save();
+  $(".pts",pe).textContent=fmt(st.pts)+" / "+p.pts+" pts";
+  $(".score .big").innerHTML=`${fmt(examPts())} <small>/ ${MAXPTS} points</small>`;$(".passbar i").style.width=examPts()/MAXPTS*100+"%";
+  const tn=$(`.tn[data-task="${ui.task}"]`);tn.className="tn "+taskState(t);renderTabs();
+});
+
+/* ---------- Formulas ---------- */
+function renderFormulas(){
+  const G=[["Valuation",[["Present value / discount factor",`PV = ${F("C<sub>t</sub>","(1+r)<sup>t</sup>")}`],["Net present value",`NPV = C<sub>0</sub> + Σ ${F("C<sub>t</sub>","(1+r)<sup>t</sup>")}`],["Real rate",`${F("1 + nominal","1 + inflation")} − 1`],["Profitability index",`${F("NPV","investment")}`]]],
+  ["Bonds",[["Price",`PV = ${F("C","r")}(1 − ${F("1","(1+r)<sup>n</sup>")}) + ${F("FV","(1+r)<sup>n</sup>")}`],["Perpetual bond",`PV = ${F("C","r")} &nbsp; duration = ${F("1 + r","r")}`],["Duration",`D = ${F("Σ t · PV(C<sub>t</sub>)","PV")}`],["Modified duration",`${F("duration","1 + yield")}`]]],
+  ["Stocks",[["Dividend discount model",`P<sub>0</sub> = Σ ${F("DIV<sub>t</sub>","(1+r)<sup>t</sup>")}`],["Constant growth",`P<sub>0</sub> = ${F("DIV<sub>1</sub>","r − g")} &nbsp; r = ${F("DIV<sub>1</sub>","P<sub>0</sub>")} + g`],["Growth",`g = plowback × ROE`]]],
+  ["Return and risk",[["Expected return",`μ<sub>i</sub> = Σ p<sub>s</sub> · r<sub>is</sub>`],["Variance",`σ<sub>i</sub>² = Σ p<sub>s</sub> · (r<sub>is</sub> − μ<sub>i</sub>)²`],["Covariance",`σ<sub>12</sub> = Σ p<sub>s</sub>(r<sub>1s</sub> − μ<sub>1</sub>)(r<sub>2s</sub> − μ<sub>2</sub>)`],["Correlation",`ρ<sub>12</sub> = ${F("σ<sub>12</sub>","σ<sub>1</sub> · σ<sub>2</sub>")}`]]],
+  ["Portfolio",[["Variance (2 assets)",`σ<sub>p</sub>² = x<sub>1</sub>²σ<sub>1</sub>² + x<sub>2</sub>²σ<sub>2</sub>² + 2x<sub>1</sub>x<sub>2</sub>σ<sub>12</sub>`],["Minimum-variance weight",`x<sub>i</sub> = ${F("σ<sub>j</sub>² − ρσ<sub>i</sub>σ<sub>j</sub>","σ<sub>i</sub>² + σ<sub>j</sub>² − 2ρσ<sub>i</sub>σ<sub>j</sub>")}`],["Sharpe ratio",`SR<sub>p</sub> = ${F("r<sub>p</sub> − r<sub>f</sub>","σ<sub>p</sub>")}`],["Capital allocation line",`E(r) = r<sub>f</sub> + SR<sub>P</sub> · σ`]]],
+  ["CAPM",[["Beta",`β<sub>i</sub> = ${F("Cov(r<sub>i</sub>, r<sub>m</sub>)","Var(r<sub>m</sub>)")}`],["CAPM / SML",`μ<sub>i</sub> = r<sub>f</sub> + β<sub>i</sub>(r<sub>m</sub> − r<sub>f</sub>)`]]]];
+  $("#v-formeln").innerHTML=`<div class="view-head"><h2>Formulas</h2><p>The official formula sheet is attached to the exam. Your own notes are not allowed. So you need to recognise and apply the formulas, not write them down from memory.</p></div>
+  <div class="fgrid">${G.map(([t,l])=>`<section class="panel fcard"><h3>${t}</h3><dl>${l.map(([n,f])=>`<dt>${n}</dt><dd class="fx">${f}</dd>`).join("")}</dl></section>`).join("")}</div>`;
+}
+
+/* ---------- Start ---------- */
+document.documentElement.lang="en";
+[ui.mod,ui.chunk]=firstOpen();
+{const i=TASKS.findIndex(t=>taskState(t)!=="done");ui.task=i<0?0:i}
+show(location.hash.slice(1)||"lernpfad");
+</script>
+</body>
+</html>
